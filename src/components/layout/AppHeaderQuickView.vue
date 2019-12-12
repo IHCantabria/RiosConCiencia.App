@@ -7,7 +7,7 @@
       </div>
       <div class="quickview__item-description">
         <img src="@/assets/icons/place.png" />
-        <span class="text-light">{{computedPosition}}</span>
+        <span class="text-light">{{ computedPosition }}</span>
       </div>
     </div>
     <div class="quickview__item">
