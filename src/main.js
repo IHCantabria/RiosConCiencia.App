@@ -3,10 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
 
 /* Global mixins */
 import { datesHelperMixin } from "@/mixins/dates-helper.js";
 Vue.mixin(datesHelperMixin);
+
+Vue.use(Buefy);
 
 Vue.config.productionTip = false;
 
