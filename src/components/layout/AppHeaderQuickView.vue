@@ -7,7 +7,7 @@
       </div>
       <div class="quickview__item-description">
         <img src="@/assets/icons/place.png" />
-        <span class="text-light">??</span>
+        <span class="text-light">{{computedPosition}}</span>
       </div>
     </div>
     <div class="quickview__item">
@@ -36,6 +36,12 @@ export default {
     ...mapState({
       userPosition: state => state.userPosition
     }),
+    computedPosition() {
+      return `${roundValue(this.userPosition.lon, 3)} / ${roundValue(
+        this.userPosition.lat,
+        3
+      )}`;
+    },
     computedDate() {
       return this.$_getLocalDate();
     },

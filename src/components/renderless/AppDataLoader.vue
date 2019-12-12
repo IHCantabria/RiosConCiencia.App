@@ -1,5 +1,5 @@
 <script>
-import { geolocation } from "@/api/geolocation.js";
+import { getUserGeolocation } from "@/api/geolocation.js";
 import { mapActions } from "vuex";
 
 export default {
@@ -15,14 +15,27 @@ export default {
     async init() {
       try {
         //TODO: loading
-        const userPosition = await geolocation();
-        this.setUserPosition(userPosition);
+        this.geolocateUser();
         this.$emit("data-load-ready");
       } catch (e) {
         this.$emit("data-load-error", `Error loading data. Detail: ${e}`);
       } finally {
         //TODO: close loading
       }
+    },
+    geolocateUser() {
+      getUserGeolocation()
+        .then(res => {
+          const position = {
+            lon: res.coords.longitude,
+            lat: res.coords.latitude
+          };
+          this.setUserPosition(position);
+        })
+        .catch(err => {
+          //TODO: notificar?
+          console.error(`Error cargando posición. ${err}`);
+        });
     }
   },
   render: () => null
