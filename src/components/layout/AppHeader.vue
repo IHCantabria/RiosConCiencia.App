@@ -47,7 +47,7 @@ export default {
     flex-grow: 1;
     flex-direction: column;
     justify-content: space-between;
-    height: 30%;
+    height: 40%;
     padding: 0.7rem;
     background: rgba(44, 62, 80, 0.4);
     letter-spacing: 1px;
