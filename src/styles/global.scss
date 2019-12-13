@@ -1,3 +1,7 @@
+html {
+  background-color: #eaedf1 !important;
+}
+
 /* Font */
 $app-font: "Montserrat", Helvetica, Arial, sans-serif;
 $app-font-size: 100%;
@@ -9,6 +13,7 @@ $font-color-light: #f4f5f8;
 
 /* Layout */
 $header-height: 130px;
+$footer-height: 50px;
 
 /* Colors */
 $app-background-color: #eaedf1;

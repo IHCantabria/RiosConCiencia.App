@@ -1,11 +1,20 @@
 <template>
-  <div id="app">
-    <app-header></app-header>
-    <router-view />
-    <app-data-loader
-      @data-load-ready="onDataLoad"
-      @data-load-error="onDataLoadError"
-    />
+  <div class="app">
+    <header class="app__header">
+      <app-header></app-header>
+    </header>
+    <section class="app__main">
+      <router-view />
+      <app-data-loader
+        @data-load-ready="onDataLoad"
+        @data-load-error="onDataLoadError"
+      />
+    </section>
+    <footer class="app__footer">
+      <div>
+        Navegacion
+      </div>
+    </footer>
   </div>
 </template>
 <script>
@@ -25,17 +34,31 @@ export default {
 };
 </script>
 <style lang="scss">
-body {
-  margin: 0;
-}
-
-#app {
+.app {
+  display: flex;
+  height: 100%;
+  flex-flow: row wrap;
   font-family: $app-font;
   font-size: $app-font-size;
-  background-color: $app-background-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+
+  &__header {
+    flex: 1 100%;
+    height: $header-height;
+  }
+
+  &__main {
+    flex: 1 100%;
+  }
+
+  &__footer {
+    background: $color-primary;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 }
 
 #nav {
