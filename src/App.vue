@@ -11,9 +11,7 @@
       />
     </section>
     <footer class="app__footer">
-      <div>
-        Navegacion
-      </div>
+      <app-footer></app-footer>
     </footer>
   </div>
 </template>
@@ -22,6 +20,7 @@ export default {
   name: "App",
   components: {
     AppHeader: () => import("@/components/layout/AppHeader"),
+    AppFooter: () => import("@/components/layout/AppFooter"),
     AppDataLoader: () => import("@/components/renderless/AppDataLoader")
   },
   methods: {
@@ -54,7 +53,9 @@ export default {
   }
 
   &__footer {
-    background: $color-primary;
+    padding: 1rem;
+    border: 1px solid;
+    background-color: $app-background-color;
     position: fixed;
     bottom: 0;
     width: 100%;
