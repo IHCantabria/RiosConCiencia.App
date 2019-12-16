@@ -20,6 +20,7 @@
     "postgit:patch": "git push origin master"
   },
   "dependencies": {
+    "@mdi/font": "^4.7.95",
     "buefy": "^0.8.8",
     "core-js": "^3.4.3",
     "date-fns": "^2.4.1",
