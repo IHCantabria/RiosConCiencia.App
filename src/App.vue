@@ -1,11 +1,18 @@
 <template>
-  <div id="app">
-    <app-header></app-header>
-    <router-view />
-    <app-data-loader
-      @data-load-ready="onDataLoad"
-      @data-load-error="onDataLoadError"
-    />
+  <div class="app">
+    <header class="app__header">
+      <app-header></app-header>
+    </header>
+    <section class="app__main">
+      <router-view />
+      <app-data-loader
+        @data-load-ready="onDataLoad"
+        @data-load-error="onDataLoadError"
+      />
+    </section>
+    <footer class="app__footer">
+      <app-footer></app-footer>
+    </footer>
   </div>
 </template>
 <script>
@@ -13,6 +20,7 @@ export default {
   name: "App",
   components: {
     AppHeader: () => import("@/components/layout/AppHeader"),
+    AppFooter: () => import("@/components/layout/AppFooter"),
     AppDataLoader: () => import("@/components/renderless/AppDataLoader")
   },
   methods: {
@@ -25,17 +33,32 @@ export default {
 };
 </script>
 <style lang="scss">
-body {
-  margin: 0;
-}
-
-#app {
+.app {
+  display: flex;
+  height: 100%;
+  flex-flow: row wrap;
   font-family: $app-font;
   font-size: $app-font-size;
-  background-color: $app-background-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+
+  &__header {
+    flex: 1 100%;
+    height: $header-height;
+  }
+
+  &__main {
+    flex: 1 100%;
+  }
+
+  &__footer {
+    padding: 1rem;
+    background-color: $app-background-color;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 }
 
 #nav {
@@ -48,6 +71,21 @@ body {
     &.router-link-exact-active {
       color: $font-color-light;
     }
+  }
+}
+
+//hack to avoid buefy step controller hide on mobile
+@media screen and (max-width: 768px) {
+  .b-steps .steps.is-small .step-items .step-item:not(.is-active) {
+    display: block !important;
+  }
+  .b-steps .steps.is-small .step-items .step-item:not(:first-child)::before,
+  .b-steps .steps.is-small .step-items .step-item:only-child::before {
+    height: 0.2em !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    left: -50% !important;
+    top: 0.75rem !important;
   }
 }
 </style>

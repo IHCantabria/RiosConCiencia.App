@@ -6,7 +6,10 @@ import "./registerServiceWorker";
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
 
-/* Global mixins */
+/** Icons pack (MDI-Material design icons) */
+import "@mdi/font/css/materialdesignicons.css";
+
+/** Global mixins */
 import { datesHelperMixin } from "@/mixins/dates-helper.js";
 Vue.mixin(datesHelperMixin);
 

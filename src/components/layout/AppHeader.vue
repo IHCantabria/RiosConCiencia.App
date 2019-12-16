@@ -37,7 +37,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  height: $header-height;
+  height: 100%;
   color: #fff;
   background: url("~@/assets/images/riosconciencia_header.jpg") no-repeat center;
   background-size: 100%;
