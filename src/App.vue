@@ -54,7 +54,6 @@ export default {
 
   &__footer {
     padding: 1rem;
-    border: 1px solid;
     background-color: $app-background-color;
     position: fixed;
     bottom: 0;
@@ -72,6 +71,21 @@ export default {
     &.router-link-exact-active {
       color: $font-color-light;
     }
+  }
+}
+
+//hack to avoid buefy step controller hide on mobile
+@media screen and (max-width: 768px) {
+  .b-steps .steps.is-small .step-items .step-item:not(.is-active) {
+    display: block !important;
+  }
+  .b-steps .steps.is-small .step-items .step-item:not(:first-child)::before,
+  .b-steps .steps.is-small .step-items .step-item:only-child::before {
+    height: 0.2em !important;
+    width: 100% !important;
+    bottom: 0 !important;
+    left: -50% !important;
+    top: 0.75rem !important;
   }
 }
 </style>
