@@ -4,26 +4,14 @@
       <img src="@/assets/logos/RiosConCiencia.png" title="Ríos Con Ciencia" />
     </div>
     <div class="intro__main">
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h2 class="subtitle">Usuario Experto</h2>
-            <b-button size="is-large" type="is-primary">Empezar</b-button>
-
-            <h2 class="subtitle">Usuario con Desafíos</h2>
-            <b-button size="is-large" type="is-primary">Empezar</b-button>
-          </div>
-        </div>
-      </section>
-    </div>
-    <div class="intro__footer-logos">
-      <img
-        src="@/assets/logos/LogoMinisterio-FECYT.jpg"
-        title="Gobierno de España y Fundación Española para la Ciencia y la Tecnología"
-      />
-      <img src="@/assets/logos/RedCambera.jpg" title="Red Cambera" />
-      <img src="@/assets/logos/ProyectoRios.jpg" title="Proyecto Ríos" />
-      <img src="@/assets/logos/ProyectoRios.jpg" title="Proyecto Ríos" />
+      <div class="option">
+        <h2 class="subtitle">Usuario Experto</h2>
+        <b-button size="is-large" type="is-primary">Empezar</b-button>
+      </div>
+      <div class="option">
+        <h2 class="subtitle">Usuario con Desafíos</h2>
+        <b-button size="is-large" type="is-primary">Empezar</b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -41,20 +29,18 @@ export default {
   &__main {
     display: flex;
     flex-grow: 1;
-    height: 50%;
+    flex-direction: column;
+    margin: 1rem;
   }
   &__title-logo {
-    padding: 1rem;
+    margin: 1.5rem;
     & img {
       max-height: 10vh;
     }
   }
-  &__footer-logos {
-    padding: 1rem;
-    & img {
-      max-height: 10vh;
-      padding: 1rem;
-    }
-  }
+}
+
+.option {
+  padding: 1rem;
 }
 </style>
