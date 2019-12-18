@@ -53,7 +53,6 @@ export default {
   }
 
   &__footer {
-    padding: 1rem;
     background-color: $app-background-color;
     position: fixed;
     bottom: 0;
