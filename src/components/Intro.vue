@@ -1,7 +1,7 @@
 <template>
   <div class="intro">
     <div class="intro__title-logo">
-      <img src="@/assets/logos/riosconciencia.png" title="Ríos Con Ciencia" />
+      <img src="@/assets/logos/RiosConCiencia.png" title="Ríos Con Ciencia" />
     </div>
     <div class="intro__main">
       <section class="hero">
