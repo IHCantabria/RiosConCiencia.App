@@ -16,7 +16,7 @@
 <script>
 export default {
   components: {
-    "form-fields-nav": () => import("@/components/ui/BaseStepsNavigation")
+    "form-fields-nav": () => import("@/components/FormStepsNavigation")
   },
   computed: {
     isFormPage() {
