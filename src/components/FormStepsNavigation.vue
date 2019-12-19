@@ -9,7 +9,7 @@
     <b-step-item
       label="0"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.init.isSuccess }"
+      :type="{ 'is-success': sections.init.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         Datos Iniciales
@@ -19,7 +19,7 @@
     <b-step-item
       label="1"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.basic.isSuccess }"
+      :type="{ 'is-success': sections.basic.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         Inspección Básica del Tramo
@@ -30,7 +30,7 @@
       label="2"
       :visible="stepItemCfg.isAnimated"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.spills.isSuccess }"
+      :type="{ 'is-success': sections.spills.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         Inspección de Vertidos
@@ -40,7 +40,7 @@
     <b-step-item
       label="3"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.waste.isSuccess }"
+      :type="{ 'is-success': sections.waste.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         Inspección de Residuos
@@ -50,7 +50,7 @@
     <b-step-item
       label="4"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.habitat.isSuccess }"
+      :type="{ 'is-success': sections.habitat.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         El Habitat Fluvial
@@ -60,7 +60,7 @@
     <b-step-item
       label="5"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.ecosystem.isSuccess }"
+      :type="{ 'is-success': sections.ecosystem.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         El Ecosistema Acuático
@@ -70,7 +70,7 @@
     <b-step-item
       label="6"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.bioQuality.isSuccess }"
+      :type="{ 'is-success': sections.bioQuality.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         Calidad Biológica del Agua
@@ -79,7 +79,7 @@
     <b-step-item
       label="7"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.riverQuality.isSuccess }"
+      :type="{ 'is-success': sections.riverQuality.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         Calidad del Bosque de Ribera
@@ -89,7 +89,7 @@
     <b-step-item
       label="8"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': formSections.ecoResult.isSuccess }"
+      :type="{ 'is-success': sections.ecoResult.isSuccess }"
     >
       <h5 class="title has-text-centered is-5">
         Estado Ecológico
@@ -126,6 +126,7 @@
   </b-steps>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -138,26 +139,18 @@ export default {
         prevIcon: "chevron-left",
         nextIcon: "chevron-right",
         isProfileSuccess: true
-      },
-      formSections: {
-        init: { isSuccess: false },
-        basic: { isSuccess: false },
-        spills: { isSuccess: false },
-        waste: { isSuccess: false },
-        habitat: { isSuccess: false },
-        ecosystem: { isSuccess: false },
-        bioQuality: { isSuccess: false },
-        riverQuality: { isSuccess: false },
-        ecoResult: { isSuccess: false }
       }
     };
   },
   computed: {
+    ...mapState({
+      sections: state => state.formFields.sections
+    }),
     isFirstSection() {
       return this.activeStep === 0;
     },
     isLastSection() {
-      return this.activeStep === Object.keys(this.formSections).length - 1;
+      return this.activeStep === Object.keys(this.sections).length - 1;
     }
   }
 };
