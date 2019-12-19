@@ -9,18 +9,20 @@
       <img src="@/assets/logos/ProyectoRios.jpg" title="Proyecto Ríos" />
     </div>
     <div v-show="isFormPage">
-      <form-navigation></form-navigation>
+      <form-fields-nav></form-fields-nav>
     </div>
   </div>
 </template>
 <script>
 export default {
   components: {
-    "form-navigation": () => import("@/components/FormNavigation")
+    "form-fields-nav": () => import("@/components/FormFieldsNav")
   },
   computed: {
     isFormPage() {
-      return this.$route.path === "/form";
+      return (
+        this.$route.path === "/formfields" || this.$route.path === "/formpictos"
+      );
     }
   },
   data() {
@@ -30,8 +32,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .footer__logos {
-  padding: 1rem;
-  background-color: #ffffff;
   & img {
     max-height: 10vh;
     padding: 1rem;
