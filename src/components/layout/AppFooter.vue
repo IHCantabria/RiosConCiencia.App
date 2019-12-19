@@ -8,7 +8,7 @@
       <img src="@/assets/logos/RedCambera.jpg" title="Red Cambera" />
       <img src="@/assets/logos/ProyectoRios.jpg" title="Proyecto Ríos" />
     </div>
-    <div v-show="isFormPage">
+    <div class="footer__form-nav" v-show="isFormPage">
       <form-fields-nav></form-fields-nav>
     </div>
   </div>
@@ -16,7 +16,7 @@
 <script>
 export default {
   components: {
-    "form-fields-nav": () => import("@/components/FormFieldsNav")
+    "form-fields-nav": () => import("@/components/ui/BaseStepsNavigation")
   },
   computed: {
     isFormPage() {
@@ -36,5 +36,9 @@ export default {
     max-height: 10vh;
     padding: 1rem;
   }
+}
+
+.footer__form-nav {
+  margin: 1rem;
 }
 </style>

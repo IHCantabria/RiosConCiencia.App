@@ -1,11 +1,21 @@
 <template>
-  <!--TODO: Hacer componente base -->
+  <!--TODO: Hacer componente Base reutilizable -->
   <b-steps
     size="is-small"
     v-model="activeStep"
     :animated="stepItemCfg.isAnimated"
     :has-navigation="stepItemCfg.hasNavigation"
   >
+    <b-step-item
+      label="0"
+      :clickable="stepItemCfg.isStepsClickable"
+      :type="{ 'is-success': formSections.init.isSuccess }"
+    >
+      <h5 class="title has-text-centered is-5">
+        Datos Iniciales
+      </h5>
+    </b-step-item>
+
     <b-step-item
       label="1"
       :clickable="stepItemCfg.isStepsClickable"
@@ -128,6 +138,7 @@ export default {
         isProfileSuccess: true
       },
       formSections: {
+        init: { isSuccess: false },
         basic: { isSuccess: false },
         spills: { isSuccess: false },
         waste: { isSuccess: false },
