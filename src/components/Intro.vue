@@ -6,11 +6,21 @@
     <div class="intro__main">
       <div class="option">
         <h2 class="subtitle">Usuario Experto</h2>
-        <b-button size="is-large" type="is-primary">Empezar</b-button>
+        <b-button
+          size="is-large"
+          type="is-primary"
+          @click="$router.push('formfields')"
+          >Empezar</b-button
+        >
       </div>
       <div class="option">
         <h2 class="subtitle">Usuario con Desafíos</h2>
-        <b-button size="is-large" type="is-primary">Empezar</b-button>
+        <b-button
+          size="is-large"
+          type="is-primary"
+          @click="$router.push('formpictos')"
+          >Empezar</b-button
+        >
       </div>
     </div>
   </div>
