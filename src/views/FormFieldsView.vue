@@ -1,14 +1,15 @@
 <template>
   <div class="container">
     <div class="section">
-      <h1 class="title box">Ficha Experto</h1>
-    </div>
-    <div class="section">
-      <h3 class="subtitle is-3">Work in progress...</h3>
+      <form-init></form-init>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  components: {
+    "form-init": () => import("@/components/FormInit")
+  }
+};
 </script>
 <style lang="scss" scoped></style>
