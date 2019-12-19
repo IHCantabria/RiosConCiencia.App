@@ -107,6 +107,7 @@
           size="is-small"
           icon-pack="mdi"
           icon-left="less-than"
+          :disabled="isFirstSection"
           @click.prevent="previous.action"
           >Anterior
         </b-button>
@@ -115,6 +116,7 @@
           size="is-small"
           icon-pack="mdi"
           icon-right="greater-than"
+          :disabled="isLastSection"
           @click.prevent="next.action"
         >
           Siguiente
@@ -149,6 +151,14 @@ export default {
         ecoResult: { isSuccess: false }
       }
     };
+  },
+  computed: {
+    isFirstSection() {
+      return this.activeStep === 0;
+    },
+    isLastSection() {
+      return this.activeStep === Object.keys(this.formSections).length - 1;
+    }
   }
 };
 </script>
