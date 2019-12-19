@@ -53,10 +53,14 @@ export default {
   }
 
   &__footer {
-    background-color: $app-background-color;
+    background-color: #ffffff;
     position: fixed;
     bottom: 0;
     width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    &.box {
+      padding: 0.5rem;
+    }
   }
 }
 

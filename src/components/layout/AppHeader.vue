@@ -41,6 +41,7 @@ export default {
   color: #fff;
   background: url("~@/assets/images/riosconciencia_header.jpg") no-repeat center;
   background-size: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
   &__intro-wrapper {
     display: flex;
