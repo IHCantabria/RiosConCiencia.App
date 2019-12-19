@@ -1,6 +1,6 @@
 <template>
   <div class="toolbar">
-    <div class="nav">
+    <div id="nav" class="nav">
       <div class="nav__link">
         <router-link to="/"
           ><b-icon icon="home-circle" size="is-medium"> </b-icon
