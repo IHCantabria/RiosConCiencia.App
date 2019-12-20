@@ -1,6 +1,6 @@
 {
   "name": "riosconciencia",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "create-pwa-assets": "pwa-asset-generator ./src/assets/icons/soseas_inverse.png ./public/img/icons --manifest ./public/manifest.json",
