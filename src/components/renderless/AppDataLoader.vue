@@ -34,7 +34,7 @@ export default {
         })
         .catch(err => {
           //TODO: notificar?
-          console.error(`Error cargando posición. ${err}`);
+          //console.error(`Error cargando posición. ${err}`);
         });
     }
   },
