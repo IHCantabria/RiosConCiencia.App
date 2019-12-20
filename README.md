@@ -63,7 +63,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Built With
 
 - [Vue](https://vuejs.org/) - The Progressive Javascript Framework
-- [Buefy](https://buefy.org/) - Lightweight UI components for Vue.js based on Bulma
 - [Webpack](https://webpack.js.org/) - Module Bundler
 - [Jest](https://jestjs.io/) - Unit Testing Framework
 - [Cypres](https://www.cypress.io/) - E2E Testing Framework
@@ -76,9 +75,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 This software use:
 
-- [ZingChart](https://www.zingchart.com) - Branded License
-- [Leaflet](https://leafletjs.com/) - Branded License
-- [Ionic UI Components](https://ionicframework.com/docs/components) - MIT License
+- [Buefy](https://buefy.org/) - MIT License
+- [Bulma](https://bulma.io/) - MIT License
 
 Some images taken from :
 
