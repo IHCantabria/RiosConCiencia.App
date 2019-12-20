@@ -14,13 +14,13 @@ const routes = [
     path: "/formfields",
     name: "formfields",
     component: () =>
-      import(/* webpackChunkName: "formfields" */ "../views/FormFieldsView.vue")
+      import(/* webpackChunkName: "formfields" */ "../views/FormView.vue")
   },
   {
     path: "/formpictos",
     name: "formpictos",
     component: () =>
-      import(/* webpackChunkName: "formpictos" */ "../views/FormPictosView.vue")
+      import(/* webpackChunkName: "formpictos" */ "../views/PictosView.vue")
   },
   {
     path: "/about",
