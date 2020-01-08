@@ -1,8 +1,6 @@
 <template>
-  <div class="container">
-    <div class="section">
-      <form-init></form-init>
-    </div>
+  <div class="section">
+    <form-init></form-init>
   </div>
 </template>
 <script>
