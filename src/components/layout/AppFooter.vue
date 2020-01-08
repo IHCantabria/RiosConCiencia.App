@@ -8,6 +8,7 @@
       <img src="@/assets/logos/RedCambera.jpg" title="Red Cambera" />
       <img src="@/assets/logos/ProyectoRios.jpg" title="Proyecto Ríos" />
     </div>
+    <!--TODO: Mover navegación paso a paso al inicio del formulario (parte de arriba)-->
     <div class="footer-container__form-nav" v-show="isFormPage">
       <form-fields-nav></form-fields-nav>
     </div>
