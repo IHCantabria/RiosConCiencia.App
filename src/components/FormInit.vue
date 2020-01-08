@@ -33,7 +33,15 @@
   </div>
 </template>
 <script>
-export default {};
+import { mapState } from "vuex";
+
+export default {
+  computed: {
+    ...mapState({
+      activeSectionId: state => state.activeSectionId
+    })
+  }
+};
 </script>
 <style lang="scss" scoped>
 .form-section {

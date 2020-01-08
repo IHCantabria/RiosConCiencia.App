@@ -126,7 +126,7 @@
   </b-steps>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -142,16 +142,27 @@ export default {
       }
     };
   },
+  watch: {
+    activeStep(newStep, oldStep) {
+      if (newStep !== oldStep) {
+        this.setActiveSection(newStep);
+        console.log(`cambia a ${newStep}`);
+      }
+    }
+  },
   computed: {
     ...mapState({
-      sections: state => state.formFields.sections
+      sections: state => state.formSections
     }),
-    isFirstSection() {
-      return this.activeStep === 0;
-    },
-    isLastSection() {
-      return this.activeStep === Object.keys(this.sections).length - 1;
-    }
+    ...mapGetters({
+      isFirstSection: "isFirstSection",
+      isLastSection: "isLastSection"
+    })
+  },
+  methods: {
+    ...mapActions({
+      setActiveSection: "setActiveSection"
+    })
   }
 };
 </script>
