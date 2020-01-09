@@ -36,9 +36,10 @@ export default {
   flex-grow: 1;
   background-color: #fafafa;
   &__logos {
+    height: 100%;
     & img {
       max-height: 10vh;
-      padding: 1rem;
+      padding: 0.5rem 1rem;
     }
   }
   &__form-nav {
