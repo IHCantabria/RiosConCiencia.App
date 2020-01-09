@@ -1,0 +1,23 @@
+/* Font */
+$app-font: "Montserrat", Helvetica, Arial, sans-serif;
+$app-font-size: 100%;
+$headers-font-size: 1.7rem;
+$subheader-font-size: 1.1rem;
+$font-color-primary: #333333;
+$font-color-medium: #989aa2;
+$font-color-light: #f4f5f8;
+
+/* Layout */
+$header-height: 130px;
+$footer-height: 150px;
+
+/* Colors */
+$app-background-color: #eaedf1;
+$color-primary: #64b3dc;
+$color-primary-shade: #589ec2;
+$color-primary-tint: #74bbe0;
+
+/* Resolution Breakpoints */
+$breakpoint-movilToTablet: 46.875em;
+$breakpoint-tabletToDesktop: 65.625em;
+$breakpoint-desktopToHighResolution: 91.625em;

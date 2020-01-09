@@ -15,6 +15,7 @@ module.exports = {
         // to import global variables
         prependData: `
           @import "@/styles/global.scss";
+          @import "@/styles/variables.scss";
         `
       }
     }

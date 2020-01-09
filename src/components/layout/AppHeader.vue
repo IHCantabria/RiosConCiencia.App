@@ -38,6 +38,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
   color: #fff;
   background: url("~@/assets/images/riosconciencia_header.jpg") no-repeat center;
   background-size: 100%;

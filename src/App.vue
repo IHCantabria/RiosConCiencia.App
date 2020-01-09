@@ -1,15 +1,15 @@
 <template>
-  <div class="app">
+  <div class="app grid-container">
     <header class="app__header">
       <app-header></app-header>
     </header>
-    <section class="app__main">
+    <main class="app__main">
       <router-view />
       <app-data-loader
         @data-load-ready="onDataLoad"
         @data-load-error="onDataLoadError"
       />
-    </section>
+    </main>
     <footer class="app__footer">
       <app-footer></app-footer>
     </footer>
@@ -33,10 +33,21 @@ export default {
 };
 </script>
 <style lang="scss">
+/* Layout */
+.grid-container {
+  position: relative;
+  display: grid;
+  grid-template:
+    "header"
+    "main"
+    "footer";
+  grid-template-rows: $header-height 1fr $footer-height;
+  grid-template-columns: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
 .app {
-  display: flex;
-  height: 100%;
-  flex-flow: row wrap;
   font-family: $app-font;
   font-size: $app-font-size;
   -webkit-font-smoothing: antialiased;
@@ -44,20 +55,19 @@ export default {
   text-align: center;
 
   &__header {
-    flex: 1 100%;
-    height: $header-height;
+    display: flex;
+    grid-area: header;
   }
 
   &__main {
-    flex: 1 100%;
+    grid-area: main;
   }
 
   &__footer {
-    background-color: #ffffff;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    grid-area: footer;
+    display: flex;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 5;
     &.box {
       padding: 0.5rem;
     }
