@@ -43,15 +43,4 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-.form-section {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  text-align: left;
-  &__title {
-    text-decoration: underline;
-    font-size: 1.2rem;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
