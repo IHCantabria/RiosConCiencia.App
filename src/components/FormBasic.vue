@@ -16,10 +16,10 @@
     <b-field label="¿Es el nivel del agua habitual para la época del año?">
       <b-select icon="arrow-expand-vertical" v-model="waterLevel">
         <option
-          v-for="(level, index) in waterLevelOptions"
-          :value="level"
+          v-for="(option, index) in waterLevelOptions"
+          :value="option"
           :key="index"
-          >{{ level }}</option
+          >{{ option }}</option
         >
       </b-select>
     </b-field>
@@ -30,6 +30,119 @@
         :value="waterLevelCriticalProblem"
       ></b-input>
     </b-field>
+    <b-field label="Anchura media del cauce (m)">
+      <b-select icon="arrow-expand-horizontal" v-model="riverBedWidth">
+        <option
+          v-for="(option, index) in riverBedWidthOptions"
+          :value="option"
+          :key="index"
+          >{{ option }}</option
+        >
+      </b-select>
+    </b-field>
+    <b-field label="Profundidad media del cauce (cm)">
+      <b-select icon="arrow-expand-down" v-model="riverBedDepth">
+        <option
+          v-for="(option, index) in riverBedDepthOptions"
+          :value="option"
+          :key="index"
+          >{{ option }}</option
+        >
+      </b-select>
+    </b-field>
+    <b-field label="Anchura media de la zona de ribera (m)"> </b-field>
+    <div class="two-controls">
+      <b-field label="Izquierda" custom-class="is-small">
+        <b-select icon="arrow-expand-horizontal" v-model="riversideWidthLeft">
+          <option
+            v-for="(option, index) in riversideWidthOptions"
+            :value="option"
+            :key="index"
+            >{{ option }}</option
+          >
+        </b-select>
+      </b-field>
+      <b-field label="Derecha" custom-class="is-small">
+        <b-select icon="arrow-expand-horizontal" v-model="riversideWidthRight">
+          <option
+            v-for="(option, index) in riversideWidthOptions"
+            :value="option"
+            :key="index"
+            >{{ option }}</option
+          >
+        </b-select>
+      </b-field>
+    </div>
+    <b-field label="¿Que color tiene el agua?">
+      <b-select icon="invert-colors" v-model="waterColor">
+        <option
+          v-for="(option, index) in waterColorOptions"
+          :value="option"
+          :key="index"
+          >{{ option }}</option
+        >
+      </b-select>
+    </b-field>
+    <b-field label="¿Que olor tiene el agua?">
+      <b-select icon="grain" v-model="waterSmell">
+        <option
+          v-for="(option, index) in waterSmellOptions"
+          :value="option"
+          :key="index"
+          >{{ option }}</option
+        >
+      </b-select>
+    </b-field>
+    <b-field label="Existen..."></b-field>
+    <div class="block">
+      <b-checkbox
+        v-for="(option, index) in waterElementsOptions"
+        :key="index"
+        v-model="waterElements"
+        :native-value="option"
+      >
+        {{ option }}
+      </b-checkbox>
+    </div>
+
+    <b-field
+      label="¿En que condiciones se encuentran las márgenes de nuestro río?"
+    >
+    </b-field>
+    <div class="checkboxes-rows">
+      <label class="checkboxes-rows__title">izq.</label>
+      <label class="checkboxes-rows__title">der.</label>
+    </div>
+    <div
+      class="checkboxes-rows"
+      v-for="(option, index) in riverMarginConditionOptions"
+      :key="index"
+    >
+      <b-checkbox v-model="riverMarginConditionsLeft" :native-value="option">
+      </b-checkbox>
+      <b-checkbox v-model="riverMarginConditionsRight" :native-value="option">
+      </b-checkbox>
+      {{ option }}
+    </div>
+    <div class="checks-container">
+      <b-field label="¿Cuáles son los usos del suelo en las márgenes del río?">
+      </b-field>
+      <div class="checkboxes-rows">
+        <label class="checkboxes-rows__title">izq.</label>
+        <label class="checkboxes-rows__title">der.</label>
+      </div>
+      <div
+        class="checkboxes-rows"
+        v-for="(option, index) in riverMarginLandUseOptions"
+        :key="index"
+      >
+        <b-checkbox v-model="riverMarginLandUseLeft" :native-value="option">
+        </b-checkbox>
+        <b-checkbox v-model="riverMarginLandUseRight" :native-value="option">
+        </b-checkbox>
+        {{ option }}
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -38,14 +151,98 @@ export default {
     return {
       waterFlow: true,
       waterLevel: "",
+      waterColor: "",
+      waterSmell: "",
+      waterElements: [],
       waterLevelCriticalProblem: "Sample text",
-      waterLevelOptions: ["Normal", "Más alto", "Más bajo"]
+      waterLevelOptions: ["Normal", "Más alto", "Más bajo"],
+      waterColorOptions: [
+        "Transparente",
+        "Turbia",
+        "Fangosa",
+        "Blanquecina",
+        "Gris"
+      ],
+      waterSmellOptions: [
+        "No tiene olor",
+        "Peces",
+        "Huevos podridos",
+        "Petróleo, gasolina",
+        "Alcantarilla",
+        "Amoniaco",
+        "Purines"
+      ],
+      waterElementsOptions: ["Aceites", "Espumas", "Impurezas"],
+      riverBedWidth: "",
+      riverBedWidthOptions: ["< 1", "1 - 2", "2 - 5", "5 - 10", "> 10"], //m
+      riverBedDepth: "",
+      riverBedDepthOptions: ["< 20", "20 - 50", "50 - 100", "> 100"], //cm
+      riversideWidthLeft: "",
+      riversideWidthRight: "",
+      riversideWidthOptions: ["< 1", "1 - 5", "5 - 20", "> 20"], //m
+      riverMarginConditionsLeft: [],
+      riverMarginConditionsRight: [],
+      riverMarginConditionOptions: [
+        "Erosionadas",
+        "Con árboles",
+        "Con arbustos",
+        "Con prados, hierbas",
+        "Con playas",
+        "Deforestadas o taladas",
+        "Con bordes desbrozados",
+        "Con paseos o caminos a la ribera",
+        "Con zonas de acceso para personas",
+        "Canalizadas",
+        "Urbanizadas"
+      ],
+      riverMarginLandUseLeft: [],
+      riverMarginLandUseRight: [],
+      riverMarginLandUseOptions: [
+        "Industrial",
+        "Residencial",
+        "Camping",
+        "Áreas de Recreo",
+        "Aparcamientos",
+        "Ganadería",
+        "Agricultura",
+        "Carreteras",
+        "Ferrocarril",
+        "Depuradora o potabilizadora"
+      ]
     };
   },
   mounted() {
     //default init values
     this.waterLevel = this.waterLevelOptions[0];
+    this.riverBedWidth = this.riverBedWidthOptions[0];
+    this.riverBedDepth = this.riverBedDepthOptions[0];
+    this.riversideWidth = this.riversideWidthOptions[0];
+    this.riversideWidthLeft = this.riversideWidthOptions[0];
+    this.riversideWidthRight = this.riversideWidthOptions[0];
+    this.waterColor = this.waterColorOptions[0];
+    this.waterSmell = this.waterSmellOptions[0];
   }
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.two-controls {
+  display: flex;
+}
+.two-controls .control {
+  margin-right: 1rem;
+}
+.is-vertical .field {
+  height: 35px;
+}
+.checkboxes-rows {
+  display: flex;
+  flex-direction: row;
+  &__title {
+    margin-right: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+.checks-container {
+  margin-top: 1rem;
+}
+</style>
