@@ -23,6 +23,11 @@ export default {
     AppFooter: () => import("@/components/layout/AppFooter"),
     AppDataLoader: () => import("@/components/renderless/AppDataLoader")
   },
+  //   mounted(){
+  //       //TODO: Mover carga inicial de datos maestros al AppDataLoader(probar??)
+  //api.getSectionsMasterData();
+  // this.initFormSections(); //contra la store, inicializar 'formSections'
+  //   },
   methods: {
     onDataLoad() {},
     onDataLoadError(err) {

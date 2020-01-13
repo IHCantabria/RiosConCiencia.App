@@ -212,8 +212,11 @@ export default {
     };
   },
   mounted() {
+    //ejemplo contra los datos maestros de la store (pseudo codigo)
+    // this.riversideWidthOptions = state.formSections.basic.riversideWidthOptions
+
     //default init values
-    this.waterLevel = this.waterLevelOptions[0];
+    this.waterLevel = this.sectionMasterData.waterLevelOptions[0];
     this.riverBedWidth = this.riverBedWidthOptions[0];
     this.riverBedDepth = this.riverBedDepthOptions[0];
     this.riversideWidth = this.riversideWidthOptions[0];

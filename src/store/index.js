@@ -9,15 +9,15 @@ export default new Vuex.Store({
     userPosition: null,
     activeSectionId: 0,
     formSections: {
-      init: { id: 0, isSuccess: false },
-      basic: { id: 1, isSuccess: false },
-      spills: { id: 2, isSuccess: false },
-      waste: { id: 3, isSuccess: false },
-      habitat: { id: 4, isSuccess: false },
-      ecosystem: { id: 5, isSuccess: false },
-      bioQuality: { id: 6, isSuccess: false },
-      riverQuality: { id: 7, isSuccess: false },
-      ecoResult: { id: 8, isSuccess: false }
+      init: { id: 0, isSuccess: false, data: {} },
+      basic: { id: 1, isSuccess: false, data: {} },
+      spills: { id: 2, isSuccess: false, data: {} },
+      waste: { id: 3, isSuccess: false, data: {} },
+      habitat: { id: 4, isSuccess: false, data: {} },
+      ecosystem: { id: 5, isSuccess: false, data: {} },
+      bioQuality: { id: 6, isSuccess: false, data: {} },
+      riverQuality: { id: 7, isSuccess: false, data: {} },
+      ecoResult: { id: 8, isSuccess: false, data: {} }
     }
   },
   getters: {
