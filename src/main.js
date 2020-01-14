@@ -4,7 +4,6 @@ import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
 import Buefy from "buefy";
-import "buefy/dist/buefy.css";
 
 /** Icons pack (MDI-Material design icons) */
 import "@mdi/font/css/materialdesignicons.css";
