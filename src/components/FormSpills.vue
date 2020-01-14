@@ -216,6 +216,7 @@ export default {
         });
         self.spills = filtered;
       }
+      this.spillsTable.selectedRows = [];
     }
   }
 };
