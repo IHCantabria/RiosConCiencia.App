@@ -212,15 +212,20 @@ export default {
     };
   },
   mounted() {
-    //default init values
-    this.waterLevel = this.waterLevelOptions[0];
-    this.riverBedWidth = this.riverBedWidthOptions[0];
-    this.riverBedDepth = this.riverBedDepthOptions[0];
-    this.riversideWidth = this.riversideWidthOptions[0];
-    this.riversideWidthLeft = this.riversideWidthOptions[0];
-    this.riversideWidthRight = this.riversideWidthOptions[0];
-    this.waterColor = this.waterColorOptions[0];
-    this.waterSmell = this.waterSmellOptions[0];
+    this.initFormSection();
+  },
+  methods: {
+    initFormSection() {
+      //default init values
+      this.waterLevel = this.waterLevelOptions[0];
+      this.riverBedWidth = this.riverBedWidthOptions[0];
+      this.riverBedDepth = this.riverBedDepthOptions[0];
+      this.riversideWidth = this.riversideWidthOptions[0];
+      this.riversideWidthLeft = this.riversideWidthOptions[0];
+      this.riversideWidthRight = this.riversideWidthOptions[0];
+      this.waterColor = this.waterColorOptions[0];
+      this.waterSmell = this.waterSmellOptions[0];
+    }
   }
 };
 </script>
