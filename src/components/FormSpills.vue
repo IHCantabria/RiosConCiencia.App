@@ -32,7 +32,8 @@
       <b-field>
         <b-button
           type="is-primary"
-          icon-right="map-marker"
+          icon-left="map-marker"
+          outlined
           @click="getActualPosition()"
           >Obtener posición actual</b-button
         >
@@ -87,12 +88,26 @@
           >
         </b-select>
       </b-field>
-      <b-button type="is-primary" outlined @click="saveNewSpill">
+      <b-button type="is-primary" @click="saveNewSpill">
         Guardar
       </b-button>
     </div>
     <b-field label="Vertidos Detectados" v-if="spills.length > 0">
-      <b-table :data="spills" :columns="spillsTableColumns"></b-table>
+      <b-table
+        :data="spills"
+        :columns="spillsTable.columns"
+        :checked-rows.sync="spillsTable.selectedRows"
+        checkable
+      ></b-table>
+    </b-field>
+    <b-field v-if="spillsTable.selectedRows.length > 0">
+      <b-button
+        type="is-primary"
+        icon-left="delete"
+        outlined
+        @click="removeSelectedSpills()"
+        >Eliminar vertidos seleccionados</b-button
+      >
     </b-field>
   </div>
 </template>
@@ -121,36 +136,39 @@ export default {
         "Amoniaco"
       ],
       spillSourceOptions: ["Pluvial", "Industrial", "Doméstico", "Desconocido"],
-      spillsTableColumns: [
-        {
-          field: "position.longitude",
-          label: "Lon"
-        },
-        {
-          field: "position.latitude",
-          label: "Lat"
-        },
-        {
-          field: "diameter",
-          label: "Diámetro"
-        },
-        {
-          field: "flow",
-          label: "Caudal"
-        },
-        {
-          field: "color",
-          label: "Color"
-        },
-        {
-          field: "smell",
-          label: "Olor"
-        },
-        {
-          field: "source",
-          label: "Origen"
-        }
-      ]
+      spillsTable: {
+        selectedRows: [],
+        columns: [
+          {
+            field: "position.longitude",
+            label: "Lon"
+          },
+          {
+            field: "position.latitude",
+            label: "Lat"
+          },
+          {
+            field: "diameter",
+            label: "Diámetro"
+          },
+          {
+            field: "flow",
+            label: "Caudal"
+          },
+          {
+            field: "color",
+            label: "Color"
+          },
+          {
+            field: "smell",
+            label: "Olor"
+          },
+          {
+            field: "source",
+            label: "Origen"
+          }
+        ]
+      }
     };
   },
   mounted() {
@@ -189,6 +207,15 @@ export default {
         source: this.spillSource
       };
       this.spills.push(newSpill);
+    },
+    removeSelectedSpills() {
+      const self = this;
+      for (const spill of this.spillsTable.selectedRows) {
+        var filtered = self.spills.filter(value => {
+          return value !== spill;
+        });
+        self.spills = filtered;
+      }
     }
   }
 };
