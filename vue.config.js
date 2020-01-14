@@ -16,6 +16,7 @@ module.exports = {
         prependData: `
           @import "@/styles/global.scss";
           @import "@/styles/variables.scss";
+          @import "@/styles/custom-buefy.scss";
         `
       }
     }
