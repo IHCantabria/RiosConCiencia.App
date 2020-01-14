@@ -228,24 +228,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.two-controls {
-  display: flex;
-}
-.two-controls .control {
-  margin-right: 1rem;
-}
-.is-vertical .field {
-  height: 35px;
-}
-.checkboxes-rows {
-  display: flex;
-  flex-direction: row;
-  &__title {
-    margin-right: 0.8rem;
-    font-size: 0.9rem;
-  }
-}
-.checks-container {
-  margin-top: 1rem;
-}
+@import "@/styles/form-controls.scss";
 </style>
