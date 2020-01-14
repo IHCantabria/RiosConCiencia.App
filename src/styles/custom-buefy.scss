@@ -1,0 +1,18 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+
+$primary: #64b3dc;
+$primary-invert: findColorInvert($primary);
+$twitter: #4099ff;
+$twitter-invert: findColorInvert($twitter);
+
+$colors: (  
+  "primary": (
+    $primary,
+    $primary-invert
+  )
+);
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
