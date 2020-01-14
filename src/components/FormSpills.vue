@@ -2,6 +2,41 @@
   <div class="form-section">
     <h5 class="title is-5">2. Inspección de Vertidos (500m)</h5>
     <div class="subsection-container">
+      <b-field label="Coordenadas (WGS84)"></b-field>
+      <div class="two-controls">
+        <b-field label="Lon" custom-class="is-small">
+          <b-input
+            placeholder="Number"
+            type="number"
+            min="-180"
+            max="180"
+            step="any"
+            custom-class="is-small"
+            v-model="spillLongitude"
+          >
+          </b-input>
+        </b-field>
+        <b-field label="Lat" custom-class="is-small">
+          <b-input
+            placeholder="Number"
+            type="number"
+            min="-90"
+            max="90"
+            step="any"
+            custom-class="is-small"
+            v-model="spillLatitude"
+          >
+          </b-input>
+        </b-field>
+      </div>
+      <b-field>
+        <b-button
+          type="is-primary"
+          icon-right="map-marker"
+          @click="getActualPosition()"
+          >Obtener posición actual</b-button
+        >
+      </b-field>
       <b-field label="Diámetro">
         <b-select icon="diameter-outline" v-model="spillDiameter">
           <option
@@ -62,6 +97,8 @@
   </div>
 </template>
 <script>
+import { getUserGeolocation } from "@/api/geolocation.js";
+
 export default {
   data() {
     return {
@@ -69,6 +106,8 @@ export default {
       spillDiameter: "",
       spillFlow: "",
       spillColor: "",
+      spillLongitude: 0,
+      spillLatitude: 0,
       spillSmell: "",
       spillSource: "",
       spillFlowOptions: ["Grande", "Moderado", "Pequeño", "Goteo"],
@@ -83,6 +122,14 @@ export default {
       ],
       spillSourceOptions: ["Pluvial", "Industrial", "Doméstico", "Desconocido"],
       spillsTableColumns: [
+        {
+          field: "position.longitude",
+          label: "Lon"
+        },
+        {
+          field: "position.latitude",
+          label: "Lat"
+        },
         {
           field: "diameter",
           label: "Diámetro"
@@ -118,8 +165,23 @@ export default {
       this.spillSmell = this.spillSmellOptions[0];
       this.spillSource = this.spillSourceOptions[0];
     },
+    getActualPosition() {
+      getUserGeolocation()
+        .then(res => {
+          this.spillLongitude = parseFloat(res.coords.longitude).toFixed(5);
+          this.spillLatitude = parseFloat(res.coords.latitude).toFixed(5);
+        })
+        .catch(err => {
+          //TODO: notificar?
+          console.error(`Error cargando posición. ${err}`);
+        });
+    },
     saveNewSpill() {
       const newSpill = {
+        position: {
+          longitude: this.spillLongitude,
+          latitude: this.spillLatitude
+        },
         diameter: this.spillDiameter,
         flow: this.spillFlow,
         color: this.spillColor,
@@ -132,6 +194,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/styles/form-controls.scss";
+
 .subsection-container {
   position: relative;
   display: flex;
