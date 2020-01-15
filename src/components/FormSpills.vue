@@ -1,7 +1,9 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">2. Inspección de Vertidos (500m)</h5>
-    <div class="subsection-container">
+    <h5 class="title is-5">
+      2. Inspección de Vertidos (500m)
+    </h5>
+    <div class="form-section__block">
       <b-field label="Coordenadas (WGS84)"></b-field>
       <div class="two-controls">
         <b-field label="Lon" custom-class="is-small">
@@ -34,6 +36,8 @@
           type="is-primary"
           icon-left="map-marker"
           outlined
+          size="is-small"
+          expanded
           @click="getActualPosition()"
           >Obtener posición actual</b-button
         >
@@ -92,19 +96,36 @@
         Guardar
       </b-button>
     </div>
-    <b-field label="Vertidos Detectados" v-if="spills.length > 0">
+
+    <div class="table-container" v-if="spills.length > 0">
       <b-table
         :data="spills"
         :columns="spillsTable.columns"
         :checked-rows.sync="spillsTable.selectedRows"
+        :narrowed="true"
+        :mobile-cards="true"
+        class="table-spills"
         checkable
       ></b-table>
-    </b-field>
+    </div>
+    <div v-else>
+      <section class="section">
+        <div class="content has-text-grey has-text-centered">
+          <p>
+            <b-icon icon="pipe-leak" size="is-large"> </b-icon>
+          </p>
+          <p>No hay vertidos</p>
+        </div>
+      </section>
+    </div>
+
     <b-field v-if="spillsTable.selectedRows.length > 0">
       <b-button
         type="is-primary"
         icon-left="delete"
         outlined
+        size="is-small"
+        expanded
         @click="removeSelectedSpills()"
         >Eliminar vertidos seleccionados</b-button
       >
@@ -141,11 +162,11 @@ export default {
         columns: [
           {
             field: "position.longitude",
-            label: "Lon"
+            label: "Longitud"
           },
           {
             field: "position.latitude",
-            label: "Lat"
+            label: "Latitud"
           },
           {
             field: "diameter",
@@ -224,30 +245,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
 
-.subsection-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid $color-primary;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  color: rgba(0, 0, 0, 0.7);
-  padding: 1.5rem;
-  margin: 1rem;
-  &:before {
-    background: $color-primary;
-    border-radius: 4px 4px 0 0;
-    bottom: 100%;
-    content: "Nuevo Vertido";
-    display: inline-block;
-    font-size: 8px;
-    font-weight: 700;
-    left: -1px;
-    padding: 4px 8px;
-    position: absolute;
-    text-transform: uppercase;
-    vertical-align: top;
-  }
+.table-container {
+  padding: 1rem;
 }
 </style>

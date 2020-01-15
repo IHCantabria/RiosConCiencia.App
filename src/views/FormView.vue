@@ -5,6 +5,7 @@
     <form-spills
       v-show="activeSectionId === formSections.spills.id"
     ></form-spills>
+    <form-waste v-show="activeSectionId === formSections.waste.id"></form-waste>
   </div>
 </template>
 <script>
@@ -13,7 +14,8 @@ export default {
   components: {
     "form-init": () => import("@/components/FormInit"),
     "form-basic": () => import("@/components/FormBasic"),
-    "form-spills": () => import("@/components/FormSpills")
+    "form-spills": () => import("@/components/FormSpills"),
+    "form-waste": () => import("@/components/FormWaste")
   },
   computed: {
     ...mapState({
