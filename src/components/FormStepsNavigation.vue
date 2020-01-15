@@ -76,7 +76,6 @@
       <div class="customNavButtons">
         <b-button
           type="is-primary"
-          size="is-small"
           icon-pack="mdi"
           icon-left="less-than"
           :disabled="isFirstSection"
@@ -85,7 +84,6 @@
         </b-button>
         <b-button
           type="is-primary"
-          size="is-small"
           icon-pack="mdi"
           icon-right="greater-than"
           :disabled="isLastSection"
