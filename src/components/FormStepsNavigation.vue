@@ -7,64 +7,11 @@
     :has-navigation="stepItemCfg.hasNavigation"
   >
     <b-step-item
-      label="0"
+      v-for="(section, index) in Object.keys(sections)"
+      :key="index"
+      :label="index.toString()"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.init.isSuccess }"
-    >
-    </b-step-item>
-    <b-step-item
-      label="1"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.basic.isSuccess }"
-    >
-    </b-step-item>
-
-    <b-step-item
-      label="2"
-      :visible="stepItemCfg.isAnimated"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.spills.isSuccess }"
-    >
-    </b-step-item>
-
-    <b-step-item
-      label="3"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.waste.isSuccess }"
-    >
-    </b-step-item>
-
-    <b-step-item
-      label="4"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.habitat.isSuccess }"
-    >
-    </b-step-item>
-
-    <b-step-item
-      label="5"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.ecosystem.isSuccess }"
-    >
-    </b-step-item>
-
-    <b-step-item
-      label="6"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.bioQuality.isSuccess }"
-    >
-    </b-step-item>
-    <b-step-item
-      label="7"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.riverQuality.isSuccess }"
-    >
-    </b-step-item>
-
-    <b-step-item
-      label="8"
-      :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': sections.ecoResult.isSuccess }"
+      :type="{ 'is-success': section.isSuccess }"
     >
     </b-step-item>
 
