@@ -4,19 +4,18 @@
       <app-header></app-header>
     </header>
     <main class="app__main">
-      <router-view />
+      <router-view v-if="dataReady" />
       <app-data-loader
         @data-load-ready="onDataLoad"
         @data-load-error="onDataLoadError"
       />
     </main>
     <footer class="app__footer">
-      <app-footer></app-footer>
+      <app-footer v-if="dataReady"></app-footer>
     </footer>
   </div>
 </template>
 <script>
-import { getMasterData } from "@/api/riosconciencia.js";
 export default {
   name: "App",
   components: {
@@ -24,22 +23,16 @@ export default {
     AppFooter: () => import("@/components/layout/AppFooter"),
     AppDataLoader: () => import("@/components/renderless/AppDataLoader")
   },
-  mounted() {
-    this.init();
+  data() {
+    return {
+      dataReady: false
+    };
   },
   methods: {
-    async init() {
-      //TODO: Mover carga inicial de datos maestros al AppDataLoader(probar??)
-      try {
-        const masterData = await getMasterData();
-        console.log(masterData);
-      } catch (err) {
-        console.error(err);
-      }
-
-      //this.initFormSections(); //contra la store, inicializar 'formSections'
+    onDataLoad() {
+      this.dataReady = true;
+      console.log("Form ready");
     },
-    onDataLoad() {},
     onDataLoadError(err) {
       //TODO: notificar error
       console.error(`Error inicializando app. ${err}`);
