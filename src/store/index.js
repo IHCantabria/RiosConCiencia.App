@@ -8,17 +8,7 @@ export default new Vuex.Store({
   state: {
     userPosition: null,
     activeSectionId: 0,
-    formSections: {
-      init: { id: 0, isSuccess: false, data: {} },
-      basic: { id: 1, isSuccess: false, data: {} },
-      spills: { id: 2, isSuccess: false, data: {} },
-      waste: { id: 3, isSuccess: false, data: {} },
-      habitat: { id: 4, isSuccess: false, data: {} },
-      ecosystem: { id: 5, isSuccess: false, data: {} },
-      bioQuality: { id: 6, isSuccess: false, data: {} },
-      riverQuality: { id: 7, isSuccess: false, data: {} },
-      ecoResult: { id: 8, isSuccess: false, data: {} }
-    }
+    formSections: {}
   },
   getters: {
     isFirstSection: state => {
@@ -31,6 +21,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    [types.LOAD_FORM_DATA](state, formData) {
+      state.formSections = formData;
+    },
     [types.SET_USER_POSITION](state, position) {
       state.userPosition = position;
     },
@@ -39,6 +32,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    loadFormData(context, formData) {
+      context.commit(types.LOAD_FORM_DATA, formData);
+    },
     setActiveSection(context, sectionId) {
       context.commit(types.SET_ACTIVE_SECTION, sectionId);
     },
