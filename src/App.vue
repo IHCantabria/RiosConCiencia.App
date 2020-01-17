@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+import { getMasterData } from "@/api/riosconciencia.js";
 export default {
   name: "App",
   components: {
@@ -23,12 +24,21 @@ export default {
     AppFooter: () => import("@/components/layout/AppFooter"),
     AppDataLoader: () => import("@/components/renderless/AppDataLoader")
   },
-  //   mounted(){
-  //       //TODO: Mover carga inicial de datos maestros al AppDataLoader(probar??)
-  //api.getSectionsMasterData();
-  // this.initFormSections(); //contra la store, inicializar 'formSections'
-  //   },
+  mounted() {
+    this.init();
+  },
   methods: {
+    async init() {
+      //TODO: Mover carga inicial de datos maestros al AppDataLoader(probar??)
+      try {
+        const masterData = await getMasterData();
+        console.log(masterData);
+      } catch (err) {
+        console.error(err);
+      }
+
+      //this.initFormSections(); //contra la store, inicializar 'formSections'
+    },
     onDataLoad() {},
     onDataLoadError(err) {
       //TODO: notificar error
