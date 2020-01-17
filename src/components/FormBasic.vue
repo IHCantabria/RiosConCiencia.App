@@ -16,10 +16,10 @@
     <b-field label="¿Es el nivel del agua habitual para la época del año?">
       <b-select icon="arrow-expand-vertical" v-model="waterLevel">
         <option
-          v-for="(option, index) in waterLevelOptions"
+          v-for="(option, index) in sectionMasterData.waterLevelOptions"
           :value="option"
           :key="index"
-          >{{ option }}</option
+          >{{ option.name }}</option
         >
       </b-select>
     </b-field>
@@ -146,7 +146,15 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 export default {
+  computed: {
+    ...mapState({
+      sectionMasterData: state =>
+        state.formSections.basicSection.basicSectionData
+    })
+  },
   data() {
     return {
       waterFlow: true,
@@ -155,7 +163,7 @@ export default {
       waterSmell: "",
       waterElements: [],
       waterLevelCriticalProblem: "Sample text",
-      waterLevelOptions: ["Normal", "Más alto", "Más bajo"],
+      //   waterLevelOptions: ["Normal", "Más alto", "Más bajo"],
       waterColorOptions: [
         "Transparente",
         "Turbia",
@@ -216,7 +224,7 @@ export default {
     // this.riversideWidthOptions = state.formSections.basic.riversideWidthOptions
 
     //default init values
-    this.waterLevel = this.waterLevelOptions[0];
+    this.waterLevel = this.sectionMasterData.waterLevelOptions[0];
     this.riverBedWidth = this.riverBedWidthOptions[0];
     this.riverBedDepth = this.riverBedDepthOptions[0];
     this.riversideWidth = this.riversideWidthOptions[0];
