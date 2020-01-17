@@ -18,3 +18,11 @@
 .checks-container {
   margin-top: 1rem;
 }
+.radio-rows {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem 0rem;
+  &__label-container{
+      width:50%;
+  }  
+}
