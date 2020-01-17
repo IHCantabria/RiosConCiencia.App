@@ -145,8 +145,8 @@ export default {
         { name: "Limo y arcilla", value: {} }
       ],
       substrateOptions: [
-        { id: 1, name: "<10%", value: "" },
-        { id: 2, name: ">10%", value: "" }
+        { id: 1, name: "<10%", value: 2 },
+        { id: 2, name: ">10%", value: 5 }
       ],
       rapidsFrequency: "",
       rapidsFrequencyOptions: [
