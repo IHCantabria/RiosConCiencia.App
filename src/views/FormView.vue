@@ -1,20 +1,14 @@
 <template>
   <div class="section">
     <!-- TODO:Carga dinámica de components con v-for -->
-    <form-init
-      v-show="activeSectionId === formSections.initSection.id"
-    ></form-init>
-    <form-basic
-      v-show="activeSectionId === formSections.basicSection.id"
-    ></form-basic>
+    <form-init v-show="activeSectionId === formSections.init.id"></form-init>
+    <form-basic v-show="activeSectionId === formSections.basic.id"></form-basic>
     <form-spills
-      v-show="activeSectionId === formSections.spillsSection.id"
+      v-show="activeSectionId === formSections.spills.id"
     ></form-spills>
-    <form-waste
-      v-show="activeSectionId === formSections.wasteSection.id"
-    ></form-waste>
+    <form-waste v-show="activeSectionId === formSections.waste.id"></form-waste>
     <form-habitat
-      v-show="activeSectionId === formSections.habitatSection.id"
+      v-show="activeSectionId === formSections.habitat.id"
     ></form-habitat>
   </div>
 </template>

@@ -151,7 +151,7 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      formBasicData: state => state.formSections.basicSection.basicSectionData
+      formBasicData: state => state.formSections.basic.data
     })
   },
   data() {

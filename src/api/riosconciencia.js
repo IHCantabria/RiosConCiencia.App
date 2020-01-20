@@ -7,6 +7,14 @@ const _basicHeaders = {
   "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS"
 };
 
+const login = async () => {
+  return {};
+};
+
+const getUserRiverSections = async () => {
+  return [];
+};
+
 const getMasterData = async () => {
   const url = `${RIOSCONCIENCIA_API.public}/GetSectionsMasterData`;
   const res = await axios.get(url, {
@@ -15,4 +23,4 @@ const getMasterData = async () => {
   return res.data;
 };
 
-export { getMasterData };
+export { getMasterData, login, getUserRiverSections };

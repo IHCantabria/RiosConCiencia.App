@@ -10,7 +10,7 @@
           v-model="selectedWaste"
         >
           <optgroup
-            v-for="(group, index) in wasteOptions"
+            v-for="(group, index) in formWasteData.wasteOptions"
             :key="index"
             :label="group.material"
           >
@@ -19,7 +19,7 @@
               :key="index"
               :value="option"
             >
-              {{ option }}
+              {{ option.name }}
             </option>
           </optgroup>
         </b-select>
@@ -65,27 +65,24 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 export default {
+  computed: {
+    ...mapState({
+      formWasteData: state => state.formSections.waste.data
+    })
+  },
   data() {
     return {
       waste: [],
       selectedWaste: {},
-      wasteOptions: [
-        {
-          material: "Plástico",
-          options: ["Bidones grandes(>25litros)", "Bolsas", "Botellas"]
-        },
-        {
-          material: "Papel/Cartón",
-          options: ["Bolsas de papel", "Bricks", "Paquetes de tabaco"]
-        }
-      ],
       units: 0,
       wasteTable: {
         selectedRows: [],
         columns: [
           {
-            field: "name",
+            field: "waste.name",
             label: "Residuo"
           },
           {
@@ -97,12 +94,15 @@ export default {
     };
   },
   mounted() {
-    this.selectedWaste = this.wasteOptions[0].options[0];
+    this.init();
   },
   methods: {
+    init() {
+      this.selectedWaste = this.formWasteData.wasteOptions[0].options[0];
+    },
     saveNewWaste() {
       const newWaste = {
-        name: this.selectedWaste,
+        waste: this.selectedWaste,
         units: this.units
       };
       this.waste.push(newWaste);

@@ -6,20 +6,20 @@
     >
       <b-select icon="gradient" v-model="stonesInPools">
         <option
-          v-for="(option, index) in stonesInPoolsOptions"
+          v-for="(option, index) in formHabitatData.stonesInPoolsOptions"
           :value="option"
           :key="index"
-          >{{ option }}</option
+          >{{ option.name }}</option
         >
       </b-select>
     </b-field>
     <b-field label="b. Frecuencia de rápidos">
       <b-select icon="waves" v-model="rapidsFrequency">
         <option
-          v-for="(option, index) in rapidsFrequencyOptions"
+          v-for="(option, index) in formHabitatData.rapidFrequencyOptions"
           :value="option"
           :key="index"
-          >{{ option }}</option
+          >{{ option.name }}</option
         >
       </b-select>
     </b-field>
@@ -35,7 +35,7 @@
         </div>
 
         <b-radio
-          v-for="option in substrateOptions"
+          v-for="option in formHabitatData.substrateCompositionPresenceOptions"
           :key="option.id"
           :native-value="option"
           v-model="substrateComposition[index].value"
@@ -53,22 +53,22 @@
       >
     </b-taglist>
     <b-field>
-      <b-select icon="waves" v-model="velocityAndDepth">
+      <b-select icon="format-list-bulleted-type" v-model="velocityAndDepth">
         <option
-          v-for="(option, index) in velocityAndDepthOptions"
+          v-for="(option, index) in formHabitatData.velocityAndDepthOptions"
           :value="option"
           :key="index"
-          >{{ option }}</option
+          >{{ option.name }}</option
         >
       </b-select>
     </b-field>
     <b-field label="e. Sombre en el cauce">
-      <b-select icon="waves" v-model="riverShadows">
+      <b-select icon="box-shadow" v-model="riverShadows">
         <option
-          v-for="(option, index) in riverShadowsOptions"
+          v-for="(option, index) in formHabitatData.riverShadowsOptions"
           :value="option"
           :key="index"
-          >{{ option }}</option
+          >{{ option.name }}</option
         >
       </b-select>
     </b-field>
@@ -76,19 +76,18 @@
     <div class="block">
       <div
         class="radio-rows"
-        v-for="(element, index) in randomElementsOptions"
+        v-for="(element, index) in randomElements"
         :key="index"
       >
         <div class="radio-rows__label-container">
           {{ element.name }}
         </div>
-        <!-- TODO: No está completo, hay que ver como encajar esta particularidad -->
-        <b-checkbox
-          v-for="(option, index) in element.options"
-          :key="index"
+        <b-radio
+          v-for="option in formHabitatData.randomElementPresenceOptions"
+          :key="option.id"
           :native-value="option"
-          v-model="randomElements"
-          >{{ option.name }}</b-checkbox
+          v-model="randomElements[index].value"
+          >{{ option.name }}</b-radio
         >
       </div>
     </div>
@@ -103,7 +102,7 @@
           {{ type.name }}
         </div>
         <b-radio
-          v-for="option in aquaticVegetationOptions"
+          v-for="option in formHabitatData.aquaticVegetationCoverageOptions"
           :key="option.id"
           :native-value="option"
           v-model="aquaticVegetation[index].value"
@@ -119,13 +118,21 @@
       :max="ihfRateConfig.max"
       size="is-medium"
       :show-text="true"
+      :disabled="true"
       :texts="ihfRateConfig.texts"
     >
     </b-rate>
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 export default {
+  computed: {
+    ...mapState({
+      formHabitatData: state => state.formSections.habitat.data
+    })
+  },
   data() {
     return {
       indiceHabitatFluvial: 1,
@@ -138,32 +145,9 @@ export default {
         ]
       },
       stonesInPools: "",
-      substrateComposition: [
-        { name: "Bloques y piedras", value: {} },
-        { name: "Cantos y gravas", value: {} },
-        { name: "Arena", value: {} },
-        { name: "Limo y arcilla", value: {} }
-      ],
-      substrateOptions: [
-        { id: 1, name: "<10%", value: 2 },
-        { id: 2, name: ">10%", value: 5 }
-      ],
+      substrateComposition: [],
       rapidsFrequency: "",
-      rapidsFrequencyOptions: [
-        "Alta Frecuencia",
-        "Escasa",
-        "Ocasional",
-        "Flujo Laminar",
-        "Solo Pozas"
-      ],
-      stonesInPoolsOptions: ["Bajo", "Moderado", "Alto"],
       velocityAndDepth: "",
-      velocityAndDepthOptions: [
-        "Las 4 categorías",
-        "3 de las 4 categorías",
-        "2 de las 4 caregorías",
-        "Solo 1 categoría"
-      ],
       velocityAndDepthTypes: [
         "rápido / profundo",
         "lento / profundo",
@@ -171,51 +155,33 @@ export default {
         "rápido / poco profundo"
       ],
       riverShadows: "",
-      riverShadowsOptions: [
-        "Sombreado con ventanas",
-        "Totalmente en sombra",
-        "Grandes claros",
-        "Expuestos"
-      ],
       randomElements: [],
-      randomElementsOptions: [
-        {
-          name: "Hojarasca",
-          options: [
-            { name: "Presencia", value: 2 },
-            { name: "10%-75%", value: 4 }
-          ]
-        },
-        {
-          name: "Troncos y ramas",
-          options: [{ id: 1, name: "Presencia", value: 2 }]
-        },
-        {
-          name: "Raíces descubiertas",
-          options: [{ id: 2, name: "Presencia", value: 2 }]
-        },
-        {
-          name: "Diques naturales",
-          options: [{ id: 3, name: "Presencia", value: 2 }]
-        }
-      ],
-      aquaticVegetationOptions: [
-        { id: 1, name: "Alta", value: 5 },
-        { id: 2, name: "Mod", value: 10 },
-        { id: 3, name: "Baja", value: 5 }
-      ],
-      aquaticVegetation: [
-        { name: "Algas filamentosas, musgos y hepáticas", value: {} },
-        { name: "Algas adheridas a las piedras", value: {} },
-        { name: "Plantas superiores y flotantes", value: {} }
-      ]
+      aquaticVegetation: []
     };
   },
   mounted() {
-    this.stonesInPools = this.stonesInPoolsOptions[0];
-    this.rapidsFrequency = this.rapidsFrequencyOptions[0];
-    this.velocityAndDepth = this.velocityAndDepthOptions[0];
-    this.riverShadows = this.riverShadowsOptions[0];
+    this.init();
+  },
+  methods: {
+    init() {
+      this.stonesInPools = this.formHabitatData.stonesInPoolsOptions[0];
+      this.rapidsFrequency = this.formHabitatData.rapidFrequencyOptions[0];
+      this.velocityAndDepth = this.formHabitatData.velocityAndDepthOptions[0];
+      this.riverShadows = this.formHabitatData.riverShadowsOptions[0];
+      this.prepareComplexObjects();
+    },
+    prepareComplexObjects() {
+      //for objects that needs "value" as another object. ie: values with "points".
+      for (const element of this.formHabitatData.substrateCompositionOptions) {
+        this.substrateComposition.push({ ...element, value: {} });
+      }
+      for (const element of this.formHabitatData.aquaticVegetationeOptions) {
+        this.aquaticVegetation.push({ ...element, value: {} });
+      }
+      for (const element of this.formHabitatData.randomElementOptions) {
+        this.randomElements.push({ ...element, value: {} });
+      }
+    }
   }
 };
 </script>
