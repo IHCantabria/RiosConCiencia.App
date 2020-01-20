@@ -79,6 +79,8 @@ export default {
   methods: {
     init() {
       this.riverSection = this.riverSections[0];
+      this.weatherToday = this.weatherOptions[0];
+      this.weather48h = this.weatherOptions[0];
     }
   }
 };
