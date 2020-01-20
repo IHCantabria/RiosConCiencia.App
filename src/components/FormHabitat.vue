@@ -53,7 +53,7 @@
       >
     </b-taglist>
     <b-field>
-      <b-select icon="waves" v-model="velocityAndDepth">
+      <b-select icon="format-list-bulleted-type" v-model="velocityAndDepth">
         <option
           v-for="(option, index) in formHabitatData.velocityAndDepthOptions"
           :value="option"
@@ -63,7 +63,7 @@
       </b-select>
     </b-field>
     <b-field label="e. Sombre en el cauce">
-      <b-select icon="waves" v-model="riverShadows">
+      <b-select icon="box-shadow" v-model="riverShadows">
         <option
           v-for="(option, index) in formHabitatData.riverShadowsOptions"
           :value="option"
