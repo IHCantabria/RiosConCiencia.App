@@ -45,50 +45,50 @@
       <b-field label="Diámetro">
         <b-select icon="diameter-outline" v-model="spillDiameter">
           <option
-            v-for="(option, index) in spillDiameterOptions"
+            v-for="(option, index) in formSpillsData.spillDiameterOptions"
             :value="option"
             :key="index"
-            >{{ option }}</option
+            >{{ option.name }}</option
           >
         </b-select>
       </b-field>
       <b-field label="Caudal">
         <b-select icon="elevation-rise" v-model="spillFlow">
           <option
-            v-for="(option, index) in spillFlowOptions"
+            v-for="(option, index) in formSpillsData.spillFlowOptions"
             :value="option"
             :key="index"
-            >{{ option }}</option
+            >{{ option.name }}</option
           >
         </b-select>
       </b-field>
       <b-field label="Color">
         <b-select icon="invert-colors" v-model="spillColor">
           <option
-            v-for="(option, index) in spillColorOptions"
+            v-for="(option, index) in formSpillsData.spillColorOptions"
             :value="option"
             :key="index"
-            >{{ option }}</option
+            >{{ option.name }}</option
           >
         </b-select>
       </b-field>
       <b-field label="Olor">
         <b-select icon="grain" v-model="spillSmell">
           <option
-            v-for="(option, index) in spillSmellOptions"
+            v-for="(option, index) in formSpillsData.spillSmellOptions"
             :value="option"
             :key="index"
-            >{{ option }}</option
+            >{{ option.name }}</option
           >
         </b-select>
       </b-field>
       <b-field label="Origen">
         <b-select icon="source-commit-start" v-model="spillSource">
           <option
-            v-for="(option, index) in spillSourceOptions"
+            v-for="(option, index) in formSpillsData.spillSourceOptions"
             :value="option"
             :key="index"
-            >{{ option }}</option
+            >{{ option.name }}</option
           >
         </b-select>
       </b-field>
@@ -134,8 +134,15 @@
 </template>
 <script>
 import { getUserGeolocation } from "@/api/geolocation.js";
+import { mapState } from "vuex";
 
 export default {
+  computed: {
+    ...mapState({
+      formSpillsData: state =>
+        state.formSections.spillsSection.spillsSectionData
+    })
+  },
   data() {
     return {
       spills: [],
@@ -146,17 +153,6 @@ export default {
       spillLatitude: 0,
       spillSmell: "",
       spillSource: "",
-      spillFlowOptions: ["Grande", "Moderado", "Pequeño", "Goteo"],
-      spillDiameterOptions: ["< 0,5", "0,5 - 1", "1 - 2", "> 2"],
-      spillColorOptions: ["Transparente", "Gris", "Blanquecino", "Turbio"],
-      spillSmellOptions: [
-        "Inoloro",
-        "Alcantarilla",
-        "Huevos Podridos",
-        "Purines",
-        "Amoniaco"
-      ],
-      spillSourceOptions: ["Pluvial", "Industrial", "Doméstico", "Desconocido"],
       spillsTable: {
         selectedRows: [],
         columns: [
@@ -169,23 +165,23 @@ export default {
             label: "Latitud"
           },
           {
-            field: "diameter",
+            field: "diameter.name",
             label: "Diámetro"
           },
           {
-            field: "flow",
+            field: "flow.name",
             label: "Caudal"
           },
           {
-            field: "color",
+            field: "color.name",
             label: "Color"
           },
           {
-            field: "smell",
+            field: "smell.name",
             label: "Olor"
           },
           {
-            field: "source",
+            field: "source.name",
             label: "Origen"
           }
         ]
@@ -193,16 +189,16 @@ export default {
     };
   },
   mounted() {
-    this.initFormSection();
+    this.init();
   },
   methods: {
-    initFormSection() {
-      // New Spill init values
-      this.spillDiameter = this.spillDiameterOptions[0];
-      this.spillFlow = this.spillFlowOptions[0];
-      this.spillColor = this.spillColorOptions[0];
-      this.spillSmell = this.spillSmellOptions[0];
-      this.spillSource = this.spillSourceOptions[0];
+    init() {
+      // init default values
+      this.spillDiameter = this.formSpillsData.spillDiameterOptions[0];
+      this.spillFlow = this.formSpillsData.spillFlowOptions[0];
+      this.spillColor = this.formSpillsData.spillColorOptions[0];
+      this.spillSmell = this.formSpillsData.spillSmellOptions[0];
+      this.spillSource = this.formSpillsData.spillSourceOptions[0];
     },
     getActualPosition() {
       getUserGeolocation()
