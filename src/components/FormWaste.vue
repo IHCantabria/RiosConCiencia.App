@@ -70,7 +70,7 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      formWasteData: state => state.formSections.wasteSection.wasteSectionData
+      formWasteData: state => state.formSections.waste.data
     })
   },
   data() {
