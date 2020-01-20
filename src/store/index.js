@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: {},
     userPosition: null,
     activeSectionId: 0,
     formSections: {}
@@ -29,9 +30,15 @@ export default new Vuex.Store({
     },
     [types.SET_ACTIVE_SECTION](state, sectionId) {
       state.activeSectionId = sectionId;
+    },
+    [types.SET_ACTIVE_USER](state, user) {
+      state.user = user;
     }
   },
   actions: {
+    setActiveUser(context, user) {
+      context.commit(types.SET_ACTIVE_USER, user);
+    },
     loadFormData(context, formData) {
       context.commit(types.LOAD_FORM_DATA, formData);
     },
