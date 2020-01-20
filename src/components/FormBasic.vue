@@ -173,10 +173,10 @@ export default {
     };
   },
   mounted() {
-    this.initForm();
+    this.init();
   },
   methods: {
-    initForm() {
+    init() {
       //default init values
       this.waterLevel = this.formBasicData.waterLevelOptions[0];
       this.riverBedWidth = this.formBasicData.riverBedWidthOptions[0];
