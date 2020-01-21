@@ -13,6 +13,9 @@
     <form-ecosystem
       v-show="activeSectionId === formSections.ecoSystem.id"
     ></form-ecosystem>
+    <form-biological
+      v-show="activeSectionId === formSections.bioQuality.id"
+    ></form-biological>
   </div>
 </template>
 <script>
@@ -24,7 +27,8 @@ export default {
     "form-spills": () => import("@/components/FormSpills"),
     "form-waste": () => import("@/components/FormWaste"),
     "form-habitat": () => import("@/components/FormHabitat"),
-    "form-ecosystem": () => import("@/components/FormEcosystem")
+    "form-ecosystem": () => import("@/components/FormEcosystem"),
+    "form-biological": () => import("@/components/FormBiological")
   },
   computed: {
     ...mapState({
