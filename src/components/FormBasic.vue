@@ -13,6 +13,7 @@
         <span>Si</span>
       </b-radio-button>
     </b-field>
+
     <b-field label="b. ¿Es el nivel del agua habitual para la época del año?">
       <b-select icon="arrow-expand-vertical" v-model="waterLevel">
         <option
