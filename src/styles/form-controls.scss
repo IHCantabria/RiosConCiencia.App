@@ -15,6 +15,15 @@
     font-size: 0.9rem;
   }
 }
+
+.checkboxes-group {
+  margin: 0.5rem;
+  &__title {
+    margin-right: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
 .checks-container {
   margin-top: 1rem;
 }
@@ -22,7 +31,7 @@
   display: flex;
   flex-direction: row;
   padding: 0.5rem 0rem;
-  &__label-container{
-      width:50%;
-  }  
+  &__label-container {
+    width: 50%;
+  }
 }
