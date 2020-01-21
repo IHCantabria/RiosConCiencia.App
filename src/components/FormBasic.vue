@@ -1,7 +1,7 @@
 <template>
   <div class="form-section">
     <h5 class="title is-5">1. Inspección Básica del tramo (500m)</h5>
-    <b-field label="¿El agua del río fluye?"> </b-field>
+    <b-field label="a. ¿El agua del río fluye?"> </b-field>
     <b-field>
       <b-radio-button v-model="waterFlow" native-value="false" type="is-danger">
         <b-icon icon="close"></b-icon>
@@ -13,7 +13,7 @@
         <span>Si</span>
       </b-radio-button>
     </b-field>
-    <b-field label="¿Es el nivel del agua habitual para la época del año?">
+    <b-field label="b. ¿Es el nivel del agua habitual para la época del año?">
       <b-select icon="arrow-expand-vertical" v-model="waterLevel">
         <option
           v-for="(option, index) in formBasicData.waterLevelOptions"
@@ -30,7 +30,7 @@
         :value="waterLevelCriticalProblem"
       ></b-input>
     </b-field>
-    <b-field label="Anchura media del cauce (m)">
+    <b-field label="c. Anchura media del cauce (m)">
       <b-select icon="arrow-expand-horizontal" v-model="riverBedWidth">
         <option
           v-for="(option, index) in formBasicData.riverBedWidthOptions"
@@ -40,7 +40,7 @@
         >
       </b-select>
     </b-field>
-    <b-field label="Profundidad media del cauce (cm)">
+    <b-field label="d. Profundidad media del cauce (cm)">
       <b-select icon="arrow-expand-down" v-model="riverBedDepth">
         <option
           v-for="(option, index) in formBasicData.riverBedDepthOptions"
@@ -50,7 +50,7 @@
         >
       </b-select>
     </b-field>
-    <b-field label="Anchura media de la zona de ribera (m)"> </b-field>
+    <b-field label="e. Anchura media de la zona de ribera (m)"> </b-field>
     <div class="two-controls">
       <b-field label="Izquierda" custom-class="is-small">
         <b-select icon="arrow-expand-horizontal" v-model="riversideWidthLeft">
@@ -73,7 +73,7 @@
         </b-select>
       </b-field>
     </div>
-    <b-field label="¿Que color tiene el agua?">
+    <b-field label="f. ¿Que color tiene el agua?">
       <b-select icon="invert-colors" v-model="waterColor">
         <option
           v-for="(option, index) in formBasicData.waterColorOptions"
@@ -83,7 +83,7 @@
         >
       </b-select>
     </b-field>
-    <b-field label="¿Que olor tiene el agua?">
+    <b-field label="g. ¿Que olor tiene el agua?">
       <b-select icon="grain" v-model="waterSmell">
         <option
           v-for="(option, index) in formBasicData.waterSmellOptions"
@@ -93,7 +93,7 @@
         >
       </b-select>
     </b-field>
-    <b-field label="Existen..."></b-field>
+    <b-field label="h. Existen..."></b-field>
     <div class="block">
       <b-checkbox
         v-for="(option, index) in formBasicData.waterElementsOptions"
@@ -106,7 +106,7 @@
     </div>
 
     <b-field
-      label="¿En que condiciones se encuentran las márgenes de nuestro río?"
+      label="i. ¿En que condiciones se encuentran las márgenes de nuestro río?"
     >
     </b-field>
     <div class="checkboxes-rows">
@@ -125,7 +125,9 @@
       {{ option.name }}
     </div>
     <div class="checks-container">
-      <b-field label="¿Cuáles son los usos del suelo en las márgenes del río?">
+      <b-field
+        label="j. ¿Cuáles son los usos del suelo en las márgenes del río?"
+      >
       </b-field>
       <div class="checkboxes-rows">
         <label class="checkboxes-rows__title">izq.</label>
