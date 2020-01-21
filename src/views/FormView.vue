@@ -10,6 +10,9 @@
     <form-habitat
       v-show="activeSectionId === formSections.habitat.id"
     ></form-habitat>
+    <form-ecosystem
+      v-show="activeSectionId === formSections.ecoSystem.id"
+    ></form-ecosystem>
   </div>
 </template>
 <script>
@@ -20,7 +23,8 @@ export default {
     "form-basic": () => import("@/components/FormBasic"),
     "form-spills": () => import("@/components/FormSpills"),
     "form-waste": () => import("@/components/FormWaste"),
-    "form-habitat": () => import("@/components/FormHabitat")
+    "form-habitat": () => import("@/components/FormHabitat"),
+    "form-ecosystem": () => import("@/components/FormEcosystem")
   },
   computed: {
     ...mapState({
