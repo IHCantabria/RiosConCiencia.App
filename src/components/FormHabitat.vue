@@ -111,17 +111,24 @@
       </div>
     </div>
     <b-field label="h. Valor del Índice del Hábitat Fluvial (IHF)"> </b-field>
-    <b-rate
-      v-model="indiceHabitatFluvial"
-      icon-pack="mdi"
-      icon="star"
-      :max="ihfRateConfig.max"
-      size="is-medium"
-      :show-text="true"
-      :disabled="true"
-      :texts="ihfRateConfig.texts"
-    >
-    </b-rate>
+    <div class="results">
+      <div class="block">
+        <b-message :title="habitatIndex.name" type="is-info" :closable="false">
+          {{ habitatIndex.description }}
+          <div class="results__rate">
+            <b-rate
+              v-model="habitatIndex.value"
+              icon-pack="mdi"
+              icon="star"
+              size="is-medium"
+              :show-text="false"
+              :disabled="true"
+            >
+            </b-rate>
+          </div>
+        </b-message>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -131,32 +138,70 @@ export default {
   computed: {
     ...mapState({
       formHabitatData: state => state.formSections.habitat.data
-    })
+    }),
+    substrateCompositionSUM() {
+      return this.getTotalPoints(this.substrateComposition);
+    },
+    randomElementsSUM() {
+      return this.getTotalPoints(this.randomElements);
+    },
+    aquaticVegetationSUM() {
+      return this.getTotalPoints(this.aquaticVegetation);
+    },
+    habitatIndexValue() {
+      return (
+        parseInt(this.stonesInPools.points) +
+        parseInt(this.rapidsFrequency.points) +
+        parseInt(this.substrateCompositionSUM) +
+        parseInt(this.velocityAndDepth.points) +
+        parseInt(this.riverShadows.points) +
+        parseInt(this.randomElementsSUM) +
+        parseInt(this.aquaticVegetationSUM)
+      );
+    },
+    habitatIndex() {
+      if (this.habitatIndexValue > 60) return this.habitatIndexCategories[0];
+      if (this.habitatIndexValue < 40) return this.habitatIndexCategories[2];
+      return this.habitatIndexCategories[1];
+    }
   },
   data() {
     return {
-      indiceHabitatFluvial: 1,
-      ihfRateConfig: {
-        max: 3,
-        texts: [
-          "Hábitat empobrecido",
-          "Hábitat intermedio",
-          "Hábitat bien constituido"
-        ]
-      },
-      stonesInPools: "",
+      stonesInPools: {},
       substrateComposition: [],
-      rapidsFrequency: "",
-      velocityAndDepth: "",
+      rapidsFrequency: {},
+      velocityAndDepth: {},
       velocityAndDepthTypes: [
         "rápido / profundo",
         "lento / profundo",
         "lento / poco profundo",
         "rápido / poco profundo"
       ],
-      riverShadows: "",
+      riverShadows: {},
       randomElements: [],
-      aquaticVegetation: []
+      aquaticVegetation: [],
+      habitatIndexCategories: [
+        {
+          id: 1,
+          name: "Hábitat bien constituido",
+          description:
+            "Habitat bien constituido, excelente para el desarrollo...",
+          value: 3
+        },
+        {
+          id: 2,
+          name: "Hábitat intermedio",
+          description: "Habitat que puede soportar..",
+          value: 2
+        },
+        {
+          id: 3,
+          name: "Hábitat empobrecido",
+          description:
+            "Habitat empobrecido. Posibilidad de obtener valores bajos de los índices...",
+          value: 1
+        }
+      ]
     };
   },
   mounted() {
@@ -181,10 +226,25 @@ export default {
       for (const element of this.formHabitatData.randomElementOptions) {
         this.randomElements.push({ ...element, value: {} });
       }
+    },
+    getTotalPoints(items) {
+      var sum = 0;
+      for (const item of items) {
+        if (item.value.points) {
+          sum = sum + item.value.points;
+        }
+      }
+      return sum;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
+.results {
+  padding: 1rem;
+  &__rate {
+    padding: 1rem;
+  }
+}
 </style>

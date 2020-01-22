@@ -19,11 +19,7 @@
     </b-field>
     <div class="results" v-if="bioQuality !== null">
       <div class="block">
-        <b-message
-          :title="bioQuality.name"
-          type="is-info"
-          aria-close-label="Close message"
-        >
+        <b-message :title="bioQuality.name" type="is-info" :closable="false">
           {{ bioQuality.description }}
           <div class="results__rate">
             <b-rate
