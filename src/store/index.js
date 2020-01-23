@@ -19,6 +19,9 @@ export default new Vuex.Store({
       return (
         state.activeSectionId === Object.keys(state.formSections).length - 1
       );
+    },
+    activeSectionName: state => {
+      return Object.keys(state.formSections)[state.activeSectionId];
     }
   },
   mutations: {

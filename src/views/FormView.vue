@@ -1,47 +1,34 @@
 <template>
   <div class="section">
-    <!-- TODO:Carga dinámica de components con v-for -->
-    <form-init v-show="activeSectionId === formSections.init.id"></form-init>
-    <form-basic v-show="activeSectionId === formSections.basic.id"></form-basic>
-    <form-spills
-      v-show="activeSectionId === formSections.spills.id"
-    ></form-spills>
-    <form-waste v-show="activeSectionId === formSections.waste.id"></form-waste>
-    <form-habitat
-      v-show="activeSectionId === formSections.habitat.id"
-    ></form-habitat>
-    <form-ecosystem
-      v-show="activeSectionId === formSections.ecoSystem.id"
-    ></form-ecosystem>
-    <form-biological
-      v-show="activeSectionId === formSections.bioQuality.id"
-    ></form-biological>
-    <form-riverQuality
-      v-show="activeSectionId === formSections.riverQuality.id"
-    ></form-riverQuality>
-    <form-ecoResult
-      v-show="activeSectionId === formSections.ecoResult.id"
-    ></form-ecoResult>
+    <component
+      v-for="(section, index) in Object.keys(formSections)"
+      :key="index"
+      :is="section"
+      v-show="activeSectionName === section"
+    ></component>
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   components: {
-    "form-init": () => import("@/components/FormInit"),
-    "form-basic": () => import("@/components/FormBasic"),
-    "form-spills": () => import("@/components/FormSpills"),
-    "form-waste": () => import("@/components/FormWaste"),
-    "form-habitat": () => import("@/components/FormHabitat"),
-    "form-ecosystem": () => import("@/components/FormEcosystem"),
-    "form-biological": () => import("@/components/FormBiological"),
-    "form-riverQuality": () => import("@/components/FormRiverQuality"),
-    "form-ecoResult": () => import("@/components/FormEcoResult")
+    init: () => import("@/components/FormInit"),
+    basic: () => import("@/components/FormBasic"),
+    spills: () => import("@/components/FormSpills"),
+    waste: () => import("@/components/FormWaste"),
+    habitat: () => import("@/components/FormHabitat"),
+    ecoSystem: () => import("@/components/FormEcosystem"),
+    bioQuality: () => import("@/components/FormBiological"),
+    riverQuality: () => import("@/components/FormRiverQuality"),
+    ecoResult: () => import("@/components/FormEcoResult")
   },
   computed: {
     ...mapState({
       activeSectionId: state => state.activeSectionId,
       formSections: state => state.formSections
+    }),
+    ...mapGetters({
+      activeSectionName: "activeSectionName"
     })
   }
 };
