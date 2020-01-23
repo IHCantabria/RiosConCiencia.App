@@ -45,6 +45,7 @@
               v-model="qrisi.value"
               icon-pack="mdi"
               icon="star"
+              :max="3"
               size="is-medium"
               :show-text="false"
               :disabled="true"
@@ -60,14 +61,6 @@
 export default {
   data() {
     return {
-      qrisiRateConfig: {
-        max: 3,
-        texts: [
-          "Hábitat empobrecido",
-          "Hábitat intermedio",
-          "Hábitat bien constituido"
-        ]
-      },
       riverbankNaturalness: {},
       riverbankConections: {},
       riverbankVegetations: {},
