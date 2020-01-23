@@ -19,6 +19,9 @@
     <form-riverQuality
       v-show="activeSectionId === formSections.riverQuality.id"
     ></form-riverQuality>
+    <form-ecoResult
+      v-show="activeSectionId === formSections.ecoResult.id"
+    ></form-ecoResult>
   </div>
 </template>
 <script>
@@ -32,7 +35,8 @@ export default {
     "form-habitat": () => import("@/components/FormHabitat"),
     "form-ecosystem": () => import("@/components/FormEcosystem"),
     "form-biological": () => import("@/components/FormBiological"),
-    "form-riverQuality": () => import("@/components/FormRiverQuality")
+    "form-riverQuality": () => import("@/components/FormRiverQuality"),
+    "form-ecoResult": () => import("@/components/FormEcoResult")
   },
   computed: {
     ...mapState({
