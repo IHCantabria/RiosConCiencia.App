@@ -126,6 +126,7 @@
             >
             </b-rate>
           </div>
+          <div class="block">{{ habitatIndexValue }} puntos</div>
         </b-message>
       </div>
     </div>
