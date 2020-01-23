@@ -1,11 +1,14 @@
 <template>
   <div class="section">
-    <component
+    <keep-alive
       v-for="(section, index) in Object.keys(formSections)"
       :key="index"
-      :is="section"
-      v-show="activeSectionName === section"
-    ></component>
+    >
+      <component
+        :is="section"
+        v-show="activeSectionName === section"
+      ></component>
+    </keep-alive>
   </div>
 </template>
 <script>
