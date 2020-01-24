@@ -50,8 +50,8 @@ export default {
     "main"
     "footer";
   grid-template-rows: $header-height 1fr $footer-height;
-  grid-template-columns: 100%;
-  height: 100vh;
+  grid-template-columns: 1fr;
+  height: 100%;
   overflow-x: hidden;
 }
 
@@ -75,6 +75,12 @@ export default {
     grid-area: footer;
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+
     z-index: 5;
     &.box {
       padding: 0.5rem;
