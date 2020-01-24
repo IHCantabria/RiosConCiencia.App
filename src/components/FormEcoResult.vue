@@ -22,46 +22,14 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
-  data() {
-    return {
-      ecoStatusCategories: [
-        {
-          id: 1,
-          name: "Muy buen estado",
-          description: "Sin alteraciones humanas",
-          value: 5
-        },
-        {
-          id: 2,
-          name: "Buen estado",
-          description: "Leves alteraciones",
-          value: 4
-        },
-        {
-          id: 3,
-          name: "Moderado",
-          description: "Alteraciones considerables",
-          value: 3
-        },
-        {
-          id: 4,
-          name: "Estado deficiente",
-          description: "Alteraciones importantes",
-          value: 2
-        },
-        {
-          id: 5,
-          name: "Mal estado",
-          description: "Muy degradado",
-          value: 1
-        }
-      ]
-    };
-  },
   computed: {
+    ...mapState({
+      formEcoResultData: state => state.formSections.ecologicalStateOptions.data
+    }),
     ecoStatus() {
-      return this.ecoStatusCategories[0];
+      return this.formEcoResultData.ecologicalStateOptions[0];
     }
   }
 };

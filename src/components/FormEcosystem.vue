@@ -68,11 +68,11 @@
     ></b-field>
     <div class="field">
       <b-checkbox
-        v-for="(option, index) in transparencyOptions"
+        v-for="(option, index) in formEcoSystemData.transparencyOptions"
         :key="index"
         v-model="samplePointWaterTransparency"
         :native-value="option"
-        >{{ option }}
+        >{{ option.name }}
       </b-checkbox>
     </div>
     <div class="is-divider"></div>
@@ -221,6 +221,8 @@
 </template>
 <script>
 import { getUserGeolocation } from "@/api/geolocation.js";
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -234,7 +236,6 @@ export default {
       samplePointWaterTemp: 0,
       samplePointWaterTransparency: [],
       riverEcosystem: [],
-      transparencyOptions: [0, 1, 2, 3, 4],
 
       plantsInsideGroups: [
         {
@@ -310,6 +311,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      formEcoSystemData: state => state.formSections.ecoSystem.data
+    }),
     flow() {
       return (
         this.samplePointWidth *

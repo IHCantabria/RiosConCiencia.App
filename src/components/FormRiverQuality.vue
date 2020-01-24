@@ -6,7 +6,8 @@
     <b-field>
       <b-select icon="tree" v-model="riverbankNaturalness">
         <option
-          v-for="(option, index) in riverbankNaturalnessOptions"
+          v-for="(option,
+          index) in formRiverQualityData.riverbankNaturalnessOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -17,7 +18,8 @@
     <b-field>
       <b-select icon="transition" v-model="riverbankConections">
         <option
-          v-for="(option, index) in riverbankConectionsOptions"
+          v-for="(option,
+          index) in formRiverQualityData.riverbankConectionsOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -28,7 +30,8 @@
     <b-field>
       <b-select icon="transit-connection" v-model="riverbankVegetations">
         <option
-          v-for="(option, index) in riverbankVegetationsOptions"
+          v-for="(option,
+          index) in formRiverQualityData.riverbankVegetationsOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -58,51 +61,20 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
       riverbankNaturalness: {},
       riverbankConections: {},
-      riverbankVegetations: {},
-      riverbankNaturalnessOptions: [
-        { id: 1, name: "Bosque Denso", value: "6" },
-        { id: 2, name: "Bosque 50%", value: "4" },
-        { id: 3, name: "Bardales / árboles alineados", value: "2" }
-      ],
-      riverbankConectionsOptions: [
-        { id: 1, name: "Total", value: "4" },
-        { id: 2, name: "Parcial(campos agrícolas)", value: "3" },
-        { id: 3, name: "Nula(urb/infraestructuras)", value: "0" }
-      ],
-      riverbankVegetationsOptions: [
-        { id: 1, name: "Total", value: "2" },
-        { id: 2, name: "Parcial", value: "1" },
-        { id: 3, name: "Escasa / Nula", value: "0" }
-      ],
-      qrisiCategories: [
-        {
-          id: 1,
-          name: "Alta, bien conservado",
-          description: "El bosque de ribera presenta un estado óptimo...",
-          value: 3
-        },
-        {
-          id: 2,
-          name: "Media, alteración importante",
-          description:
-            "El bosque de ribera presenta alteraciones importantes...",
-          value: 2
-        },
-        {
-          id: 3,
-          name: "Muy degradado",
-          description: "El bosque de ribera está muy degradado...",
-          value: 1
-        }
-      ]
+      riverbankVegetations: {}
     };
   },
   computed: {
+    ...mapState({
+      formRiverQualityData: state => state.formSections.riverQuality.data
+    }),
     qrisiValue() {
       return (
         parseInt(this.riverbankNaturalness.value) +
@@ -111,10 +83,11 @@ export default {
       );
     },
     qrisi() {
-      if (this.qrisiValue <= 4) return this.qrisiCategories[2];
+      if (this.qrisiValue <= 4)
+        return this.formRiverQualityData.qrisiCategoriesOptions[2];
       if (this.qrisiValue > 4 && this.qrisiValue <= 8)
-        return this.qrisiCategories[1];
-      return this.qrisiCategories[0];
+        return this.formRiverQualityData.qrisiCategoriesOptions[1];
+      return this.formRiverQualityData.qrisiCategoriesOptions[0];
     }
   },
   mounted() {
@@ -122,9 +95,9 @@ export default {
   },
   methods: {
     init() {
-      this.riverbankNaturalness = this.riverbankNaturalnessOptions[0];
-      this.riverbankConections = this.riverbankConectionsOptions[0];
-      this.riverbankVegetations = this.riverbankVegetationsOptions[0];
+      this.riverbankNaturalness = this.formRiverQualityData.riverbankNaturalnessOptions[0];
+      this.riverbankConections = this.formRiverQualityData.riverbankConectionsOptions[0];
+      this.riverbankVegetations = this.formRiverQualityData.riverbankVegetationsOptions[0];
     }
   }
 };

@@ -9,7 +9,7 @@
         v-model="bioQuality"
       >
         <option
-          v-for="(option, index) in bioQualityOptions"
+          v-for="(option, index) in formBiologicalData.bioQualityOptions"
           :value="option"
           :key="index"
         >
@@ -38,43 +38,18 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
-      bioQuality: null,
-      bioQualityOptions: [
-        {
-          id: 1,
-          name: "Muy buena",
-          description: "Todos los organismos identificados...",
-          value: 5
-        },
-        {
-          id: 2,
-          name: "Buena",
-          description: "Todos los organismos identificados...",
-          value: 4
-        },
-        {
-          id: 3,
-          name: "Moderada",
-          description: "Todos los organismos identificados...",
-          value: 3
-        },
-        {
-          id: 4,
-          name: "Deficiente",
-          description: "Todos los organismos identificados...",
-          value: 2
-        },
-        {
-          id: 5,
-          name: "Mala",
-          description: "Todos los organismos identificados...",
-          value: 1
-        }
-      ]
+      bioQuality: null
     };
+  },
+  computed: {
+    ...mapState({
+      formBiologicalData: state => state.formSections.biological.data
+    })
   }
 };
 </script>

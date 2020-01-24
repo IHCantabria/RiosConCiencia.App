@@ -26,6 +26,10 @@ const getUserRiverSections = async () => {
 
 const getMasterData = async token => {
   const url = `${RIOSCONCIENCIA_API.public}/GetSectionsMasterData`;
+  /* Development */
+  token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjU2NiIsIm5iZiI6MTU3OTg2NjE1NSwiZXhwIjoxNTgwNDcwOTU1LCJpYXQiOjE1Nzk4NjYxNTV9.CAoncGlSpvNvy954yyS7PI8S-q4ngbsu_DSuImwZWOI";
+  /**/
   _basicHeaders.Authorization = `Bearer ${token}`;
 
   const res = await axios.get(url, {
