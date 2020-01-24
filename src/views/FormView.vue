@@ -26,7 +26,7 @@ export default {
     waste: () => import("@/components/FormWaste"),
     habitat: () => import("@/components/FormHabitat"),
     ecoSystem: () => import("@/components/FormEcosystem"),
-    bioQuality: () => import("@/components/FormBiological"),
+    biological: () => import("@/components/FormBiological"),
     riverQuality: () => import("@/components/FormRiverQuality"),
     ecoResult: () => import("@/components/FormEcoResult"),
     "app-data-loader": () => import("@/components/renderless/AppDataLoader")
