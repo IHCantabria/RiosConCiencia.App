@@ -3,21 +3,29 @@
     <h5 class="title is-5">1. Inspección Básica del tramo (500m)</h5>
     <b-field label="a. ¿El agua del río fluye?"> </b-field>
     <b-field>
-      <b-radio-button v-model="waterFlow" native-value="false" type="is-danger">
+      <b-radio-button
+        v-model="values.waterFlow"
+        native-value="false"
+        type="is-danger"
+      >
         <b-icon icon="close"></b-icon>
         <span>No</span>
       </b-radio-button>
 
-      <b-radio-button v-model="waterFlow" native-value="true" type="is-success">
+      <b-radio-button
+        v-model="values.waterFlow"
+        native-value="true"
+        type="is-success"
+      >
         <b-icon icon="check"></b-icon>
         <span>Si</span>
       </b-radio-button>
     </b-field>
 
     <b-field label="b. ¿Es el nivel del agua habitual para la época del año?">
-      <b-select icon="arrow-expand-vertical" v-model="waterLevel">
+      <b-select icon="arrow-expand-vertical" v-model="values.waterLevel">
         <option
-          v-for="(option, index) in formBasicData.waterLevelOptions"
+          v-for="(option, index) in formBasic.data.waterLevelOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -28,13 +36,13 @@
       <b-input
         maxlength="200"
         type="textarea"
-        :value="waterLevelCriticalProblem"
+        :value="values.waterLevelCriticalProblem"
       ></b-input>
     </b-field>
     <b-field label="c. Anchura media del cauce (m)">
-      <b-select icon="arrow-expand-horizontal" v-model="riverBedWidth">
+      <b-select icon="arrow-expand-horizontal" v-model="values.riverBedWidth">
         <option
-          v-for="(option, index) in formBasicData.riverBedWidthOptions"
+          v-for="(option, index) in formBasic.data.riverBedWidthOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -42,9 +50,9 @@
       </b-select>
     </b-field>
     <b-field label="d. Profundidad media del cauce (cm)">
-      <b-select icon="arrow-expand-down" v-model="riverBedDepth">
+      <b-select icon="arrow-expand-down" v-model="values.riverBedDepth">
         <option
-          v-for="(option, index) in formBasicData.riverBedDepthOptions"
+          v-for="(option, index) in formBasic.data.riverBedDepthOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -54,9 +62,12 @@
     <b-field label="e. Anchura media de la zona de ribera (m)"> </b-field>
     <div class="two-controls">
       <b-field label="Izquierda" custom-class="is-small">
-        <b-select icon="arrow-expand-horizontal" v-model="riversideWidthLeft">
+        <b-select
+          icon="arrow-expand-horizontal"
+          v-model="values.riversideWidthLeft"
+        >
           <option
-            v-for="(option, index) in formBasicData.riversideWidthOptions"
+            v-for="(option, index) in formBasic.data.riverSideWidthOptions"
             :value="option"
             :key="index"
             >{{ option.name }}</option
@@ -64,9 +75,12 @@
         </b-select>
       </b-field>
       <b-field label="Derecha" custom-class="is-small">
-        <b-select icon="arrow-expand-horizontal" v-model="riversideWidthRight">
+        <b-select
+          icon="arrow-expand-horizontal"
+          v-model="values.riversideWidthRight"
+        >
           <option
-            v-for="(option, index) in formBasicData.riversideWidthOptions"
+            v-for="(option, index) in formBasic.data.riverSideWidthOptions"
             :value="option"
             :key="index"
             >{{ option.name }}</option
@@ -75,9 +89,9 @@
       </b-field>
     </div>
     <b-field label="f. ¿Que color tiene el agua?">
-      <b-select icon="invert-colors" v-model="waterColor">
+      <b-select icon="invert-colors" v-model="values.waterColor">
         <option
-          v-for="(option, index) in formBasicData.waterColorOptions"
+          v-for="(option, index) in formBasic.data.waterColorOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -85,9 +99,9 @@
       </b-select>
     </b-field>
     <b-field label="g. ¿Que olor tiene el agua?">
-      <b-select icon="grain" v-model="waterSmell">
+      <b-select icon="grain" v-model="values.waterSmell">
         <option
-          v-for="(option, index) in formBasicData.waterSmellOptions"
+          v-for="(option, index) in formBasic.data.waterSmellOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -97,9 +111,9 @@
     <b-field label="h. Existen..."></b-field>
     <div class="block">
       <b-checkbox
-        v-for="(option, index) in formBasicData.waterElementsOptions"
+        v-for="(option, index) in formBasic.data.waterElementsOptions"
         :key="index"
-        v-model="waterElements"
+        v-model="values.waterElements"
         :native-value="option"
       >
         {{ option.name }}
@@ -116,12 +130,18 @@
     </div>
     <div
       class="checkboxes-rows"
-      v-for="(option, index) in formBasicData.riverMarginConditionOptions"
+      v-for="(option, index) in formBasic.data.riverMarginConditionOptions"
       :key="index"
     >
-      <b-checkbox v-model="riverMarginConditionsLeft" :native-value="option">
+      <b-checkbox
+        v-model="values.riverMarginConditionsLeft"
+        :native-value="option"
+      >
       </b-checkbox>
-      <b-checkbox v-model="riverMarginConditionsRight" :native-value="option">
+      <b-checkbox
+        v-model="values.riverMarginConditionsRight"
+        :native-value="option"
+      >
       </b-checkbox>
       {{ option.name }}
     </div>
@@ -136,12 +156,18 @@
       </div>
       <div
         class="checkboxes-rows"
-        v-for="(option, index) in formBasicData.riverMarginLandUseOptions"
+        v-for="(option, index) in formBasic.data.riverMarginLandUseOptions"
         :key="index"
       >
-        <b-checkbox v-model="riverMarginLandUseLeft" :native-value="option">
+        <b-checkbox
+          v-model="values.riverMarginLandUseLeft"
+          :native-value="option"
+        >
         </b-checkbox>
-        <b-checkbox v-model="riverMarginLandUseRight" :native-value="option">
+        <b-checkbox
+          v-model="values.riverMarginLandUseRight"
+          :native-value="option"
+        >
         </b-checkbox>
         {{ option.name }}
       </div>
@@ -149,46 +175,54 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      formBasicData: state => state.formSections.basic.data
+      formBasic: state => state.formSections.basic
     })
   },
   data() {
     return {
-      waterFlow: null,
-      waterLevel: "",
-      waterColor: "",
-      waterSmell: "",
-      waterElements: [],
-      waterLevelCriticalProblem: "",
-      riverBedWidth: "",
-      riverBedDepth: "",
-      riversideWidthLeft: "",
-      riversideWidthRight: "",
-      riverMarginConditionsLeft: [],
-      riverMarginConditionsRight: [],
-      riverMarginLandUseLeft: [],
-      riverMarginLandUseRight: []
+      values: {
+        waterFlow: null,
+        waterLevel: "",
+        waterColor: "",
+        waterSmell: "",
+        waterElements: [],
+        waterLevelCriticalProblem: "",
+        riverBedWidth: "",
+        riverBedDepth: "",
+        riversideWidthLeft: "",
+        riversideWidthRight: "",
+        riverMarginConditionsLeft: [],
+        riverMarginConditionsRight: [],
+        riverMarginLandUseLeft: [],
+        riverMarginLandUseRight: []
+      }
     };
   },
   mounted() {
     this.init();
   },
+  updated() {
+    console.log("update");
+    this.updateSectionValues(this.values);
+  },
   methods: {
+    ...mapActions({
+      updateSectionValues: "updateSectionValues"
+    }),
     init() {
       //default init values
-      this.waterLevel = this.formBasicData.waterLevelOptions[0];
-      this.riverBedWidth = this.formBasicData.riverBedWidthOptions[0];
-      this.riverBedDepth = this.formBasicData.riverBedDepthOptions[0];
-      this.riversideWidth = this.formBasicData.riverSideWidthOptions[0];
-      this.riversideWidthLeft = this.formBasicData.riverSideWidthOptions[0];
-      this.riversideWidthRight = this.formBasicData.riverSideWidthOptions[0];
-      this.waterColor = this.formBasicData.waterColorOptions[0];
-      this.waterSmell = this.formBasicData.waterSmellOptions[0];
+      this.values.waterLevel = this.formBasic.data.waterLevelOptions[0];
+      this.values.riverBedWidth = this.formBasic.data.riverBedWidthOptions[0];
+      this.values.riverBedDepth = this.formBasic.data.riverBedDepthOptions[0];
+      this.values.riversideWidthLeft = this.formBasic.data.riverSideWidthOptions[0];
+      this.values.riversideWidthRight = this.formBasic.data.riverSideWidthOptions[0];
+      this.values.waterColor = this.formBasic.data.waterColorOptions[0];
+      this.values.waterSmell = this.formBasic.data.waterSmellOptions[0];
     }
   }
 };

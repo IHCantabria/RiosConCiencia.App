@@ -39,6 +39,11 @@ export default new Vuex.Store({
     },
     [types.SET_ACTIVE_USER](state, user) {
       state.user = user;
+    },
+    [types.UPDATE_SECTION_VALUES](state, payload) {
+      state.formSections[payload.name].values = {
+        ...payload.values
+      };
     }
   },
   actions: {
@@ -53,6 +58,13 @@ export default new Vuex.Store({
     },
     setUserPosition(context, device) {
       context.commit(types.SET_USER_POSITION, device);
+    },
+    updateSectionValues(context, values) {
+      const payload = {
+        name: context.getters.activeSectionName,
+        values: values
+      };
+      context.commit(types.UPDATE_SECTION_VALUES, payload);
     }
   },
   modules: {}
