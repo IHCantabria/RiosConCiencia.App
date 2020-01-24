@@ -20,6 +20,9 @@ export default new Vuex.Store({
         state.activeSectionId === Object.keys(state.formSections).length - 1
       );
     },
+    userIsLogged: state => {
+      return state.user.token ? true : false;
+    },
     activeSectionName: state => {
       return Object.keys(state.formSections)[state.activeSectionId];
     }
