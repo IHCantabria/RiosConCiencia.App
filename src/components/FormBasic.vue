@@ -159,7 +159,7 @@ export default {
   },
   data() {
     return {
-      waterFlow: true,
+      waterFlow: null,
       waterLevel: "",
       waterColor: "",
       waterSmell: "",
