@@ -4,14 +4,14 @@
       <app-header></app-header>
     </header>
     <main class="app__main">
-      <router-view v-if="dataReady" />
-      <app-data-loader
-        @data-load-ready="onDataLoad"
-        @data-load-error="onDataLoadError"
+      <router-view />
+      <app-geo-loader
+        @geo-data-ready="onGeolocation"
+        @geo-data-error="onGeolocationError"
       />
     </main>
     <footer class="app__footer">
-      <app-footer v-if="dataReady"></app-footer>
+      <app-footer></app-footer>
     </footer>
   </div>
 </template>
@@ -21,21 +21,21 @@ export default {
   components: {
     AppHeader: () => import("@/components/layout/AppHeader"),
     AppFooter: () => import("@/components/layout/AppFooter"),
-    AppDataLoader: () => import("@/components/renderless/AppDataLoader")
+    AppGeoLoader: () => import("@/components/renderless/AppGeoLoader")
   },
   data() {
     return {
-      dataReady: false
+      geolocationReady: false
     };
   },
   methods: {
-    onDataLoad() {
-      this.dataReady = true;
-      console.log("Form ready");
+    onGeolocation() {
+      this.geolocationReady = true;
+      console.log("Geolocalización correcta");
     },
-    onDataLoadError(err) {
+    onGeolocationError(err) {
       //TODO: notificar error
-      console.error(`Error inicializando app. ${err}`);
+      console.error(`Error cargando posición. ${err}`);
     }
   }
 };

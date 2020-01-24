@@ -8,15 +8,26 @@ const _basicHeaders = {
 };
 
 const login = async () => {
-  return {};
+  const url = `${RIOSCONCIENCIA_API.public}/Authenticate`;
+  //hardcoded user - dev purpose
+  const auth = {
+    email: "admin@admin.com",
+    password: "admin"
+  };
+
+  const res = await axios.post(url, auth);
+
+  return res.data;
 };
 
 const getUserRiverSections = async () => {
   return [];
 };
 
-const getMasterData = async () => {
+const getMasterData = async token => {
   const url = `${RIOSCONCIENCIA_API.public}/GetSectionsMasterData`;
+  _basicHeaders.Authorization = `Bearer ${token}`;
+
   const res = await axios.get(url, {
     headers: _basicHeaders
   });

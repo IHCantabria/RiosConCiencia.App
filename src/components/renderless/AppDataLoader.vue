@@ -1,9 +1,13 @@
 <script>
-import { getUserGeolocation } from "@/api/geolocation.js";
 import { getMasterData } from "@/api/riosconciencia.js";
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
+  computed: {
+    ...mapState({
+      user: state => state.user
+    })
+  },
   mounted() {
     this.$nextTick(() => {
       this.init();
@@ -11,13 +15,11 @@ export default {
   },
   methods: {
     ...mapActions({
-      setUserPosition: "setUserPosition",
       loadFormData: "loadFormData"
     }),
     async init() {
       try {
         //TODO: loading
-        this.geolocateUser();
         await this.initForm();
         this.$emit("data-load-ready");
       } catch (e) {
@@ -26,23 +28,10 @@ export default {
         //TODO: close loading
       }
     },
-    geolocateUser() {
-      getUserGeolocation()
-        .then(res => {
-          const position = {
-            lon: res.coords.longitude,
-            lat: res.coords.latitude
-          };
-          this.setUserPosition(position);
-        })
-        .catch(err => {
-          //TODO: notificar?
-          console.error(`Error cargando posición. ${err}`);
-        });
-    },
     async initForm() {
       try {
-        const masterData = await getMasterData();
+        console.log(this.user.token);
+        const masterData = await getMasterData(this.user.token);
         this.loadFormData(masterData);
         console.log(masterData);
       } catch (err) {
