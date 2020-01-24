@@ -184,7 +184,7 @@ export default {
       this.waterLevel = this.formBasicData.waterLevelOptions[0];
       this.riverBedWidth = this.formBasicData.riverBedWidthOptions[0];
       this.riverBedDepth = this.formBasicData.riverBedDepthOptions[0];
-      this.riversideWidth = this.formBasicData.riversideWidthOptions[0];
+      this.riversideWidth = this.formBasicData.riverSideWidthOptions[0];
       this.riversideWidthLeft = this.formBasicData.riversideWidthOptions[0];
       this.riversideWidthRight = this.formBasicData.riversideWidthOptions[0];
       this.waterColor = this.formBasicData.waterColorOptions[0];
