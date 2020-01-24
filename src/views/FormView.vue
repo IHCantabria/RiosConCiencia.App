@@ -1,30 +1,14 @@
 <template>
-  <div>
-    <div class="section" v-if="dataReady">
-      <!-- TODO:Carga dinámica de components con v-for -->
-      <form-init v-show="activeSectionId === formSections.init.id"></form-init>
-      <form-basic
-        v-show="activeSectionId === formSections.basic.id"
-      ></form-basic>
-      <form-spills
-        v-show="activeSectionId === formSections.spills.id"
-      ></form-spills>
-      <form-waste
-        v-show="activeSectionId === formSections.waste.id"
-      ></form-waste>
-      <form-habitat
-        v-show="activeSectionId === formSections.habitat.id"
-      ></form-habitat>
-      <form-ecosystem
-        v-show="activeSectionId === formSections.ecoSystem.id"
-      ></form-ecosystem>
-      <form-biological
-        v-show="activeSectionId === formSections.bioQuality.id"
-      ></form-biological>
-      <form-riverQuality
-        v-show="activeSectionId === formSections.riverQuality.id"
-      ></form-riverQuality>
-    </div>
+  <div class="section">
+    <keep-alive
+      v-for="(section, index) in Object.keys(formSections)"
+      :key="index"
+    >
+      <component
+        :is="section"
+        v-show="activeSectionName === section"
+      ></component>
+    </keep-alive>
     <app-data-loader
       @data-load-ready="onDataLoad"
       @data-load-error="onDataLoadError"
@@ -32,18 +16,19 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "FormView",
   components: {
-    "form-init": () => import("@/components/FormInit"),
-    "form-basic": () => import("@/components/FormBasic"),
-    "form-spills": () => import("@/components/FormSpills"),
-    "form-waste": () => import("@/components/FormWaste"),
-    "form-habitat": () => import("@/components/FormHabitat"),
-    "form-ecosystem": () => import("@/components/FormEcosystem"),
-    "form-biological": () => import("@/components/FormBiological"),
-    "form-riverQuality": () => import("@/components/FormRiverQuality"),
+    init: () => import("@/components/FormInit"),
+    basic: () => import("@/components/FormBasic"),
+    spills: () => import("@/components/FormSpills"),
+    waste: () => import("@/components/FormWaste"),
+    habitat: () => import("@/components/FormHabitat"),
+    ecoSystem: () => import("@/components/FormEcosystem"),
+    bioQuality: () => import("@/components/FormBiological"),
+    riverQuality: () => import("@/components/FormRiverQuality"),
+    ecoResult: () => import("@/components/FormEcoResult"),
     "app-data-loader": () => import("@/components/renderless/AppDataLoader")
   },
   data() {
@@ -55,6 +40,9 @@ export default {
     ...mapState({
       activeSectionId: state => state.activeSectionId,
       formSections: state => state.formSections
+    }),
+    ...mapGetters({
+      activeSectionName: "activeSectionName"
     })
   },
   methods: {

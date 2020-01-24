@@ -120,6 +120,7 @@
               v-model="habitatIndex.value"
               icon-pack="mdi"
               icon="star"
+              :max="3"
               size="is-medium"
               :show-text="false"
               :disabled="true"
