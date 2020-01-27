@@ -68,7 +68,7 @@
     ></b-field>
     <div class="field">
       <b-checkbox
-        v-for="(option, index) in formEcoSystemData.transparencyOptions"
+        v-for="(option, index) in formEcoSystem.data.transparencyOptions"
         :key="index"
         v-model="samplePointWaterTransparency"
         :native-value="option"
@@ -77,144 +77,38 @@
     </div>
     <div class="is-divider"></div>
     <b-field label="c. La vida en el río y las riberas"> </b-field>
-    <b-field
-      label="1. Plantas localizadas dentro del río o en las orillas internas del cauce"
-      custom-class="is-small"
-    >
-    </b-field>
     <div
       class="block"
-      v-for="(group, index) in plantsInsideGroups"
-      :key="index"
+      v-for="(category, indexCat) in formEcoSystem.data.eukaryoteComplexOptions"
+      :key="indexCat"
     >
-      <div class="checkboxes-group">
-        <label class="checkboxes-group__title">{{ group.name }}</label>
-      </div>
+      <b-field :label="category.name" custom-class="is-small"> </b-field>
       <div
-        class="field"
-        v-for="(option, indexOpt) in group.options"
-        :key="indexOpt"
+        class="block"
+        v-for="(group, indexGroup) in category.options"
+        :key="indexGroup"
       >
-        <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-          option
-        }}</b-checkbox>
+        <div class="checkboxes-group">
+          <label class="checkboxes-group__title">{{ group.name }}</label>
+        </div>
+        <div class="field" v-for="option in group.options" :key="option.id">
+          <b-checkbox v-model="riverEcosystem" :native-value="option">{{
+            option.name
+          }}</b-checkbox>
+        </div>
       </div>
     </div>
-    <b-field
-      label="2. Plantas localizadas fuera del río"
-      custom-class="is-small"
-    >
-    </b-field>
     <div
       class="block"
-      v-for="(group, index) in plantsOutsideGroups"
-      :key="index"
+      v-for="(category, indexCatSimple) in formEcoSystem.data
+        .eukaryoteSimpleOptions"
+      :key="indexCatSimple"
     >
-      <div class="checkboxes-group">
-        <label class="checkboxes-group__title">{{ group.name }}</label>
-      </div>
-      <div
-        class="field"
-        v-for="(option, indexOpt) in group.options"
-        :key="indexOpt"
-      >
+      <b-field :label="category.name" custom-class="is-small"> </b-field>
+      <div class="field" v-for="option in category.options" :key="option.id">
         <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-          option
+          option.name
         }}</b-checkbox>
-      </div>
-    </div>
-    <div class="block">
-      <b-field label="3. Aves" custom-class="is-small"> </b-field>
-      <div class="field" v-for="(option, indexOpt) in birds" :key="indexOpt">
-        <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-          option
-        }}</b-checkbox>
-      </div>
-    </div>
-    <b-field label="4. Cangrejos de río" custom-class="is-small"> </b-field>
-    <div class="block" v-for="(group, index) in riverCrabGroups" :key="index">
-      <div class="checkboxes-group">
-        <label class="checkboxes-group__title">{{ group.name }}</label>
-      </div>
-      <div
-        class="field"
-        v-for="(option, indexOpt) in group.options"
-        :key="indexOpt"
-      >
-        <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-          option
-        }}</b-checkbox>
-      </div>
-    </div>
-    <div class="block">
-      <b-field label="5. Anfibios" custom-class="is-small"> </b-field>
-      <div
-        class="field"
-        v-for="(option, indexOpt) in amphibians"
-        :key="indexOpt"
-      >
-        <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-          option
-        }}</b-checkbox>
-      </div>
-    </div>
-    <div class="block">
-      <b-field label="6. Reptiles" custom-class="is-small"> </b-field>
-      <div class="field" v-for="(option, indexOpt) in reptiles" :key="indexOpt">
-        <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-          option
-        }}</b-checkbox>
-      </div>
-    </div>
-    <div class="block">
-      <b-field label="7. Peces" custom-class="is-small"> </b-field>
-      <div class="block" v-for="(group, index) in fish" :key="index">
-        <div class="checkboxes-group">
-          <label class="checkboxes-group__title">{{ group.name }}</label>
-        </div>
-        <div
-          class="field"
-          v-for="(option, indexOpt) in group.options"
-          :key="indexOpt"
-        >
-          <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-            option
-          }}</b-checkbox>
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <b-field label="8. Mamíferos" custom-class="is-small"> </b-field>
-      <div class="block" v-for="(group, index) in mammal" :key="index">
-        <div class="checkboxes-group">
-          <label class="checkboxes-group__title">{{ group.name }}</label>
-        </div>
-        <div
-          class="field"
-          v-for="(option, indexOpt) in group.options"
-          :key="indexOpt"
-        >
-          <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-            option
-          }}</b-checkbox>
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <b-field label="9. Invertebrados" custom-class="is-small"> </b-field>
-      <div class="block" v-for="(group, index) in invertebrates" :key="index">
-        <div class="checkboxes-group">
-          <label class="checkboxes-group__title">{{ group.name }}</label>
-        </div>
-        <div
-          class="field"
-          v-for="(option, indexOpt) in group.options"
-          :key="indexOpt"
-        >
-          <b-checkbox v-model="riverEcosystem" :native-value="option">{{
-            option
-          }}</b-checkbox>
-        </div>
       </div>
     </div>
   </div>
@@ -235,84 +129,12 @@ export default {
       samplePointWaterVelocity: 0,
       samplePointWaterTemp: 0,
       samplePointWaterTransparency: [],
-      riverEcosystem: [],
-
-      plantsInsideGroups: [
-        {
-          name: "Herbáceas con hojas flotantes",
-          options: ["Espiga de agua", "Lenteja Flotante", "Milhoja acuática"]
-        },
-        {
-          name: "Herbáceas con tallos emergentes",
-          options: ["Berraza", "Berro", "Carrizo"]
-        }
-      ],
-      plantsOutsideGroups: [
-        {
-          name: "Herbáceas y pequeñas leñosas",
-          options: ["Dulcamara", "Epilobio", "Menta"]
-        },
-        {
-          name: "Plantas ruderales",
-          options: ["Cinco en rama", "Ortiga", "Pimienta acuática"]
-        },
-        {
-          name: "Helechos",
-          options: ["Cola de caballo", "Helecho común", "Lengua de ciervo"]
-        }
-      ],
-      birds: ["Agachadiza común", "Alcotán europeo", "Garza real"],
-      riverCrabGroups: [
-        {
-          name: "Autóctono",
-          options: ["Cangrejo de río"]
-        },
-        {
-          name: "Alóctonos",
-          options: ["Cangrejo americano", "Cangrejo señal"]
-        }
-      ],
-      amphibians: ["Rana bermeja", "Sapo común", "Tritón alpino"],
-      reptiles: ["Culebra de collar", "Culebra viperina", "Otros"],
-      fish: [
-        {
-          name: "Autóctono",
-          options: ["Anguila", "Barbo", "Mule"]
-        },
-        {
-          name: "Alóctonos",
-          options: ["Perca americana", "Alburno"]
-        }
-      ],
-      mammal: [
-        {
-          name: "Autóctono",
-          options: ["Marta", "Nutria", "Turón"]
-        },
-        {
-          name: "Alóctonos",
-          options: ["Visón americano"]
-        }
-      ],
-      invertebrates: [
-        {
-          name: "No insectos",
-          options: ["Gasterópodos", "Crustaceos", "Turbelarios"]
-        },
-        {
-          name: "Insectos con patas",
-          options: ["Tricópteros sin estuche", "Odonatos"]
-        },
-        {
-          name: "Insectos sin patas",
-          options: ["Dípteros"]
-        }
-      ]
+      riverEcosystem: []
     };
   },
   computed: {
     ...mapState({
-      formEcoSystemData: state => state.formSections.ecoSystem.data
+      formEcoSystem: state => state.formSections.ecoSystem
     }),
     flow() {
       return (
