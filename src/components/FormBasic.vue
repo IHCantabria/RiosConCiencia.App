@@ -207,7 +207,6 @@ export default {
     this.init();
   },
   updated() {
-    console.log("update");
     this.updateSectionValues(this.values);
   },
   methods: {
