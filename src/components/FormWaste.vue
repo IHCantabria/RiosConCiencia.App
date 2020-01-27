@@ -10,7 +10,7 @@
           v-model="selectedWaste"
         >
           <optgroup
-            v-for="(group, index) in formWasteData.wasteOptions"
+            v-for="(group, index) in formWaste.data.wasteOptions"
             :key="index"
             :label="group.material"
           >
@@ -31,9 +31,9 @@
         Guardar
       </b-button>
     </div>
-    <div class="table-container" v-if="waste.length > 0">
+    <div class="table-container" v-if="values.wasteList.length > 0">
       <b-table
-        :data="waste"
+        :data="values.wasteList"
         :columns="wasteTable.columns"
         :checked-rows.sync="wasteTable.selectedRows"
         :narrowed="true"
@@ -65,24 +65,26 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      formWasteData: state => state.formSections.waste.data
+      formWaste: state => state.formSections.waste
     })
   },
   data() {
     return {
-      waste: [],
+      values: {
+        wasteList: []
+      },
       selectedWaste: {},
       units: 0,
       wasteTable: {
         selectedRows: [],
         columns: [
           {
-            field: "waste.name",
+            field: "name",
             label: "Residuo"
           },
           {
@@ -97,25 +99,30 @@ export default {
     this.init();
   },
   methods: {
+    ...mapActions({
+      updateSectionValues: "updateSectionValues"
+    }),
     init() {
-      this.selectedWaste = this.formWasteData.wasteOptions[0].options[0];
+      this.selectedWaste = this.formWaste.data.wasteOptions[0].options[0];
     },
     saveNewWaste() {
       const newWaste = {
-        waste: this.selectedWaste,
+        ...this.selectedWaste,
         units: this.units
       };
-      this.waste.push(newWaste);
+      this.values.wasteList.push(newWaste);
+      this.updateSectionValues(this.values);
     },
     removeSelectedWaste() {
       const self = this;
       for (const element of this.wasteTable.selectedRows) {
-        var filtered = self.waste.filter(value => {
+        var filtered = self.values.wasteList.filter(value => {
           return value !== element;
         });
-        self.waste = filtered;
+        self.values.wasteList = filtered;
       }
       this.wasteTable.selectedRows = [];
+      this.updateSectionValues(this.values);
     }
   }
 };
