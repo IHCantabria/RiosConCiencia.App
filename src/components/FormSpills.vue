@@ -45,7 +45,7 @@
       <b-field label="Diámetro">
         <b-select icon="diameter-outline" v-model="spillDiameter">
           <option
-            v-for="(option, index) in formSpillsData.spillDiameterOptions"
+            v-for="(option, index) in formSpills.data.spillDiameterOptions"
             :value="option"
             :key="index"
             >{{ option.name }}</option
@@ -55,7 +55,7 @@
       <b-field label="Caudal">
         <b-select icon="elevation-rise" v-model="spillFlow">
           <option
-            v-for="(option, index) in formSpillsData.spillFlowOptions"
+            v-for="(option, index) in formSpills.data.spillFlowOptions"
             :value="option"
             :key="index"
             >{{ option.name }}</option
@@ -65,7 +65,7 @@
       <b-field label="Color">
         <b-select icon="invert-colors" v-model="spillColor">
           <option
-            v-for="(option, index) in formSpillsData.spillColorOptions"
+            v-for="(option, index) in formSpills.data.spillColorOptions"
             :value="option"
             :key="index"
             >{{ option.name }}</option
@@ -75,7 +75,7 @@
       <b-field label="Olor">
         <b-select icon="grain" v-model="spillSmell">
           <option
-            v-for="(option, index) in formSpillsData.spillSmellOptions"
+            v-for="(option, index) in formSpills.data.spillSmellOptions"
             :value="option"
             :key="index"
             >{{ option.name }}</option
@@ -85,7 +85,7 @@
       <b-field label="Origen">
         <b-select icon="source-commit-start" v-model="spillSource">
           <option
-            v-for="(option, index) in formSpillsData.spillSourceOptions"
+            v-for="(option, index) in formSpills.data.spillSourceOptions"
             :value="option"
             :key="index"
             >{{ option.name }}</option
@@ -97,9 +97,9 @@
       </b-button>
     </div>
 
-    <div class="table-container" v-if="spills.length > 0">
+    <div class="table-container" v-if="values.spills.length > 0">
       <b-table
-        :data="spills"
+        :data="values.spills"
         :columns="spillsTable.columns"
         :checked-rows.sync="spillsTable.selectedRows"
         :narrowed="true"
@@ -134,17 +134,19 @@
 </template>
 <script>
 import { getUserGeolocation } from "@/api/geolocation.js";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      formSpillsData: state => state.formSections.spills.data
+      formSpills: state => state.formSections.spills
     })
   },
   data() {
     return {
-      spills: [],
+      values: {
+        spills: []
+      },
       spillDiameter: "",
       spillFlow: "",
       spillColor: "",
@@ -191,13 +193,16 @@ export default {
     this.init();
   },
   methods: {
+    ...mapActions({
+      updateSectionValues: "updateSectionValues"
+    }),
     init() {
       // init default values
-      this.spillDiameter = this.formSpillsData.spillDiameterOptions[0];
-      this.spillFlow = this.formSpillsData.spillFlowOptions[0];
-      this.spillColor = this.formSpillsData.spillColorOptions[0];
-      this.spillSmell = this.formSpillsData.spillSmellOptions[0];
-      this.spillSource = this.formSpillsData.spillSourceOptions[0];
+      this.spillDiameter = this.formSpills.data.spillDiameterOptions[0];
+      this.spillFlow = this.formSpills.data.spillFlowOptions[0];
+      this.spillColor = this.formSpills.data.spillColorOptions[0];
+      this.spillSmell = this.formSpills.data.spillSmellOptions[0];
+      this.spillSource = this.formSpills.data.spillSourceOptions[0];
     },
     getActualPosition() {
       getUserGeolocation()
@@ -222,17 +227,19 @@ export default {
         smell: this.spillSmell,
         source: this.spillSource
       };
-      this.spills.push(newSpill);
+      this.values.spills.push(newSpill);
+      this.updateSectionValues(this.values);
     },
     removeSelectedSpills() {
       const self = this;
       for (const spill of this.spillsTable.selectedRows) {
-        var filtered = self.spills.filter(value => {
+        var filtered = self.values.spills.filter(value => {
           return value !== spill;
         });
-        self.spills = filtered;
+        self.values.spills = filtered;
       }
       this.spillsTable.selectedRows = [];
+      this.updateSectionValues(this.values);
     }
   }
 };
