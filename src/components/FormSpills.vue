@@ -97,9 +97,9 @@
       </b-button>
     </div>
 
-    <div class="table-container" v-if="values.spills.length > 0">
+    <div class="table-container" v-if="values.spillsList.length > 0">
       <b-table
-        :data="values.spills"
+        :data="values.spillsList"
         :columns="spillsTable.columns"
         :checked-rows.sync="spillsTable.selectedRows"
         :narrowed="true"
@@ -145,7 +145,7 @@ export default {
   data() {
     return {
       values: {
-        spills: []
+        spillsList: []
       },
       spillDiameter: "",
       spillFlow: "",
@@ -227,16 +227,16 @@ export default {
         smell: this.spillSmell,
         source: this.spillSource
       };
-      this.values.spills.push(newSpill);
+      this.values.spillsList.push(newSpill);
       this.updateSectionValues(this.values);
     },
     removeSelectedSpills() {
       const self = this;
       for (const spill of this.spillsTable.selectedRows) {
-        var filtered = self.values.spills.filter(value => {
+        var filtered = self.values.spillsList.filter(value => {
           return value !== spill;
         });
-        self.values.spills = filtered;
+        self.values.spillsList = filtered;
       }
       this.spillsTable.selectedRows = [];
       this.updateSectionValues(this.values);
