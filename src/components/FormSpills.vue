@@ -228,6 +228,7 @@ export default {
         source: this.spillSource
       };
       this.values.spillsList.push(newSpill);
+      // Update store values
       this.updateSectionValues(this.values);
     },
     removeSelectedSpills() {
