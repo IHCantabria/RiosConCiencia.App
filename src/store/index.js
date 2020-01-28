@@ -41,7 +41,7 @@ export default new Vuex.Store({
       state.user = user;
     },
     [types.UPDATE_SECTION_VALUES](state, payload) {
-      state.formSections[payload.name].values = {
+      state.formSections[payload.name].results = {
         ...payload.values
       };
     }
