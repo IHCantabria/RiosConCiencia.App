@@ -31,7 +31,6 @@ export default {
   methods: {
     onGeolocation() {
       this.geolocationReady = true;
-      console.log("Geolocalización correcta");
     },
     onGeolocationError(err) {
       //TODO: notificar error

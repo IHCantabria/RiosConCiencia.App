@@ -30,10 +30,8 @@ export default {
     },
     async initForm() {
       try {
-        console.log(this.user.token);
         const masterData = await getMasterData(this.user.token);
         this.loadFormData(masterData);
-        console.log(masterData);
       } catch (err) {
         console.error(err);
       }
