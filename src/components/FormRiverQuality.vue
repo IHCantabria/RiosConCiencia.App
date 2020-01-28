@@ -4,10 +4,10 @@
     <b-field label="a. Estructura de las riberas, grado de naturalidad">
     </b-field>
     <b-field>
-      <b-select icon="tree" v-model="riverbankNaturalness">
+      <b-select icon="tree" v-model="values.riverbankNaturalness">
         <option
-          v-for="(option,
-          index) in formRiverQualityData.riverbankNaturalnessOptions"
+          v-for="(option, index) in formRiverQuality.data
+            .riverbankNaturalnessOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -16,10 +16,10 @@
     </b-field>
     <b-field label="b. Conexión con las formas vegetales adyacentes"> </b-field>
     <b-field>
-      <b-select icon="transition" v-model="riverbankConections">
+      <b-select icon="transition" v-model="values.riverbankConections">
         <option
-          v-for="(option,
-          index) in formRiverQualityData.riverbankConectionsOptions"
+          v-for="(option, index) in formRiverQuality.data
+            .riverbankConectionsOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -28,10 +28,10 @@
     </b-field>
     <b-field label="c. Continuidad de la vegetación"> </b-field>
     <b-field>
-      <b-select icon="transit-connection" v-model="riverbankVegetations">
+      <b-select icon="transit-connection" v-model="values.riverbankVegetations">
         <option
-          v-for="(option,
-          index) in formRiverQualityData.riverbankVegetationsOptions"
+          v-for="(option, index) in formRiverQuality.data
+            .riverbankVegetationsOptions"
           :value="option"
           :key="index"
           >{{ option.name }}</option
@@ -41,11 +41,15 @@
     <b-field label="d. Valor del QRISI"> </b-field>
     <div class="results">
       <div class="block">
-        <b-message :title="qrisi.name" type="is-info" :closable="false">
-          {{ qrisi.description }}
+        <b-message
+          :title="qrisiIndex.cat.name"
+          type="is-info"
+          :closable="false"
+        >
+          {{ qrisiIndex.cat.description }}
           <div class="results__rate">
             <b-rate
-              v-model="qrisi.value"
+              v-model="qrisiIndex.cat.value"
               icon-pack="mdi"
               icon="star"
               :max="3"
@@ -61,43 +65,58 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      riverbankNaturalness: {},
-      riverbankConections: {},
-      riverbankVegetations: {}
+      values: {
+        riverbankNaturalness: {},
+        riverbankConections: {},
+        riverbankVegetations: {}
+      }
     };
   },
   computed: {
     ...mapState({
-      formRiverQualityData: state => state.formSections.riverQuality.data
+      formRiverQuality: state => state.formSections.riverQuality
     }),
-    qrisiValue() {
+    qrisiIndexTotalPoints() {
       return (
-        parseInt(this.riverbankNaturalness.value) +
-        parseInt(this.riverbankVegetations.value) +
-        parseInt(this.riverbankConections.value)
+        parseInt(this.values.riverbankNaturalness.value) +
+        parseInt(this.values.riverbankVegetations.value) +
+        parseInt(this.values.riverbankConections.value)
       );
     },
-    qrisi() {
-      if (this.qrisiValue <= 4)
-        return this.formRiverQualityData.qrisiCategoriesOptions[2];
-      if (this.qrisiValue > 4 && this.qrisiValue <= 8)
-        return this.formRiverQualityData.qrisiCategoriesOptions[1];
-      return this.formRiverQualityData.qrisiCategoriesOptions[0];
+    qrisiIndex() {
+      return {
+        cat: this.getRiverQualityCategory(this.qrisiIndexTotalPoints),
+        totalPoints: this.qrisiIndexTotalPoints
+      };
     }
   },
   mounted() {
     this.init();
   },
+  beforeUpdate() {
+    this.values.qrisiIndex = this.qrisiIndex;
+    this.updateSectionValues(this.values);
+  },
   methods: {
+    ...mapActions({
+      updateSectionValues: "updateSectionValues"
+    }),
     init() {
-      this.riverbankNaturalness = this.formRiverQualityData.riverbankNaturalnessOptions[0];
-      this.riverbankConections = this.formRiverQualityData.riverbankConectionsOptions[0];
-      this.riverbankVegetations = this.formRiverQualityData.riverbankVegetationsOptions[0];
+      this.values.riverbankNaturalness = this.formRiverQuality.data.riverbankNaturalnessOptions[0];
+      this.values.riverbankConections = this.formRiverQuality.data.riverbankConectionsOptions[0];
+      this.values.riverbankVegetations = this.formRiverQuality.data.riverbankVegetationsOptions[0];
+    },
+    getRiverQualityCategory(totalPoints) {
+      if (totalPoints <= 4)
+        return this.formRiverQuality.data.qrisiCategoriesOptions[2];
+      if (totalPoints > 4 && totalPoints <= 8)
+        return this.formRiverQuality.data.qrisiCategoriesOptions[1];
+      return this.formRiverQuality.data.qrisiCategoriesOptions[0];
     }
   }
 };
