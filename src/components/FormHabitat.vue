@@ -198,12 +198,9 @@ export default {
   mounted() {
     this.init();
   },
-  watch: {
-    // Watcher sobre el índice para controlar y aplicar cambios en la store. El hook 'updated' va antes de las computadas, por eso no nos vale en este componente
-    habitatIndex(newValue) {
-      this.values.habitatIndex = newValue;
-      this.updateSectionValues(this.values);
-    }
+  beforeUpdate() {
+    this.values.habitatIndex = this.habitatIndex;
+    this.updateSectionValues(this.values);
   },
   methods: {
     ...mapActions({

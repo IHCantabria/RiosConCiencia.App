@@ -21,7 +21,6 @@
         <span>Si</span>
       </b-radio-button>
     </b-field>
-
     <b-field label="b. ¿Es el nivel del agua habitual para la época del año?">
       <b-select icon="arrow-expand-vertical" v-model="values.waterLevel">
         <option
@@ -206,7 +205,7 @@ export default {
   mounted() {
     this.init();
   },
-  updated() {
+  beforeUpdate() {
     this.updateSectionValues(this.values);
   },
   methods: {
