@@ -48,7 +48,6 @@ export default {
   methods: {
     onDataLoad() {
       this.dataReady = true;
-      console.log("Form ready");
     },
     onDataLoadError(err) {
       //TODO: notificar error

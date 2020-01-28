@@ -26,7 +26,7 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      formEcoResultData: state => state.formSections.ecologicalStateOptions.data
+      formEcoResultData: state => state.formSections.ecoResult.data
     }),
     ecoStatus() {
       return this.formEcoResultData.ecologicalStateOptions[0];

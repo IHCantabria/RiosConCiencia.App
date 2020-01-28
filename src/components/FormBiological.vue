@@ -6,10 +6,10 @@
         placeholder="Selecciona calidad biológica del agua"
         icon="thumbs-up-down"
         expanded=""
-        v-model="bioQuality"
+        v-model="values.bioQuality"
       >
         <option
-          v-for="(option, index) in formBiologicalData.bioQualityOptions"
+          v-for="(option, index) in formBiological.data.bioQualityOptions"
           :value="option"
           :key="index"
         >
@@ -17,13 +17,17 @@
         >
       </b-select>
     </b-field>
-    <div class="results" v-if="bioQuality !== null">
+    <div class="results" v-if="values.bioQuality !== null">
       <div class="block">
-        <b-message :title="bioQuality.name" type="is-info" :closable="false">
-          {{ bioQuality.description }}
+        <b-message
+          :title="values.bioQuality.name"
+          type="is-info"
+          :closable="false"
+        >
+          {{ values.bioQuality.description }}
           <div class="results__rate">
             <b-rate
-              v-model="bioQuality.value"
+              v-model="values.bioQuality.value"
               icon-pack="mdi"
               icon="star"
               size="is-medium"
@@ -38,17 +42,27 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      bioQuality: null
+      values: {
+        bioQuality: null
+      }
     };
   },
   computed: {
     ...mapState({
-      formBiologicalData: state => state.formSections.biological.data
+      formBiological: state => state.formSections.biological
+    })
+  },
+  beforeUpdate() {
+    this.updateSectionValues(this.values);
+  },
+  methods: {
+    ...mapActions({
+      updateSectionValues: "updateSectionValues"
     })
   }
 };
