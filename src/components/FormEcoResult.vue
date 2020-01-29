@@ -21,7 +21,7 @@
     </div>
     <div class="is-divider"></div>
     <h5 class="title is-5">8. Estado ecológico</h5>
-    <div class="results">
+    <div>
       <div class="block" v-if="ecoStatus !== null">
         <b-message :title="ecoStatus.name" type="is-info" :closable="false">
           {{ ecoStatus.description }}
@@ -48,6 +48,12 @@
           RIBERA para ver el resultado del Estado Ecológico.
         </b-message>
       </div>
+    </div>
+
+    <div class="big-button">
+      <b-button type="is-danger" size="is-medium" expanded
+        >Enviar Resultados</b-button
+      >
     </div>
   </div>
 </template>
@@ -114,5 +120,8 @@ export default {
   &__rate {
     padding: 1rem;
   }
+}
+.big-button {
+  margin-top: 1.5rem;
 }
 </style>
