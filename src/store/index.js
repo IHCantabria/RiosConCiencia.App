@@ -25,11 +25,19 @@ export default new Vuex.Store({
     },
     activeSectionName: state => {
       return Object.keys(state.formSections)[state.activeSectionId];
+    },
+    isStateEcoReady: state => {
+      return (
+        state.formSections.riverQuality.hasOwnProperty("results") &&
+        state.formSections.biological.hasOwnProperty("results")
+      );
     }
   },
   mutations: {
     [types.LOAD_FORM_DATA](state, formData) {
-      state.formSections = formData;
+      for (const name of Object.keys(formData)) {
+        Vue.set(state.formSections, name, formData[name]);
+      }
     },
     [types.SET_USER_POSITION](state, position) {
       state.userPosition = position;
@@ -41,9 +49,9 @@ export default new Vuex.Store({
       state.user = user;
     },
     [types.UPDATE_SECTION_VALUES](state, payload) {
-      state.formSections[payload.name].results = {
+      Vue.set(state.formSections[payload.name], "results", {
         ...payload.values
-      };
+      });
     }
   },
   actions: {
