@@ -38,4 +38,19 @@ const getMasterData = async token => {
   return res.data;
 };
 
-export { getMasterData, login, getUserRiverSections };
+const postResults = async (token, results) => {
+  const url = `${RIOSCONCIENCIA_API.public}/SaveResults`;
+  /* Development */
+  token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjU2NiIsIm5iZiI6MTU3OTg2NjE1NSwiZXhwIjoxNTgwNDcwOTU1LCJpYXQiOjE1Nzk4NjYxNTV9.CAoncGlSpvNvy954yyS7PI8S-q4ngbsu_DSuImwZWOI";
+  /**/
+  _basicHeaders.Authorization = `Bearer ${token}`;
+
+  const res = await axios.post(url, {
+    headers: _basicHeaders,
+    results: results
+  });
+  return res;
+};
+
+export { getMasterData, login, getUserRiverSections, postResults };
