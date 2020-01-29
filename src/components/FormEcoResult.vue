@@ -1,5 +1,25 @@
 <template>
   <div class="form-section">
+    <div class="block">
+      <b-message title="Resumen" type="is-success">
+        <b-field label="Hábitat Fluvial">
+          <b-tag type="is-info" size="is-medium">{{
+            bioQuality.results.bioQualityIndex.name
+          }}</b-tag>
+        </b-field>
+        <b-field label="Calidad Biológica del Agua">
+          <b-tag type="is-info" size="is-medium">{{
+            bioQuality.results.bioQualityIndex.name
+          }}</b-tag>
+        </b-field>
+        <b-field label="Calidad del Bosque de Ribera">
+          <b-tag type="is-info" size="is-medium">{{
+            riverQuality.results.qrisiIndex.cat.name
+          }}</b-tag>
+        </b-field>
+      </b-message>
+    </div>
+    <div class="is-divider"></div>
     <h5 class="title is-5">8. Estado ecológico</h5>
     <div class="results">
       <div class="block" v-if="ecoStatus !== null">
