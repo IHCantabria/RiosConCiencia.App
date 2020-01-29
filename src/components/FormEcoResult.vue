@@ -51,13 +51,18 @@
     </div>
 
     <div class="big-button">
-      <b-button type="is-danger" size="is-medium" expanded
+      <b-button
+        type="is-danger"
+        size="is-medium"
+        expanded
+        @click="sendResults()"
         >Enviar Resultados</b-button
       >
     </div>
   </div>
 </template>
 <script>
+import { postResults } from "@/api/riosconciencia.js";
 import { mapState, mapGetters } from "vuex";
 export default {
   name: "FormEcoResult",
@@ -65,6 +70,7 @@ export default {
     ...mapState({
       statusOptions: state =>
         state.formSections.ecoResult.data.ecologicalStateOptions,
+      formSections: state => state.formSections,
       riverQuality: state => state.formSections.riverQuality,
       bioQuality: state => state.formSections.biological
     }),
@@ -89,6 +95,24 @@ export default {
       } else if (qrisiIndexValue === 1) {
         return this._getStatusForBadQrisi(bioQualityIndexValue);
       }
+    },
+    async sendResults() {
+      const results = this._prepareResultsObj();
+      try {
+        await postResults(results);
+        //notificar
+        console.log("Formulario enviado con éxito");
+      } catch (err) {
+        //notificar
+        console.error("Error enviando resultados");
+      }
+    },
+    _prepareResultsObj() {
+      var formResults = {};
+      for (let section of Object.keys(this.formSections)) {
+        formResults = { ...formResults, ...this.formSections[section].results };
+      }
+      return formResults;
     },
     _getStatusForGoodQrisi(bioQualityIndexValue) {
       if (bioQualityIndexValue === 5) return this.statusOptions[0];
