@@ -6,7 +6,7 @@
         placeholder="Selecciona calidad biológica del agua"
         icon="thumbs-up-down"
         expanded=""
-        v-model="values.bioQuality"
+        v-model="values.bioQualityIndex"
       >
         <option
           v-for="(option, index) in formBiological.data.bioQualityOptions"
@@ -17,17 +17,17 @@
         >
       </b-select>
     </b-field>
-    <div class="results" v-if="values.bioQuality !== null">
+    <div class="results" v-if="values.bioQualityIndex !== null">
       <div class="block">
         <b-message
-          :title="values.bioQuality.name"
+          :title="values.bioQualityIndex.name"
           type="is-info"
           :closable="false"
         >
-          {{ values.bioQuality.description }}
+          {{ values.bioQualityIndex.description }}
           <div class="results__rate">
             <b-rate
-              v-model="values.bioQuality.value"
+              v-model="values.bioQualityIndex.value"
               icon-pack="mdi"
               icon="star"
               size="is-medium"
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       values: {
-        bioQuality: null
+        bioQualityIndex: null
       }
     };
   },
