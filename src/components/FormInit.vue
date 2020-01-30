@@ -7,7 +7,13 @@
     <b-field label="Acompañantes">
       <b-input value=""></b-input>
     </b-field>
-    <b-field label="Tramo">
+    <b-field
+      label="Tramo"
+      :message="{
+        '*Hay que seleccionar un tramo': riverSectionHasErrors
+      }"
+      :type="{ 'is-danger': riverSectionHasErrors }"
+    >
       <b-select
         icon="go-kart-track"
         placeholder="Seleccione Tramo"
