@@ -23,7 +23,14 @@
         >
       </b-select>
     </b-field>
-    <b-field label="c. Composición del sustrato"> </b-field>
+    <b-field
+      label="c. Composición del sustrato"
+      :message="{
+        '*Hay que seleccionar una opción para cada elemento': substrateHasErrors
+      }"
+      :type="{ 'is-danger': substrateHasErrors }"
+    >
+    </b-field>
     <div class="block">
       <div
         class="radio-rows"
@@ -193,6 +200,15 @@ export default {
         cat: this.getHabitatCategory(this.habitatIndexTotalPoints),
         totalPoints: this.habitatIndexTotalPoints
       };
+    },
+    substrateHasErrors() {
+      for (let element of this.values.substrateComposition) {
+        if (Object.keys(element.value).length === 0) return true;
+      }
+      return false;
+    },
+    isSectionValid() {
+      return !this.substrateHasErrors;
     }
   },
   mounted() {
@@ -200,7 +216,10 @@ export default {
   },
   beforeUpdate() {
     this.values.habitatIndex = this.habitatIndex;
-    this.updateSectionValues(this.values);
+    this.updateSectionValues({
+      values: this.values,
+      isValid: this.isSectionValid
+    });
   },
   methods: {
     ...mapActions({
