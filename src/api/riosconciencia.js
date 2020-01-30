@@ -39,7 +39,7 @@ const getMasterData = async token => {
 };
 
 const postResults = async (token, results) => {
-  const url = `${RIOSCONCIENCIA_API.public}/SaveResults`;
+  const url = `${RIOSCONCIENCIA_API.public}/SaveSample`;
   /* Development */
   token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjU2NiIsIm5iZiI6MTU3OTg2NjE1NSwiZXhwIjoxNTgwNDcwOTU1LCJpYXQiOjE1Nzk4NjYxNTV9.CAoncGlSpvNvy954yyS7PI8S-q4ngbsu_DSuImwZWOI";
