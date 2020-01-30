@@ -31,6 +31,10 @@ export default {
     async initForm() {
       try {
         const masterData = await getMasterData(this.user.token);
+        // prepare form data
+        for (const name of Object.keys(masterData)) {
+          masterData[name].isValid = false;
+        }
         this.loadFormData(masterData);
       } catch (err) {
         console.error(err);

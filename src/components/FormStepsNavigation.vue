@@ -11,7 +11,7 @@
       :key="index"
       :label="index.toString()"
       :clickable="stepItemCfg.isStepsClickable"
-      :type="{ 'is-success': section.isSuccess }"
+      :type="sections[section].isValid ? 'is-success' : 'is-danger'"
     >
     </b-step-item>
 

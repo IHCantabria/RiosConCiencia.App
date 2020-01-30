@@ -229,7 +229,10 @@ export default {
       };
       this.values.spillsList.push(newSpill);
       // Update store values
-      this.updateSectionValues(this.values);
+      this.updateSectionValues({
+        values: this.values,
+        isValid: true
+      });
     },
     removeSelectedSpills() {
       const self = this;
