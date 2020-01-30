@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import * as types from "./types";
+import { checkNestedProperty } from "./../utils/utils";
 
 Vue.use(Vuex);
 
@@ -28,8 +29,14 @@ export default new Vuex.Store({
     },
     isStateEcoReady: state => {
       return (
-        state.formSections.riverQuality.hasOwnProperty("results") &&
-        state.formSections.biological.hasOwnProperty("results")
+        checkNestedProperty(
+          state.formSections.riverQuality,
+          "results.qrisiIndex"
+        ) &&
+        checkNestedProperty(
+          state.formSections.biological,
+          "results.bioQualityIndex"
+        )
       );
     }
   },

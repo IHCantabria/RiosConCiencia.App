@@ -1,6 +1,6 @@
 <template>
   <div class="form-section">
-    <div class="block">
+    <div class="block" v-if="isStateEcoReady">
       <b-message title="Resumen" type="is-success">
         <b-field label="Hábitat Fluvial">
           <b-tag type="is-info" size="is-medium">{{
@@ -19,7 +19,7 @@
         </b-field>
       </b-message>
     </div>
-    <div class="is-divider"></div>
+
     <h5 class="title is-5">8. Estado ecológico</h5>
     <div>
       <div class="block" v-if="ecoStatus !== null">
@@ -55,6 +55,7 @@
         type="is-danger"
         size="is-medium"
         expanded
+        :disabled="!isStateEcoReady"
         @click="sendResults()"
         >Enviar Resultados</b-button
       >
