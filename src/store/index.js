@@ -55,8 +55,8 @@ export default new Vuex.Store({
     [types.SET_ACTIVE_USER](state, user) {
       state.user = user;
     },
-    [types.SET_SECTION_STATE](state) {
-      Vue.set(state.formSections["init"], "isValid", true);
+    [types.SET_SECTION_STATE](state, payload) {
+      state.formSections[payload.name].isValid = payload.isValid;
     },
     [types.UPDATE_SECTION_VALUES](state, payload) {
       Vue.set(state.formSections[payload.name], "results", {
@@ -78,14 +78,13 @@ export default new Vuex.Store({
     setUserPosition(context, device) {
       context.commit(types.SET_USER_POSITION, device);
     },
-    setSectionState(context, isValid) {
+    setSectionState(context, payload) {
       const params = {
-        name: context.getters.activeSectionName,
-        isValid: isValid
+        name: payload.name,
+        isValid: payload.isValid
       };
       context.commit(types.SET_SECTION_STATE, params);
     },
-
     updateSectionValues(context, payload) {
       const params = {
         name: context.getters.activeSectionName,
