@@ -101,6 +101,18 @@
           <b-checkbox v-model="values.riverEcosystem" :native-value="option">{{
             option.name
           }}</b-checkbox>
+          <div
+            class="field sub-check"
+            v-for="subOpt in option.options"
+            :key="subOpt.id"
+          >
+            <b-checkbox
+              size="is-small"
+              v-model="values.riverEcosystemSpecies"
+              :native-value="subOpt"
+              >{{ subOpt.name }}</b-checkbox
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -136,7 +148,9 @@ export default {
         samplePointWaterVelocity: 0,
         samplePointWaterTemp: 0,
         samplePointWaterTransparency: [],
-        riverEcosystem: []
+        riverEcosystem: [],
+        riverEcosystemInvPlantsCoverage: [],
+        riverEcosystemSpecies: []
       }
     };
   },
@@ -179,4 +193,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
+.sub-check {
+  margin: 1rem;
+}
 </style>
