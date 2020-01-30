@@ -80,6 +80,9 @@ export default {
       user: state => state.user,
       formInit: state => state.formSections.init
     }),
+    riverSectionHasErrors() {
+      return this.values.riverSection === null;
+    },
     weatherHasErrors() {
       return this.values.weatherToday === null;
     },
@@ -87,7 +90,11 @@ export default {
       return this.values.weather48h === null;
     },
     isSectionValid() {
-      return !this.landUseHasErrors && !this.riverConditionsHasErrors;
+      return (
+        !this.weatherHasErrors &&
+        !this.weather48HasErrors &&
+        !this.riverSectionHasErrors
+      );
     }
   },
   mounted() {
