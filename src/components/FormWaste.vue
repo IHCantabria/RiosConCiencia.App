@@ -98,9 +98,14 @@ export default {
   mounted() {
     this.init();
   },
+  beforeUpdate() {
+    // valid by default
+    this.setSectionState({ name: "waste", isValid: true });
+  },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSectionValues: "updateSectionValues",
+      setSectionState: "setSectionState"
     }),
     init() {
       this.selectedWaste = this.formWaste.data.wasteOptions[0].options[0];
@@ -111,7 +116,7 @@ export default {
         units: this.units
       };
       this.values.wasteList.push(newWaste);
-      this.updateSectionValues(this.values);
+      this.updateSectionValues({ values: this.values, isValid: true });
     },
     removeSelectedWaste() {
       const self = this;
