@@ -11,10 +11,10 @@
       <b-select
         icon="go-kart-track"
         placeholder="Seleccione Tramo"
-        v-model="riverSection"
+        v-model="values.riverSection"
       >
         <option
-          v-for="option in riverSections"
+          v-for="option in userRiverSections"
           :key="option.id"
           :value="option"
           >{{ option.name }}</option
@@ -22,65 +22,104 @@
       </b-select>
     </b-field>
     <b-field label="Cuenca / Municipio">
-      <label>{{ riverSection.cuenca }} / {{ riverSection.municipio }}</label>
+      <label v-if="values.riverSection"
+        >{{ values.riverSection.catchment }} /
+        {{ values.riverSection.municipality }}</label
+      >
+      <label v-else>-</label>
     </b-field>
-    <b-field label="Clima hoy">
-      <b-select icon="weather-lightning-rainy" v-model="weatherToday">
+    <b-field
+      label="Clima hoy"
+      :message="{
+        '*Hay que seleccionar una opción': weatherHasErrors
+      }"
+      :type="{ 'is-danger': weatherHasErrors }"
+    >
+      <b-select
+        icon="weather-lightning-rainy"
+        placeholder="Seleccione"
+        v-model="values.weatherToday"
+      >
         <option
-          v-for="option in weatherOptions"
-          :key="option"
+          v-for="option in formInit.data.weatherOptions"
+          :key="option.id"
           :value="option"
-          >{{ option }}</option
+          >{{ option.name }}</option
         >
       </b-select>
     </b-field>
-    <b-field label="Clima últimos 2 días">
-      <b-select icon="weather-lightning-rainy" v-model="weather48h">
+    <b-field
+      label="Clima últimos 2 días"
+      :message="{
+        '*Hay que seleccionar una opción': weather48HasErrors
+      }"
+      :type="{ 'is-danger': weather48HasErrors }"
+    >
+      <b-select
+        icon="weather-lightning-rainy"
+        placeholder="Seleccione"
+        v-model="values.weather48h"
+      >
         <option
-          v-for="option in weatherOptions"
-          :key="option"
+          v-for="option in formInit.data.weatherOptions"
+          :key="option.id"
           :value="option"
-          >{{ option }}</option
+          >{{ option.name }}</option
         >
       </b-select>
     </b-field>
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { getUserRiverSections } from "@/api/riosconciencia.js";
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      activeSectionId: state => state.activeSectionId,
-      user: state => state.user
-    })
+      user: state => state.user,
+      formInit: state => state.formSections.init
+    }),
+    weatherHasErrors() {
+      return this.values.weatherToday === null;
+    },
+    weather48HasErrors() {
+      return this.values.weather48h === null;
+    },
+    isSectionValid() {
+      return !this.landUseHasErrors && !this.riverConditionsHasErrors;
+    }
   },
   mounted() {
     this.init();
   },
+  beforeUpdate() {
+    this.updateSectionValues({
+      values: this.values,
+      isValid: this.isSectionValid
+    });
+  },
   data() {
     return {
-      riverSection: {},
-      weatherToday: "",
-      weather48h: "",
-      weatherOptions: ["Soleado", "Nublado", "Lluvioso", "Tormenta"],
-      riverSections: [
-        {
-          id: 1,
-          name: "tramo 1",
-          cuenca: "Saja",
-          municipio: "Cabezón de la Sal"
-        },
-        { id: 2, name: "tramo 2", cuenca: "Saja", municipio: "Cabuerniga" }
-      ]
+      values: {
+        riverSection: null,
+        weatherToday: null,
+        weather48h: null
+      },
+      userRiverSections: []
     };
   },
   methods: {
-    init() {
-      this.riverSection = this.riverSections[0];
-      this.weatherToday = this.weatherOptions[0];
-      this.weather48h = this.weatherOptions[0];
+    ...mapActions({
+      updateSectionValues: "updateSectionValues"
+    }),
+    async init() {
+      try {
+        this.userRiverSections = await getUserRiverSections(this.user.id);
+      } catch (err) {
+        //TODO: notificar
+        console.error("error getting river sections");
+      }
     }
   }
 };
