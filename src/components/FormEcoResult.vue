@@ -23,11 +23,15 @@
     <h5 class="title is-5">8. Estado ecológico</h5>
     <div>
       <div class="block" v-if="isFormValid">
-        <b-message :title="ecoStatus.name" type="is-info" :closable="false">
-          {{ ecoStatus.description }}
+        <b-message
+          :title="ecoStatusIndex.name"
+          type="is-info"
+          :closable="false"
+        >
+          {{ ecoStatusIndex.description }}
           <div class="results__rate">
             <b-rate
-              v-model="ecoStatus.value"
+              v-model="ecoStatusIndex.value"
               icon-pack="mdi"
               icon="star"
               size="is-medium"
@@ -64,9 +68,16 @@
 </template>
 <script>
 import { saveSample } from "@/api/riosconciencia.js";
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "FormEcoResult",
+  data() {
+    return {
+      values: {
+        ecoStatus: {}
+      }
+    };
+  },
   computed: {
     ...mapState({
       user: state => state.user,
@@ -79,12 +90,18 @@ export default {
     ...mapGetters({
       isFormValid: "isFormValid"
     }),
-    ecoStatus() {
+    ecoStatusIndex() {
       if (!this.isFormValid) return null;
       return this.calculateStatus();
+    },
+    isSectionValid() {
+      return this.ecoStatusIndex !== null;
     }
   },
   methods: {
+    ...mapActions({
+      updateSectionValues: "updateSectionValues"
+    }),
     calculateStatus() {
       const qrisiIndexValue = this.riverQuality.results.qrisiIndex.cat.value;
       const bioQualityIndexValue = this.bioQuality.results.bioQualityIndex
@@ -99,9 +116,11 @@ export default {
       }
     },
     async sendSampleData() {
+      this.values.ecoStatus = this.ecoStatusIndex;
       const sampleData = this._prepareSampleObj();
       try {
-        await saveSample(this.user.token, sampleData);
+        const res = await saveSample(this.user.token, sampleData);
+        console.log(res);
         this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
           type: "is-success"
@@ -120,17 +139,19 @@ export default {
         formResults = {
           ...formResults,
           ...this.formSections[section].results,
-          user: this.user
+          user: this.user,
+          //TODO: no haría falta mandar este tipo de objeto, hay que cambiar en la BD el modelo
+          ecoStatus: { cat: this.ecoStatusIndex, totalPoints: 0 }
         };
       }
       // Add sides prop to river margins values
       formResults.riverMarginConditions = this._setupRiverMarginsValues(
-        this.formSections.basic.riverMarginConditionsLeft,
-        this.formSections.basic.riverMarginConditionsRight
+        this.formSections.basic.results.riverMarginConditionsLeft,
+        this.formSections.basic.results.riverMarginConditionsRight
       );
       formResults.riverMarginLandUse = this._setupRiverMarginsValues(
-        this.formSections.basic.riverMarginLandUseLeft,
-        this.formSections.basic.riverMarginLandUseRight
+        this.formSections.basic.results.riverMarginLandUseLeft,
+        this.formSections.basic.results.riverMarginLandUseRight
       );
 
       return formResults;
