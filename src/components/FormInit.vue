@@ -5,7 +5,7 @@
       <label>{{ user.name }}</label>
     </b-field>
     <b-field label="Acompañantes">
-      <b-input value=""></b-input>
+      <b-input :value="values.partners"></b-input>
     </b-field>
     <b-field
       label="Tramo"
@@ -115,6 +115,7 @@ export default {
   data() {
     return {
       values: {
+        partners: "",
         riverSection: null,
         weatherToday: null,
         weather48h: null
