@@ -1,6 +1,6 @@
 <template>
   <div class="form-section">
-    <div class="block">
+    <div class="block" v-if="isFormValid">
       <b-message title="Resumen" type="is-success">
         <b-field label="Hábitat Fluvial">
           <b-tag type="is-info" size="is-medium">{{
@@ -19,10 +19,10 @@
         </b-field>
       </b-message>
     </div>
-    <div class="is-divider"></div>
+
     <h5 class="title is-5">8. Estado ecológico</h5>
     <div>
-      <div class="block" v-if="ecoStatus !== null">
+      <div class="block" v-if="isFormValid">
         <b-message :title="ecoStatus.name" type="is-info" :closable="false">
           {{ ecoStatus.description }}
           <div class="results__rate">
@@ -38,7 +38,7 @@
           </div>
         </b-message>
       </div>
-      <div class="block" v-if="!isStateEcoReady">
+      <div class="block" v-else>
         <b-message
           title="Formulario incompleto"
           type="is-warning"
@@ -55,7 +55,8 @@
         type="is-danger"
         size="is-medium"
         expanded
-        @click="sendSaveSample()"
+        :disabled="!isFormValid"
+        @click="sendSampleData()"
         >Enviar Resultados</b-button
       >
     </div>
@@ -76,10 +77,10 @@ export default {
       bioQuality: state => state.formSections.biological
     }),
     ...mapGetters({
-      isStateEcoReady: "isStateEcoReady"
+      isFormValid: "isFormValid"
     }),
     ecoStatus() {
-      if (!this.isStateEcoReady) return null;
+      if (!this.isFormValid) return null;
       return this.calculateStatus();
     }
   },
@@ -97,10 +98,10 @@ export default {
         return this._getStatusForBadQrisi(bioQualityIndexValue);
       }
     },
-    async sendSaveSample() {
-      const results = this._prepareResultsObj();
+    async sendSampleData() {
+      const sampleData = this._prepareSampleObj();
       try {
-        await saveSample(this.user.token, results);
+        await saveSample(this.user.token, sampleData);
         //notificar
         console.log("Formulario enviado con éxito");
       } catch (err) {
@@ -108,10 +109,14 @@ export default {
         console.error("Error enviando resultados");
       }
     },
-    _prepareResultsObj() {
+    _prepareSampleObj() {
       var formResults = {};
       for (let section of Object.keys(this.formSections)) {
-        formResults = { ...formResults, ...this.formSections[section].results };
+        formResults = {
+          ...formResults,
+          ...this.formSections[section].results,
+          user: this.user
+        };
       }
       return formResults;
     },

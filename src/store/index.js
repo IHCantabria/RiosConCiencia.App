@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import * as types from "./types";
+import { checkNestedProperty } from "./../utils/utils";
 
 Vue.use(Vuex);
 
@@ -26,10 +27,27 @@ export default new Vuex.Store({
     activeSectionName: state => {
       return Object.keys(state.formSections)[state.activeSectionId];
     },
+    isFormValid: state => {
+      //TODO: Frágil. Recorriendo la lista no consigo que sea reactivo. Hay que buscar una forma mejor.
+      return (
+        state.formSections.biological.isValid &&
+        state.formSections.init.isValid &&
+        state.formSections.basic.isValid &&
+        state.formSections.habitat.isValid &&
+        state.formSections.ecoSystem.isValid &&
+        state.formSections.riverQuality.isValid
+      );
+    },
     isStateEcoReady: state => {
       return (
-        state.formSections.riverQuality.hasOwnProperty("results") &&
-        state.formSections.biological.hasOwnProperty("results")
+        checkNestedProperty(
+          state.formSections.riverQuality,
+          "results.qrisiIndex"
+        ) &&
+        checkNestedProperty(
+          state.formSections.biological,
+          "results.bioQualityIndex"
+        )
       );
     }
   },
@@ -48,10 +66,15 @@ export default new Vuex.Store({
     [types.SET_ACTIVE_USER](state, user) {
       state.user = user;
     },
+    [types.SET_SECTION_STATE](state, payload) {
+      state.formSections[payload.name].isValid = payload.isValid;
+    },
     [types.UPDATE_SECTION_VALUES](state, payload) {
       Vue.set(state.formSections[payload.name], "results", {
         ...payload.values
       });
+      //   Vue.set(state.formSections[payload.name],"isValid", payload.isValid);
+      state.formSections[payload.name].isValid = payload.isValid;
     }
   },
   actions: {
@@ -67,12 +90,19 @@ export default new Vuex.Store({
     setUserPosition(context, device) {
       context.commit(types.SET_USER_POSITION, device);
     },
-    updateSectionValues(context, values) {
-      const payload = {
-        name: context.getters.activeSectionName,
-        values: values
+    setSectionState(context, payload) {
+      const params = {
+        name: payload.name,
+        isValid: payload.isValid
       };
-      context.commit(types.UPDATE_SECTION_VALUES, payload);
+      context.commit(types.SET_SECTION_STATE, params);
+    },
+    updateSectionValues(context, payload) {
+      const params = {
+        name: context.getters.activeSectionName,
+        ...payload
+      };
+      context.commit(types.UPDATE_SECTION_VALUES, params);
     }
   },
   modules: {}

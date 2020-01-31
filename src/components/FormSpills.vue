@@ -192,9 +192,14 @@ export default {
   mounted() {
     this.init();
   },
+  beforeUpdate() {
+    // valid by default
+    this.setSectionState({ name: "spills", isValid: true });
+  },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSectionValues: "updateSectionValues",
+      setSectionState: "setSectionState"
     }),
     init() {
       // init default values
@@ -229,7 +234,10 @@ export default {
       };
       this.values.spillsList.push(newSpill);
       // Update store values
-      this.updateSectionValues(this.values);
+      this.updateSectionValues({
+        values: this.values,
+        isValid: true
+      });
     },
     removeSelectedSpills() {
       const self = this;

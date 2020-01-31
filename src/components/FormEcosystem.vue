@@ -41,19 +41,40 @@
         >Obtener posición actual</b-button
       >
     </b-field>
-    <b-field label="Anchura (m)" custom-class="is-small">
+    <b-field
+      label="Anchura (m)"
+      custom-class="is-small"
+      :message="{
+        '*Hay que definir la anchura': sampleWidthHasErrors
+      }"
+      :type="{ 'is-danger': sampleWidthHasErrors }"
+    >
       <b-numberinput
         v-model="values.samplePointWidth"
         step="0.1"
       ></b-numberinput>
     </b-field>
-    <b-field label="Profundidad media (m)" custom-class="is-small">
+    <b-field
+      label="Profundidad media (m)"
+      custom-class="is-small"
+      :message="{
+        '*Hay que definir la profundidad': sampleDepthHasErrors
+      }"
+      :type="{ 'is-danger': sampleDepthHasErrors }"
+    >
       <b-numberinput
         v-model="values.samplePointDepth"
         step="0.1"
       ></b-numberinput>
     </b-field>
-    <b-field label="Velocidad del agua (m/s)" custom-class="is-small">
+    <b-field
+      label="Velocidad del agua (m/s)"
+      custom-class="is-small"
+      :message="{
+        '*Hay que definir la velocidad del agua': waterVelocityHasErrors
+      }"
+      :type="{ 'is-danger': waterVelocityHasErrors }"
+    >
       <b-numberinput
         v-model="values.samplePointWaterVelocity"
         step="0.1"
@@ -63,7 +84,14 @@
     <label>{{ flow }}m³/s</label>
     <div class="is-divider"></div>
     <b-field label="b. Características físicas del agua"> </b-field>
-    <b-field label="Temperatura (°C)" custom-class="is-small">
+    <b-field
+      label="Temperatura (°C)"
+      custom-class="is-small"
+      :message="{
+        '*Hay que definir la temperatura del agua': waterTempHasErrors
+      }"
+      :type="{ 'is-danger': waterTempHasErrors }"
+    >
       <b-numberinput v-model="values.samplePointWaterTemp"></b-numberinput>
     </b-field>
     <b-field label="Transparencia" custom-class="is-small"> </b-field>
@@ -71,7 +99,12 @@
       label="(marcar solo los sectores que se ven en el disco, en el caso de no ver
         ninguno, marcar el 0)"
       custom-class="is-small"
+      :message="{
+        '*Al menos un sector debe estar marcado': transparencyHasErrors
+      }"
+      :type="{ 'is-danger': transparencyHasErrors }"
     ></b-field>
+
     <div class="field">
       <b-checkbox
         v-for="option in formEcoSystem.data.transparencyOptions"
@@ -164,10 +197,37 @@ export default {
         this.values.samplePointDepth *
         this.values.samplePointWaterVelocity
       );
+    },
+    sampleDepthHasErrors() {
+      return this.values.samplePointDepth === 0;
+    },
+    waterVelocityHasErrors() {
+      return this.values.samplePointWaterVelocity === 0;
+    },
+    waterTempHasErrors() {
+      return this.values.samplePointWaterTemp === 0;
+    },
+    sampleWidthHasErrors() {
+      return this.values.samplePointWidth === 0;
+    },
+    transparencyHasErrors() {
+      return this.values.samplePointWaterTransparency.length === 0;
+    },
+    isSectionValid() {
+      return (
+        !this.sampleDepthHasErrors &&
+        !this.waterVelocityHasErrors &&
+        !this.waterTempHasErrors &&
+        !this.sampleWidthHasErrors &&
+        !this.transparencyHasErrors
+      );
     }
   },
   beforeUpdate() {
-    this.updateSectionValues(this.values);
+    this.updateSectionValues({
+      values: this.values,
+      isValid: this.isSectionValid
+    });
   },
   methods: {
     ...mapActions({

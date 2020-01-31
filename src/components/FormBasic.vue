@@ -5,7 +5,7 @@
     <b-field>
       <b-radio-button
         v-model="values.waterFlow"
-        native-value="false"
+        :native-value="false"
         type="is-danger"
       >
         <b-icon icon="close"></b-icon>
@@ -14,7 +14,7 @@
 
       <b-radio-button
         v-model="values.waterFlow"
-        native-value="true"
+        :native-value="true"
         type="is-success"
       >
         <b-icon icon="check"></b-icon>
@@ -121,6 +121,10 @@
 
     <b-field
       label="i. ¿En que condiciones se encuentran las márgenes de nuestro río?"
+      :message="{
+        '*Selecciona las condiciones en cada margen del río': riverConditionsHasErrors
+      }"
+      type="is-danger"
     >
     </b-field>
     <div class="checkboxes-rows">
@@ -147,6 +151,10 @@
     <div class="checks-container">
       <b-field
         label="j. ¿Cuáles son los usos del suelo en las márgenes del río?"
+        :message="{
+          '*Selecciona al menos un uso del suelo en cada margen': landUseHasErrors
+        }"
+        type="is-danger"
       >
       </b-field>
       <div class="checkboxes-rows">
@@ -177,15 +185,10 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  computed: {
-    ...mapState({
-      formBasic: state => state.formSections.basic
-    })
-  },
   data() {
     return {
       values: {
-        waterFlow: null,
+        waterFlow: true,
         waterLevel: "",
         waterColor: "",
         waterSmell: "",
@@ -202,11 +205,34 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapState({
+      formBasic: state => state.formSections.basic
+    }),
+    landUseHasErrors() {
+      return (
+        this.values.riverMarginLandUseLeft.length === 0 ||
+        this.values.riverMarginLandUseRight.length === 0
+      );
+    },
+    riverConditionsHasErrors() {
+      return (
+        this.values.riverMarginConditionsLeft.length === 0 ||
+        this.values.riverMarginConditionsRight.length === 0
+      );
+    },
+    isSectionValid() {
+      return !this.landUseHasErrors && !this.riverConditionsHasErrors;
+    }
+  },
   mounted() {
     this.init();
   },
   beforeUpdate() {
-    this.updateSectionValues(this.values);
+    this.updateSectionValues({
+      values: this.values,
+      isValid: this.isSectionValid
+    });
   },
   methods: {
     ...mapActions({
