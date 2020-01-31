@@ -1,7 +1,12 @@
 <template>
   <div class="form-section">
     <h5 class="title is-5">6. Calidad Biológica del agua</h5>
-    <b-field>
+    <b-field
+      :message="{
+        '*Seleccione una opción': bioQualityHasErrors
+      }"
+      :type="{ 'is-danger': bioQualityHasErrors }"
+    >
       <b-select
         placeholder="Selecciona calidad biológica del agua"
         icon="thumbs-up-down"
@@ -55,10 +60,19 @@ export default {
   computed: {
     ...mapState({
       formBiological: state => state.formSections.biological
-    })
+    }),
+    bioQualityHasErrors() {
+      return this.values.bioQualityIndex === null;
+    },
+    isSectionValid() {
+      return !this.bioQualityHasErrors;
+    }
   },
   beforeUpdate() {
-    this.updateSectionValues(this.values);
+    this.updateSectionValues({
+      values: this.values,
+      isValid: this.isSectionValid
+    });
   },
   methods: {
     ...mapActions({
