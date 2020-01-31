@@ -38,19 +38,728 @@ const getMasterData = async token => {
   return res.data;
 };
 
-const postResults = async (token, results) => {
+const saveSample = async (token, results) => {
   const url = `${RIOSCONCIENCIA_API.public}/SaveSample`;
   /* Development */
   token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjU2NiIsIm5iZiI6MTU3OTg2NjE1NSwiZXhwIjoxNTgwNDcwOTU1LCJpYXQiOjE1Nzk4NjYxNTV9.CAoncGlSpvNvy954yyS7PI8S-q4ngbsu_DSuImwZWOI";
   /**/
   _basicHeaders.Authorization = `Bearer ${token}`;
-
-  const res = await axios.post(url, {
-    headers: _basicHeaders,
-    results: results
+  results = {
+    riverbankNaturalness: {
+      id: 3,
+      name: "Bardales/ árboles alineados",
+      value: 2
+    },
+    riverbankConections: {
+      id: 2,
+      name: "Parcial (campos agrícolas)",
+      value: 3
+    },
+    riverbankVegetations: {
+      id: 3,
+      name: "Escasa / nula",
+      value: 0
+    },
+    qrisiIndex: {
+      cat: {
+        id: 2,
+        name: "Media, alteración importante",
+        nameValues: "4 a 8 puntos",
+        value: 2,
+        description:
+          "El bosque de ribera presenta alteraciones importantes. A pesar de ello, en estas condiciones se puede producir una regeneración de los factores que han causado la alteración. La falta de árboles o la presencia de estos de forma alineada con campos en la zona de ribera adyacente, puede ser objeto de una restauración que renueve la conexión con los ecosistemas adyacentes y asegure la continuidad de la ribera.",
+        minPoints: 5,
+        maxPoints: 8
+      },
+      totalPoints: 5
+    },
+    waterFlow: "true",
+    waterLevel: {
+      id: 1,
+      name: "Si"
+    },
+    waterColor: {
+      id: 3,
+      name: "Fangosa"
+    },
+    waterSmell: {
+      id: 5,
+      name: "Alcantarilla"
+    },
+    waterElements: [
+      {
+        id: 1,
+        name: "Aceites"
+      },
+      {
+        id: 2,
+        name: "Espumas"
+      }
+    ],
+    waterLevelCriticalProblem: "BABABA",
+    riverBedWidth: {
+      id: 2,
+      name: "1-2"
+    },
+    riverBedDepth: {
+      id: 3,
+      name: "50-100"
+    },
+    riversideWidthLeft: {
+      id: 3,
+      name: "5-20"
+    },
+    riversideWidthRight: {
+      id: 3,
+      name: "5-20"
+    },
+    riverMarginConditionsLeft: [
+      {
+        id: 1,
+        name: "Erosionadas"
+      },
+      {
+        id: 8,
+        name: "Con paseos o caminos a la ribera"
+      },
+      {
+        id: 3,
+        name: "Con arbustos"
+      },
+      {
+        id: 10,
+        name: "Canalizadas"
+      },
+      {
+        id: 11,
+        name: "Urbanizadas"
+      }
+    ],
+    riverMarginConditionsRight: [
+      {
+        id: 5,
+        name: "Con playas"
+      },
+      {
+        id: 10,
+        name: "Canalizadas"
+      },
+      {
+        id: 7,
+        name: "Bordes desbrozados"
+      }
+    ],
+    riverMarginLandUseLeft: [
+      {
+        id: 3,
+        name: "Camping"
+      },
+      {
+        id: 8,
+        name: "Carreteras"
+      },
+      {
+        id: 5,
+        name: "Aparcamientos"
+      },
+      {
+        id: 6,
+        name: "Ganadería"
+      }
+    ],
+    riverMarginLandUseRight: [
+      {
+        id: 6,
+        name: "Ganadería"
+      },
+      {
+        id: 1,
+        name: "Industrial"
+      },
+      {
+        id: 3,
+        name: "Camping"
+      },
+      {
+        id: 7,
+        name: "Agricultura"
+      }
+    ],
+    spillsList: [
+      {
+        position: {
+          longitude: "-3.87564",
+          latitude: "43.44709"
+        },
+        diameter: {
+          id: 3,
+          name: "1-2"
+        },
+        flow: {
+          id: 4,
+          name: "Goteo"
+        },
+        color: {
+          id: 3,
+          name: "Blanquecino"
+        },
+        smell: {
+          id: 3,
+          name: "Huevos podridos"
+        },
+        source: {
+          id: 2,
+          name: "Industrial"
+        }
+      },
+      {
+        position: {
+          longitude: "-3.87564",
+          latitude: "43.44709"
+        },
+        diameter: {
+          id: 4,
+          name: ">2"
+        },
+        flow: {
+          id: 3,
+          name: "Pequeño"
+        },
+        color: {
+          id: 1,
+          name: "Transparente"
+        },
+        smell: {
+          id: 1,
+          name: "Inoloro"
+        },
+        source: {
+          id: 3,
+          name: "Doméstico"
+        }
+      }
+    ],
+    wasteList: [
+      {
+        id: 30,
+        idWasteType: 3,
+        name: "Palos de helados, cubiertos, etc",
+        units: 4
+      },
+      {
+        id: 35,
+        idWasteType: 4,
+        name: "Latas de bebida",
+        units: 4
+      },
+      {
+        id: 41,
+        idWasteType: 4,
+        name: "Botes de pintura",
+        units: 2
+      },
+      {
+        id: 46,
+        idWasteType: 6,
+        name: "Preservativos",
+        units: 6
+      }
+    ],
+    stonesInPools: {
+      id: 3,
+      name: "Moderado",
+      points: 5
+    },
+    substrateComposition: [
+      {
+        id: 1,
+        name: "Bloques y piedras",
+        value: {
+          id: 1,
+          name: "< 10%",
+          points: 2
+        }
+      },
+      {
+        id: 2,
+        name: "Cantos y gravas",
+        value: {
+          id: 2,
+          name: "> 10%",
+          points: 5
+        }
+      },
+      {
+        id: 3,
+        name: "Arena",
+        value: {
+          id: 1,
+          name: "< 10%",
+          points: 2
+        }
+      },
+      {
+        id: 4,
+        name: "Limo y arcilla",
+        value: {
+          id: 2,
+          name: "> 10%",
+          points: 5
+        }
+      }
+    ],
+    rapidsFrequency: {
+      id: 3,
+      name: "Ocasional",
+      points: 6
+    },
+    velocityAndDepth: {
+      id: 1,
+      name: "Las 4 categorías",
+      points: 10
+    },
+    riverShadows: {
+      id: 1,
+      name: "Sombreado con ventanas",
+      points: 10
+    },
+    randomElements: [
+      {
+        id: 1,
+        name: "Hojarasca",
+        value: {
+          id: 1,
+          name: "Presencia",
+          points: 2
+        }
+      },
+      {
+        id: 2,
+        name: "Troncos y Ramas",
+        value: {
+          id: 3,
+          name: "No",
+          points: 0
+        }
+      },
+      {
+        id: 3,
+        name: "Raíces descubiertas",
+        value: {
+          id: 2,
+          name: "10% - 75%",
+          points: 4
+        }
+      },
+      {
+        id: 4,
+        name: "Diques naturales",
+        value: {
+          id: 2,
+          name: "10% - 75%",
+          points: 4
+        }
+      }
+    ],
+    aquaticVegetation: [
+      {
+        id: 1,
+        name: "Algas filamentosas, musgos y hepáticas",
+        value: {
+          id: 1,
+          name: "Alta",
+          points: 5
+        }
+      },
+      {
+        id: 2,
+        name: "Algas adheridas a las piedras",
+        value: {
+          id: 2,
+          name: "Mod",
+          points: 10
+        }
+      },
+      {
+        id: 3,
+        name: "Plantas superiores y flotantes",
+        value: {
+          id: 3,
+          name: "Baja",
+          points: 5
+        }
+      }
+    ],
+    habitatIndex: {
+      cat: {
+        id: 1,
+        name: "Habitat bien constituido",
+        nameValues: "> 60 puntos",
+        value: 3,
+        description:
+          "Hábitat bien constituido. Excelente para el desarrollo de las comunidades de macroinvertebrados. Se pueden aplicar los índices biológicos (Invertebrados y QRISI) sin restricciones.",
+        minPoints: 61,
+        maxPoints: 100
+      },
+      totalPoints: 71
+    },
+    samplePointCoords: {
+      lon: "-3.87564",
+      lat: "43.44709"
+    },
+    samplePointWidth: 0.5,
+    samplePointDepth: 1.3,
+    samplePointWaterVelocity: 0.7,
+    samplePointWaterTemp: 21,
+    samplePointWaterTransparency: [
+      {
+        id: 4,
+        name: "3"
+      }
+    ],
+    riverEcosystem: [
+      {
+        id: 1,
+        name: "Espiga de agua (Potamogeton natans)",
+        options: []
+      },
+      {
+        id: 3,
+        name: "Lenteja flotante",
+        options: []
+      },
+      {
+        id: 7,
+        name: "Berraza",
+        options: []
+      },
+      {
+        id: 10,
+        name: "Enea",
+        options: []
+      },
+      {
+        id: 12,
+        name: "Junco",
+        options: []
+      },
+      {
+        id: 13,
+        name: "Dulcamara",
+        options: []
+      },
+      {
+        id: 14,
+        name: "Epilobio",
+        options: []
+      },
+      {
+        id: 15,
+        name: "Menta",
+        options: []
+      },
+      {
+        id: 18,
+        name: "Saxifraga dorada",
+        options: []
+      },
+      {
+        id: 22,
+        name: "Tojo",
+        options: []
+      },
+      {
+        id: 21,
+        name: "Pimienta acuática",
+        options: []
+      },
+      {
+        id: 20,
+        name: "Ortiga",
+        options: []
+      },
+      {
+        id: 25,
+        name: "Helecho común",
+        options: []
+      },
+      {
+        id: 26,
+        name: "Helecho de hoja grande",
+        options: []
+      },
+      {
+        id: 27,
+        name: "Helecho de hoja pequeña",
+        options: []
+      },
+      {
+        id: 28,
+        name: "Helecho real o antojil",
+        options: []
+      },
+      {
+        id: 32,
+        name: "Nueza negra",
+        options: []
+      },
+      {
+        id: 33,
+        name: "Rosa silvestre",
+        options: []
+      },
+      {
+        id: 34,
+        name: "Rubia peregrina",
+        options: []
+      },
+      {
+        id: 41,
+        name: "Haya",
+        options: []
+      },
+      {
+        id: 40,
+        name: "Fresno",
+        options: []
+      },
+      {
+        id: 39,
+        name: "Chopo",
+        options: []
+      },
+      {
+        id: 47,
+        name: "Cornejo",
+        options: []
+      },
+      {
+        id: 46,
+        name: "Avellano",
+        options: []
+      },
+      {
+        id: 85,
+        name: "Cangrejo de río",
+        options: []
+      },
+      {
+        id: 87,
+        name: "Cangrejo señal",
+        options: []
+      },
+      {
+        id: 104,
+        name: "Anguila",
+        options: []
+      },
+      {
+        id: 113,
+        name: "Alburno",
+        options: []
+      },
+      {
+        id: 116,
+        name: "Desmán ibérico",
+        options: []
+      },
+      {
+        id: 120,
+        name: "Musgaño patiblanco",
+        options: []
+      },
+      {
+        id: 124,
+        name: "Visón americano",
+        options: []
+      },
+      {
+        id: 126,
+        name: "Crustáceos",
+        options: [
+          {
+            id: 3,
+            name: "Gammaridos"
+          }
+        ]
+      },
+      {
+        id: 127,
+        name: "Turbelarios / planarios",
+        options: []
+      },
+      {
+        id: 137,
+        name: "Dípteros",
+        options: [
+          {
+            id: 33,
+            name: "Atericéridos"
+          },
+          {
+            id: 34,
+            name: "Blefacéridos"
+          },
+          {
+            id: 35,
+            name: "Quironómidos (rojo)"
+          },
+          {
+            id: 36,
+            name: "Quironómidos (verde)"
+          },
+          {
+            id: 37,
+            name: "Simúlidos"
+          },
+          {
+            id: 38,
+            name: "Sírfidos"
+          },
+          {
+            id: 39,
+            name: "Tipúlidos"
+          }
+        ]
+      },
+      {
+        id: 77,
+        name: "Gallineta común",
+        options: []
+      },
+      {
+        id: 80,
+        name: "Lavandera blanca",
+        options: []
+      },
+      {
+        id: 79,
+        name: "Garza real",
+        options: []
+      },
+      {
+        id: 91,
+        name: "Ranita de San Antonio",
+        options: []
+      },
+      {
+        id: 93,
+        name: "Salamandra rabilarga",
+        options: []
+      },
+      {
+        id: 94,
+        name: "Sapillo pintojo ibérico",
+        options: []
+      },
+      {
+        id: 97,
+        name: "Sapo corredor",
+        options: []
+      },
+      {
+        id: 102,
+        name: "Culebra de collar",
+        options: []
+      }
+    ],
+    riverEcosystemInvPlantsCoverage: [],
+    riverEcosystemSpecies: [
+      {
+        id: 3,
+        name: "Gammaridos"
+      },
+      {
+        id: 36,
+        name: "Quironómidos (verde)"
+      },
+      {
+        id: 38,
+        name: "Sírfidos"
+      }
+    ],
+    bioQualityIndex: {
+      id: 1,
+      name: "Muy Buena",
+      value: 5,
+      description:
+        "Todos los organismos identificados corresponden con un muy buen estado (azul) o en algún caso bueno (verde), dominando siempre los organismos correspondientes con el muy buen estado. Si se identifica al menos un organismo correspondiente con un estado malo (marrón) o muy malo (rojo), y aún dominando el muy bueno, el estado correspondiente no será muy bueno sino bueno."
+    },
+    RiverMarginConditions: [
+      {
+        id: 1,
+        name: "Erosionadas"
+      },
+      {
+        id: 8,
+        name: "Con paseos o caminos a la ribera"
+      },
+      {
+        id: 3,
+        name: "Con arbustos"
+      }
+    ],
+    RiverMarginLandUse: [
+      {
+        id: 3,
+        name: "Camping"
+      },
+      {
+        id: 8,
+        name: "Carreteras"
+      },
+      {
+        id: 5,
+        name: "Aparcamientos"
+      },
+      {
+        id: 6,
+        name: "Ganadería"
+      }
+    ],
+    WeatherToday: {
+      id: 1,
+      name: "Soleado"
+    },
+    RiverSection: {
+      id: 42,
+      name: "Arroyo de Otero (Miera)",
+      coordX: -3.88740318,
+      coordY: 43.45409779,
+      municipality: "Santa Cruz de Bezana",
+      riverName: "Otero",
+      riverType: "arroyo",
+      catchment: "Miera",
+      riverAlias: null
+    },
+    Weather48h: {
+      id: 1,
+      name: "Soleado"
+    },
+    BioQuality: {
+      id: 1,
+      name: "Muy Buena",
+      value: 5,
+      description:
+        "Todos los organismos identificados corresponden con un muy buen estado (azul) o en algún caso bueno (verde), dominando siempre los organismos correspondientes con el muy buen estado. Si se identifica al menos un organismo correspondiente con un estado malo (marrón) o muy malo (rojo), y aún dominando el muy bueno, el estado correspondiente no será muy bueno sino bueno."
+    },
+    EcoStatus: {
+      cat: {
+        id: 1,
+        name: "Muy bueno",
+        description: "Sin alteraciones humanas",
+        value: 5
+      },
+      totalPoints: 5
+    }
+  };
+  const res = await axios.post(url, results, {
+    headers: _basicHeaders
   });
+  console.log(res);
+  console.log(res);
   return res;
 };
 
-export { getMasterData, login, getUserRiverSections, postResults };
+export { getMasterData, login, getUserRiverSections, saveSample };
