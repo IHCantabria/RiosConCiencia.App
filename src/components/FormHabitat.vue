@@ -82,7 +82,14 @@
         >
       </b-select>
     </b-field>
-    <b-field label="f. Presencia de elementos de heterogeneidad"> </b-field>
+    <b-field
+      label="f. Presencia de elementos de heterogeneidad"
+      :message="{
+        '*Hay que seleccionar una opción para cada elemento': randomElementsHasErrors
+      }"
+      :type="{ 'is-danger': randomElementsHasErrors }"
+    >
+    </b-field>
     <div class="block">
       <div
         class="radio-rows"
@@ -101,7 +108,14 @@
         >
       </div>
     </div>
-    <b-field label="g. Cobertura de la vegatación acúatica"> </b-field>
+    <b-field
+      label="g. Cobertura de la vegatación acúatica"
+      :message="{
+        '*Hay que seleccionar una opción para cada elemento': aquaticVegetationHasErrors
+      }"
+      :type="{ 'is-danger': aquaticVegetationHasErrors }"
+    >
+    </b-field>
     <div class="block">
       <div
         class="radio-rows"
@@ -207,8 +221,24 @@ export default {
       }
       return false;
     },
+    randomElementsHasErrors() {
+      for (let element of this.values.randomElements) {
+        if (Object.keys(element.value).length === 0) return true;
+      }
+      return false;
+    },
+    aquaticVegetationHasErrors() {
+      for (let element of this.values.aquaticVegetation) {
+        if (Object.keys(element.value).length === 0) return true;
+      }
+      return false;
+    },
     isSectionValid() {
-      return !this.substrateHasErrors;
+      return (
+        !this.substrateHasErrors &&
+        !this.randomElementsHasErrors &&
+        !this.aquaticVegetationHasErrors
+      );
     }
   },
   mounted() {
