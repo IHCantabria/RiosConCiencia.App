@@ -191,15 +191,15 @@ export default {
   },
   mounted() {
     this.init();
-  },
-  beforeUpdate() {
-    // valid by default
-    this.setSectionState({ name: "spills", isValid: true });
+    this.updateSpecificSectionValues({
+      name: "spills",
+      values: this.values,
+      isValid: true //optional section
+    });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues",
-      setSectionState: "setSectionState"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     init() {
       // init default values

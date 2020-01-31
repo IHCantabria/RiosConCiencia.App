@@ -73,7 +73,6 @@ export default new Vuex.Store({
       Vue.set(state.formSections[payload.name], "results", {
         ...payload.values
       });
-      //   Vue.set(state.formSections[payload.name],"isValid", payload.isValid);
       state.formSections[payload.name].isValid = payload.isValid;
     }
   },
@@ -103,6 +102,9 @@ export default new Vuex.Store({
         ...payload
       };
       context.commit(types.UPDATE_SECTION_VALUES, params);
+    },
+    updateSpecificSectionValues(context, payload) {
+      context.commit(types.UPDATE_SECTION_VALUES, payload);
     }
   },
   modules: {}

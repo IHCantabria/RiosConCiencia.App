@@ -129,7 +129,10 @@ export default {
     }),
     async init() {
       try {
-        this.userRiverSections = await getUserRiverSections(this.user.id);
+        this.userRiverSections = await getUserRiverSections(
+          this.user.token,
+          this.user.id
+        );
       } catch (err) {
         //TODO: notificar
         console.error("error getting river sections");
