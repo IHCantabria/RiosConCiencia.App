@@ -55,19 +55,20 @@
         type="is-danger"
         size="is-medium"
         expanded
-        @click="sendResults()"
+        @click="sendSaveSample()"
         >Enviar Resultados</b-button
       >
     </div>
   </div>
 </template>
 <script>
-import { postResults } from "@/api/riosconciencia.js";
+import { saveSample } from "@/api/riosconciencia.js";
 import { mapState, mapGetters } from "vuex";
 export default {
   name: "FormEcoResult",
   computed: {
     ...mapState({
+      user: state => state.user,
       statusOptions: state =>
         state.formSections.ecoResult.data.ecologicalStateOptions,
       formSections: state => state.formSections,
@@ -96,10 +97,10 @@ export default {
         return this._getStatusForBadQrisi(bioQualityIndexValue);
       }
     },
-    async sendResults() {
+    async sendSaveSample() {
       const results = this._prepareResultsObj();
       try {
-        await postResults(results);
+        await saveSample(this.user.token, results);
         //notificar
         console.log("Formulario enviado con éxito");
       } catch (err) {
