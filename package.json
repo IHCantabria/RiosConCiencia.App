@@ -1,9 +1,9 @@
 {
   "name": "riosconciencia",
-  "version": "0.3.2",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
-    "create-pwa-assets": "pwa-asset-generator ./src/assets/icons/soseas_inverse.png ./public/img/icons --manifest ./public/manifest.json",
+    "create-pwa-assets": "pwa-asset-generator ./src/assets/icons/camberaIco.png ./public/img/icons --manifest ./public/manifest.json",
     "serve": "vue-cli-service serve",
     "build:dev": "vue-cli-service build --mode development",
     "build:preprod": "vue-cli-service build --mode preproduction",
