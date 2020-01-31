@@ -102,11 +102,16 @@ export default {
       const sampleData = this._prepareSampleObj();
       try {
         await saveSample(this.user.token, sampleData);
-        //notificar
-        console.log("Formulario enviado con éxito");
+        this.$buefy.toast.open({
+          message: "¡Enhorabuena! El formulario se ha enviado con éxito",
+          type: "is-success"
+        });
       } catch (err) {
-        //notificar
-        console.error("Error enviando resultados");
+        this.$buefy.toast.open({
+          message:
+            "Ooops, se ha producido un error intentando enviar el formulario",
+          type: "is-danger"
+        });
       }
     },
     _prepareSampleObj() {
