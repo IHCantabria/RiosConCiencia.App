@@ -97,17 +97,15 @@ export default {
   },
   mounted() {
     this.init();
-  },
-  beforeUpdate() {
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "waste",
       values: this.values,
-      isValid: true
+      isValid: true //optional section
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues",
-      setSectionState: "setSectionState"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     init() {
       this.selectedWaste = this.formWaste.data.wasteOptions[0].options[0];
