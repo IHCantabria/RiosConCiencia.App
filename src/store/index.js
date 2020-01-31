@@ -27,6 +27,17 @@ export default new Vuex.Store({
     activeSectionName: state => {
       return Object.keys(state.formSections)[state.activeSectionId];
     },
+    isFormValid: state => {
+      //TODO: Frágil. Recorriendo la lista no consigo que sea reactivo. Hay que buscar una forma mejor.
+      return (
+        state.formSections.biological.isValid &&
+        state.formSections.init.isValid &&
+        state.formSections.basic.isValid &&
+        state.formSections.habitat.isValid &&
+        state.formSections.ecoSystem.isValid &&
+        state.formSections.riverQuality.isValid
+      );
+    },
     isStateEcoReady: state => {
       return (
         checkNestedProperty(
@@ -62,6 +73,7 @@ export default new Vuex.Store({
       Vue.set(state.formSections[payload.name], "results", {
         ...payload.values
       });
+      //   Vue.set(state.formSections[payload.name],"isValid", payload.isValid);
       state.formSections[payload.name].isValid = payload.isValid;
     }
   },
