@@ -123,7 +123,29 @@ export default {
           user: this.user
         };
       }
+      // Add sides prop to river margins values
+      formResults.riverMarginConditions = this._setupRiverMarginsValues(
+        this.formSections.basic.riverMarginConditionsLeft,
+        this.formSections.basic.riverMarginConditionsRight
+      );
+      formResults.riverMarginLandUse = this._setupRiverMarginsValues(
+        this.formSections.basic.riverMarginLandUseLeft,
+        this.formSections.basic.riverMarginLandUseRight
+      );
+
       return formResults;
+    },
+    _setupRiverMarginsValues(leftMarginValues, rightMarginValues) {
+      const fullList = [];
+      for (let item of leftMarginValues) {
+        item.side = 1;
+        fullList.push(item);
+      }
+      for (let item of rightMarginValues) {
+        item.side = 2;
+        fullList.push(item);
+      }
+      return fullList;
     },
     _getStatusForGoodQrisi(bioQualityIndexValue) {
       if (bioQualityIndexValue === 5) return this.statusOptions[0];
