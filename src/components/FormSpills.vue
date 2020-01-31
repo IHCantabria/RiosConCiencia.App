@@ -193,8 +193,10 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    // valid by default
-    this.setSectionState({ name: "spills", isValid: true });
+    this.updateSectionValues({
+      values: this.values,
+      isValid: true
+    });
   },
   methods: {
     ...mapActions({

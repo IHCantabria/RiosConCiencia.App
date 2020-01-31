@@ -99,8 +99,10 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    // valid by default
-    this.setSectionState({ name: "waste", isValid: true });
+    this.updateSectionValues({
+      values: this.values,
+      isValid: true
+    });
   },
   methods: {
     ...mapActions({
