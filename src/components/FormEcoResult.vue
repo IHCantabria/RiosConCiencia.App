@@ -1,6 +1,6 @@
 <template>
   <div class="form-section">
-    <div class="block" v-if="isStateEcoReady">
+    <div class="block" v-if="isFormValid">
       <b-message title="Resumen" type="is-success">
         <b-field label="Hábitat Fluvial">
           <b-tag type="is-info" size="is-medium">{{
@@ -22,7 +22,7 @@
 
     <h5 class="title is-5">8. Estado ecológico</h5>
     <div>
-      <div class="block" v-if="ecoStatus !== null">
+      <div class="block" v-if="isFormValid">
         <b-message :title="ecoStatus.name" type="is-info" :closable="false">
           {{ ecoStatus.description }}
           <div class="results__rate">
@@ -38,7 +38,7 @@
           </div>
         </b-message>
       </div>
-      <div class="block" v-if="!isStateEcoReady">
+      <div class="block" v-else>
         <b-message
           title="Formulario incompleto"
           type="is-warning"
@@ -55,7 +55,7 @@
         type="is-danger"
         size="is-medium"
         expanded
-        :disabled="!isStateEcoReady"
+        :disabled="!isFormValid"
         @click="sendResults()"
         >Enviar Resultados</b-button
       >
@@ -76,10 +76,10 @@ export default {
       bioQuality: state => state.formSections.biological
     }),
     ...mapGetters({
-      isStateEcoReady: "isStateEcoReady"
+      isFormValid: "isFormValid"
     }),
     ecoStatus() {
-      if (!this.isStateEcoReady) return null;
+      if (!this.isFormValid) return null;
       return this.calculateStatus();
     }
   },
