@@ -48,8 +48,7 @@ const saveSample = async (token, sample) => {
   _basicHeaders.Authorization = `Bearer ${token}`;
 
   const res = await axios.post(url, sample, {
-    headers: _basicHeaders,
-    sample
+    headers: _basicHeaders
   });
   return res;
 };
