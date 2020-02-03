@@ -105,7 +105,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues",
+      updateSectionValues: "updateSectionValues"
     }),
     init() {
       this.selectedWaste = this.formWaste.data.wasteOptions[0].options[0];
@@ -127,7 +128,7 @@ export default {
         self.values.wasteList = filtered;
       }
       this.wasteTable.selectedRows = [];
-      this.updateSectionValues(this.values);
+      this.updateSectionValues({ values: this.values, isValid: true });
     }
   }
 };

@@ -199,7 +199,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues",
+      updateSectionValues: "updateSectionValues"
     }),
     init() {
       // init default values
@@ -233,7 +234,6 @@ export default {
         source: this.spillSource
       };
       this.values.spillsList.push(newSpill);
-      // Update store values
       this.updateSectionValues({
         values: this.values,
         isValid: true
@@ -248,7 +248,7 @@ export default {
         self.values.spillsList = filtered;
       }
       this.spillsTable.selectedRows = [];
-      this.updateSectionValues(this.values);
+      this.updateSectionValues({ values: this.values, isValid: true });
     }
   }
 };
