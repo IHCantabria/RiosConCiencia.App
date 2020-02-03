@@ -2,7 +2,7 @@
   <div class="footer-container">
     <div class="footer-container__logos" v-show="!isFormPage">
       <img
-        src="@/assets/logos/LogoMinisterio-FECYT.jpg"
+        src="@/assets/logos/LogoMinisterio-FECYT.png"
         title="Gobierno de España y Fundación Española para la Ciencia y la Tecnología"
       />
       <img src="@/assets/logos/RedCambera.jpg" title="Red Cambera" />
