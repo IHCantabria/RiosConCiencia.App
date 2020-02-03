@@ -6,16 +6,13 @@
     <div class="intro__main">
       <div class="option">
         <h2 class="subtitle">Usuario Experto</h2>
-        <b-button size="is-large" type="is-primary" @click="loginExpertUser()"
+        <b-button size="is-large" type="is-primary" @click="expertUser()"
           >Empezar</b-button
         >
       </div>
       <div class="option">
         <h2 class="subtitle">Usuario con Desafíos</h2>
-        <b-button
-          size="is-large"
-          type="is-primary"
-          @click="loginChallengeUser()"
+        <b-button size="is-large" type="is-primary" @click="challengeUser()"
           >Empezar</b-button
         >
       </div>
@@ -23,31 +20,13 @@
   </div>
 </template>
 <script>
-import { login } from "@/api/riosconciencia.js";
-import { mapActions } from "vuex";
-
 export default {
   name: "Intro",
   methods: {
-    ...mapActions({
-      setActiveUser: "setActiveUser"
-    }),
-    async loginExpertUser() {
-      try {
-        const authenticatedUser = await login();
-        if (authenticatedUser) {
-          this.setActiveUser(authenticatedUser);
-          this.$router.push("formfields");
-        } else {
-          //TODO: mensaje
-          console.error("Error intentando autenticar");
-        }
-      } catch (err) {
-        //TODO: notificar
-        console.error("Error intentando autenticar");
-      }
+    ExpertUser() {
+      this.$router.push("formfields");
     },
-    loginChallengeUser() {
+    challengeUser() {
       this.$router.push("formpictos");
     }
   }

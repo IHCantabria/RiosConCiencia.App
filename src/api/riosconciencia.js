@@ -7,16 +7,13 @@ const _basicHeaders = {
   "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS"
 };
 
-const login = async () => {
+const login = async (email, password) => {
   const url = `${RIOSCONCIENCIA_API.public}/Authenticate`;
-  //hardcoded user - dev purpose
   const auth = {
-    email: "admin@admin.com",
-    password: "admin"
+    email: email,
+    password: password
   };
-
   const res = await axios.post(url, auth);
-
   return res.data;
 };
 
