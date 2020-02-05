@@ -5,10 +5,22 @@
     </div>
     <div class="login__main">
       <b-field label="Email">
-        <b-input type="email" v-model="userEmail"> </b-input>
+        <b-input
+          placeholder="Email"
+          type="email"
+          v-model="userEmail"
+          icon="email"
+          >>
+        </b-input>
       </b-field>
-      <b-field label="Password" password-reveal>
-        <b-input v-model="userPassword" type="password"></b-input>
+      <b-field label="Contraseña">
+        <b-input
+          placeholder="Contraseña"
+          v-model="userPassword"
+          type="password"
+          icon="lock"
+          password-reveal
+        ></b-input>
       </b-field>
       <b-button size="is-large" type="is-primary" @click="loginUser()"
         >Inicio de sesión</b-button
