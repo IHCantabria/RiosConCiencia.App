@@ -13,6 +13,7 @@
       @data-load-ready="onDataLoad"
       @data-load-error="onDataLoadError"
     />
+    <spinner :is-loading="!dataReady"></spinner>
   </div>
 </template>
 <script>
@@ -29,7 +30,8 @@ export default {
     biological: () => import("@/components/FormBiological"),
     riverQuality: () => import("@/components/FormRiverQuality"),
     ecoResult: () => import("@/components/FormEcoResult"),
-    "app-data-loader": () => import("@/components/renderless/AppDataLoader")
+    "app-data-loader": () => import("@/components/renderless/AppDataLoader"),
+    spinner: () => import("@/components/Loading")
   },
   data() {
     return {

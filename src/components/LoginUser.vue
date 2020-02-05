@@ -25,6 +25,7 @@
       <b-button size="is-large" type="is-primary" @click="loginUser()"
         >Inicio de sesión</b-button
       >
+      <spinner :is-loading="isLoading"></spinner>
     </div>
   </div>
 </template>
@@ -33,10 +34,14 @@ import { login } from "@/api/riosconciencia.js";
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    spinner: () => import("@/components/Loading")
+  },
   data() {
     return {
       userEmail: "",
-      userPassword: ""
+      userPassword: "",
+      isLoading: false
     };
   },
   methods: {
@@ -45,13 +50,14 @@ export default {
     }),
     async loginUser() {
       try {
+        this.isLoading = true;
         const authenticatedUser = await login(
           this.userEmail,
           this.userPassword
         );
         if (authenticatedUser) {
           this.setActiveUser(authenticatedUser);
-          this.$router.push("formfields");
+          this.$router.push("/");
         } else {
           //TODO: mensaje
           console.error("Error intentando autenticar");
@@ -59,6 +65,8 @@ export default {
       } catch (err) {
         //TODO: notificar
         console.error("Error intentando autenticar");
+      } finally {
+        this.isLoading = false;
       }
     }
   }
