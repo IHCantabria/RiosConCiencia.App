@@ -23,7 +23,7 @@
 export default {
   name: "Intro",
   methods: {
-    ExpertUser() {
+    expertUser() {
       this.$router.push("formfields");
     },
     challengeUser() {

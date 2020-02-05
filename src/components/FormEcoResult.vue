@@ -64,6 +64,7 @@
         >Enviar Resultados</b-button
       >
     </div>
+    <spinner :is-loading="isSendingData"></spinner>
   </div>
 </template>
 <script>
@@ -75,7 +76,8 @@ export default {
     return {
       values: {
         ecoStatus: {}
-      }
+      },
+      isSendingData: false
     };
   },
   computed: {
@@ -119,6 +121,7 @@ export default {
       this.values.ecoStatus = this.ecoStatusIndex;
       const sampleData = this._prepareSampleObj();
       try {
+        this.isSendingData = true;
         const res = await saveSample(this.user.token, sampleData);
         console.log(res);
         this.$buefy.toast.open({
@@ -131,6 +134,8 @@ export default {
             "Ooops, se ha producido un error intentando enviar el formulario",
           type: "is-danger"
         });
+      } finally {
+        this.isSendingData = false;
       }
     },
     _prepareSampleObj() {
