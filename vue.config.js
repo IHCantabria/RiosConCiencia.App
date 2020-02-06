@@ -11,6 +11,7 @@ module.exports = {
   outputDir: process.env.VUE_APP_DEPLOY_DIR,
   runtimeCompiler: true,
   devServer: {
+    open: true,
     https: true,
     key: fs.readFileSync("./certificate/localhost-key.pem"),
     cert: fs.readFileSync("./certificate/localhost.pem")
