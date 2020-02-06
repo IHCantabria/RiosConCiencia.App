@@ -9,6 +9,7 @@
         @geo-data-ready="onGeolocation"
         @geo-data-error="onGeolocationError"
       />
+      <app-offline-manager />
     </main>
     <footer class="app__footer">
       <app-footer></app-footer>
@@ -21,12 +22,19 @@ export default {
   components: {
     AppHeader: () => import("@/components/layout/AppHeader"),
     AppFooter: () => import("@/components/layout/AppFooter"),
-    AppGeoLoader: () => import("@/components/renderless/AppGeoLoader")
+    AppGeoLoader: () => import("@/components/renderless/AppGeoLoader"),
+    AppOfflineManager: () => import("@/components/renderless/AppOfflineManager")
   },
   data() {
     return {
-      geolocationReady: false
+      geolocationReady: false,
+      isStateReady: false
     };
+  },
+  created() {
+    this.$store._vm.$root.$on("storageReady", () => {
+      this.isStateReady = true;
+    });
   },
   methods: {
     onGeolocation() {
