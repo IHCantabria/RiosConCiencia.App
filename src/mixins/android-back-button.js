@@ -9,8 +9,6 @@ export const androidBackButtonMixin = {
     );
   },
   beforeDestroy() {
-    document.removeEventListener("backbutton", function(e) {
-      e.preventDefault();
-    });
+    document.removeEventListener("backbutton", function() {}, false);
   }
 };
