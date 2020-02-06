@@ -19,6 +19,14 @@ register(`${process.env.BASE_URL}service-worker.js`, {
   },
   updated() {
     console.log("New content is available; please refresh.");
+    // New content is available
+    const updateBanner = document.getElementById("update-banner");
+    const updateButton = document.getElementById("update-button");
+
+    updateBanner.style.display = "block";
+    updateButton.addEventListener("click", () => {
+      location.reload();
+    });
   },
   offline() {
     console.log(

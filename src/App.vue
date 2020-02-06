@@ -68,7 +68,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-    /* Disables pull-to-refresh but allows overscroll glow effects. */
+  /* Disables pull-to-refresh but allows overscroll glow effects. */
   overscroll-behavior-y: contain;
 
   &__header {
