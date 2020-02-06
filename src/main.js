@@ -11,7 +11,9 @@ import "@mdi/font/css/materialdesignicons.css";
 
 /** Global mixins */
 import { datesHelperMixin } from "@/mixins/dates-helper.js";
+import { androidBackButtonMixin } from "@/mixins/android-back-button.js";
 Vue.mixin(datesHelperMixin);
+Vue.mixin(androidBackButtonMixin);
 
 Vue.use(VueOffline, {
   mixin: true,
