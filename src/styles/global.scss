@@ -3,6 +3,10 @@
 html {
   background-color: #eaedf1 !important;
 }
+body {
+  /* Disables pull-to-refresh but allows overscroll glow effects. */
+  overscroll-behavior-y: contain;
+}
 
 .table{
     background-color: transparent !important;
