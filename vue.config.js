@@ -1,3 +1,4 @@
+const fs = require("fs");
 module.exports = {
   chainWebpack: config => {
     config.plugin("define").tap(definitions => {
@@ -9,6 +10,12 @@ module.exports = {
   },
   outputDir: process.env.VUE_APP_DEPLOY_DIR,
   runtimeCompiler: true,
+  devServer: {
+    open: true,
+    https: true,
+    key: fs.readFileSync("./certificate/localhost-key.pem"),
+    cert: fs.readFileSync("./certificate/localhost.pem")
+  },
   css: {
     loaderOptions: {
       sass: {

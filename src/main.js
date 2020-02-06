@@ -1,4 +1,5 @@
 import Vue from "vue";
+import VueOffline from "vue-offline";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -12,6 +13,10 @@ import "@mdi/font/css/materialdesignicons.css";
 import { datesHelperMixin } from "@/mixins/dates-helper.js";
 Vue.mixin(datesHelperMixin);
 
+Vue.use(VueOffline, {
+  mixin: true,
+  storage: false
+});
 Vue.use(Buefy);
 
 Vue.config.productionTip = false;

@@ -1,11 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "./plugins/persistent";
 import * as types from "./types";
 import { checkNestedProperty } from "./../utils/utils";
 
 Vue.use(Vuex);
 
+const plugins = [createPersistedState({})];
+
 export default new Vuex.Store({
+  plugins: [...plugins],
   state: {
     user: {},
     userPosition: null,
