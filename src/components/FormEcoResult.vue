@@ -72,6 +72,9 @@ import { saveSample } from "@/api/riosconciencia.js";
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "FormEcoResult",
+  components: {
+    spinner: () => import("@/components/Loading")
+  },
   data() {
     return {
       values: {
