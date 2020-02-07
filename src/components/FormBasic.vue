@@ -78,7 +78,7 @@
     >
       <b-select
         icon="arrow-expand-down"
-        placeholder="Seleccione  una opción"
+        placeholder="Seleccione una opción"
         v-model="values.riverBedDepth"
       >
         <option
