@@ -55,6 +55,7 @@
       <b-numberinput
         v-model="values.samplePointWidth"
         step="0.1"
+        min="0.1"
       ></b-numberinput>
     </b-field>
     <b-field
@@ -68,6 +69,7 @@
       <b-numberinput
         v-model="values.samplePointDepth"
         step="0.1"
+        min="0.1"
       ></b-numberinput>
     </b-field>
     <b-field
@@ -81,6 +83,7 @@
       <b-numberinput
         v-model="values.samplePointWaterVelocity"
         step="0.1"
+        min="0.1"
       ></b-numberinput>
     </b-field>
     <b-field label="Caudal" custom-class="is-small"> </b-field>
@@ -183,7 +186,7 @@ export default {
         samplePointWidth: 0,
         samplePointDepth: 0,
         samplePointWaterVelocity: 0,
-        samplePointWaterTemp: 0,
+        samplePointWaterTemp: null,
         samplePointWaterTransparency: [],
         riverEcosystem: [],
         riverEcosystemInvPlantsCoverage: [],
@@ -209,7 +212,7 @@ export default {
       return this.values.samplePointWaterVelocity === 0;
     },
     waterTempHasErrors() {
-      return this.values.samplePointWaterTemp === 0;
+      return this.values.samplePointWaterTemp === null;
     },
     sampleWidthHasErrors() {
       return this.values.samplePointWidth === 0;

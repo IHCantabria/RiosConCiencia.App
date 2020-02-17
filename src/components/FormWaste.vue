@@ -29,7 +29,7 @@
         </b-select>
       </b-field>
       <b-field>
-        <b-numberinput v-model="units"></b-numberinput>
+        <b-numberinput v-model="units" min="1"></b-numberinput>
       </b-field>
       <b-button type="is-primary" @click="saveNewWaste">
         Guardar
@@ -87,7 +87,7 @@ export default {
         wasteList: []
       },
       selectedWaste: {},
-      units: 0,
+      units: 1,
       wasteTable: {
         selectedRows: [],
         columns: [
