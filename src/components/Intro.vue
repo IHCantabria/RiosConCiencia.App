@@ -6,7 +6,11 @@
     <div class="intro__main">
       <div class="option">
         <a :href="pdfLink" target="_blank"
-          ><b-icon icon="file-pdf" size="is-large" type="is-primary"></b-icon
+          ><b-icon
+            icon="book-information-variant"
+            size="is-large"
+            type="is-primary"
+          ></b-icon
         ></a>
       </div>
       <div class="option">

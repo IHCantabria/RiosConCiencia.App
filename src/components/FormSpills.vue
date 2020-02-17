@@ -1,7 +1,10 @@
 <template>
   <div class="form-section">
     <h5 class="title is-5">
-      2. Inspección de Vertidos (500m)
+      <a :href="pdfLink" target="_blank"
+        ><b-icon icon="book-information-variant" type="is-primary"></b-icon
+      ></a>
+      <span> 2. Inspección de Vertidos (500m)</span>
     </h5>
     <div class="form-section__block">
       <b-field label="Coordenadas (WGS84)"></b-field>
