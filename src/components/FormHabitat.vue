@@ -62,7 +62,6 @@
         <div class="radio-rows__label-container">
           {{ type.name }}
         </div>
-
         <b-radio
           v-for="option in formHabitat.data.substrateCompositionPresenceOptions"
           :key="option.id"
@@ -325,14 +324,15 @@ export default {
   },
   beforeUpdate() {
     this.values.habitatIndex = this.habitatIndex;
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "habitat",
       values: this.values,
       isValid: this.isSectionValid
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     init() {
       this.prepareComplexObjects();

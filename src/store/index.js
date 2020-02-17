@@ -77,7 +77,7 @@ export default new Vuex.Store({
       Vue.set(state.formSections[payload.name], "results", {
         ...payload.values
       });
-      state.formSections[payload.name].isValid = payload.isValid;
+      Vue.set(state.formSections[payload.name], "isValid", payload.isValid);
     }
   },
   actions: {

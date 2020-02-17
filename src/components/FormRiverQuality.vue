@@ -150,14 +150,15 @@ export default {
   },
   beforeUpdate() {
     this.values.qrisiIndex = this.qrisiIndex;
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "riverQuality",
       values: this.values,
       isValid: this.isSectionValid
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     getRiverQualityCategory(totalPoints) {
       if (totalPoints <= 4)

@@ -75,7 +75,10 @@ export default {
   computed: {
     ...mapState({
       formWaste: state => state.formSections.waste
-    })
+    }),
+    isSectionValid() {
+      return true; //optional section
+    }
   },
   data() {
     return {
@@ -102,10 +105,12 @@ export default {
   },
   mounted() {
     this.init();
+  },
+  beforeUpdate() {
     this.updateSpecificSectionValues({
       name: "waste",
       values: this.values,
-      isValid: true //optional section
+      isValid: this.isSectionValid
     });
   },
   methods: {

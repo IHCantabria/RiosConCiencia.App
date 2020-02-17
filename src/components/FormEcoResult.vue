@@ -114,6 +114,13 @@ export default {
       return this.ecoStatusIndex !== null;
     }
   },
+  beforeUpdate() {
+    this.updateSpecificSectionValues({
+      name: "ecoResult",
+      values: this.values,
+      isValid: this.isSectionValid
+    });
+  },
   methods: {
     ...mapActions({
       updateSectionValues: "updateSectionValues"

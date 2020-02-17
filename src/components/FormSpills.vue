@@ -176,6 +176,9 @@ export default {
     }),
     spillDisabled() {
       return this.spillSource === null || this.spillDiameter === null;
+    },
+    isSectionValid() {
+      return true; //optional section
     }
   },
   data() {
@@ -226,11 +229,11 @@ export default {
       }
     };
   },
-  mounted() {
+  beforeUpdate() {
     this.updateSpecificSectionValues({
       name: "spills",
       values: this.values,
-      isValid: true //optional section
+      isValid: this.isSectionValid
     });
   },
   methods: {

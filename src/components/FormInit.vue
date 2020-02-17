@@ -107,7 +107,8 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "init",
       values: this.values,
       isValid: this.isSectionValid
     });
@@ -125,7 +126,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     async init() {
       try {
