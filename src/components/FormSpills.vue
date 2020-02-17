@@ -42,8 +42,15 @@
           >Obtener posición actual</b-button
         >
       </b-field>
-      <b-field label="Diámetro">
-        <b-select icon="diameter-outline" v-model="spillDiameter">
+      <b-field
+        label="Diámetro"
+        message="*Este campo es obligatorio al añadir un vertido"
+      >
+        <b-select
+          icon="diameter-outline"
+          placeholder="Seleccione una opción"
+          v-model="spillDiameter"
+        >
           <option
             v-for="(option, index) in formSpills.data.spillDiameterOptions"
             :value="option"
@@ -53,7 +60,11 @@
         </b-select>
       </b-field>
       <b-field label="Caudal">
-        <b-select icon="elevation-rise" v-model="spillFlow">
+        <b-select
+          icon="elevation-rise"
+          placeholder="Seleccione una opción"
+          v-model="spillFlow"
+        >
           <option
             v-for="(option, index) in formSpills.data.spillFlowOptions"
             :value="option"
@@ -63,7 +74,11 @@
         </b-select>
       </b-field>
       <b-field label="Color">
-        <b-select icon="invert-colors" v-model="spillColor">
+        <b-select
+          icon="invert-colors"
+          placeholder="Seleccione una opción"
+          v-model="spillColor"
+        >
           <option
             v-for="(option, index) in formSpills.data.spillColorOptions"
             :value="option"
@@ -73,7 +88,11 @@
         </b-select>
       </b-field>
       <b-field label="Olor">
-        <b-select icon="grain" v-model="spillSmell">
+        <b-select
+          icon="grain"
+          placeholder="Seleccione una opción"
+          v-model="spillSmell"
+        >
           <option
             v-for="(option, index) in formSpills.data.spillSmellOptions"
             :value="option"
@@ -82,8 +101,15 @@
           >
         </b-select>
       </b-field>
-      <b-field label="Origen">
-        <b-select icon="source-commit-start" v-model="spillSource">
+      <b-field
+        label="Origen"
+        message="*Este campo es obligatorio al añadir un vertido"
+      >
+        <b-select
+          icon="source-commit-start"
+          placeholder="Seleccione una opción"
+          v-model="spillSource"
+        >
           <option
             v-for="(option, index) in formSpills.data.spillSourceOptions"
             :value="option"
@@ -92,7 +118,11 @@
           >
         </b-select>
       </b-field>
-      <b-button type="is-primary" @click="saveNewSpill">
+      <b-button
+        type="is-primary"
+        :disabled="spillDisabled"
+        @click="saveNewSpill"
+      >
         Guardar
       </b-button>
     </div>
@@ -140,20 +170,23 @@ export default {
   computed: {
     ...mapState({
       formSpills: state => state.formSections.spills
-    })
+    }),
+    spillDisabled() {
+      return this.spillSource === null || this.spillDiameter === null;
+    }
   },
   data() {
     return {
       values: {
         spillsList: []
       },
-      spillDiameter: "",
-      spillFlow: "",
-      spillColor: "",
+      spillDiameter: null,
+      spillFlow: null,
+      spillColor: null,
       spillLongitude: 0,
       spillLatitude: 0,
-      spillSmell: "",
-      spillSource: "",
+      spillSmell: null,
+      spillSource: null,
       spillsTable: {
         selectedRows: [],
         columns: [
@@ -190,7 +223,6 @@ export default {
     };
   },
   mounted() {
-    this.init();
     this.updateSpecificSectionValues({
       name: "spills",
       values: this.values,
@@ -202,14 +234,6 @@ export default {
       updateSpecificSectionValues: "updateSpecificSectionValues",
       updateSectionValues: "updateSectionValues"
     }),
-    init() {
-      // init default values
-      this.spillDiameter = this.formSpills.data.spillDiameterOptions[0];
-      this.spillFlow = this.formSpills.data.spillFlowOptions[0];
-      this.spillColor = this.formSpills.data.spillColorOptions[0];
-      this.spillSmell = this.formSpills.data.spillSmellOptions[0];
-      this.spillSource = this.formSpills.data.spillSourceOptions[0];
-    },
     getActualPosition() {
       getUserGeolocation()
         .then(res => {
@@ -233,6 +257,8 @@ export default {
         smell: this.spillSmell,
         source: this.spillSource
       };
+      this.spillDiameter = null;
+      this.spillSource = null;
       this.values.spillsList.push(newSpill);
       this.updateSectionValues({
         values: this.values,
