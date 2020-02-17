@@ -29,6 +29,7 @@
     <div class="results" v-if="values.bioQualityIndex !== null">
       <div class="block">
         <b-message
+          class="results-display"
           :title="values.bioQualityIndex.name"
           type="is-info"
           :closable="false"
@@ -93,5 +94,8 @@ export default {
   &__rate {
     padding: 1rem;
   }
+}
+.results-display {
+  max-width: 500px;
 }
 </style>

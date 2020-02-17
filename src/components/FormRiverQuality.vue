@@ -75,6 +75,7 @@
         <div class="block">
           <b-message
             :title="qrisiIndex.cat.name"
+            class="results-display"
             type="is-info"
             :closable="false"
           >
@@ -176,5 +177,8 @@ export default {
   &__rate {
     padding: 1rem;
   }
+}
+.results-display {
+  max-width: 500px;
 }
 </style>

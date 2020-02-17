@@ -1,7 +1,12 @@
 <template>
   <div class="form-section">
     <div class="block" v-if="isFormValid">
-      <b-message title="Resumen" type="is-success" :closable="false">
+      <b-message
+        title="Resumen"
+        class="results-display"
+        type="is-success"
+        :closable="false"
+      >
         <b-field label="Hábitat Fluvial">
           <b-tag type="is-info" size="is-medium">{{
             bioQuality.results.bioQualityIndex.name
@@ -23,6 +28,7 @@
     <div>
       <div class="block" v-if="isFormValid">
         <b-message
+          class="results-display"
           :title="ecoStatusIndex.name"
           type="is-info"
           :closable="false"
@@ -43,6 +49,7 @@
       </div>
       <div class="block" v-else>
         <b-message
+          class="results-display"
           title="Formulario incompleto"
           type="is-warning"
           :closable="false"
@@ -53,6 +60,7 @@
       </div>
       <div class="block" v-if="!isComputedOnline">
         <b-message
+          class="results-display"
           title="Estado sin conexión"
           type="is-warning"
           :closable="false"
@@ -224,6 +232,9 @@ export default {
   &__rate {
     padding: 1rem;
   }
+}
+.results-display {
+  max-width: 500px;
 }
 .big-button {
   margin-top: 1.5rem;
