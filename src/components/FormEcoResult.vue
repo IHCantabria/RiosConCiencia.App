@@ -1,7 +1,7 @@
 <template>
   <div class="form-section">
     <div class="block" v-if="isFormValid">
-      <b-message title="Resumen" type="is-success">
+      <b-message title="Resumen" type="is-success" :closable="false">
         <b-field label="Hábitat Fluvial">
           <b-tag type="is-info" size="is-medium">{{
             bioQuality.results.bioQualityIndex.name
@@ -47,18 +47,27 @@
           type="is-warning"
           :closable="false"
         >
-          Hace falta completar la CALIDAD DEL AGUA y la CALIDAD DEL BOSQUE DE
-          RIBERA para ver el resultado del Estado Ecológico.
+          No podras enviar el formulario hasta que completes todos las secciones
+          que estan incompletas.
+        </b-message>
+      </div>
+      <div class="block" v-if="!isComputedOnline">
+        <b-message
+          title="Estado sin conexión"
+          type="is-warning"
+          :closable="false"
+        >
+          Actualmente te encuentras sin conexión a internet, no podras enviar el
+          formulario hasta que dispongas de conexión.
         </b-message>
       </div>
     </div>
-
     <div class="big-button">
       <b-button
         type="is-danger"
         size="is-medium"
         expanded
-        :disabled="!isFormValid"
+        :disabled="!isReadySend"
         @click="sendSampleData()"
         >Enviar Resultados</b-button
       >
@@ -97,6 +106,9 @@ export default {
     ecoStatusIndex() {
       if (!this.isFormValid) return null;
       return this.calculateStatus();
+    },
+    isReadySend() {
+      return this.isFormValid && this.isComputedOnline;
     },
     isSectionValid() {
       return this.ecoStatusIndex !== null;
