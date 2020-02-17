@@ -19,8 +19,7 @@
         </b-field>
       </b-message>
     </div>
-
-    <h5 class="title is-5">8. Estado ecológico</h5>
+    <h5 class="title is-5">8. Estado Ecológico</h5>
     <div>
       <div class="block" v-if="isFormValid">
         <b-message

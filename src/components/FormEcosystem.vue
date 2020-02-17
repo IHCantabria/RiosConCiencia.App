@@ -1,8 +1,11 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">5. El ecosistema acúatico (50m)</h5>
+    <h5 class="title is-5">
+      <a :href="pdfLink" target="_blank"
+        ><b-icon icon="book-information-variant" type="is-primary"></b-icon></a
+      ><span>5. El Ecosistema Acúatico (50m)</span>
+    </h5>
     <b-field label="a. Descripción del punto de muestreo"> </b-field>
-
     <b-field label="Coordenadas (WGS84)" custom-class="is-small"></b-field>
     <div class="two-controls">
       <b-field label="Lon" custom-class="is-small">
@@ -171,6 +174,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/ecosistema.pdf"),
       values: {
         samplePointCoords: {
           lon: 0,

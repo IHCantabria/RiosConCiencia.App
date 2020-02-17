@@ -1,6 +1,11 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">1. Inspección Básica del tramo (500m)</h5>
+    <h5 class="title is-5">
+      <a :href="pdfLink" target="_blank"
+        ><b-icon icon="book-information-variant" type="is-primary"></b-icon
+      ></a>
+      <span>1. Inspección Básica del Tramo (500m)</span>
+    </h5>
     <b-field label="a. ¿El agua del río fluye?"> </b-field>
     <b-field>
       <b-radio-button
@@ -234,6 +239,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/basico.pdf"),
       values: {
         waterFlow: true,
         waterLevel: null,

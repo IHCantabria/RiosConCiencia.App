@@ -1,6 +1,10 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">4. Índice del Hábitat Fluvial (100m)</h5>
+    <h5 class="title is-5">
+      <a :href="pdfLink" target="_blank"
+        ><b-icon icon="book-information-variant" type="is-primary"></b-icon></a
+      ><span>4. Índice del Hábitat Fluvial (100m)</span>
+    </h5>
     <b-field
       label="a. Grado de inclusión de las piedras, cantos y gravas en rápidos y pozas"
       :message="{
@@ -212,6 +216,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/habitat.pdf"),
       values: {
         stonesInPools: null,
         substrateComposition: [],

@@ -11,6 +11,7 @@ const routes = [
     path: "/",
     name: "welcome",
     beforeEnter: (to, from, next) => {
+      console.log("welcome");
       !store.getters.userIsLogged ? next({ name: "login" }) : next();
     },
     component: WelcomeView
@@ -41,9 +42,6 @@ const routes = [
   {
     path: "/about",
     name: "about",
-    beforeEnter: (to, from, next) => {
-      !store.getters.userIsLogged ? next({ name: "login" }) : next();
-    },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue")
   }

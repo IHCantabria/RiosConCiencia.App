@@ -7,6 +7,12 @@ module.exports = {
       );
       return definitions;
     });
+    config.module
+      .rule("pdf")
+      .test(/\.pdf$/)
+      .use("file-loader")
+      .loader("file-loader")
+      .options({ name: "[name].[ext]" });
   },
   outputDir: process.env.VUE_APP_DEPLOY_DIR,
   runtimeCompiler: true,

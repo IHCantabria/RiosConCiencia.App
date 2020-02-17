@@ -1,6 +1,10 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">6. Calidad Biológica del agua</h5>
+    <h5 class="title is-5">
+      <a :href="pdfLink" target="_blank"
+        ><b-icon icon="book-information-variant" type="is-primary"></b-icon></a
+      ><span>6. Calidad Biológica del Agua</span>
+    </h5>
     <b-field
       :message="{
         '*Seleccione una opción': bioQualityHasErrors
@@ -52,6 +56,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/diagnostico.pdf"),
       values: {
         bioQualityIndex: null
       }
