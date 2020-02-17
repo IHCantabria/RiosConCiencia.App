@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     calculateStatus() {
       const qrisiIndexValue = this.riverQuality.results.qrisiIndex.cat.value;
