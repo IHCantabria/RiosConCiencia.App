@@ -171,6 +171,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/ecosistema.pdf"),
       values: {
         samplePointCoords: {
           lon: 0,

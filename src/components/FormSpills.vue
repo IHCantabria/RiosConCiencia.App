@@ -177,6 +177,7 @@ export default {
   },
   data() {
     return {
+      pdfLink: require("../assets/pdfs/vertidos.pdf"),
       values: {
         spillsList: []
       },

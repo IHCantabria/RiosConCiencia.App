@@ -75,6 +75,7 @@ export default {
   },
   data() {
     return {
+      pdfLink: require("../assets/pdfs/residuos.pdf"),
       values: {
         wasteList: []
       },

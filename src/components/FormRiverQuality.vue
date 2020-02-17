@@ -99,6 +99,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/ribera.pdf"),
       values: {
         riverbankNaturalness: null,
         riverbankConections: null,

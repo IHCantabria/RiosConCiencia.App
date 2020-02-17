@@ -5,6 +5,11 @@
     </div>
     <div class="intro__main">
       <div class="option">
+        <a :href="pdfLink" target="_blank"
+          ><b-icon icon="file-pdf" size="is-large" type="is-primary"></b-icon
+        ></a>
+      </div>
+      <div class="option">
         <h2 class="subtitle">Usuario Experto</h2>
         <b-button size="is-large" type="is-primary" @click="expertUser()"
           >Empezar</b-button
@@ -22,6 +27,12 @@
 <script>
 export default {
   name: "Intro",
+  data() {
+    return {
+      pdfLink: require("../assets/pdfs/manual2019.pdf")
+    };
+  },
+
   methods: {
     expertUser() {
       this.$router.push("formfields");

@@ -212,6 +212,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/habitat.pdf"),
       values: {
         stonesInPools: null,
         substrateComposition: [],
