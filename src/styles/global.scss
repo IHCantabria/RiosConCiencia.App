@@ -8,6 +8,10 @@ html {
     background-color: transparent !important;
 }
 
+select {
+  width: 100%;
+}
+
 .form-section {
   display: flex;
   flex-grow: 1;
@@ -42,5 +46,15 @@ html {
       text-transform: uppercase;
       vertical-align: top;
     }
+  }
+}
+.header-section{
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  &__text{
+  }
+  &__help{
+    margin: 0rem 1rem;
   }
 }

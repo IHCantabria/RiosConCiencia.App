@@ -43,7 +43,7 @@
     >
       <b-select
         icon="weather-lightning-rainy"
-        placeholder="Seleccione"
+        placeholder="Seleccione una opción"
         v-model="values.weatherToday"
       >
         <option
@@ -63,7 +63,7 @@
     >
       <b-select
         icon="weather-lightning-rainy"
-        placeholder="Seleccione"
+        placeholder="Seleccione una opción"
         v-model="values.weather48h"
       >
         <option
