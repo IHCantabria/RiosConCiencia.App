@@ -10,6 +10,7 @@
         @geo-data-error="onGeolocationError"
       />
       <app-offline-manager />
+      <app-reset-state />
     </main>
     <footer class="app__footer">
       <app-footer></app-footer>
@@ -23,6 +24,7 @@ export default {
     AppHeader: () => import("@/components/layout/AppHeader"),
     AppFooter: () => import("@/components/layout/AppFooter"),
     AppGeoLoader: () => import("@/components/renderless/AppGeoLoader"),
+    AppResetState: () => import("@/components/renderless/AppResetState"),
     AppOfflineManager: () => import("@/components/renderless/AppOfflineManager")
   },
   data() {
