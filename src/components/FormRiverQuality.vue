@@ -1,10 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">
-      <a :href="pdfLink" target="_blank"
-        ><b-icon icon="book-information-variant" type="is-primary"></b-icon></a
-      ><span>7. Calidad del Bosque de Ribera (QRISI)</span>
-    </h5>
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>7. Calidad del Bosque de Ribera (QRISI)</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
+    </div>
     <b-field label="a. Estructura de las riberas, grado de naturalidad">
     </b-field>
     <b-field
