@@ -6,7 +6,7 @@
           ><b-icon icon="close-circle" size="is-medium"> </b-icon
         ></router-link>
       </div>
-      <div v-show="userIsLogged" class="nav__link">
+      <div class="nav__link">
         <router-link to="/"
           ><b-icon icon="home-circle" size="is-medium"> </b-icon
         ></router-link>
