@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {};
@@ -30,15 +30,7 @@ export default {
       userIsLogged: "userIsLogged"
     })
   },
-  mounted() {},
   methods: {
-    ...mapActions({
-      setActiveUser: "setActiveUser"
-    }),
-    logout() {
-      this.setActiveUser({});
-      this.$router.push("login");
-    },
     confirmLogout() {
       this.$buefy.dialog.confirm({
         title: "Desconectar Usuario",
@@ -48,7 +40,7 @@ export default {
         cancelText: "Volver atras",
         type: "is-danger",
         hasIcon: true,
-        onConfirm: () => this.logout()
+        onConfirm: () => this.$root.$emit("logout")
       });
     }
   }

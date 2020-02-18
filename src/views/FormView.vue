@@ -10,10 +10,11 @@
       ></component>
     </keep-alive>
     <app-data-loader
+      v-if="!isMasterDataLoaded"
       @data-load-ready="onDataLoad"
       @data-load-error="onDataLoadError"
     />
-    <spinner :is-loading="!dataReady"></spinner>
+    <spinner v-if="!isMasterDataLoaded" :is-loading="!dataReady"></spinner>
   </div>
 </template>
 <script>
@@ -44,7 +45,8 @@ export default {
       formSections: state => state.formSections
     }),
     ...mapGetters({
-      activeSectionName: "activeSectionName"
+      activeSectionName: "activeSectionName",
+      isMasterDataLoaded: "isMasterDataLoaded"
     })
   },
   methods: {

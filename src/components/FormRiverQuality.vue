@@ -109,7 +109,7 @@ export default {
     return {
       pdfLink: require("../assets/pdfs/ribera.pdf"),
       values: {
-        riverbankNaturalness: null,
+        riverbankNaturalness: 0,
         riverbankConections: null,
         riverbankVegetations: null
       }
@@ -152,6 +152,9 @@ export default {
       );
     }
   },
+  mounted() {
+    this.init();
+  },
   beforeUpdate() {
     this.values.qrisiIndex = this.qrisiIndex;
     this.updateSpecificSectionValues({
@@ -164,6 +167,9 @@ export default {
     ...mapActions({
       updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
+    init() {
+      this.values.riverbankNaturalness = null; //default value and make beforeUpdate hook jump
+    },
     getRiverQualityCategory(totalPoints) {
       if (totalPoints <= 4)
         return this.formRiverQuality.data.qrisiCategoriesOptions[2];

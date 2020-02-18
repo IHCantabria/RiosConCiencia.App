@@ -1,5 +1,8 @@
 .two-controls {
   display: flex;
+   .field {
+     max-width: 50%;
+   }
 }
 .two-controls .control {
   margin-right: 1rem;

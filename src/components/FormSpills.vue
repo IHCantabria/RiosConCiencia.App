@@ -132,7 +132,10 @@
       </b-button>
     </div>
 
-    <div class="table-container" v-if="values.spillsList.length > 0">
+    <div
+      class="table-container"
+      v-if="values.spillsList && values.spillsList.length > 0"
+    >
       <b-table
         :data="values.spillsList"
         :columns="spillsTable.columns"
@@ -187,7 +190,7 @@ export default {
     return {
       pdfLink: require("../assets/pdfs/vertidos.pdf"),
       values: {
-        spillsList: []
+        spillsList: null
       },
       spillDiameter: null,
       spillFlow: null,
@@ -231,6 +234,9 @@ export default {
       }
     };
   },
+  mounted() {
+    this.init();
+  },
   beforeUpdate() {
     this.updateSpecificSectionValues({
       name: "spills",
@@ -243,6 +249,9 @@ export default {
       updateSpecificSectionValues: "updateSpecificSectionValues",
       updateSectionValues: "updateSectionValues"
     }),
+    init() {
+      this.values.spillsList = []; //default value and make beforeUpdate hook jump
+    },
     getActualPosition() {
       getUserGeolocation()
         .then(res => {
