@@ -57,7 +57,7 @@ export default {
     "main"
     "footer";
   grid-template-rows: $header-height 1fr $footer-height;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(300px, 1fr);
   height: 100%;
   overflow-x: hidden;
 }

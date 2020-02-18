@@ -14,7 +14,6 @@ export default {
     }),
     async init() {
       try {
-        //TODO: loading
         this.geolocateUser();
         this.$emit("geo-data-ready");
       } catch (e) {
@@ -22,8 +21,6 @@ export default {
           "data-load-error",
           `Error getting geolocation. Detail: ${e}`
         );
-      } finally {
-        //TODO: close loading
       }
     },
     geolocateUser() {

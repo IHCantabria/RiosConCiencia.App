@@ -15,7 +15,6 @@ export default function createPersistedState(options = {}) {
         new Promise(resolve => {
           storage.getItem(key).then(data => {
             resolve(data);
-
             store._vm.$root.$emit("storageReady");
           });
         })

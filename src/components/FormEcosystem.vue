@@ -1,10 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">
-      <a :href="pdfLink" target="_blank"
-        ><b-icon icon="book-information-variant" type="is-primary"></b-icon></a
-      ><span>5. El Ecosistema Acúatico (50m)</span>
-    </h5>
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>5. El Ecosistema Acúatico (50m)</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
+    </div>
     <b-field label="a. Descripción del punto de muestreo"> </b-field>
     <b-field label="Coordenadas (WGS84)" custom-class="is-small"></b-field>
     <div class="two-controls">
@@ -55,6 +58,7 @@
       <b-numberinput
         v-model="values.samplePointWidth"
         step="0.1"
+        min="0.1"
       ></b-numberinput>
     </b-field>
     <b-field
@@ -68,6 +72,7 @@
       <b-numberinput
         v-model="values.samplePointDepth"
         step="0.1"
+        min="0.1"
       ></b-numberinput>
     </b-field>
     <b-field
@@ -81,6 +86,7 @@
       <b-numberinput
         v-model="values.samplePointWaterVelocity"
         step="0.1"
+        min="0.1"
       ></b-numberinput>
     </b-field>
     <b-field label="Caudal" custom-class="is-small"> </b-field>
@@ -183,7 +189,7 @@ export default {
         samplePointWidth: 0,
         samplePointDepth: 0,
         samplePointWaterVelocity: 0,
-        samplePointWaterTemp: 0,
+        samplePointWaterTemp: null,
         samplePointWaterTransparency: [],
         riverEcosystem: [],
         riverEcosystemInvPlantsCoverage: [],
@@ -209,7 +215,7 @@ export default {
       return this.values.samplePointWaterVelocity === 0;
     },
     waterTempHasErrors() {
-      return this.values.samplePointWaterTemp === 0;
+      return this.values.samplePointWaterTemp === null;
     },
     sampleWidthHasErrors() {
       return this.values.samplePointWidth === 0;
@@ -228,14 +234,15 @@ export default {
     }
   },
   beforeUpdate() {
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "ecoSystem",
       values: this.values,
       isValid: this.isSectionValid
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     getActualPosition() {
       getUserGeolocation()

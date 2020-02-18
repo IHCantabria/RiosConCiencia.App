@@ -1,11 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">
-      <a :href="pdfLink" target="_blank"
-        ><b-icon icon="book-information-variant" type="is-primary"></b-icon
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>1. Inspección Básica del Tramo (500m)</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
-      <span>1. Inspección Básica del Tramo (500m)</span>
-    </h5>
+    </div>
     <b-field label="a. ¿El agua del río fluye?"> </b-field>
     <b-field>
       <b-radio-button
@@ -16,7 +18,6 @@
         <b-icon icon="close"></b-icon>
         <span>No</span>
       </b-radio-button>
-
       <b-radio-button
         v-model="values.waterFlow"
         :native-value="true"
@@ -106,7 +107,7 @@
       >
         <b-select
           icon="arrow-expand-horizontal"
-          placeholder="Seleccione"
+          placeholder="Seleccione una opción"
           v-model="values.riverSideWidthLeft"
         >
           <option
@@ -127,7 +128,7 @@
       >
         <b-select
           icon="arrow-expand-horizontal"
-          placeholder="Seleccione"
+          placeholder="Seleccione una opción"
           v-model="values.riverSideWidthRight"
         >
           <option
@@ -305,14 +306,15 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "basic",
       values: this.values,
       isValid: this.isSectionValid
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     init() {
       //default init values

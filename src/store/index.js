@@ -32,7 +32,6 @@ export default new Vuex.Store({
       return Object.keys(state.formSections)[state.activeSectionId];
     },
     isFormValid: state => {
-      //TODO: Frágil. Recorriendo la lista no consigo que sea reactivo. Hay que buscar una forma mejor.
       return (
         state.formSections.biological.isValid &&
         state.formSections.init.isValid &&
@@ -77,7 +76,7 @@ export default new Vuex.Store({
       Vue.set(state.formSections[payload.name], "results", {
         ...payload.values
       });
-      state.formSections[payload.name].isValid = payload.isValid;
+      Vue.set(state.formSections[payload.name], "isValid", payload.isValid);
     }
   },
   actions: {

@@ -1,10 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">
-      <a :href="pdfLink" target="_blank"
-        ><b-icon icon="book-information-variant" type="is-primary"></b-icon></a
-      ><span>4. Índice del Hábitat Fluvial (100m)</span>
-    </h5>
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>4. Índice del Hábitat Fluvial (100m)</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
+    </div>
     <b-field
       label="a. Grado de inclusión de las piedras, cantos y gravas en rápidos y pozas"
       :message="{
@@ -62,14 +65,16 @@
         <div class="radio-rows__label-container">
           {{ type.name }}
         </div>
-
-        <b-radio
-          v-for="option in formHabitat.data.substrateCompositionPresenceOptions"
-          :key="option.id"
-          :native-value="option"
-          v-model="values.substrateComposition[index].value"
-          >{{ option.name }}</b-radio
-        >
+        <div class="radio-rows__options-container">
+          <b-radio
+            v-for="option in formHabitat.data
+              .substrateCompositionPresenceOptions"
+            :key="option.id"
+            :native-value="option"
+            v-model="values.substrateComposition[index].value"
+            >{{ option.name }}</b-radio
+          >
+        </div>
       </div>
     </div>
     <b-field label="d. Regímenes de velocidad y profundidad"> </b-field>
@@ -137,24 +142,28 @@
         <div class="radio-rows__label-container">
           {{ element.name }}
         </div>
-        <template v-if="element.id == 1">
-          <b-radio
-            v-for="option in randomElementPresenceOptionsFilter"
-            :key="option.id"
-            :native-value="option"
-            v-model="values.randomElements[index].value"
-            >{{ option.name }}</b-radio
-          >
-        </template>
-        <template v-else>
-          <b-radio
-            v-for="option in formHabitat.data.randomElementPresenceOptions"
-            :key="option.id"
-            :native-value="option"
-            v-model="values.randomElements[index].value"
-            >{{ option.name }}</b-radio
-          >
-        </template>
+        <div class="radio-rows__options-container">
+          <template v-if="element.id == 1">
+            <b-radio
+              class="radio-rows__options-container-item"
+              v-for="option in randomElementPresenceOptionsFilter"
+              :key="option.id"
+              :native-value="option"
+              v-model="values.randomElements[index].value"
+              >{{ option.name }}</b-radio
+            >
+          </template>
+          <template v-else>
+            <b-radio
+              class="radio-rows__options-container-item"
+              v-for="option in formHabitat.data.randomElementPresenceOptions"
+              :key="option.id"
+              :native-value="option"
+              v-model="values.randomElements[index].value"
+              >{{ option.name }}</b-radio
+            >
+          </template>
+        </div>
       </div>
     </div>
     <b-field
@@ -174,19 +183,23 @@
         <div class="radio-rows__label-container">
           {{ type.name }}
         </div>
-        <b-radio
-          v-for="option in formHabitat.data.aquaticVegetationCoverageOptions"
-          :key="option.id"
-          :native-value="option"
-          v-model="values.aquaticVegetation[index].value"
-          >{{ option.name }}</b-radio
-        >
+        <div class="radio-rows__options-container">
+          <b-radio
+            class="radio-rows__options-container-item"
+            v-for="option in formHabitat.data.aquaticVegetationCoverageOptions"
+            :key="option.id"
+            :native-value="option"
+            v-model="values.aquaticVegetation[index].value"
+            >{{ option.name }}</b-radio
+          >
+        </div>
       </div>
     </div>
     <b-field label="h. Valor del Índice del Hábitat Fluvial (IHF)"> </b-field>
     <div class="results">
       <div class="block">
         <b-message
+          class="results-display"
           :title="habitatIndex.cat.name"
           type="is-info"
           :closable="false"
@@ -325,14 +338,15 @@ export default {
   },
   beforeUpdate() {
     this.values.habitatIndex = this.habitatIndex;
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "habitat",
       values: this.values,
       isValid: this.isSectionValid
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     init() {
       this.prepareComplexObjects();
@@ -376,5 +390,8 @@ export default {
   &__rate {
     padding: 1rem;
   }
+}
+.results-display {
+  max-width: 500px;
 }
 </style>

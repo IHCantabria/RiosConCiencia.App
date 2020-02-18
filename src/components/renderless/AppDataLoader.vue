@@ -19,13 +19,10 @@ export default {
     }),
     async init() {
       try {
-        //TODO: loading
         await this.initForm();
         this.$emit("data-load-ready");
       } catch (e) {
         this.$emit("data-load-error", `Error loading data. Detail: ${e}`);
-      } finally {
-        //TODO: close loading
       }
     },
     async initForm() {

@@ -5,15 +5,6 @@
     </div>
     <div class="intro__main">
       <div class="option">
-        <a :href="pdfLink" target="_blank"
-          ><b-icon
-            icon="book-information-variant"
-            size="is-large"
-            type="is-primary"
-          ></b-icon
-        ></a>
-      </div>
-      <div class="option">
         <h2 class="subtitle">Usuario Experto</h2>
         <b-button size="is-large" type="is-primary" @click="expertUser()"
           >Empezar</b-button
@@ -24,6 +15,13 @@
         <b-button size="is-large" type="is-primary" @click="challengeUser()"
           >Empezar</b-button
         >
+      </div>
+    </div>
+    <div class="intro__help">
+      <div class="guide-link">
+        <a :href="pdfLink" target="_blank"
+          ><b-icon icon="file-pdf" size="is-large" type="is-primary"></b-icon
+        ></a>
       </div>
     </div>
   </div>
@@ -52,18 +50,27 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  align-items: center;
   &__main {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
     margin: 1rem;
+    align-items: center;
   }
   &__title-logo {
     margin: 1.5rem;
+    align-items: center;
     & img {
       max-height: 10vh;
     }
+  }
+  &__help {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    margin: 1rem;
+    align-items: flex-end;
+    align-content: flex-end;
   }
 }
 
