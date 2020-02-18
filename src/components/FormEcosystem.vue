@@ -189,7 +189,7 @@ export default {
         samplePointWidth: 0,
         samplePointDepth: 0,
         samplePointWaterVelocity: 0,
-        samplePointWaterTemp: null,
+        samplePointWaterTemp: 0,
         samplePointWaterTransparency: [],
         riverEcosystem: [],
         riverEcosystemInvPlantsCoverage: [],
@@ -233,6 +233,9 @@ export default {
       );
     }
   },
+  mounted() {
+    this.init();
+  },
   beforeUpdate() {
     this.updateSpecificSectionValues({
       name: "ecoSystem",
@@ -244,6 +247,9 @@ export default {
     ...mapActions({
       updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
+    init() {
+      this.values.samplePointWaterTemp = null; //default value and make beforeUpdate hook jump
+    },
     getActualPosition() {
       getUserGeolocation()
         .then(res => {

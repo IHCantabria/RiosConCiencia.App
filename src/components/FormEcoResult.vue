@@ -9,7 +9,7 @@
       >
         <b-field label="Hábitat Fluvial">
           <b-tag type="is-info" size="is-medium">{{
-            bioQuality.results.bioQualityIndex.name
+            habitatQuality.results.habitatIndex.cat.name
           }}</b-tag>
         </b-field>
         <b-field label="Calidad Biológica del Agua">
@@ -105,6 +105,7 @@ export default {
       statusOptions: state =>
         state.formSections.ecoResult.data.ecologicalStateOptions,
       formSections: state => state.formSections,
+      habitatQuality: state => state.formSections.habitat,
       riverQuality: state => state.formSections.riverQuality,
       bioQuality: state => state.formSections.biological
     }),
@@ -151,12 +152,15 @@ export default {
       const sampleData = this._prepareSampleObj();
       try {
         this.isSendingData = true;
-        const res = await saveSample(this.user.token, sampleData);
-        console.log(res);
+        await saveSample(this.user.token, sampleData);
         this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
-          type: "is-success"
+          type: "is-success",
+          duration: 3000
         });
+        setTimeout(() => {
+          this.$root.$emit("clear");
+        }, 4000);
       } catch (err) {
         this.$buefy.toast.open({
           message:

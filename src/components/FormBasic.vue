@@ -51,7 +51,7 @@
       <b-input
         maxlength="200"
         type="textarea"
-        :value="values.waterLevelCriticalProblem"
+        v-model="values.waterLevelCriticalProblem"
       ></b-input>
     </b-field>
     <b-field

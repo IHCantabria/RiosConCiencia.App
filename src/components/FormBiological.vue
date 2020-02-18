@@ -62,7 +62,7 @@ export default {
     return {
       pdfLink: require("../assets/pdfs/diagnostico.pdf"),
       values: {
-        bioQualityIndex: null
+        bioQualityIndex: 0
       }
     };
   },
@@ -77,6 +77,9 @@ export default {
       return !this.bioQualityHasErrors;
     }
   },
+  mounted() {
+    this.init();
+  },
   beforeUpdate() {
     this.updateSpecificSectionValues({
       name: "biological",
@@ -87,7 +90,10 @@ export default {
   methods: {
     ...mapActions({
       updateSpecificSectionValues: "updateSpecificSectionValues"
-    })
+    }),
+    init() {
+      this.values.bioQualityIndex = null; //default value and make beforeUpdate hook jump
+    }
   }
 };
 </script>

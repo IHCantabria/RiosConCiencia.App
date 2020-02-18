@@ -2,7 +2,7 @@
   <!--TODO: Hacer componente Base reutilizable -->
   <b-steps
     size="is-small"
-    v-model="activeStep"
+    v-model="stepControl"
     :animated="stepItemCfg.isAnimated"
     :has-navigation="stepItemCfg.hasNavigation"
   >
@@ -47,7 +47,6 @@ import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      activeStep: 0,
       stepItemCfg: {
         isStepsClickable: true,
         isAnimated: true,
@@ -59,16 +58,18 @@ export default {
       }
     };
   },
-  watch: {
-    activeStep(newStep, oldStep) {
-      if (newStep !== oldStep) {
-        this.setActiveSection(newStep);
-      }
-    }
-  },
   computed: {
+    stepControl: {
+      get() {
+        return this.activeStep;
+      },
+      set(value) {
+        this.setActiveSection(value);
+      }
+    },
     ...mapState({
-      sections: state => state.formSections
+      sections: state => state.formSections,
+      activeStep: state => state.activeSectionId
     }),
     ...mapGetters({
       isFirstSection: "isFirstSection",
