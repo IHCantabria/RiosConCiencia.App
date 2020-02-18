@@ -258,9 +258,11 @@ export default {
           this.spillLongitude = parseFloat(res.coords.longitude).toFixed(5);
           this.spillLatitude = parseFloat(res.coords.latitude).toFixed(5);
         })
-        .catch(err => {
-          //TODO: notificar?
-          console.error(`Error cargando posición. ${err}`);
+        .catch(() => {
+          this.$buefy.toast.open({
+            message: "No es posible Geolocalizar la ubicación",
+            type: "is-danger"
+          });
         });
     },
     saveNewSpill() {

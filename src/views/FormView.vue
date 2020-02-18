@@ -53,9 +53,14 @@ export default {
     onDataLoad() {
       this.dataReady = true;
     },
-    onDataLoadError(err) {
-      //TODO: notificar error
-      console.error(`Error inicializando app. ${err}`);
+    onDataLoadError() {
+      let error = this.isComputedOnline
+        ? "No ha sido posible cargar datos maestros del formulario, el servidor esta caido"
+        : " No es posible cargar datos maestros del formulario si no dispones de conexión a internet";
+      this.$buefy.toast.open({
+        message: error,
+        type: "is-danger"
+      });
     }
   }
 };

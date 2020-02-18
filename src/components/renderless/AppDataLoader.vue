@@ -28,17 +28,17 @@ export default {
     },
     async initForm() {
       try {
+        const userRiverSections = await getUserRiverSections(
+          this.user.token,
+          this.user.id
+        );
+        this.loadRiverSections(userRiverSections);
         const masterData = await getMasterData(this.user.token);
         // prepare form data
         for (const name of Object.keys(masterData)) {
           masterData[name].isValid = false;
         }
         this.loadFormData(masterData);
-        const userRiverSections = await getUserRiverSections(
-          this.user.token,
-          this.user.id
-        );
-        this.loadRiverSections(userRiverSections);
       } catch (err) {
         console.error(err);
       }

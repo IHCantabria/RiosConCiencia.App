@@ -42,9 +42,11 @@ export default {
     onGeolocation() {
       this.geolocationReady = true;
     },
-    onGeolocationError(err) {
-      //TODO: notificar error
-      console.error(`Error cargando posición. ${err}`);
+    onGeolocationError() {
+      this.$buefy.toast.open({
+        message: "No es posible Geolocalizar la ubicación",
+        type: "is-danger"
+      });
     }
   }
 };

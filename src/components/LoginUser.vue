@@ -59,12 +59,20 @@ export default {
           this.setActiveUser(authenticatedUser);
           this.$router.push("/");
         } else {
-          //TODO: mensaje
-          console.error("Error intentando autenticar");
+          this.$buefy.toast.open({
+            message:
+              "los datos que ha introducido no son correctos o su usuario no tiene permiso para usar la aplicación",
+            type: "is-danger"
+          });
         }
       } catch (err) {
-        //TODO: notificar
-        console.error("Error intentando autenticar");
+        let error = this.isComputedOnline
+          ? "No ha sido posible conectarse, el servidor esta caido"
+          : " No es posible conectarse si no dispones de conexión a internet";
+        this.$buefy.toast.open({
+          message: error,
+          type: "is-danger"
+        });
       } finally {
         this.isLoading = false;
       }
