@@ -66,14 +66,16 @@
           {{ type.name }}
         </div>
         <div class="radio-rows__options-container">
-          <b-radio
-            v-for="option in formHabitat.data
-              .substrateCompositionPresenceOptions"
-            :key="option.id"
-            :native-value="option"
-            v-model="values.substrateComposition[index].value"
-            >{{ option.name }}</b-radio
-          >
+          <b-field>
+            <b-radio-button
+              v-for="option in formHabitat.data
+                .substrateCompositionPresenceOptions"
+              :key="option.id"
+              :native-value="option"
+              v-model="values.substrateComposition[index].value"
+              >{{ option.name }}</b-radio-button
+            >
+          </b-field>
         </div>
       </div>
     </div>
@@ -144,23 +146,27 @@
         </div>
         <div class="radio-rows__options-container">
           <template v-if="element.id == 1">
-            <b-radio
-              class="radio-rows__options-container-item"
-              v-for="option in randomElementPresenceOptionsFilter"
-              :key="option.id"
-              :native-value="option"
-              v-model="values.randomElements[index].value"
-              >{{ option.name }}</b-radio
+            <b-field>
+              <b-radio-button
+                class="radio-rows__options-container-item"
+                v-for="option in randomElementPresenceOptionsFilter"
+                :key="option.id"
+                :native-value="option"
+                v-model="values.randomElements[index].value"
+                >{{ option.name }}</b-radio-button
+              ></b-field
             >
           </template>
           <template v-else>
-            <b-radio
-              class="radio-rows__options-container-item"
-              v-for="option in formHabitat.data.randomElementPresenceOptions"
-              :key="option.id"
-              :native-value="option"
-              v-model="values.randomElements[index].value"
-              >{{ option.name }}</b-radio
+            <b-field>
+              <b-radio-button
+                class="radio-rows__options-container-item"
+                v-for="option in formHabitat.data.randomElementPresenceOptions"
+                :key="option.id"
+                :native-value="option"
+                v-model="values.randomElements[index].value"
+                >{{ option.name }}</b-radio-button
+              ></b-field
             >
           </template>
         </div>
@@ -184,13 +190,16 @@
           {{ type.name }}
         </div>
         <div class="radio-rows__options-container">
-          <b-radio
-            class="radio-rows__options-container-item"
-            v-for="option in formHabitat.data.aquaticVegetationCoverageOptions"
-            :key="option.id"
-            :native-value="option"
-            v-model="values.aquaticVegetation[index].value"
-            >{{ option.name }}</b-radio
+          <b-field>
+            <b-radio-button
+              class="radio-rows__options-container-item"
+              v-for="option in formHabitat.data
+                .aquaticVegetationCoverageOptions"
+              :key="option.id"
+              :native-value="option"
+              v-model="values.aquaticVegetation[index].value"
+              >{{ option.name }}</b-radio-button
+            ></b-field
           >
         </div>
       </div>

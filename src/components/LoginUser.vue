@@ -93,7 +93,6 @@ export default {
           authenticatedUser.id
         );
         this.loadRiverSections(userRiverSections);
-        console.log(userRiverSections);
         if (userRiverSections == "") {
           this.$buefy.toast.open({
             message:
