@@ -34,7 +34,6 @@ export default {
       pdfLink: require("../assets/pdfs/manual2019.pdf")
     };
   },
-
   methods: {
     expertUser() {
       this.$router.push("formfields");

@@ -260,9 +260,11 @@ export default {
             res.coords.latitude
           ).toFixed(5);
         })
-        .catch(err => {
-          //TODO: notificar?
-          console.error(`Error cargando posición. ${err}`);
+        .catch(() => {
+          this.$buefy.toast.open({
+            message: "No es posible Geolocalizar la ubicación",
+            type: "is-danger"
+          });
         });
     }
   }

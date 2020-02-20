@@ -32,10 +32,7 @@ export default {
           };
           this.setUserPosition(position);
         })
-        .catch(err => {
-          //TODO: notificar?
-          console.error(`Error cargando posición. ${err}`);
-        });
+        .catch(() => {});
     }
   },
   render: () => null
