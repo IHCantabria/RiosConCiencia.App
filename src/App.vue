@@ -5,6 +5,7 @@
     </header>
     <main class="app__main">
       <router-view />
+      <app-notification-update />
       <app-geo-loader
         @geo-data-ready="onGeolocation"
         @geo-data-error="onGeolocationError"
@@ -25,7 +26,10 @@ export default {
     AppFooter: () => import("@/components/layout/AppFooter"),
     AppGeoLoader: () => import("@/components/renderless/AppGeoLoader"),
     AppResetState: () => import("@/components/renderless/AppResetState"),
-    AppOfflineManager: () => import("@/components/renderless/AppOfflineManager")
+    AppOfflineManager: () =>
+      import("@/components/renderless/AppOfflineManager"),
+    AppNotificationUpdate: () =>
+      import("@/components/renderless/AppOfflineManager")
   },
   data() {
     return {

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-
+import EventBus from "./utils/event-bus";
 import { register } from "register-service-worker";
 register(`${process.env.BASE_URL}service-worker.js`, {
   ready() {
@@ -19,14 +19,10 @@ register(`${process.env.BASE_URL}service-worker.js`, {
   },
   updated() {
     console.log("New content is available; please refresh.");
-    // New content is available
-    const updateBanner = document.getElementById("update-banner");
-    const updateButton = document.getElementById("update-button");
-
-    updateBanner.style.display = "block";
-    updateButton.addEventListener("click", () => {
+    EventBus.$on("launch_update", function() {
       location.reload();
     });
+    EventBus.$emit("update_available");
   },
   offline() {
     console.log(
