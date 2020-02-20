@@ -1,5 +1,5 @@
 <script>
-import { getMasterData, getUserRiverSections } from "@/api/riosconciencia.js";
+import { getMasterData } from "@/api/riosconciencia.js";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -15,8 +15,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      loadFormData: "loadFormData",
-      loadRiverSections: "loadRiverSections"
+      loadFormData: "loadFormData"
     }),
     async init() {
       try {
@@ -28,11 +27,6 @@ export default {
     },
     async initForm() {
       try {
-        const userRiverSections = await getUserRiverSections(
-          this.user.token,
-          this.user.id
-        );
-        this.loadRiverSections(userRiverSections);
         const masterData = await getMasterData(this.user.token);
         // prepare form data
         for (const name of Object.keys(masterData)) {
