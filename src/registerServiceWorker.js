@@ -19,7 +19,9 @@ register(`${process.env.BASE_URL}service-worker.js`, {
   },
   updated() {
     console.log("New content is available; please refresh.");
+    console.log(EventBus);
     EventBus.$on("launch_update", function() {
+      console.log("me llama de vuelta");
       location.reload();
     });
     EventBus.$emit("update_available");
