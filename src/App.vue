@@ -29,7 +29,7 @@ export default {
     AppOfflineManager: () =>
       import("@/components/renderless/AppOfflineManager"),
     AppNotificationUpdate: () =>
-      import("@/components/renderless/AppOfflineManager")
+      import("@/components/layout/AppNotificationUpdate")
   },
   data() {
     return {
