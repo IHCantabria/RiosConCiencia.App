@@ -18,6 +18,8 @@ export default {
         indefinite: true
       });
       notif.$on("close", () => {
+        console.log("cierro notificación");
+        console.log(EventBus);
         EventBus.$emit("launch_update");
       });
     }

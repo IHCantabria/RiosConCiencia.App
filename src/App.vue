@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+import { androidBackButtonMixin } from "@/mixins/android-back-button.js";
 export default {
   name: "App",
   components: {
@@ -37,6 +38,7 @@ export default {
       isStateReady: false
     };
   },
+  mixins: [androidBackButtonMixin],
   created() {
     this.$store._vm.$root.$on("storageReady", () => {
       this.isStateReady = true;
@@ -76,8 +78,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* Disables pull-to-refresh but allows overscroll glow effects. */
-  overscroll-behavior-y: contain;
 
   &__header {
     display: flex;
