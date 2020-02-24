@@ -22,6 +22,8 @@ register(`${process.env.BASE_URL}service-worker.js`, {
     EventBus.$on("launch_update", () => {
       console.log("me llama de vuelta");
       console.log("reload aplicación");
+      this.skipWaiting();
+      console.log("lanzo el skipWaiting");
       location.reload();
     });
     EventBus.$emit("update_available");
