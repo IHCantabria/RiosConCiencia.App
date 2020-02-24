@@ -19,8 +19,9 @@ register(`${process.env.BASE_URL}service-worker.js`, {
   },
   updated() {
     console.log("New content is available; please refresh.");
+    const registration = navigator.serviceWorker.register();
     EventBus.$on("launch_update", () => {
-      navigator.serviceWorker.controller.postMessage({ type: "SKIP_WAITING" });
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
       navigator.serviceWorker.addEventListener("controllerchange", () => {
         location.reload();
       });
