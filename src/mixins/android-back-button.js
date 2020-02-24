@@ -2,13 +2,13 @@ export const androidBackButtonMixin = {
   mounted() {
     console.log("android back online");
     window.addEventListener("load", () => {
-      window.history.pushState({}, "");
+      history.pushState(null, null, location.href);
+      history.back();
+      history.forward();
     });
+
     window.addEventListener("popstate", () => {
-      window.history.pushState({}, "");
+      history.go(1);
     });
-    window.history.pushState(null, null, window.location.href);
-    window.history.back();
-    window.history.forward();
   }
 };
