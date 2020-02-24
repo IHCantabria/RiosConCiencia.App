@@ -19,6 +19,7 @@
 </template>
 <script>
 import { mapState, mapGetters } from "vuex";
+import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
   name: "FormView",
   components: {
@@ -34,6 +35,7 @@ export default {
     "app-data-loader": () => import("@/components/renderless/AppDataLoader"),
     spinner: () => import("@/components/Loading")
   },
+  mixins: [routeGuardMixin],
   data() {
     return {
       dataReady: false
