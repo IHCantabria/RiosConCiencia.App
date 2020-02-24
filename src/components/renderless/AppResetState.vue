@@ -28,8 +28,8 @@ export default {
       this.$router.push("login");
     },
     finishedForm() {
-      this.$router.push("/");
       this.clearFormResponses();
+      this.$router.push("/");
     }
   },
   render: () => null

@@ -41,6 +41,26 @@ export default {
       dataReady: false
     };
   },
+  beforeRouteLeave(to, from, next) {
+    if (
+      (to.path == "/" || to.path == "/about") &&
+      Object.keys(this.formSections.init.results).length !== 0
+    ) {
+      this.$buefy.dialog.confirm({
+        title: "Formulario Incompleto",
+        message:
+          "¿Seguro que desea abandonar esta sección? El formulario no ha sido completado y las respuestas actuales no estarán guardadas cuando vuelva a entrar.",
+        confirmText: "Confirmar",
+        cancelText: "No Abandonar",
+        type: "is-danger",
+        hasIcon: true,
+        onCancel: () => next(false),
+        onConfirm: () => next()
+      });
+    } else {
+      next();
+    }
+  },
   computed: {
     ...mapState({
       activeSectionId: state => state.activeSectionId,
