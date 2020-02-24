@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.1a73ee7eff14fc71895dceee74083a39.js"
+  "/precache-manifest.b3bf27320e0ed037b63ec97ddb8bc044.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "riosconciencia"});
