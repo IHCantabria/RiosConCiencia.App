@@ -8,7 +8,6 @@ export default {
   },
   methods: {
     update() {
-      console.log("me llama update");
       const notif = this.$buefy.notification.open({
         message: `Hay una versión mas reciente de la aplicación, cierra esta notificación para instalarla`,
         position: "is-top",
@@ -18,8 +17,6 @@ export default {
         indefinite: true
       });
       notif.$on("close", () => {
-        console.log("cierro notificación");
-        console.log(EventBus);
         EventBus.$emit("launch_update");
       });
     }
