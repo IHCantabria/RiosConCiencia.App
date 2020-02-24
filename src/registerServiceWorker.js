@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import EventBus from "./utils/event-bus";
 import { register } from "register-service-worker";
+
 register(`${process.env.BASE_URL}service-worker.js`, {
   ready() {
     console.log(
@@ -17,14 +18,10 @@ register(`${process.env.BASE_URL}service-worker.js`, {
   updatefound() {
     console.log("New content is downloading.");
   },
-  updated() {
+  updated(registration) {
     console.log("New content is available; please refresh.");
-    const registration = navigator.serviceWorker.register();
     EventBus.$on("launch_update", () => {
       registration.waiting.postMessage({ type: "SKIP_WAITING" });
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
-        location.reload();
-      });
     });
     EventBus.$emit("update_available");
   },
@@ -36,4 +33,11 @@ register(`${process.env.BASE_URL}service-worker.js`, {
   error(error) {
     console.error("Error during service worker registration:", error);
   }
+});
+
+var refreshing;
+navigator.serviceWorker.addEventListener("controllerchange", () => {
+  if (refreshing) return;
+  location.reload();
+  refreshing = true;
 });
