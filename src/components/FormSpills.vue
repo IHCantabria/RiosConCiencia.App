@@ -277,13 +277,21 @@ export default {
         smell: this.spillSmell,
         source: this.spillSource
       };
-      this.spillDiameter = null;
-      this.spillSource = null;
+      this.resetSpillValues();
       this.values.spillsList.push(newSpill);
       this.updateSectionValues({
         values: this.values,
         isValid: true
       });
+    },
+    resetSpillValues() {
+      this.spillDiameter = null;
+      this.spillFlow = null;
+      this.spillColor = null;
+      this.spillLongitude = 0;
+      this.spillLatitude = 0;
+      this.spillSmell = null;
+      this.spillSource = null;
     },
     removeSelectedSpills() {
       const self = this;

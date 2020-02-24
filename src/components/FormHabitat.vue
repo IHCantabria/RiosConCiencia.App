@@ -145,7 +145,7 @@
           {{ element.name }}
         </div>
         <div class="radio-rows__options-container">
-          <template v-if="element.id == 1">
+          <template v-if="element.id != 1">
             <b-field>
               <b-radio-button
                 class="radio-rows__options-container-item"
