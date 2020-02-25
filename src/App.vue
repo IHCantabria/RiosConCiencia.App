@@ -36,7 +36,8 @@ export default {
     return {
       geolocationReady: false,
       isStateReady: false,
-      installer: undefined
+      installer: undefined,
+      isInstallerReady: false
     };
   },
   mixins: [androidBackButtonMixin],
@@ -47,19 +48,23 @@ export default {
       e.preventDefault();
       //Stash the event so it can be triggered later.
       installPrompt = e;
-      this.$buefy.dialog.confirm({
-        title: "Instalar App",
-        message: "¿ Desea instalar RiosConCiencia App en su dispositivo ?",
-        cancelText: "No",
-        confirmText: "Si",
-        type: "is-primary",
-        onConfirm: () => {
-          this.installer();
-        },
-        onCancel: () => {
-          installPrompt = null;
-        }
-      });
+      //prevent multiple events beforeinstallPrompt
+      if (!this.isInstallerReady) {
+        this.isInstallerReady = true;
+        this.$buefy.dialog.confirm({
+          title: "Instalar App",
+          message: "¿ Desea instalar RiosConCiencia App en su dispositivo ?",
+          cancelText: "No",
+          confirmText: "Si",
+          type: "is-primary",
+          onConfirm: () => {
+            this.installer();
+          },
+          onCancel: () => {
+            installPrompt = null;
+          }
+        });
+      }
     });
 
     this.installer = () => {
