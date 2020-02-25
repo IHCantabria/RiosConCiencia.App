@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       geolocationReady: false,
-      isStateReady: false
+      isStateReady: false,
+      installer: undefined
     };
   },
   mixins: [androidBackButtonMixin],
@@ -53,14 +54,19 @@ export default {
         confirmText: "Si",
         type: "is-primary",
         onConfirm: () => {
-          installPrompt.prompt();
-          installPrompt = null;
+          this.installer();
         },
         onCancel: () => {
           installPrompt = null;
         }
       });
     });
+
+    this.installer = () => {
+      installPrompt.prompt();
+      installPrompt = null;
+    };
+
     this.$store._vm.$root.$on("storageReady", () => {
       this.isStateReady = true;
     });
