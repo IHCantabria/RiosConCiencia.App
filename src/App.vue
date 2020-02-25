@@ -47,16 +47,14 @@ export default {
       //Stash the event so it can be triggered later.
       installPrompt = e;
       this.$buefy.dialog.confirm({
-        title: "Privacy Politics",
-        message: "¿ Desea installar RiosConCiencia App en su dispositivo ?",
+        title: "Instalar App",
+        message: "¿ Desea instalar RiosConCiencia App en su dispositivo ?",
         cancelText: "No",
         confirmText: "Si",
         type: "is-primary",
         onConfirm: () => {
           installPrompt.prompt();
-          installPrompt.userChoice.then(() => {
-            installPrompt = null;
-          });
+          installPrompt = null;
         },
         onCancel: () => {
           installPrompt = null;
