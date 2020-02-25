@@ -40,6 +40,29 @@ export default {
   },
   mixins: [androidBackButtonMixin],
   created() {
+    let installPrompt;
+    window.addEventListener("beforeinstallprompt", e => {
+      //Prevent Chrome 67 an earlier from automatically showing the prompt
+      e.preventDefault();
+      //Stash the event so it can be triggered later.
+      installPrompt = e;
+      this.$buefy.dialog.confirm({
+        title: "Privacy Politics",
+        message: "¿ Desea installar RiosConCiencia App en su dispositivo ?",
+        cancelText: "No",
+        confirmText: "Si",
+        type: "is-primary",
+        onConfirm: () => {
+          installPrompt.prompt();
+          installPrompt.userChoice.then(() => {
+            installPrompt = null;
+          });
+        },
+        onCancel: () => {
+          installPrompt = null;
+        }
+      });
+    });
     this.$store._vm.$root.$on("storageReady", () => {
       this.isStateReady = true;
     });
@@ -53,7 +76,8 @@ export default {
         message: "No es posible Geolocalizar la ubicación",
         type: "is-danger"
       });
-    }
+    },
+    installApp() {}
   }
 };
 </script>
