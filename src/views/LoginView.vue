@@ -3,10 +3,11 @@
     <login-user />
   </div>
 </template>
-
 <script>
+import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
-  name: "login",
+  name: "LoginView",
+  mixins: [routeGuardMixin],
   components: {
     "login-user": () => import("@/components/LoginUser")
   }

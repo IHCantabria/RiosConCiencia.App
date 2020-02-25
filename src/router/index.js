@@ -41,9 +41,6 @@ const routes = [
   {
     path: "/about",
     name: "about",
-    beforeEnter: (to, from, next) => {
-      !store.getters.userIsLogged ? next({ name: "login" }) : next();
-    },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue")
   }
@@ -52,5 +49,13 @@ const routes = [
 const router = new VueRouter({
   routes
 });
+
+//avoid vuex restore override after update in async
+const waitForStorageToBeReady = async (to, from, next) => {
+  await store.restored;
+  next();
+};
+
+router.beforeEach(waitForStorageToBeReady);
 
 export default router;

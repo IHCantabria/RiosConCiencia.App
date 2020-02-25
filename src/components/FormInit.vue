@@ -5,7 +5,7 @@
       <label>{{ user.name }}</label>
     </b-field>
     <b-field label="Acompañantes">
-      <b-input :value="values.partners"></b-input>
+      <b-input v-model="values.partners"></b-input>
     </b-field>
     <b-field
       label="Tramo"
@@ -43,7 +43,7 @@
     >
       <b-select
         icon="weather-lightning-rainy"
-        placeholder="Seleccione"
+        placeholder="Seleccione una opción"
         v-model="values.weatherToday"
       >
         <option
@@ -63,7 +63,7 @@
     >
       <b-select
         icon="weather-lightning-rainy"
-        placeholder="Seleccione"
+        placeholder="Seleccione una opción"
         v-model="values.weather48h"
       >
         <option
@@ -77,14 +77,14 @@
   </div>
 </template>
 <script>
-import { getUserRiverSections } from "@/api/riosconciencia.js";
 import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
     ...mapState({
       user: state => state.user,
-      formInit: state => state.formSections.init
+      formInit: state => state.formSections.init,
+      userRiverSections: state => state.userRiverSections
     }),
     riverSectionHasErrors() {
       return this.values.riverSection === null;
@@ -107,7 +107,8 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "init",
       values: this.values,
       isValid: this.isSectionValid
     });
@@ -115,28 +116,19 @@ export default {
   data() {
     return {
       values: {
-        partners: "",
+        partners: null,
         riverSection: null,
         weatherToday: null,
         weather48h: null
-      },
-      userRiverSections: []
+      }
     };
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
-    async init() {
-      try {
-        this.userRiverSections = await getUserRiverSections(
-          this.user.token,
-          this.user.id
-        );
-      } catch (err) {
-        //TODO: notificar
-        console.error("error getting river sections");
-      }
+    init() {
+      this.values.partners = ""; //default value and make beforeUpdate hook jump
     }
   }
 };

@@ -7,6 +7,10 @@
   </div>
 </template>
 <script>
-export default {};
+import { routeGuardMixin } from "@/mixins/route-guard.js";
+export default {
+  name: "PictosView",
+  mixins: [routeGuardMixin]
+};
 </script>
 <style lang="scss" scoped></style>

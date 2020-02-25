@@ -1,6 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">3. Inspección de Residuos (100m)</h5>
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>3. Inspección de Residuos (100m)</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
+    </div>
     <div class="form-section__block">
       <b-field>
         <b-select
@@ -25,7 +32,7 @@
         </b-select>
       </b-field>
       <b-field>
-        <b-numberinput v-model="units"></b-numberinput>
+        <b-numberinput v-model="units" min="1"></b-numberinput>
       </b-field>
       <b-button type="is-primary" @click="saveNewWaste">
         Guardar
@@ -71,15 +78,19 @@ export default {
   computed: {
     ...mapState({
       formWaste: state => state.formSections.waste
-    })
+    }),
+    isSectionValid() {
+      return true; //optional section
+    }
   },
   data() {
     return {
+      pdfLink: require("../assets/pdfs/residuos.pdf"),
       values: {
         wasteList: []
       },
       selectedWaste: {},
-      units: 0,
+      units: 1,
       wasteTable: {
         selectedRows: [],
         columns: [
@@ -97,10 +108,12 @@ export default {
   },
   mounted() {
     this.init();
+  },
+  beforeUpdate() {
     this.updateSpecificSectionValues({
       name: "waste",
       values: this.values,
-      isValid: true //optional section
+      isValid: this.isSectionValid
     });
   },
   methods: {

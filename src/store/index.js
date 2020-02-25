@@ -12,11 +12,15 @@ export default new Vuex.Store({
   plugins: [...plugins],
   state: {
     user: {},
+    userRiverSections: [],
     userPosition: null,
     activeSectionId: 0,
     formSections: {}
   },
   getters: {
+    isMasterDataLoaded: state => {
+      return Object.keys(state.formSections).length !== 0;
+    },
     isFirstSection: state => {
       return state.activeSectionId === 0;
     },
@@ -32,7 +36,6 @@ export default new Vuex.Store({
       return Object.keys(state.formSections)[state.activeSectionId];
     },
     isFormValid: state => {
-      //TODO: Frágil. Recorriendo la lista no consigo que sea reactivo. Hay que buscar una forma mejor.
       return (
         state.formSections.biological.isValid &&
         state.formSections.init.isValid &&
@@ -70,6 +73,9 @@ export default new Vuex.Store({
     [types.SET_ACTIVE_USER](state, user) {
       state.user = user;
     },
+    [types.SET_RIVER_SECTIONS_USER](state, userRiverSections) {
+      state.userRiverSections = userRiverSections;
+    },
     [types.SET_SECTION_STATE](state, payload) {
       state.formSections[payload.name].isValid = payload.isValid;
     },
@@ -77,12 +83,21 @@ export default new Vuex.Store({
       Vue.set(state.formSections[payload.name], "results", {
         ...payload.values
       });
-      state.formSections[payload.name].isValid = payload.isValid;
+      Vue.set(state.formSections[payload.name], "isValid", payload.isValid);
+    },
+    [types.DELETE_SECTION_VALUES](state) {
+      Object.keys(state.formSections).forEach(section => {
+        Vue.set(state.formSections[section], "results", {});
+        Vue.set(state.formSections[section], "isValid", false);
+      });
     }
   },
   actions: {
     setActiveUser(context, user) {
       context.commit(types.SET_ACTIVE_USER, user);
+    },
+    loadRiverSections(context, riverSections) {
+      context.commit(types.SET_RIVER_SECTIONS_USER, riverSections);
     },
     loadFormData(context, formData) {
       context.commit(types.LOAD_FORM_DATA, formData);
@@ -109,6 +124,13 @@ export default new Vuex.Store({
     },
     updateSpecificSectionValues(context, payload) {
       context.commit(types.UPDATE_SECTION_VALUES, payload);
+    },
+    clearFormResponses(context) {
+      context.commit(types.SET_ACTIVE_SECTION, 0);
+      context.commit(types.DELETE_SECTION_VALUES);
+    },
+    clearRiverSections(context) {
+      context.commit(types.SET_RIVER_SECTIONS_USER, []);
     }
   },
   modules: {}

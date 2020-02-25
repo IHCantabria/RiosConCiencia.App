@@ -1,6 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">1. Inspección Básica del tramo (500m)</h5>
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>1. Inspección Básica del Tramo (500m)</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
+    </div>
     <b-field label="a. ¿El agua del río fluye?"> </b-field>
     <b-field>
       <b-radio-button
@@ -11,7 +18,6 @@
         <b-icon icon="close"></b-icon>
         <span>No</span>
       </b-radio-button>
-
       <b-radio-button
         v-model="values.waterFlow"
         :native-value="true"
@@ -21,8 +27,18 @@
         <span>Si</span>
       </b-radio-button>
     </b-field>
-    <b-field label="b. ¿Es el nivel del agua habitual para la época del año?">
-      <b-select icon="arrow-expand-vertical" v-model="values.waterLevel">
+    <b-field
+      label="b. ¿Es el nivel del agua habitual para la época del año?"
+      :message="{
+        '*Hay que seleccionar una opción': waterLevelHasErrors
+      }"
+      :type="{ 'is-danger': waterLevelHasErrors }"
+    >
+      <b-select
+        icon="arrow-expand-vertical"
+        placeholder="Seleccione una opción"
+        v-model="values.waterLevel"
+      >
         <option
           v-for="(option, index) in formBasic.data.waterLevelOptions"
           :value="option"
@@ -35,11 +51,21 @@
       <b-input
         maxlength="200"
         type="textarea"
-        :value="values.waterLevelCriticalProblem"
+        v-model="values.waterLevelCriticalProblem"
       ></b-input>
     </b-field>
-    <b-field label="c. Anchura media del cauce (m)">
-      <b-select icon="arrow-expand-horizontal" v-model="values.riverBedWidth">
+    <b-field
+      label="c. Anchura media del cauce (m)"
+      :message="{
+        '*Hay que seleccionar una opción': riverBedWidthHasErrors
+      }"
+      :type="{ 'is-danger': riverBedWidthHasErrors }"
+    >
+      <b-select
+        icon="arrow-expand-horizontal"
+        placeholder="Seleccione una opción"
+        v-model="values.riverBedWidth"
+      >
         <option
           v-for="(option, index) in formBasic.data.riverBedWidthOptions"
           :value="option"
@@ -48,8 +74,19 @@
         >
       </b-select>
     </b-field>
-    <b-field label="d. Profundidad media del cauce (cm)">
-      <b-select icon="arrow-expand-down" v-model="values.riverBedDepth">
+    <b-field
+      label="d. Profundidad media del cauce (cm)"
+      :message="{
+        '*Hay que seleccionar una opción': riverBedDepthHasErrors
+      }"
+      :type="{ 'is-danger': riverBedDepthHasErrors }"
+      riverSideWidthHasErrors
+    >
+      <b-select
+        icon="arrow-expand-down"
+        placeholder="Seleccione una opción"
+        v-model="values.riverBedDepth"
+      >
         <option
           v-for="(option, index) in formBasic.data.riverBedDepthOptions"
           :value="option"
@@ -60,10 +97,18 @@
     </b-field>
     <b-field label="e. Anchura media de la zona de ribera (m)"> </b-field>
     <div class="two-controls">
-      <b-field label="Izquierda" custom-class="is-small">
+      <b-field
+        label="Izquierda"
+        :message="{
+          '*Hay que seleccionar una opción': riverSideWidthLeftHasErrors
+        }"
+        :type="{ 'is-danger': riverSideWidthLeftHasErrors }"
+        custom-class="is-small"
+      >
         <b-select
           icon="arrow-expand-horizontal"
-          v-model="values.riversideWidthLeft"
+          placeholder="Seleccione una opción"
+          v-model="values.riverSideWidthLeft"
         >
           <option
             v-for="(option, index) in formBasic.data.riverSideWidthOptions"
@@ -73,10 +118,18 @@
           >
         </b-select>
       </b-field>
-      <b-field label="Derecha" custom-class="is-small">
+      <b-field
+        label="Derecha"
+        :message="{
+          '*Hay que seleccionar una opción': riverSideWidthRightHasErrors
+        }"
+        :type="{ 'is-danger': riverSideWidthRightHasErrors }"
+        custom-class="is-small"
+      >
         <b-select
           icon="arrow-expand-horizontal"
-          v-model="values.riversideWidthRight"
+          placeholder="Seleccione una opción"
+          v-model="values.riverSideWidthRight"
         >
           <option
             v-for="(option, index) in formBasic.data.riverSideWidthOptions"
@@ -187,17 +240,18 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/basico.pdf"),
       values: {
         waterFlow: true,
-        waterLevel: "",
+        waterLevel: null,
         waterColor: "",
         waterSmell: "",
         waterElements: [],
         waterLevelCriticalProblem: "",
-        riverBedWidth: "",
-        riverBedDepth: "",
-        riversideWidthLeft: "",
-        riversideWidthRight: "",
+        riverBedWidth: null,
+        riverBedDepth: null,
+        riverSideWidthLeft: null,
+        riverSideWidthRight: null,
         riverMarginConditionsLeft: [],
         riverMarginConditionsRight: [],
         riverMarginLandUseLeft: [],
@@ -221,30 +275,49 @@ export default {
         this.values.riverMarginConditionsRight.length === 0
       );
     },
+    waterLevelHasErrors() {
+      return this.values.waterLevel === null;
+    },
+    riverBedWidthHasErrors() {
+      return this.values.riverBedWidth === null;
+    },
+    riverBedDepthHasErrors() {
+      return this.values.riverBedDepth === null;
+    },
+    riverSideWidthRightHasErrors() {
+      return this.values.riverSideWidthRight === null;
+    },
+    riverSideWidthLeftHasErrors() {
+      return this.values.riverSideWidthLeft === null;
+    },
     isSectionValid() {
-      return !this.landUseHasErrors && !this.riverConditionsHasErrors;
+      return (
+        !this.landUseHasErrors &&
+        !this.riverConditionsHasErrors &&
+        !this.waterLevelHasErrors &&
+        !this.riverBedWidthHasErrors &&
+        !this.riverBedDepthHasErrors &&
+        !this.riverSideWidthRightHasErrors &&
+        !this.riverSideWidthLeftHasErrors
+      );
     }
   },
   mounted() {
     this.init();
   },
   beforeUpdate() {
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "basic",
       values: this.values,
       isValid: this.isSectionValid
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     init() {
       //default init values
-      this.values.waterLevel = this.formBasic.data.waterLevelOptions[0];
-      this.values.riverBedWidth = this.formBasic.data.riverBedWidthOptions[0];
-      this.values.riverBedDepth = this.formBasic.data.riverBedDepthOptions[0];
-      this.values.riversideWidthLeft = this.formBasic.data.riverSideWidthOptions[0];
-      this.values.riversideWidthRight = this.formBasic.data.riverSideWidthOptions[0];
       this.values.waterColor = this.formBasic.data.waterColorOptions[0];
       this.values.waterSmell = this.formBasic.data.waterSmellOptions[0];
     }

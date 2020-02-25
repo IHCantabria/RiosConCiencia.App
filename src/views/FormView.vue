@@ -10,14 +10,16 @@
       ></component>
     </keep-alive>
     <app-data-loader
+      v-if="!isMasterDataLoaded"
       @data-load-ready="onDataLoad"
       @data-load-error="onDataLoadError"
     />
-    <spinner :is-loading="!dataReady"></spinner>
+    <spinner v-if="!isMasterDataLoaded" :is-loading="!dataReady"></spinner>
   </div>
 </template>
 <script>
 import { mapState, mapGetters } from "vuex";
+import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
   name: "FormView",
   components: {
@@ -33,10 +35,31 @@ export default {
     "app-data-loader": () => import("@/components/renderless/AppDataLoader"),
     spinner: () => import("@/components/Loading")
   },
+  mixins: [routeGuardMixin],
   data() {
     return {
       dataReady: false
     };
+  },
+  beforeRouteLeave(to, from, next) {
+    if (
+      (to.path == "/" || to.path == "/about") &&
+      Object.keys(this.formSections.init.results).length !== 0
+    ) {
+      this.$buefy.dialog.confirm({
+        title: "Formulario Incompleto",
+        message:
+          "¿Seguro que desea abandonar esta sección? El formulario no ha sido completado y las respuestas actuales no estarán guardadas cuando vuelva a entrar.",
+        confirmText: "Confirmar",
+        cancelText: "No Abandonar",
+        type: "is-danger",
+        hasIcon: true,
+        onCancel: () => next(false),
+        onConfirm: () => next()
+      });
+    } else {
+      next();
+    }
   },
   computed: {
     ...mapState({
@@ -44,16 +67,22 @@ export default {
       formSections: state => state.formSections
     }),
     ...mapGetters({
-      activeSectionName: "activeSectionName"
+      activeSectionName: "activeSectionName",
+      isMasterDataLoaded: "isMasterDataLoaded"
     })
   },
   methods: {
     onDataLoad() {
       this.dataReady = true;
     },
-    onDataLoadError(err) {
-      //TODO: notificar error
-      console.error(`Error inicializando app. ${err}`);
+    onDataLoadError() {
+      let error = this.isComputedOnline
+        ? "No ha sido posible cargar datos maestros del formulario, el servidor esta caido"
+        : " No es posible cargar datos maestros del formulario si no dispones de conexión a internet";
+      this.$buefy.toast.open({
+        message: error,
+        type: "is-danger"
+      });
     }
   }
 };

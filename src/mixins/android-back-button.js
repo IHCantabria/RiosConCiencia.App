@@ -1,14 +1,7 @@
 export const androidBackButtonMixin = {
   mounted() {
-    document.addEventListener(
-      "backbutton",
-      function(e) {
-        e.preventDefault();
-      },
-      false
-    );
-  },
-  beforeDestroy() {
-    document.removeEventListener("backbutton", function() {}, false);
+    window.addEventListener("popstate", () => {
+      this.$root.$emit("backbutton");
+    });
   }
 };

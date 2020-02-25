@@ -3,13 +3,14 @@
     <intro />
   </div>
 </template>
-
 <script>
+import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
-  name: "welcome",
+  name: "WelcomeView",
   components: {
     intro: () => import("@/components/Intro")
-  }
+  },
+  mixins: [routeGuardMixin]
 };
 </script>
 <style lang="scss" scoped>

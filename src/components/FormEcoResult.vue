@@ -1,10 +1,15 @@
 <template>
   <div class="form-section">
     <div class="block" v-if="isFormValid">
-      <b-message title="Resumen" type="is-success">
+      <b-message
+        title="Resumen"
+        class="results-display"
+        type="is-success"
+        :closable="false"
+      >
         <b-field label="Hábitat Fluvial">
           <b-tag type="is-info" size="is-medium">{{
-            bioQuality.results.bioQualityIndex.name
+            habitatQuality.results.habitatIndex.cat.name
           }}</b-tag>
         </b-field>
         <b-field label="Calidad Biológica del Agua">
@@ -19,11 +24,11 @@
         </b-field>
       </b-message>
     </div>
-
-    <h5 class="title is-5">8. Estado ecológico</h5>
+    <h5 class="title is-5">8. Estado Ecológico</h5>
     <div>
       <div class="block" v-if="isFormValid">
         <b-message
+          class="results-display"
           :title="ecoStatusIndex.name"
           type="is-info"
           :closable="false"
@@ -44,22 +49,33 @@
       </div>
       <div class="block" v-else>
         <b-message
+          class="results-display"
           title="Formulario incompleto"
           type="is-warning"
           :closable="false"
         >
-          Hace falta completar la CALIDAD DEL AGUA y la CALIDAD DEL BOSQUE DE
-          RIBERA para ver el resultado del Estado Ecológico.
+          No podras enviar el formulario hasta que completes todos las secciones
+          que estan incompletas.
+        </b-message>
+      </div>
+      <div class="block" v-if="!isComputedOnline">
+        <b-message
+          class="results-display"
+          title="Estado sin conexión"
+          type="is-warning"
+          :closable="false"
+        >
+          Actualmente te encuentras sin conexión a internet, no podras enviar el
+          formulario hasta que dispongas de conexión.
         </b-message>
       </div>
     </div>
-
     <div class="big-button">
       <b-button
         type="is-danger"
         size="is-medium"
         expanded
-        :disabled="!isFormValid"
+        :disabled="!isReadySend"
         @click="sendSampleData()"
         >Enviar Resultados</b-button
       >
@@ -89,6 +105,7 @@ export default {
       statusOptions: state =>
         state.formSections.ecoResult.data.ecologicalStateOptions,
       formSections: state => state.formSections,
+      habitatQuality: state => state.formSections.habitat,
       riverQuality: state => state.formSections.riverQuality,
       bioQuality: state => state.formSections.biological
     }),
@@ -99,13 +116,23 @@ export default {
       if (!this.isFormValid) return null;
       return this.calculateStatus();
     },
+    isReadySend() {
+      return this.isFormValid && this.isComputedOnline;
+    },
     isSectionValid() {
       return this.ecoStatusIndex !== null;
     }
   },
+  beforeUpdate() {
+    this.updateSpecificSectionValues({
+      name: "ecoResult",
+      values: this.values,
+      isValid: this.isSectionValid
+    });
+  },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
     calculateStatus() {
       const qrisiIndexValue = this.riverQuality.results.qrisiIndex.cat.value;
@@ -125,12 +152,15 @@ export default {
       const sampleData = this._prepareSampleObj();
       try {
         this.isSendingData = true;
-        const res = await saveSample(this.user.token, sampleData);
-        console.log(res);
+        await saveSample(this.user.token, sampleData);
         this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
-          type: "is-success"
+          type: "is-success",
+          duration: 3000
         });
+        setTimeout(() => {
+          this.$root.$emit("clear");
+        }, 4000);
       } catch (err) {
         this.$buefy.toast.open({
           message:
@@ -206,6 +236,9 @@ export default {
   &__rate {
     padding: 1rem;
   }
+}
+.results-display {
+  max-width: 500px;
 }
 .big-button {
   margin-top: 1.5rem;

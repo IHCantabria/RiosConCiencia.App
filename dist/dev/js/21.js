@@ -8,7 +8,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  created: function created() {\n    var _this = this;\n\n    this.$on(\"online\", function () {\n      _this.isOnline = true;\n    });\n    this.$on(\"offline\", function () {\n      _this.isOnline = false;\n    });\n  },\n  render: function render() {\n    return null;\n  }\n});\n\n//# sourceURL=webpack:///./src/components/renderless/AppOfflineManager.vue?./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  created: function created() {\n    var _this = this;\n\n    this.$on(\"online\", function () {\n      _this.isOnline = true;\n\n      _this.$buefy.toast.open({\n        message: \"Has recuperado la conexión ¡Ya puedes enviar formularios!\",\n        type: \"is-success\"\n      });\n    });\n    this.$on(\"offline\", function () {\n      _this.isOnline = false;\n\n      _this.$buefy.toast.open({\n        message: \"¡Cuidado estas sin conexión! No podras enviar formularios hasta tener conexión\",\n        type: \"is-danger\"\n      });\n    });\n  },\n  render: function render() {\n    return null;\n  }\n});\n\n//# sourceURL=webpack:///./src/components/renderless/AppOfflineManager.vue?./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
 
 /***/ }),
 

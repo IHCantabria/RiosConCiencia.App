@@ -5,11 +5,13 @@
     </header>
     <main class="app__main">
       <router-view />
+      <app-notification-update />
       <app-geo-loader
         @geo-data-ready="onGeolocation"
         @geo-data-error="onGeolocationError"
       />
       <app-offline-manager />
+      <app-reset-state />
     </main>
     <footer class="app__footer">
       <app-footer></app-footer>
@@ -17,21 +19,59 @@
   </div>
 </template>
 <script>
+import { androidBackButtonMixin } from "@/mixins/android-back-button.js";
 export default {
   name: "App",
   components: {
     AppHeader: () => import("@/components/layout/AppHeader"),
     AppFooter: () => import("@/components/layout/AppFooter"),
     AppGeoLoader: () => import("@/components/renderless/AppGeoLoader"),
-    AppOfflineManager: () => import("@/components/renderless/AppOfflineManager")
+    AppResetState: () => import("@/components/renderless/AppResetState"),
+    AppOfflineManager: () =>
+      import("@/components/renderless/AppOfflineManager"),
+    AppNotificationUpdate: () =>
+      import("@/components/layout/AppNotificationUpdate")
   },
   data() {
     return {
       geolocationReady: false,
-      isStateReady: false
+      isStateReady: false,
+      installer: undefined,
+      isInstallerReady: false
     };
   },
+  mixins: [androidBackButtonMixin],
   created() {
+    let installPrompt;
+    window.addEventListener("beforeinstallprompt", e => {
+      //Prevent Chrome 67 an earlier from automatically showing the prompt
+      e.preventDefault();
+      //Stash the event so it can be triggered later.
+      installPrompt = e;
+      //prevent multiple events beforeinstallPrompt
+      if (!this.isInstallerReady) {
+        this.isInstallerReady = true;
+        this.$buefy.dialog.confirm({
+          title: "Instalar App",
+          message: "¿ Desea instalar RiosConCiencia App en su dispositivo ?",
+          cancelText: "No",
+          confirmText: "Si",
+          type: "is-primary",
+          onConfirm: () => {
+            this.installer();
+          },
+          onCancel: () => {
+            installPrompt = null;
+          }
+        });
+      }
+    });
+
+    this.installer = () => {
+      installPrompt.prompt();
+      installPrompt = null;
+    };
+
     this.$store._vm.$root.$on("storageReady", () => {
       this.isStateReady = true;
     });
@@ -40,10 +80,13 @@ export default {
     onGeolocation() {
       this.geolocationReady = true;
     },
-    onGeolocationError(err) {
-      //TODO: notificar error
-      console.error(`Error cargando posición. ${err}`);
-    }
+    onGeolocationError() {
+      this.$buefy.toast.open({
+        message: "No es posible Geolocalizar la ubicación",
+        type: "is-danger"
+      });
+    },
+    installApp() {}
   }
 };
 </script>
@@ -57,7 +100,7 @@ export default {
     "main"
     "footer";
   grid-template-rows: $header-height 1fr $footer-height;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(300px, 1fr);
   height: 100%;
   overflow-x: hidden;
 }
@@ -68,8 +111,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* Disables pull-to-refresh but allows overscroll glow effects. */
-  overscroll-behavior-y: contain;
 
   &__header {
     display: flex;

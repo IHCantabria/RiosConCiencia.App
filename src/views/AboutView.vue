@@ -28,6 +28,13 @@
     </div>
   </div>
 </template>
+<script>
+import { routeGuardMixin } from "@/mixins/route-guard.js";
+export default {
+  name: "AboutView",
+  mixins: [routeGuardMixin]
+};
+</script>
 <style lang="scss" scoped>
 a,
 a:link,

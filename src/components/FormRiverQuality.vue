@@ -1,6 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">7. Calidad del Bosque de Ribera (QRISI)</h5>
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>7. Calidad del Bosque de Ribera (QRISI)</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
+    </div>
     <b-field label="a. Estructura de las riberas, grado de naturalidad">
     </b-field>
     <b-field
@@ -71,6 +78,7 @@
         <div class="block">
           <b-message
             :title="qrisiIndex.cat.name"
+            class="results-display"
             type="is-info"
             :closable="false"
           >
@@ -99,8 +107,9 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
+      pdfLink: require("../assets/pdfs/ribera.pdf"),
       values: {
-        riverbankNaturalness: null,
+        riverbankNaturalness: 0,
         riverbankConections: null,
         riverbankVegetations: null
       }
@@ -143,17 +152,24 @@ export default {
       );
     }
   },
+  mounted() {
+    this.init();
+  },
   beforeUpdate() {
     this.values.qrisiIndex = this.qrisiIndex;
-    this.updateSectionValues({
+    this.updateSpecificSectionValues({
+      name: "riverQuality",
       values: this.values,
       isValid: this.isSectionValid
     });
   },
   methods: {
     ...mapActions({
-      updateSectionValues: "updateSectionValues"
+      updateSpecificSectionValues: "updateSpecificSectionValues"
     }),
+    init() {
+      this.values.riverbankNaturalness = null; //default value and make beforeUpdate hook jump
+    },
     getRiverQualityCategory(totalPoints) {
       if (totalPoints <= 4)
         return this.formRiverQuality.data.qrisiCategoriesOptions[2];
@@ -170,5 +186,8 @@ export default {
   &__rate {
     padding: 1rem;
   }
+}
+.results-display {
+  max-width: 500px;
 }
 </style>

@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { login } from "@/api/riosconciencia.js";
+import { login, getUserRiverSections } from "@/api/riosconciencia.js";
 import { mapActions } from "vuex";
 
 export default {
@@ -46,7 +46,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      setActiveUser: "setActiveUser"
+      setActiveUser: "setActiveUser",
+      loadRiverSections: "loadRiverSections"
     }),
     async loginUser() {
       try {
@@ -55,18 +56,56 @@ export default {
           this.userEmail,
           this.userPassword
         );
-        if (authenticatedUser) {
-          this.setActiveUser(authenticatedUser);
-          this.$router.push("/");
-        } else {
-          //TODO: mensaje
-          console.error("Error intentando autenticar");
-        }
+        this.setActiveUser(authenticatedUser);
+        this.getRiverSections(authenticatedUser);
+        this.$router.push("/");
       } catch (err) {
-        //TODO: notificar
-        console.error("Error intentando autenticar");
+        if (!err.response) {
+          let error = this.isComputedOnline
+            ? "No ha sido posible conectarse, el servidor esta caido"
+            : " No es posible conectarse si no dispones de conexión a internet";
+          this.$buefy.toast.open({
+            message: error,
+            type: "is-danger"
+          });
+        }
+        if (err.response.status == 403)
+          this.$buefy.toast.open({
+            message:
+              "Los datos que ha introducido no son correctos o su usuario no tiene permiso para usar la aplicación",
+            type: "is-danger"
+          });
+        if (err.response.status == 400) {
+          this.$buefy.toast.open({
+            message:
+              "Debe rellenar los campos email y contraseña para poder conectarse",
+            type: "is-danger"
+          });
+        }
       } finally {
         this.isLoading = false;
+      }
+    },
+    async getRiverSections(authenticatedUser) {
+      try {
+        const userRiverSections = await getUserRiverSections(
+          authenticatedUser.token,
+          authenticatedUser.id
+        );
+        this.loadRiverSections(userRiverSections);
+        if (userRiverSections == "") {
+          this.$buefy.toast.open({
+            message:
+              "¡Atención! no tiene asignados tramos de río, no podra completar ni enviar ningun formulario",
+            type: "is-danger",
+            duration: 5000
+          });
+        }
+      } catch (err) {
+        this.$buefy.toast.open({
+          message: "Fallo al recuperar tus tramos de río, pruebe mas tarde",
+          type: "is-danger"
+        });
       }
     }
   }
