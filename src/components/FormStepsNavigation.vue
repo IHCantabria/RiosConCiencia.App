@@ -33,7 +33,7 @@
           type="is-primary"
           icon-pack="mdi"
           icon-right="greater-than"
-          :disabled="isLastSection"
+          :disabled="isLastSection(sections)"
           @click.prevent="next.action"
         >
           Siguiente

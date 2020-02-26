@@ -21,22 +21,22 @@ const routes = [
     component: LoginView
   },
   {
-    path: "/formfields",
-    name: "formfields",
+    path: "/formexpert",
+    name: "formexpert",
     beforeEnter: (to, from, next) => {
       !store.getters.userIsLogged ? next({ name: "login" }) : next();
     },
     component: () =>
-      import(/* webpackChunkName: "formfields" */ "../views/FormView.vue")
+      import(/* webpackChunkName: "formexpert" */ "../views/FormView.vue")
   },
   {
-    path: "/formpictos",
-    name: "formpictos",
+    path: "/formpicts",
+    name: "formpicts",
     beforeEnter: (to, from, next) => {
       !store.getters.userIsLogged ? next({ name: "login" }) : next();
     },
     component: () =>
-      import(/* webpackChunkName: "formpictos" */ "../views/PictosView.vue")
+      import(/* webpackChunkName: "formpicts" */ "../views/PictsView.vue")
   },
   {
     path: "/about",

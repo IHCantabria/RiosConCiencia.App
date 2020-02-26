@@ -6,7 +6,7 @@
     >
       <component
         :is="section"
-        v-show="activeSectionName === section"
+        v-show="activeSectionName(formSections) === section"
       ></component>
     </keep-alive>
     <app-data-loader
@@ -23,15 +23,15 @@ import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
   name: "FormView",
   components: {
-    init: () => import("@/components/FormInit"),
-    basic: () => import("@/components/FormBasic"),
-    spills: () => import("@/components/FormSpills"),
-    waste: () => import("@/components/FormWaste"),
-    habitat: () => import("@/components/FormHabitat"),
-    ecoSystem: () => import("@/components/FormEcosystem"),
-    biological: () => import("@/components/FormBiological"),
-    riverQuality: () => import("@/components/FormRiverQuality"),
-    ecoResult: () => import("@/components/FormEcoResult"),
+    init: () => import("@/components/FormExpert/FormInit"),
+    basic: () => import("@/components/FormExpert/FormBasic"),
+    spills: () => import("@/components/FormExpert/FormSpills"),
+    waste: () => import("@/components/FormExpert/FormWaste"),
+    habitat: () => import("@/components/FormExpert/FormHabitat"),
+    ecoSystem: () => import("@/components/FormExpert/FormEcosystem"),
+    biological: () => import("@/components/FormExpert/FormBiological"),
+    riverQuality: () => import("@/components/FormExpert/FormRiverQuality"),
+    ecoResult: () => import("@/components/FormExpert/FormEcoResult"),
     "app-data-loader": () => import("@/components/renderless/AppDataLoader"),
     spinner: () => import("@/components/Loading")
   },

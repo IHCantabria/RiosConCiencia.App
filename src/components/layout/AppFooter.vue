@@ -21,7 +21,7 @@ export default {
   computed: {
     isFormPage() {
       return (
-        this.$route.path === "/formfields" || this.$route.path === "/formpictos"
+        this.$route.path === "/formexpert" || this.$route.path === "/formpictos"
       );
     }
   },

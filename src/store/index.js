@@ -15,34 +15,33 @@ export default new Vuex.Store({
     userRiverSections: [],
     userPosition: null,
     activeSectionId: 0,
-    formSections: {}
+    formExpertSections: {},
+    formPicsSections: {}
   },
   getters: {
     isMasterDataLoaded: state => {
-      return Object.keys(state.formSections).length !== 0;
+      return Object.keys(state.formExpertSections).length !== 0;
     },
     isFirstSection: state => {
       return state.activeSectionId === 0;
     },
-    isLastSection: state => {
-      return (
-        state.activeSectionId === Object.keys(state.formSections).length - 1
-      );
+    isLastSection: state => formSections => {
+      return state.activeSectionId === Object.keys(formSections).length - 1;
     },
     userIsLogged: state => {
       return state.user.token ? true : false;
     },
-    activeSectionName: state => {
-      return Object.keys(state.formSections)[state.activeSectionId];
+    activeSectionName: state => formSections => {
+      return Object.keys(formSections)[state.activeSectionId];
     },
-    isFormValid: state => {
+    isFormValid: state => formSections => {
       return (
-        state.formSections.biological.isValid &&
-        state.formSections.init.isValid &&
-        state.formSections.basic.isValid &&
-        state.formSections.habitat.isValid &&
-        state.formSections.ecoSystem.isValid &&
-        state.formSections.riverQuality.isValid
+        state[formSections].biological.isValid &&
+        state[formSections].init.isValid &&
+        state[formSections].basic.isValid &&
+        state[formSections].habitat.isValid &&
+        state[formSections].ecoSystem.isValid &&
+        state[formSections].riverQuality.isValid
       );
     },
     isStateEcoReady: state => {
@@ -108,12 +107,12 @@ export default new Vuex.Store({
     setUserPosition(context, device) {
       context.commit(types.SET_USER_POSITION, device);
     },
-    setSectionState(context, payload) {
+    setExpertSectionState(context, payload) {
       const params = {
         name: payload.name,
         isValid: payload.isValid
       };
-      context.commit(types.SET_SECTION_STATE, params);
+      context.commit(types.SET_EXPERT_SECTION_STATE, params);
     },
     updateSectionValues(context, payload) {
       const params = {
@@ -124,6 +123,9 @@ export default new Vuex.Store({
     },
     updateSpecificSectionValues(context, payload) {
       context.commit(types.UPDATE_SECTION_VALUES, payload);
+    },
+    updateSpecificPictSectionValues(context, payload) {
+      context.commit(types.UPDATE_PICT_SECTION_VALUES, payload);
     },
     clearFormResponses(context) {
       context.commit(types.SET_ACTIVE_SECTION, 0);
