@@ -4,7 +4,7 @@ export default {
     this.$on("online", () => {
       this.isOnline = true;
       this.$buefy.toast.open({
-        message: "Has recuperado la conexión ¡Ya puedes enviar formularios!",
+        message: "Has recuperado la conexión ¡Ya puedes enviar los datos!",
         type: "is-success"
       });
     });
@@ -13,7 +13,7 @@ export default {
       this.isOnline = false;
       this.$buefy.toast.open({
         message:
-          "¡Cuidado estas sin conexión! No podras enviar formularios hasta tener conexión",
+          "¡Cuidado estas sin conexión! Puedes seguir trabajando en el formulario pero no podras enviarlo hasta tener conexión",
         type: "is-danger"
       });
     });

@@ -42,35 +42,7 @@ export default {
   },
   mixins: [androidBackButtonMixin],
   created() {
-    let installPrompt;
-    window.addEventListener("beforeinstallprompt", e => {
-      //Prevent Chrome 67 an earlier from automatically showing the prompt
-      e.preventDefault();
-      //Stash the event so it can be triggered later.
-      installPrompt = e;
-      //prevent multiple events beforeinstallPrompt
-      if (!this.isInstallerReady) {
-        this.isInstallerReady = true;
-        this.$buefy.dialog.confirm({
-          title: "Instalar App",
-          message: "¿ Desea instalar RiosConCiencia App en su dispositivo ?",
-          cancelText: "No",
-          confirmText: "Si",
-          type: "is-primary",
-          onConfirm: () => {
-            this.installer();
-          },
-          onCancel: () => {
-            installPrompt = null;
-          }
-        });
-      }
-    });
-
-    this.installer = () => {
-      installPrompt.prompt();
-      installPrompt = null;
-    };
+    this.setupPWAInstaller();
 
     this.$store._vm.$root.$on("storageReady", () => {
       this.isStateReady = true;
@@ -86,7 +58,38 @@ export default {
         type: "is-danger"
       });
     },
-    installApp() {}
+    //for now just Chrome
+    setupPWAInstaller() {
+      let installPrompt;
+      window.addEventListener("beforeinstallprompt", e => {
+        //Prevent Chrome 67 an earlier from automatically showing the prompt
+        e.preventDefault();
+        //Stash the event so it can be triggered later.
+        installPrompt = e;
+        // workaround (for mobiles) to prevent multiple events beforeinstallPrompt
+        if (!this.isInstallerReady) {
+          this.isInstallerReady = true;
+          this.$buefy.dialog.confirm({
+            title: "Instalar App",
+            message: "¿ Desea instalar RiosConCiencia App en su dispositivo ?",
+            cancelText: "No",
+            confirmText: "Si",
+            type: "is-primary",
+            onConfirm: () => {
+              this.installer();
+            },
+            onCancel: () => {
+              installPrompt = null;
+            }
+          });
+        }
+      });
+
+      this.installer = () => {
+        installPrompt.prompt();
+        installPrompt = null;
+      };
+    }
   }
 };
 </script>
