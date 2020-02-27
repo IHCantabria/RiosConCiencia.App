@@ -39,7 +39,7 @@ export default {
       this.$router.push("formexpert");
     },
     challengeUser() {
-      this.$router.push("formpictos");
+      this.$router.push("formpicts");
     }
   }
 };
