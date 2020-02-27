@@ -83,14 +83,16 @@ export default {
   computed: {
     ...mapState({
       user: state => state.user,
-      formInit: state => state.formSections.init,
+      formInit: state => state.formExpertSections.init,
       userRiverSections: state => state.userRiverSections
     }),
     riverSectionHasErrors() {
       return this.values.riverSection === null;
     },
     userFullName() {
-      return `${this.user.name} ${this.user.surname}`;
+      return `${this.user.name ? this.user.name : ""} ${
+        this.user.surnames ? this.user.surnames : ""
+      }`;
     },
     weatherHasErrors() {
       return this.values.weatherToday === null;
@@ -110,7 +112,7 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "init",
       values: this.values,
       isValid: this.isSectionValid
@@ -128,7 +130,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
     }),
     init() {
       this.values.partners = ""; //default value and make beforeUpdate hook jump

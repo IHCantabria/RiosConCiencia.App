@@ -259,7 +259,7 @@ export default {
   },
   computed: {
     ...mapState({
-      formHabitat: state => state.formSections.habitat
+      formHabitat: state => state.formExpertSections.habitat
     }),
     randomElementPresenceOptionsFilter() {
       return this.formHabitat.data.randomElementPresenceOptions.filter(
@@ -347,7 +347,7 @@ export default {
   },
   beforeUpdate() {
     this.values.habitatIndex = this.habitatIndex;
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "habitat",
       values: this.values,
       isValid: this.isSectionValid
@@ -355,7 +355,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
     }),
     init() {
       this.prepareComplexObjects();

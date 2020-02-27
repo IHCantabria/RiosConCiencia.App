@@ -238,7 +238,7 @@ export default {
   },
   computed: {
     ...mapState({
-      formEcoSystem: state => state.formSections.ecoSystem
+      formEcoSystem: state => state.formExpertSections.ecoSystem
     }),
     invasorsComputed() {
       let invasorsComputed = this.formEcoSystem.data.invasorPlantOptions;
@@ -283,7 +283,7 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "ecoSystem",
       values: this.values,
       isValid: this.isSectionValid
@@ -291,7 +291,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
     }),
     init() {
       this.values.samplePointWaterTemp = null; //default value and make beforeUpdate hook jump

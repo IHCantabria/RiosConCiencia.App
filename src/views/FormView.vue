@@ -6,7 +6,7 @@
     >
       <component
         :is="section"
-        v-show="activeSectionName(formSections) === section"
+        v-show="activeSectionName === section"
       ></component>
     </keep-alive>
     <app-data-loader
@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
   name: "FormView",
@@ -40,6 +40,9 @@ export default {
     return {
       dataReady: false
     };
+  },
+  mounted() {
+    this.init();
   },
   beforeRouteLeave(to, from, next) {
     if (
@@ -64,7 +67,7 @@ export default {
   computed: {
     ...mapState({
       activeSectionId: state => state.activeSectionId,
-      formSections: state => state.formSections
+      formSections: state => state.formExpertSections
     }),
     ...mapGetters({
       activeSectionName: "activeSectionName",
@@ -72,8 +75,16 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      setActiveForm: "setActiveForm",
+      setActiveSection: "setActiveSection"
+    }),
     onDataLoad() {
       this.dataReady = true;
+    },
+    init() {
+      this.setActiveForm(0); // ExpertForm
+      this.setActiveSection(0);
     },
     onDataLoadError() {
       let error = this.isComputedOnline

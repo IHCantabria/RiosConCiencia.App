@@ -177,7 +177,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   computed: {
     ...mapState({
-      formSpills: state => state.formSections.spills
+      formSpills: state => state.formExpertSections.spills
     }),
     spillDisabled() {
       return this.spillSource === null || this.spillDiameter === null;
@@ -238,7 +238,7 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "spills",
       values: this.values,
       isValid: this.isSectionValid
@@ -246,7 +246,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues",
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues",
       updateSectionValues: "updateSectionValues"
     }),
     init() {

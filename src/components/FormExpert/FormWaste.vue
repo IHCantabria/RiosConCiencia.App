@@ -77,7 +77,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   computed: {
     ...mapState({
-      formWaste: state => state.formSections.waste
+      formWaste: state => state.formExpertSections.waste
     }),
     isSectionValid() {
       return true; //optional section
@@ -110,7 +110,7 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "waste",
       values: this.values,
       isValid: this.isSectionValid
@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues",
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues",
       updateSectionValues: "updateSectionValues"
     }),
     init() {

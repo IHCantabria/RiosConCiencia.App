@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     ...mapState({
-      formBiological: state => state.formSections.biological
+      formBiological: state => state.formExpertSections.biological
     }),
     bioQualityHasErrors() {
       return this.values.bioQualityIndex === null;
@@ -81,7 +81,7 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "biological",
       values: this.values,
       isValid: this.isSectionValid
@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
     }),
     init() {
       this.values.bioQualityIndex = null; //default value and make beforeUpdate hook jump

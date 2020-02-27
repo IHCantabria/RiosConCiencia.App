@@ -261,7 +261,7 @@ export default {
   },
   computed: {
     ...mapState({
-      formBasic: state => state.formSections.basic
+      formBasic: state => state.formExpertSections.basic
     }),
     landUseHasErrors() {
       return (
@@ -306,7 +306,7 @@ export default {
     this.init();
   },
   beforeUpdate() {
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "basic",
       values: this.values,
       isValid: this.isSectionValid
@@ -314,7 +314,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
     }),
     init() {
       //default init values

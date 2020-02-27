@@ -117,7 +117,7 @@ export default {
   },
   computed: {
     ...mapState({
-      formRiverQuality: state => state.formSections.riverQuality
+      formRiverQuality: state => state.formExpertSections.riverQuality
     }),
     qrisiIndexTotalPoints() {
       if (this.isSectionValid) {
@@ -157,7 +157,7 @@ export default {
   },
   beforeUpdate() {
     this.values.qrisiIndex = this.qrisiIndex;
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "riverQuality",
       values: this.values,
       isValid: this.isSectionValid
@@ -165,7 +165,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
     }),
     init() {
       this.values.riverbankNaturalness = null; //default value and make beforeUpdate hook jump

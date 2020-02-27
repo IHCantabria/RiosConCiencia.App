@@ -1,6 +1,6 @@
 <template>
   <div class="form-section">
-    <div class="block" v-if="isFormValid(formSections)">
+    <div class="block" v-if="isFormExpertValid">
       <b-message
         title="Resumen"
         class="results-display"
@@ -26,7 +26,7 @@
     </div>
     <h5 class="title is-5">8. Estado Ecológico</h5>
     <div>
-      <div class="block" v-if="isFormValid(formSections)">
+      <div class="block" v-if="isFormExpertValid">
         <b-message
           class="results-display"
           :title="ecoStatusIndex.name"
@@ -103,28 +103,28 @@ export default {
     ...mapState({
       user: state => state.user,
       statusOptions: state =>
-        state.formSections.ecoResult.data.ecologicalStateOptions,
-      formSections: state => state.formSections,
-      habitatQuality: state => state.formSections.habitat,
-      riverQuality: state => state.formSections.riverQuality,
-      bioQuality: state => state.formSections.biological
+        state.formExpertSections.ecoResult.data.ecologicalStateOptions,
+      formSections: state => state.formExpertSections,
+      habitatQuality: state => state.formExpertSections.habitat,
+      riverQuality: state => state.formExpertSections.riverQuality,
+      bioQuality: state => state.formExpertSections.biological
     }),
     ...mapGetters({
-      isFormValid: "isFormValid"
+      isFormExpertValid: "isFormExpertValid"
     }),
     ecoStatusIndex() {
-      if (!this.isFormValid(this.formSections)) return null;
+      if (!this.isFormExpertValid) return null;
       return this.calculateStatus();
     },
     isReadySend() {
-      return this.isFormValid(this.formSections) && this.isComputedOnline;
+      return this.isFormExpertValid && this.isComputedOnline;
     },
     isSectionValid() {
       return this.ecoStatusIndex !== null;
     }
   },
   beforeUpdate() {
-    this.updateSpecificSectionValues({
+    this.updateSpecificExpertSectionValues({
       name: "ecoResult",
       values: this.values,
       isValid: this.isSectionValid
@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificSectionValues: "updateSpecificSectionValues"
+      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
     }),
     calculateStatus() {
       const qrisiIndexValue = this.riverQuality.results.qrisiIndex.cat.value;
@@ -156,10 +156,10 @@ export default {
         this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
           type: "is-success",
-          duration: 3000
+          duration: 5000
         });
         setTimeout(() => {
-          this.$root.$emit("clear");
+          this.$root.$emit("clearExpert");
         }, 4000);
       } catch (err) {
         this.$buefy.toast.open({
