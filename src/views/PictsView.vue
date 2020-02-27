@@ -6,25 +6,30 @@
     >
       <component
         :is="section"
-        v-show="activeSectionName(formSections) === section"
+        v-show="activeSectionName === section"
       ></component>
     </keep-alive>
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
   name: "PictsView",
   components: {
     flow: () => import("@/components/FormPicts/FormFlow"),
-    width: () => import("@/components/FormExpert/FormInit")
+    width: () => import("@/components/FormPicts/FormWidth")
   },
   mixins: [routeGuardMixin],
+  data() {
+    return {
+      dataReady: false
+    };
+  },
   beforeRouteLeave(to, from, next) {
     if (
       (to.path == "/" || to.path == "/about") &&
-      Object.keys(this.formSections.init.results).length !== 0
+      Object.keys(this.formSections.flow.results).length !== 0
     ) {
       this.$buefy.dialog.confirm({
         title: "Formulario Incompleto",
@@ -41,10 +46,13 @@ export default {
       next();
     }
   },
+  mounted() {
+    this.init();
+  },
   computed: {
     ...mapState({
       activeSectionId: state => state.activeSectionId,
-      formSections: state => state.formSections
+      formSections: state => state.formPictsSections
     }),
     ...mapGetters({
       activeSectionName: "activeSectionName",
@@ -52,8 +60,16 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      setActiveForm: "setActiveForm",
+      setActiveSection: "setActiveSection"
+    }),
     onDataLoad() {
       this.dataReady = true;
+    },
+    init() {
+      this.setActiveForm(1); // PictsForm
+      this.setActiveSection(0);
     },
     onDataLoadError() {
       let error = this.isComputedOnline

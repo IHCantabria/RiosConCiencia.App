@@ -5,16 +5,6 @@
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
-    <b-field>
-      <b-radio-button v-model="values.waterFlow" :native-value="false">
-        <b-icon icon="close"></b-icon>
-        <span>No</span>
-      </b-radio-button>
-      <b-radio-button v-model="values.waterFlow" :native-value="true">
-        <b-icon icon="check"></b-icon>
-        <span>Si</span>
-      </b-radio-button>
-    </b-field>
   </div>
 </template>
 <script>
@@ -25,19 +15,19 @@ export default {
     return {
       pdfLink: require("../../assets/pdfs/basico.pdf"),
       values: {
-        waterFlow: 0
+        waterWidth: null
       }
     };
   },
   computed: {
     ...mapState({
-      formFlow: state => state.formPictsSections.flow
+      formWidth: state => state.formPictsSections.width
     }),
-    waterFlowHasErrors() {
-      return this.values.waterFlow === null;
+    riverWidthHasErrors() {
+      return this.values.waterWidth === null;
     },
     isSectionValid() {
-      return !this.waterFlowHasErrors;
+      return !this.riverWidthHasErrors;
     }
   },
   mounted() {
@@ -45,7 +35,7 @@ export default {
   },
   beforeUpdate() {
     this.updateSpecificPictsSectionValues({
-      name: "flow",
+      name: "width",
       values: this.values,
       isValid: this.isSectionValid
     });
@@ -55,7 +45,7 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterFlow = null; //default value and make beforeUpdate hook jump
+      this.values.waterWidth = null; //default value and make beforeUpdate hook jump
     }
   }
 };
