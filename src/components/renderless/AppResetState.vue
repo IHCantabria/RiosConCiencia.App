@@ -10,25 +10,34 @@ export default {
   methods: {
     ...mapActions({
       setActiveUser: "setActiveUser",
-      clearFormResponses: "clearFormResponses",
+      clearExpertFormResponses: "clearExpertFormResponses",
+      clearPictsFormResponses: "clearPictsFormResponses",
       clearRiverSections: "clearRiverSections"
     }),
     init() {
       this.$root.$on("logout", () => {
         this.logout();
       });
-      this.$root.$on("clear", () => {
-        this.finishedForm();
+      this.$root.$on("clearExpert", () => {
+        this.finishedExpertForm();
+      });
+      this.$root.$on("clearPicts", () => {
+        this.finishedExpertForm();
       });
     },
     logout() {
       this.setActiveUser({});
       this.clearRiverSections({});
-      this.clearFormResponses();
+      this.clearPictsFormResponses();
+      this.clearExpertFormResponses();
       this.$router.push("login");
     },
-    finishedForm() {
-      this.clearFormResponses();
+    finishedExpertForm() {
+      this.clearExpertFormResponses();
+      this.$router.push("/");
+    },
+    finishedPictsForm() {
+      this.clearPictsFormResponses();
       this.$router.push("/");
     }
   },
