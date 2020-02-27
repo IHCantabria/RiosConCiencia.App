@@ -12,7 +12,7 @@ module.exports = {
       .test(/\.pdf$/)
       .use("file-loader")
       .loader("file-loader")
-      .options({ name: "[name].[ext]" });
+      .options({ name: "[name].[ext]", outputPath: "pdfs/" });
   },
   outputDir: process.env.VUE_APP_DEPLOY_DIR,
   runtimeCompiler: true,
