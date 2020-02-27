@@ -18,20 +18,20 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
   name: "FormView",
   components: {
-    init: () => import("@/components/FormInit"),
-    basic: () => import("@/components/FormBasic"),
-    spills: () => import("@/components/FormSpills"),
-    waste: () => import("@/components/FormWaste"),
-    habitat: () => import("@/components/FormHabitat"),
-    ecoSystem: () => import("@/components/FormEcosystem"),
-    biological: () => import("@/components/FormBiological"),
-    riverQuality: () => import("@/components/FormRiverQuality"),
-    ecoResult: () => import("@/components/FormEcoResult"),
+    init: () => import("@/components/FormExpert/FormInit"),
+    basic: () => import("@/components/FormExpert/FormBasic"),
+    spills: () => import("@/components/FormExpert/FormSpills"),
+    waste: () => import("@/components/FormExpert/FormWaste"),
+    habitat: () => import("@/components/FormExpert/FormHabitat"),
+    ecoSystem: () => import("@/components/FormExpert/FormEcosystem"),
+    biological: () => import("@/components/FormExpert/FormBiological"),
+    riverQuality: () => import("@/components/FormExpert/FormRiverQuality"),
+    ecoResult: () => import("@/components/FormExpert/FormEcoResult"),
     "app-data-loader": () => import("@/components/renderless/AppDataLoader"),
     spinner: () => import("@/components/Loading")
   },
@@ -40,6 +40,9 @@ export default {
     return {
       dataReady: false
     };
+  },
+  mounted() {
+    this.init();
   },
   beforeRouteLeave(to, from, next) {
     if (
@@ -64,7 +67,7 @@ export default {
   computed: {
     ...mapState({
       activeSectionId: state => state.activeSectionId,
-      formSections: state => state.formSections
+      formSections: state => state.formExpertSections
     }),
     ...mapGetters({
       activeSectionName: "activeSectionName",
@@ -72,8 +75,16 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      setActiveForm: "setActiveForm",
+      setActiveSection: "setActiveSection"
+    }),
     onDataLoad() {
       this.dataReady = true;
+    },
+    init() {
+      this.setActiveForm(0); // ExpertForm
+      this.setActiveSection(0);
     },
     onDataLoadError() {
       let error = this.isComputedOnline

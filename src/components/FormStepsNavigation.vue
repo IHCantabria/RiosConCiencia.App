@@ -33,7 +33,7 @@
           type="is-primary"
           icon-pack="mdi"
           icon-right="greater-than"
-          :disabled="isLastSection"
+          :disabled="isLastSection(sections)"
           @click.prevent="next.action"
         >
           Siguiente
@@ -68,13 +68,18 @@ export default {
       }
     },
     ...mapState({
-      sections: state => state.formSections,
-      activeStep: state => state.activeSectionId
+      sectionsExpert: state => state.formExpertSections,
+      sectionsPicts: state => state.formPictsSections,
+      activeStep: state => state.activeSectionId,
+      activeForm: state => state.activeFormId
     }),
     ...mapGetters({
       isFirstSection: "isFirstSection",
       isLastSection: "isLastSection"
-    })
+    }),
+    sections() {
+      return this.activeForm == 0 ? this.sectionsExpert : this.sectionsPicts;
+    }
   },
   methods: {
     ...mapActions({

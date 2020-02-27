@@ -36,10 +36,10 @@ export default {
   },
   methods: {
     expertUser() {
-      this.$router.push("formfields");
+      this.$router.push("formexpert");
     },
     challengeUser() {
-      this.$router.push("formpictos");
+      this.$router.push("formpicts");
     }
   }
 };
