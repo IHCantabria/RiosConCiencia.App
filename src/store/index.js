@@ -17,42 +17,16 @@ export default new Vuex.Store({
     activeSectionId: 0,
     activeFormId: 0, // formExpert == 0, formPicts == 1
     formExpertSections: {},
-    formPictsSections: {
-      flow: {
-        id: 0,
-        data: {},
-        isValid: false
-      },
-      width: {
-        id: 1,
-        data: {
-          widthOptions: [
-            {
-              id: 1,
-              name: "<1"
-            },
-            {
-              id: 2,
-              name: "1-2"
-            },
-            {
-              id: 3,
-              name: "2-5"
-            },
-            {
-              id: 4,
-              name: "5-10"
-            }
-          ]
-        },
-        isValid: false
-      }
-    }
+    formPictsSections: {}
   },
   getters: {
-    isMasterDataLoaded: state => {
+    isExpertDataLoaded: state => {
       return Object.keys(state.formExpertSections).length !== 0;
     },
+    isPictsDataLoaded: state => {
+      return Object.keys(state.formPictsSections).length !== 0;
+    },
+
     isFirstSection: state => {
       return state.activeSectionId === 0;
     },
@@ -97,9 +71,14 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    [types.LOAD_FORM_DATA](state, formData) {
+    [types.LOAD_EXPERT_FORM_DATA](state, formData) {
       for (const name of Object.keys(formData)) {
         Vue.set(state.formExpertSections, name, formData[name]);
+      }
+    },
+    [types.LOAD_PICTS_FORM_DATA](state, formData) {
+      for (const name of Object.keys(formData)) {
+        Vue.set(state.formPictsSections, name, formData[name]);
       }
     },
     [types.SET_USER_POSITION](state, position) {
@@ -166,8 +145,11 @@ export default new Vuex.Store({
     loadRiverSections(context, riverSections) {
       context.commit(types.SET_RIVER_SECTIONS_USER, riverSections);
     },
-    loadFormData(context, formData) {
-      context.commit(types.LOAD_FORM_DATA, formData);
+    loadExpertFormData(context, formData) {
+      context.commit(types.LOAD_EXPERT_FORM_DATA, formData);
+    },
+    loadPictsFormData(context, formData) {
+      context.commit(types.LOAD_PICTS_FORM_DATA, formData);
     },
     setActiveSection(context, sectionId) {
       context.commit(types.SET_ACTIVE_SECTION, sectionId);

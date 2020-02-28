@@ -28,8 +28,19 @@ const getUserRiverSections = async (token, userId) => {
   return res.data;
 };
 
-const getMasterData = async token => {
-  const url = `${RIOSCONCIENCIA_API.public}/GetSectionsMasterData`;
+const getExpertMasterData = async token => {
+  const url = `${RIOSCONCIENCIA_API.public}/GetSectionsExpertMasterData`;
+
+  _basicHeaders.Authorization = `Bearer ${token}`;
+
+  const res = await axios.get(url, {
+    headers: _basicHeaders
+  });
+  return res.data;
+};
+
+const getPictsMasterData = async token => {
+  const url = `${RIOSCONCIENCIA_API.public}/GetSectionsPictsMasterData`;
 
   _basicHeaders.Authorization = `Bearer ${token}`;
 
@@ -50,4 +61,10 @@ const saveSample = async (token, sample) => {
   return res;
 };
 
-export { getMasterData, login, getUserRiverSections, saveSample };
+export {
+  getExpertMasterData,
+  getPictsMasterData,
+  login,
+  getUserRiverSections,
+  saveSample
+};
