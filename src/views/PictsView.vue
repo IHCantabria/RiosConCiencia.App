@@ -9,6 +9,12 @@
         v-show="activeSectionName === section"
       ></component>
     </keep-alive>
+    <app-data-loader
+      v-if="!isPictsDataLoaded"
+      @data-load-ready="onDataLoad"
+      @data-load-error="onDataLoadError"
+    />
+    <spinner v-if="!isPictsDataLoaded" :is-loading="!dataReady"></spinner>
   </div>
 </template>
 <script>
@@ -18,7 +24,10 @@ export default {
   name: "PictsView",
   components: {
     flow: () => import("@/components/FormPicts/FormFlow"),
-    width: () => import("@/components/FormPicts/FormWidth")
+    width: () => import("@/components/FormPicts/FormWidth"),
+    "app-data-loader": () =>
+      import("@/components/renderless/AppPictsDataLoader"),
+    spinner: () => import("@/components/Loading")
   },
   mixins: [routeGuardMixin],
   data() {
@@ -56,7 +65,7 @@ export default {
     }),
     ...mapGetters({
       activeSectionName: "activeSectionName",
-      isMasterDataLoaded: "isMasterDataLoaded"
+      isPictsDataLoaded: "isPictsDataLoaded"
     })
   },
   methods: {
