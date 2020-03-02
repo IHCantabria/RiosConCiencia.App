@@ -25,6 +25,15 @@ export default {
   components: {
     flow: () => import("@/components/FormPicts/FormFlow"),
     width: () => import("@/components/FormPicts/FormWidth"),
+    depth: () => import("@/components/FormPicts/FormDepth"),
+    temp: () => import("@/components/FormPicts/FormTemp"),
+    env: () => import("@/components/FormPicts/FormEnv"),
+    color: () => import("@/components/FormPicts/FormColor"),
+    smell: () => import("@/components/FormPicts/FormSmell"),
+    garbage: () => import("@/components/FormPicts/FormGarbage"),
+    plants: () => import("@/components/FormPicts/FormPlants"),
+    animals: () => import("@/components/FormPicts/FormAnimals"),
+    game: () => import("@/components/FormPicts/FormGame"),
     "app-data-loader": () =>
       import("@/components/renderless/AppPictsDataLoader"),
     spinner: () => import("@/components/Loading")

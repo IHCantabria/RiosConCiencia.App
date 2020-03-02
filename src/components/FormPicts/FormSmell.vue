@@ -7,10 +7,10 @@
     </div>
     <b-field>
       <b-radio-button
-        v-for="option in formWidth.data.widthRiverOptions"
+        v-for="option in formSmell.data.smellRiverOptions"
         :key="option.id"
         :native-value="option"
-        v-model="values.waterWidth"
+        v-model="values.waterSmell"
         >{{ option.name }}</b-radio-button
       >
     </b-field>
@@ -24,19 +24,19 @@ export default {
     return {
       pdfLink: require("../../assets/pdfs/basico.pdf"),
       values: {
-        waterWidth: 0
+        waterSmell: 0
       }
     };
   },
   computed: {
     ...mapState({
-      formWidth: state => state.formPictsSections.width
+      formSmell: state => state.formPictsSections.smell
     }),
-    riverWidthHasErrors() {
-      return this.values.waterWidth === null;
+    waterSmellHasErrors() {
+      return this.values.waterSmell === null;
     },
     isSectionValid() {
-      return !this.riverWidthHasErrors;
+      return !this.waterSmellHasErrors;
     }
   },
   mounted() {
@@ -44,7 +44,7 @@ export default {
   },
   beforeUpdate() {
     this.updateSpecificPictsSectionValues({
-      name: "width",
+      name: "smell",
       values: this.values,
       isValid: this.isSectionValid
     });
@@ -54,7 +54,7 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterWidth = null; //default value and make beforeUpdate hook jump
+      this.values.waterSmell = null; //default value and make beforeUpdate hook jump
     }
   }
 };

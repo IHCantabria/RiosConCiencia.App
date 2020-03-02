@@ -6,12 +6,12 @@
       ></a>
     </div>
     <b-field>
-      <b-radio-button
-        v-for="option in formWidth.data.widthRiverOptions"
+      <b-checkbox-button
+        v-for="option in formEnv.data.envRiverOptions"
         :key="option.id"
         :native-value="option"
-        v-model="values.waterWidth"
-        >{{ option.name }}</b-radio-button
+        v-model="values.waterEnv"
+        >{{ option.name }}</b-checkbox-button
       >
     </b-field>
   </div>
@@ -24,19 +24,19 @@ export default {
     return {
       pdfLink: require("../../assets/pdfs/basico.pdf"),
       values: {
-        waterWidth: 0
+        waterEnv: null
       }
     };
   },
   computed: {
     ...mapState({
-      formWidth: state => state.formPictsSections.width
+      formEnv: state => state.formPictsSections.env
     }),
-    riverWidthHasErrors() {
-      return this.values.waterWidth === null;
+    waterEnvHasErrors() {
+      return this.values.waterEnv.length === 0;
     },
     isSectionValid() {
-      return !this.riverWidthHasErrors;
+      return !this.waterEnvHasErrors;
     }
   },
   mounted() {
@@ -44,7 +44,7 @@ export default {
   },
   beforeUpdate() {
     this.updateSpecificPictsSectionValues({
-      name: "width",
+      name: "env",
       values: this.values,
       isValid: this.isSectionValid
     });
@@ -54,7 +54,7 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterWidth = null; //default value and make beforeUpdate hook jump
+      this.values.waterEnv = []; //default value and make beforeUpdate hook jump
     }
   }
 };
