@@ -47,3 +47,39 @@
     padding: 0.25rem 0rem;
   }
 }
+.imgSection {
+  display: flex;
+  flex-flow: row wrap;
+}
+.imgOption {
+  padding: 0.5rem;
+  img{
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    width:100%;
+    max-width:200px;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    transition: .5s ease;
+    z-index:1;
+    background-color: green;
+    &__active {
+      opacity: 0.3;
+    }
+    &__inactive {
+      opacity: 0;
+    }
+  }
+}
+.imgOption:hover .overlay {
+  opacity: 0.3;
+}

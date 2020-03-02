@@ -5,6 +5,19 @@ const fillArray = (array, indexes) => {
   }
   return array;
 };
+//aux method to get the background img
+const getBackground = (idSection, idOption) => {
+  let urlBackground;
+  switch (true) {
+    case idSection == 0 && idOption == 1:
+      urlBackground = "rio.png";
+      break;
+    case idSection == 0 && idOption == 2:
+      urlBackground = "rioflow.gif";
+      break;
+  }
+  return urlBackground;
+};
 //aux method to Deep clone multi dimension Arrays
 const deepCloneMultiArray = arr => {
   return arr.map(item =>
@@ -52,5 +65,6 @@ export {
   deepCloneMultiArray,
   roundValue,
   promiseTimeout,
-  checkNestedProperty
+  checkNestedProperty,
+  getBackground
 };
