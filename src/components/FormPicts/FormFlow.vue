@@ -46,11 +46,8 @@ export default {
     ...mapState({
       formFlow: state => state.formPictsSections.flow
     }),
-    waterFlowHasErrors() {
-      return this.values.waterFlow === null;
-    },
     isSectionValid() {
-      return !this.waterFlowHasErrors;
+      return true; //optional section
     }
   },
   mounted() {
