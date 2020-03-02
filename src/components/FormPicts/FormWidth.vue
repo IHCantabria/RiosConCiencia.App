@@ -1,24 +1,26 @@
 <template>
   <div class="form-section">
-    <div class="header-section">
-      <a :href="pdfLink" class="header-section__help" target="_blank"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
-    </div>
-    <b-field>
+    <b-field class="imgSection">
       <b-radio-button
+        class="imgOption"
         v-for="option in formWidth.data.widthRiverOptions"
         :key="option.id"
         :native-value="option"
         v-model="values.waterWidth"
-        >{{ option.name }}</b-radio-button
-      >
+        ><img :src="getImgUrl(formWidth.id, option.id)"/>
+        <div
+          :class="[
+            'overlay',
+            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+          ]"
+        ></div
+      ></b-radio-button>
     </b-field>
   </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-
+import { getBackground } from "@/utils/utils.js";
 export default {
   data() {
     return {
@@ -32,11 +34,8 @@ export default {
     ...mapState({
       formWidth: state => state.formPictsSections.width
     }),
-    riverWidthHasErrors() {
-      return this.values.waterWidth === null;
-    },
     isSectionValid() {
-      return !this.riverWidthHasErrors;
+      return true; //optional section
     }
   },
   mounted() {
@@ -53,8 +52,16 @@ export default {
     ...mapActions({
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
+    getImgUrl(idSection, iOption) {
+      const imgfolder = require.context("@/assets/images/picts/width");
+      const optionImage = imgfolder(`./${getBackground(idSection, iOption)}`);
+      return optionImage;
+    },
     init() {
       this.values.waterWidth = null; //default value and make beforeUpdate hook jump
+    },
+    isSelected(object) {
+      return this.values.waterWidth == object;
     }
   }
 };

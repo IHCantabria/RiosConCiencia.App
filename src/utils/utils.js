@@ -10,10 +10,25 @@ const getBackground = (idSection, idOption) => {
   let urlBackground;
   switch (true) {
     case idSection == 0 && idOption == 1:
-      urlBackground = "rio.png";
+      urlBackground = "river.jpg";
       break;
     case idSection == 0 && idOption == 2:
-      urlBackground = "rioflow.gif";
+      urlBackground = "riverFlow.gif";
+      break;
+    case idSection == 1 && idOption == 1:
+      urlBackground = "yellowWidth.jpg";
+      break;
+    case idSection == 1 && idOption == 2:
+      urlBackground = "blueWidth.jpg";
+      break;
+    case idSection == 1 && idOption == 3:
+      urlBackground = "greenWidth.jpg";
+      break;
+    case idSection == 1 && idOption == 4:
+      urlBackground = "redWidth.jpg";
+      break;
+    case idSection == 1 && idOption == 5:
+      urlBackground = "turquoiseWidth.jpg";
       break;
   }
   return urlBackground;
