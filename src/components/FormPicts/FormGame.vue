@@ -5,15 +5,6 @@
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
-    <b-field>
-      <b-radio-button
-        v-for="option in formWidth.data.widthRiverOptions"
-        :key="option.id"
-        :native-value="option"
-        v-model="values.waterWidth"
-        >{{ option.name }}</b-radio-button
-      >
-    </b-field>
   </div>
 </template>
 <script>
@@ -23,17 +14,15 @@ export default {
   data() {
     return {
       pdfLink: require("../../assets/pdfs/basico.pdf"),
-      values: {
-        waterWidth: 0
-      }
+      values: {}
     };
   },
   computed: {
     ...mapState({
-      formWidth: state => state.formPictsSections.width
+      formGame: state => state.formPictsSections.game
     }),
-    riverWidthHasErrors() {
-      return this.values.waterWidth === null;
+    riverGameHasErrors() {
+      return false;
     },
     isSectionValid() {
       return !this.riverWidthHasErrors;
@@ -44,7 +33,7 @@ export default {
   },
   beforeUpdate() {
     this.updateSpecificPictsSectionValues({
-      name: "width",
+      name: "game",
       values: this.values,
       isValid: this.isSectionValid
     });
@@ -53,9 +42,7 @@ export default {
     ...mapActions({
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
-    init() {
-      this.values.waterWidth = null; //default value and make beforeUpdate hook jump
-    }
+    init() {}
   }
 };
 </script>

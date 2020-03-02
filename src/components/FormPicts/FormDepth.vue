@@ -7,10 +7,10 @@
     </div>
     <b-field>
       <b-radio-button
-        v-for="option in formWidth.data.widthRiverOptions"
+        v-for="option in formDepth.data.depthRiverOptions"
         :key="option.id"
         :native-value="option"
-        v-model="values.waterWidth"
+        v-model="values.waterDepth"
         >{{ option.name }}</b-radio-button
       >
     </b-field>
@@ -24,19 +24,19 @@ export default {
     return {
       pdfLink: require("../../assets/pdfs/basico.pdf"),
       values: {
-        waterWidth: 0
+        waterDepth: 0
       }
     };
   },
   computed: {
     ...mapState({
-      formWidth: state => state.formPictsSections.width
+      formDepth: state => state.formPictsSections.depth
     }),
-    riverWidthHasErrors() {
-      return this.values.waterWidth === null;
+    waterDepthHasErrors() {
+      return this.values.waterFlow === null;
     },
     isSectionValid() {
-      return !this.riverWidthHasErrors;
+      return !this.waterDepthHasErrors;
     }
   },
   mounted() {
@@ -44,7 +44,7 @@ export default {
   },
   beforeUpdate() {
     this.updateSpecificPictsSectionValues({
-      name: "width",
+      name: "depth",
       values: this.values,
       isValid: this.isSectionValid
     });
@@ -54,7 +54,7 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterWidth = null; //default value and make beforeUpdate hook jump
+      this.values.waterDepth = null; //default value and make beforeUpdate hook jump
     }
   }
 };
