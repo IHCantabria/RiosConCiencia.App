@@ -44,7 +44,7 @@ import { getBackground } from "@/utils/utils.js";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/basico.pdf"),
+      imgFolder: null,
       values: {
         waterFlow: 0
       }
@@ -73,11 +73,12 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     getImgUrl(iOption) {
-      const imgfolder = require.context("@/assets/images/picts/flow");
-      const optionImage = imgfolder(`./${getBackground(0, iOption)}`);
-      return optionImage;
+      return this.imgFolder
+        ? this.imgFolder(`./${getBackground(0, iOption)}`)
+        : "";
     },
     init() {
+      this.imgFolder = require.context("@/assets/images/picts/flow");
       this.values.waterFlow = null; //default value and make beforeUpdate hook jump
     }
   }
@@ -85,4 +86,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
+.imgOption {
+  width: 40%;
+}
 </style>

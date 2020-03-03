@@ -10,9 +10,20 @@
     border:0;
     height:auto;
   }
+  label.b-checkbox.checkbox.button.is-primary{
+    background-color: #64b300;
+  }
+  label.b-checkbox.checkbox.button.is-focused{
+    border-color: #64b300;
+  }
+  .b-checkbox.checkbox.button {
+    padding: 0;
+    border:0;
+    height:auto;
+  }
 }
 .field.imgSection.has-addons {
-  justify-content:space-around;
+  justify-content:center;
 }
 div.control.imgOption {
   margin-right:0.5rem !important;
