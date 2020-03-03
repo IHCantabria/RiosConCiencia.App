@@ -2,7 +2,12 @@
   <div class="form-section">
     <b-field class="imgSection">
       <b-radio-button
-        class="imgOption"
+        :class="[
+          'imgOption',
+          values.waterFlow == false
+            ? 'imgOption__active'
+            : 'imgOption__inactive'
+        ]"
         v-model="values.waterFlow"
         :native-value="false"
       >
@@ -15,7 +20,10 @@
         ></div>
       </b-radio-button>
       <b-radio-button
-        class="imgOption"
+        :class="[
+          'imgOption',
+          values.waterFlow == true ? 'imgOption__active' : 'imgOption__inactive'
+        ]"
         v-model="values.waterFlow"
         :native-value="true"
       >

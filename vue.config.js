@@ -30,6 +30,7 @@ module.exports = {
           @import "@/styles/global.scss";
           @import "@/styles/variables.scss";
           @import "@/styles/custom-buefy.scss";
+          @import "@/styles/override.scss";
         `
       }
     }

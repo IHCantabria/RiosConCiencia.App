@@ -52,7 +52,7 @@
   flex-flow: row wrap;
 }
 .imgOption {
-  padding: 0.5rem;
+  margin: 0.5rem;
   img{
     opacity: 1;
     display: block;
@@ -60,6 +60,11 @@
     backface-visibility: hidden;
     width:100%;
     max-width:250px;
+  }
+  &__active {
+    border: solid 3px green;
+  }
+  &__inactive {
   }
   .overlay {
     position: absolute;

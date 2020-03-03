@@ -60,19 +60,3 @@ select {
     margin: 0rem 1rem;
   }
 }
-.imgOption {
-  label.b-radio.radio.button.is-primary{
-    background-color: #64b300;
-  }
-  label.b-radio.radio.button.is-focused{
-    border-color: #64b300;
-  }
-  .b-radio.radio.button {
-    padding: 0;
-    border:0;
-    height:auto;
-  }
-}
-.field.imgSection.has-addons {
-  justify-content:space-around;
-}

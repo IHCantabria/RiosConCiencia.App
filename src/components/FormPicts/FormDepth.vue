@@ -2,7 +2,10 @@
   <div class="form-section">
     <b-field class="imgSection">
       <b-radio-button
-        class="imgOption"
+        :class="[
+          'imgOption',
+          isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+        ]"
         v-for="option in formDepth.data.depthRiverOptions"
         :key="option.id"
         :native-value="option"
