@@ -2,7 +2,6 @@
   <div class="form-section">
     <b-field class="imgSection">
       <b-radio-button
-        :style="`{order:${option.id}}`"
         :class="[
           'imgOption',
           isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
