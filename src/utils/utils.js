@@ -6,7 +6,7 @@ const fillArray = (array, indexes) => {
   return array;
 };
 //aux method to get the background img
-const getBackground = (idSection, idOption) => {
+const getImg = (idSection, idOption) => {
   let urlBackground;
   switch (true) {
     case idSection == 0 && idOption == 1:
@@ -111,6 +111,30 @@ const getBackground = (idSection, idOption) => {
     case idSection == 6 && idOption == 2:
       urlBackground = "garbageSmell.jpg";
       break;
+    case idSection == 7 && idOption == 1:
+      urlBackground = "plasticBagGarbage.jpg";
+      break;
+    case idSection == 7 && idOption == 2:
+      urlBackground = "plasticBottleGarbage.jpg";
+      break;
+    case idSection == 7 && idOption == 3:
+      urlBackground = "paperGarbage.jpg";
+      break;
+    case idSection == 7 && idOption == 4:
+      urlBackground = "canGarbage.jpg";
+      break;
+    case idSection == 7 && idOption == 5:
+      urlBackground = "glassBottleGarbage.jpg";
+      break;
+    case idSection == 7 && idOption == 6:
+      urlBackground = "clothesGarbage.jpg";
+      break;
+    case idSection == 7 && idOption == 7:
+      urlBackground = "cigaretteGarbage.jpg";
+      break;
+    case idSection == 7 && idOption == 8:
+      urlBackground = "brickGarbage.jpg";
+      break;
   }
   return urlBackground;
 };
@@ -162,5 +186,5 @@ export {
   roundValue,
   promiseTimeout,
   checkNestedProperty,
-  getBackground
+  getImg
 };
