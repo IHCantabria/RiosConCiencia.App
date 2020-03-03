@@ -61,7 +61,6 @@ export default {
         : "";
     },
     init() {
-      console.log("init");
       this.imgFolder = require.context("@/assets/images/picts/env");
       this.values.waterEnv = []; //default value and make beforeUpdate hook jump
     },
