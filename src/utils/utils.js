@@ -135,6 +135,27 @@ const getImg = (idSection, idOption) => {
     case idSection == 7 && idOption == 8:
       urlBackground = "brickGarbage.jpg";
       break;
+    case idSection == 8 && idOption == 1:
+      urlBackground = "nettlePlants.jpg";
+      break;
+    case idSection == 8 && idOption == 2:
+      urlBackground = "hazelPlants.jpg";
+      break;
+    case idSection == 8 && idOption == 3:
+      urlBackground = "ashTreePlants.jpg";
+      break;
+    case idSection == 8 && idOption == 4:
+      urlBackground = "oakPlants.jpg";
+      break;
+    case idSection == 8 && idOption == 5:
+      urlBackground = "pampasGrassPlants.jpg";
+      break;
+    case idSection == 8 && idOption == 6:
+      urlBackground = "saintJosephPlants.jpg";
+      break;
+    case idSection == 8 && idOption == 7:
+      urlBackground = "bambuPlants.jpg";
+      break;
   }
   return urlBackground;
 };
