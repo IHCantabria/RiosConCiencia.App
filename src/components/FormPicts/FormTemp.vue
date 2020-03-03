@@ -27,7 +27,7 @@ import { getBackground } from "@/utils/utils.js";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/basico.pdf"),
+      imgFolder: null,
       values: {
         waterTemp: 0
       }
@@ -56,11 +56,12 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     getImgUrl(idSection, iOption) {
-      const imgfolder = require.context("@/assets/images/picts/temp");
-      const optionImage = imgfolder(`./${getBackground(idSection, iOption)}`);
-      return optionImage;
+      return this.imgFolder
+        ? this.imgFolder(`./${getBackground(idSection, iOption)}`)
+        : "";
     },
     init() {
+      this.imgFolder = require.context("@/assets/images/picts/temp");
       this.values.waterTemp = null; //default value and make beforeUpdate hook jump
     },
     isSelected(object) {
@@ -71,4 +72,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
+.imgOption {
+  width: 20%;
+}
 </style>
