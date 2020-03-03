@@ -105,6 +105,12 @@ const getBackground = (idSection, idOption) => {
     case idSection == 5 && idOption == 4:
       urlBackground = "greyColor.jpg";
       break;
+    case idSection == 6 && idOption == 1:
+      urlBackground = "riverSmell.jpg";
+      break;
+    case idSection == 6 && idOption == 2:
+      urlBackground = "garbageSmell.jpg";
+      break;
   }
   return urlBackground;
 };

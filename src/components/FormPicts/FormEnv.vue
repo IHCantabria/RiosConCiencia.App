@@ -41,6 +41,9 @@ export default {
       return true; //optional section
     }
   },
+  created() {
+    this.loadImgs();
+  },
   mounted() {
     this.init();
   },
@@ -61,7 +64,6 @@ export default {
         : "";
     },
     init() {
-      this.imgFolder = require.context("@/assets/images/picts/env");
       this.values.waterEnv = []; //default value and make beforeUpdate hook jump
     },
     isSelected(object) {
@@ -70,6 +72,9 @@ export default {
           ? false
           : true
         : "";
+    },
+    loadImgs() {
+      this.imgFolder = require.context("@/assets/images/picts/env");
     }
   }
 };

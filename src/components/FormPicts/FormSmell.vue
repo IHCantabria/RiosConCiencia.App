@@ -1,28 +1,33 @@
 <template>
   <div class="form-section">
-    <div class="header-section">
-      <a :href="pdfLink" class="header-section__help" target="_blank"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
-    </div>
-    <b-field>
+    <b-field class="imgSection">
       <b-radio-button
+        :class="[
+          'imgOption',
+          isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+        ]"
         v-for="option in formSmell.data.smellRiverOptions"
         :key="option.id"
         :native-value="option"
         v-model="values.waterSmell"
-        >{{ option.name }}</b-radio-button
-      >
+        ><img :src="getImgUrl(formSmell.id, option.id)"/>
+        <div
+          :class="[
+            'overlay',
+            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+          ]"
+        ></div
+      ></b-radio-button>
     </b-field>
   </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-
+import { getBackground } from "@/utils/utils.js";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/basico.pdf"),
+      imgFolder: null,
       values: {
         waterSmell: 0
       }
@@ -32,12 +37,12 @@ export default {
     ...mapState({
       formSmell: state => state.formPictsSections.smell
     }),
-    waterSmellHasErrors() {
-      return this.values.waterSmell === null;
-    },
     isSectionValid() {
-      return !this.waterSmellHasErrors;
+      return true; //optional section
     }
+  },
+  created() {
+    this.loadImgs();
   },
   mounted() {
     this.init();
@@ -53,12 +58,26 @@ export default {
     ...mapActions({
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
+    getImgUrl(idSection, iOption) {
+      return this.imgFolder
+        ? this.imgFolder(`./${getBackground(idSection, iOption)}`)
+        : "";
+    },
     init() {
       this.values.waterSmell = null; //default value and make beforeUpdate hook jump
+    },
+    isSelected(object) {
+      return this.values.waterSmell == object;
+    },
+    loadImgs() {
+      this.imgFolder = require.context("@/assets/images/picts/smell");
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
+.imgOption {
+  width: 40%;
+}
 </style>

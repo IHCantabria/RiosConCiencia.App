@@ -58,6 +58,9 @@ export default {
       return true; //optional section
     }
   },
+  created() {
+    this.loadImgs();
+  },
   mounted() {
     this.init();
   },
@@ -78,8 +81,10 @@ export default {
         : "";
     },
     init() {
-      this.imgFolder = require.context("@/assets/images/picts/flow");
       this.values.waterFlow = null; //default value and make beforeUpdate hook jump
+    },
+    loadImgs() {
+      this.imgFolder = require.context("@/assets/images/picts/flow");
     }
   }
 };
