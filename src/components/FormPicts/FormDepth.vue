@@ -10,7 +10,7 @@
         :key="option.id"
         :native-value="option"
         v-model="values.waterDepth"
-        ><img :src="getImgUrl(formDepth.id, option.id)"/>
+        ><img :src="$_getImgUrl(formDepth.id, option.id)"/>
         <div
           :class="[
             'overlay',
@@ -23,16 +23,16 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-import { getBackground } from "@/utils/utils.js";
+import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
   data() {
     return {
-      imgFolder: null,
       values: {
         waterDepth: 0
       }
     };
   },
+  mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
       formDepth: state => state.formPictsSections.depth
@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    this.loadImgs();
+    this.imgFolder = require.context("@/assets/images/picts/depth");
   },
   mounted() {
     this.init();
@@ -58,19 +58,11 @@ export default {
     ...mapActions({
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
-    getImgUrl(idSection, iOption) {
-      return this.imgFolder
-        ? this.imgFolder(`./${getBackground(idSection, iOption)}`)
-        : "";
-    },
     init() {
       this.values.waterDepth = null; //default value and make beforeUpdate hook jump
     },
     isSelected(object) {
       return this.values.waterDepth == object;
-    },
-    loadImgs() {
-      this.imgFolder = require.context("@/assets/images/picts/depth");
     }
   }
 };

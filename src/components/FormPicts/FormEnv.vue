@@ -10,7 +10,7 @@
         :key="option.id"
         :native-value="option"
         v-model="values.waterEnv"
-        ><img :src="getImgUrl(formEnv.id, option.id)"/>
+        ><img :src="$_getImgUrl(formEnv.id, option.id)"/>
         <div
           :class="[
             'overlay',
@@ -23,16 +23,16 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-import { getBackground } from "@/utils/utils.js";
+import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
   data() {
     return {
-      imgFolder: null,
       values: {
         waterEnv: null
       }
     };
   },
+  mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
       formEnv: state => state.formPictsSections.env
@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    this.loadImgs();
+    this.imgFolder = require.context("@/assets/images/picts/env");
   },
   mounted() {
     this.init();
@@ -58,11 +58,6 @@ export default {
     ...mapActions({
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
-    getImgUrl(idSection, iOption) {
-      return this.imgFolder
-        ? this.imgFolder(`./${getBackground(idSection, iOption)}`)
-        : "";
-    },
     init() {
       this.values.waterEnv = []; //default value and make beforeUpdate hook jump
     },
@@ -72,9 +67,6 @@ export default {
           ? false
           : true
         : "";
-    },
-    loadImgs() {
-      this.imgFolder = require.context("@/assets/images/picts/env");
     }
   }
 };
