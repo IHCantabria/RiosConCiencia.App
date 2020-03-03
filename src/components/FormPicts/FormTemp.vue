@@ -1,24 +1,30 @@
 <template>
   <div class="form-section">
-    <div class="header-section">
-      <a :href="pdfLink" class="header-section__help" target="_blank"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
-    </div>
-    <b-field>
+    <b-field class="imgSection">
       <b-radio-button
+        :style="`{order:${option.id}}`"
+        :class="[
+          'imgOption',
+          isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+        ]"
         v-for="option in formTemp.data.tempRiverOptions"
         :key="option.id"
         :native-value="option"
         v-model="values.waterTemp"
-        >{{ option.name }}</b-radio-button
-      >
+        ><img :src="getImgUrl(formTemp.id, option.id)"/>
+        <div
+          :class="[
+            'overlay',
+            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+          ]"
+        ></div
+      ></b-radio-button>
     </b-field>
   </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-
+import { getBackground } from "@/utils/utils.js";
 export default {
   data() {
     return {
@@ -32,11 +38,8 @@ export default {
     ...mapState({
       formTemp: state => state.formPictsSections.temp
     }),
-    waterTempHasErrors() {
-      return this.values.waterFlow === null;
-    },
     isSectionValid() {
-      return !this.waterTempHasErrors;
+      return true; //optional section
     }
   },
   mounted() {
@@ -53,8 +56,16 @@ export default {
     ...mapActions({
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
+    getImgUrl(idSection, iOption) {
+      const imgfolder = require.context("@/assets/images/picts/temp");
+      const optionImage = imgfolder(`./${getBackground(idSection, iOption)}`);
+      return optionImage;
+    },
     init() {
       this.values.waterTemp = null; //default value and make beforeUpdate hook jump
+    },
+    isSelected(object) {
+      return this.values.waterTemp == object;
     }
   }
 };

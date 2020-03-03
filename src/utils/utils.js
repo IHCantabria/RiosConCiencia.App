@@ -41,6 +41,21 @@ const getBackground = (idSection, idOption) => {
       break;
     case idSection == 2 && idOption == 4:
       urlBackground = "redDepth.jpg";
+      break;
+    case idSection == 3 && idOption == 1:
+      urlBackground = "greenTemp.jpg";
+      break;
+    case idSection == 3 && idOption == 2:
+      urlBackground = "redTemp.jpg";
+      break;
+    case idSection == 3 && idOption == 3:
+      urlBackground = "blueTemp.jpg";
+      break;
+    case idSection == 3 && idOption == 4:
+      urlBackground = "yellowTemp.jpg";
+      break;
+    case idSection == 3 && idOption == 5:
+      urlBackground = "blackTemp.jpg";
   }
   return urlBackground;
 };
