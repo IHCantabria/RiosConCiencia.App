@@ -41,6 +41,9 @@ export default {
       return true; //optional section
     }
   },
+  created() {
+    this.loadImgs();
+  },
   mounted() {
     this.init();
   },
@@ -61,11 +64,13 @@ export default {
         : "";
     },
     init() {
-      this.imgFolder = require.context("@/assets/images/picts/color");
       this.values.waterColor = null; //default value and make beforeUpdate hook jump
     },
     isSelected(object) {
       return this.values.waterColor == object;
+    },
+    loadImgs() {
+      this.imgFolder = require.context("@/assets/images/picts/color");
     }
   }
 };

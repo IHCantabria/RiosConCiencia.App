@@ -41,6 +41,9 @@ export default {
       return true; //optional section
     }
   },
+  created() {
+    this.loadImgs();
+  },
   mounted() {
     this.init();
   },
@@ -61,11 +64,13 @@ export default {
         : "";
     },
     init() {
-      this.imgFolder = require.context("@/assets/images/picts/temp");
       this.values.waterTemp = null; //default value and make beforeUpdate hook jump
     },
     isSelected(object) {
       return this.values.waterTemp == object;
+    },
+    loadImgs() {
+      this.imgFolder = require.context("@/assets/images/picts/temp");
     }
   }
 };
