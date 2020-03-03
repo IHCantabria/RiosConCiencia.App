@@ -2,15 +2,16 @@
   <div class="form-section">
     <b-field class="imgSection">
       <b-checkbox-button
-        :class="[
-          'imgOption',
-          isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
-        ]"
+        class="imgOption"
         v-for="option in formPlants.data.plantsRiverOptions"
         :key="option.id"
         :native-value="option"
         v-model="values.waterPlants"
-        ><img :src="$_getImgUrl(formPlants.id, option.id)"/>
+        ><img
+          :class="
+            isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+          "
+          :src="$_getImgUrl(formPlants.id, option.id)"/>
         <div
           :class="[
             'overlay',
@@ -75,5 +76,8 @@ export default {
 @import "@/styles/form-controls.scss";
 .imgOption {
   width: 25%;
+  img {
+    width: 100%;
+  }
 }
 </style>

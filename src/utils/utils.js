@@ -6,7 +6,7 @@ const fillArray = (array, indexes) => {
   return array;
 };
 //aux method to get the background img
-const getImg = (idSection, idOption) => {
+const getImg = (idSection, idOption, idAlt) => {
   let urlBackground;
   switch (true) {
     case idSection == 0 && idOption == 1:
@@ -155,6 +155,24 @@ const getImg = (idSection, idOption) => {
       break;
     case idSection == 8 && idOption == 7:
       urlBackground = "bambuPlants.jpg";
+      break;
+    case idSection == 9 && idOption == 1 && idAlt == 0:
+      urlBackground = "caddisflyCoveredAnimals1.jpg";
+      break;
+    case idSection == 9 && idOption == 1 && idAlt == 1:
+      urlBackground = "caddisflyCoveredAnimals2.jpg";
+      break;
+    case idSection == 9 && idOption == 2 && idAlt == 0:
+      urlBackground = "mayflyAnimals1.jpg";
+      break;
+    case idSection == 9 && idOption == 2 && idAlt == 1:
+      urlBackground = "mayflyAnimals2.jpg";
+      break;
+    case idSection == 9 && idOption == 3 && idAlt == 0:
+      urlBackground = "caddisflyUncoveredAnimals1.jpg";
+      break;
+    case idSection == 9 && idOption == 3 && idAlt == 1:
+      urlBackground = "caddisflyUncoveredAnimals2.jpg";
       break;
   }
   return urlBackground;

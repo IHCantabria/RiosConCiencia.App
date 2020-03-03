@@ -3,23 +3,28 @@
     background-color: #64b300;
   }
   label.b-radio.radio.button.is-focused{
-    border-color: #64b300;
+    border-color: transparent;
   }
   .b-radio.radio.button {
     padding: 0;
     border:0;
-    height:auto;
+    height:100%;
+    width:100%;
+    background-color: transparent;
   }
   label.b-checkbox.checkbox.button.is-primary{
     background-color: #64b300;
   }
   label.b-checkbox.checkbox.button.is-focused{
-    border-color: #64b300;
+    border-color: transparent;
+    box-shadow: none;
   }
   .b-checkbox.checkbox.button {
     padding: 0;
     border:0;
-    height:auto;
+    height:100%;
+    width:100%;
+    background-color: transparent;
   }
 }
 .field.imgSection.has-addons {
