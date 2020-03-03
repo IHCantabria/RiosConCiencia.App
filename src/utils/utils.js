@@ -56,6 +56,43 @@ const getBackground = (idSection, idOption) => {
       break;
     case idSection == 3 && idOption == 5:
       urlBackground = "blackTemp.jpg";
+      break;
+    case idSection == 4 && idOption == 1:
+      urlBackground = "forestEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 2:
+      urlBackground = "plantsEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 3:
+      urlBackground = "roadsEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 4:
+      urlBackground = "animalsEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 5:
+      urlBackground = "houseEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 6:
+      urlBackground = "factoryEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 7:
+      urlBackground = "parkingEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 8:
+      urlBackground = "orchardEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 9:
+      urlBackground = "treatmentEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 10:
+      urlBackground = "trainEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 11:
+      urlBackground = "recreationEnv.jpg";
+      break;
+    case idSection == 4 && idOption == 12:
+      urlBackground = "campingEnv.jpg";
+      break;
   }
   return urlBackground;
 };
