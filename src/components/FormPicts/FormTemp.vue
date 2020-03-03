@@ -2,15 +2,16 @@
   <div class="form-section">
     <b-field class="imgSection">
       <b-radio-button
-        :class="[
-          'imgOption',
-          isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
-        ]"
+        class="imgOption"
         v-for="option in formTemp.data.tempRiverOptions"
         :key="option.id"
         :native-value="option"
         v-model="values.waterTemp"
-        ><img :src="$_getImgUrl(formTemp.id, option.id)"/>
+        ><img
+          :class="
+            isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+          "
+          :src="$_getImgUrl(formTemp.id, option.id)"/>
         <div
           :class="[
             'overlay',
@@ -71,5 +72,8 @@ export default {
 @import "@/styles/form-controls.scss";
 .imgOption {
   width: 20%;
+  img {
+    width: 100%;
+  }
 }
 </style>
