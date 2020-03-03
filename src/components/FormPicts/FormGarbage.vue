@@ -74,6 +74,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
 .imgOption {
-  width: 20%;
+  width: 25%;
 }
 </style>
