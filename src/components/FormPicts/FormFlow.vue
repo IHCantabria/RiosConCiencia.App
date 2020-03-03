@@ -11,7 +11,7 @@
         v-model="values.waterFlow"
         :native-value="false"
       >
-        <img :src="getImgUrl(1)" />
+        <img :src="$_getImgUrl(0, 1)" />
         <div
           :class="[
             'overlay',
@@ -27,7 +27,7 @@
         v-model="values.waterFlow"
         :native-value="true"
       >
-        <img :src="getImgUrl(2)" />
+        <img :src="$_getImgUrl(0, 2)" />
         <div
           :class="[
             'overlay',
@@ -40,16 +40,16 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-import { getBackground } from "@/utils/utils.js";
+import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
   data() {
     return {
-      imgFolder: null,
       values: {
         waterFlow: 0
       }
     };
   },
+  mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
       formFlow: state => state.formPictsSections.flow
@@ -59,7 +59,7 @@ export default {
     }
   },
   created() {
-    this.loadImgs();
+    this.imgFolder = require.context("@/assets/images/picts/flow");
   },
   mounted() {
     this.init();
@@ -75,16 +75,8 @@ export default {
     ...mapActions({
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
-    getImgUrl(iOption) {
-      return this.imgFolder
-        ? this.imgFolder(`./${getBackground(0, iOption)}`)
-        : "";
-    },
     init() {
       this.values.waterFlow = null; //default value and make beforeUpdate hook jump
-    },
-    loadImgs() {
-      this.imgFolder = require.context("@/assets/images/picts/flow");
     }
   }
 };
