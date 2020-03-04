@@ -46,32 +46,40 @@
       ></b-field>
     </div>
     <b-field class="imgSection">
-      <b-checkbox-button
-        class="imgOption"
-        v-for="option in formAnimals.data.animalsRiverOptions"
+      <div
+        class="imgContainer"
         :key="option.id"
-        :native-value="option"
-        v-model="values.waterAnimals"
-        ><img
-          :class="
-            isSelected(option)
-              ? 'imgOption__active-left'
-              : 'imgOption__inactive'
-          "
-          :src="$_getImgUrl(formAnimals.id, option.id, 1)"/><img
-          :class="
-            isSelected(option)
-              ? 'imgOption__active-right'
-              : 'imgOption__inactive'
-          "
-          :src="$_getImgUrl(formAnimals.id, option.id, 2)"/>
-        <div
-          :class="[
-            'overlay',
-            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
-          ]"
-        ></div
-      ></b-checkbox-button>
+        v-for="option in formAnimals.data.animalsRiverOptions"
+      >
+        <span class="imgTexOption">{{ option.name | upperCase }}</span>
+        <b-checkbox-button
+          class="imgOption"
+          :native-value="option"
+          v-model="values.waterAnimals"
+        >
+          <img
+            :class="
+              isSelected(option)
+                ? 'imgOption__active-left'
+                : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(formAnimals.id, option.id, 1)"
+          /><img
+            :class="
+              isSelected(option)
+                ? 'imgOption__active-right'
+                : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(formAnimals.id, option.id, 2)"
+          />
+          <div
+            :class="[
+              'overlay',
+              isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div>
+        </b-checkbox-button>
+      </div>
     </b-field>
   </div>
 </template>
