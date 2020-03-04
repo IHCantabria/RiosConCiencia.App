@@ -5,173 +5,188 @@ const fillArray = (array, indexes) => {
   }
   return array;
 };
-//aux method to get the background img
+//aux method to get the img required
 const getImg = (idSection, idOption, idAlt) => {
   let urlBackground;
   switch (true) {
-    case idSection == 0 && idOption == 1:
+    case idSection == 0 && idOption == 1 && idAlt == 1:
       urlBackground = "river.jpg";
       break;
-    case idSection == 0 && idOption == 2:
+    case idSection == 0 && idOption == 2 && idAlt == 1:
       urlBackground = "riverFlow.gif";
       break;
-    case idSection == 1 && idOption == 1:
+    case idSection == 1 && idOption == 1 && idAlt == 1:
       urlBackground = "yellowWidth.jpg";
       break;
-    case idSection == 1 && idOption == 2:
+    case idSection == 1 && idOption == 2 && idAlt == 1:
       urlBackground = "blueWidth.jpg";
       break;
-    case idSection == 1 && idOption == 3:
+    case idSection == 1 && idOption == 3 && idAlt == 1:
       urlBackground = "greenWidth.jpg";
       break;
-    case idSection == 1 && idOption == 4:
+    case idSection == 1 && idOption == 4 && idAlt == 1:
       urlBackground = "redWidth.jpg";
       break;
-    case idSection == 1 && idOption == 5:
+    case idSection == 1 && idOption == 5 && idAlt == 1:
       urlBackground = "turquoiseWidth.jpg";
       break;
-    case idSection == 2 && idOption == 1:
+    case idSection == 2 && idOption == 1 && idAlt == 1:
       urlBackground = "yellowDepth.jpg";
       break;
-    case idSection == 2 && idOption == 2:
+    case idSection == 2 && idOption == 2 && idAlt == 1:
       urlBackground = "blueDepth.jpg";
       break;
-    case idSection == 2 && idOption == 3:
+    case idSection == 2 && idOption == 3 && idAlt == 1:
       urlBackground = "greenDepth.jpg";
       break;
-    case idSection == 2 && idOption == 4:
+    case idSection == 2 && idOption == 4 && idAlt == 1:
       urlBackground = "redDepth.jpg";
       break;
-    case idSection == 3 && idOption == 1:
+    case idSection == 3 && idOption == 1 && idAlt == 1:
       urlBackground = "greenTemp.jpg";
       break;
-    case idSection == 3 && idOption == 2:
+    case idSection == 3 && idOption == 2 && idAlt == 1:
       urlBackground = "redTemp.jpg";
       break;
-    case idSection == 3 && idOption == 3:
+    case idSection == 3 && idOption == 3 && idAlt == 1:
       urlBackground = "blueTemp.jpg";
       break;
-    case idSection == 3 && idOption == 4:
+    case idSection == 3 && idOption == 4 && idAlt == 1:
       urlBackground = "yellowTemp.jpg";
       break;
-    case idSection == 3 && idOption == 5:
+    case idSection == 3 && idOption == 5 && idAlt == 1:
       urlBackground = "blackTemp.jpg";
       break;
-    case idSection == 4 && idOption == 1:
+    case idSection == 4 && idOption == 1 && idAlt == 1:
       urlBackground = "forestEnv.jpg";
       break;
-    case idSection == 4 && idOption == 2:
+    case idSection == 4 && idOption == 2 && idAlt == 1:
       urlBackground = "plantsEnv.jpg";
       break;
-    case idSection == 4 && idOption == 3:
+    case idSection == 4 && idOption == 3 && idAlt == 1:
       urlBackground = "roadsEnv.jpg";
       break;
-    case idSection == 4 && idOption == 4:
+    case idSection == 4 && idOption == 4 && idAlt == 1:
       urlBackground = "animalsEnv.jpg";
       break;
-    case idSection == 4 && idOption == 5:
+    case idSection == 4 && idOption == 5 && idAlt == 1:
       urlBackground = "houseEnv.jpg";
       break;
-    case idSection == 4 && idOption == 6:
+    case idSection == 4 && idOption == 6 && idAlt == 1:
       urlBackground = "factoryEnv.jpg";
       break;
-    case idSection == 4 && idOption == 7:
+    case idSection == 4 && idOption == 7 && idAlt == 1:
       urlBackground = "parkingEnv.jpg";
       break;
-    case idSection == 4 && idOption == 8:
+    case idSection == 4 && idOption == 8 && idAlt == 1:
       urlBackground = "orchardEnv.jpg";
       break;
-    case idSection == 4 && idOption == 9:
+    case idSection == 4 && idOption == 9 && idAlt == 1:
       urlBackground = "treatmentEnv.jpg";
       break;
-    case idSection == 4 && idOption == 10:
+    case idSection == 4 && idOption == 10 && idAlt == 1:
       urlBackground = "trainEnv.jpg";
       break;
-    case idSection == 4 && idOption == 11:
+    case idSection == 4 && idOption == 11 && idAlt == 1:
       urlBackground = "recreationEnv.jpg";
       break;
-    case idSection == 4 && idOption == 12:
+    case idSection == 4 && idOption == 12 && idAlt == 1:
       urlBackground = "campingEnv.jpg";
       break;
-    case idSection == 5 && idOption == 1:
+    case idSection == 5 && idOption == 1 && idAlt == 1:
       urlBackground = "riverColor.jpg";
       break;
-    case idSection == 5 && idOption == 2:
+    case idSection == 5 && idOption == 2 && idAlt == 1:
       urlBackground = "brownColor.jpg";
       break;
-    case idSection == 5 && idOption == 3:
+    case idSection == 5 && idOption == 3 && idAlt == 1:
       urlBackground = "greenColor.jpg";
       break;
-    case idSection == 5 && idOption == 4:
+    case idSection == 5 && idOption == 4 && idAlt == 1:
       urlBackground = "greyColor.jpg";
       break;
-    case idSection == 6 && idOption == 1:
+    case idSection == 6 && idOption == 1 && idAlt == 1:
       urlBackground = "riverSmell.jpg";
       break;
-    case idSection == 6 && idOption == 2:
+    case idSection == 6 && idOption == 2 && idAlt == 1:
       urlBackground = "garbageSmell.jpg";
       break;
-    case idSection == 7 && idOption == 1:
+    case idSection == 7 && idOption == 1 && idAlt == 1:
       urlBackground = "plasticBagGarbage.jpg";
       break;
-    case idSection == 7 && idOption == 2:
+    case idSection == 7 && idOption == 2 && idAlt == 1:
       urlBackground = "plasticBottleGarbage.jpg";
       break;
-    case idSection == 7 && idOption == 3:
+    case idSection == 7 && idOption == 3 && idAlt == 1:
       urlBackground = "paperGarbage.jpg";
       break;
-    case idSection == 7 && idOption == 4:
+    case idSection == 7 && idOption == 4 && idAlt == 1:
       urlBackground = "canGarbage.jpg";
       break;
-    case idSection == 7 && idOption == 5:
+    case idSection == 7 && idOption == 5 && idAlt == 1:
       urlBackground = "glassBottleGarbage.jpg";
       break;
-    case idSection == 7 && idOption == 6:
+    case idSection == 7 && idOption == 6 && idAlt == 1:
       urlBackground = "clothesGarbage.jpg";
       break;
-    case idSection == 7 && idOption == 7:
+    case idSection == 7 && idOption == 7 && idAlt == 1:
       urlBackground = "cigaretteGarbage.jpg";
       break;
-    case idSection == 7 && idOption == 8:
+    case idSection == 7 && idOption == 8 && idAlt == 1:
       urlBackground = "brickGarbage.jpg";
       break;
-    case idSection == 8 && idOption == 1:
+    case idSection == 8 && idOption == 1 && idAlt == 1:
       urlBackground = "nettlePlants.jpg";
       break;
-    case idSection == 8 && idOption == 2:
+    case idSection == 8 && idOption == 2 && idAlt == 1:
       urlBackground = "hazelPlants.jpg";
       break;
-    case idSection == 8 && idOption == 3:
+    case idSection == 8 && idOption == 3 && idAlt == 1:
       urlBackground = "ashTreePlants.jpg";
       break;
-    case idSection == 8 && idOption == 4:
+    case idSection == 8 && idOption == 4 && idAlt == 1:
       urlBackground = "oakPlants.jpg";
       break;
-    case idSection == 8 && idOption == 5:
+    case idSection == 8 && idOption == 5 && idAlt == 1:
       urlBackground = "pampasGrassPlants.jpg";
       break;
-    case idSection == 8 && idOption == 6:
+    case idSection == 8 && idOption == 6 && idAlt == 1:
       urlBackground = "saintJosephPlants.jpg";
       break;
-    case idSection == 8 && idOption == 7:
+    case idSection == 8 && idOption == 7 && idAlt == 1:
       urlBackground = "bambuPlants.jpg";
       break;
-    case idSection == 9 && idOption == 1 && idAlt == 0:
-      urlBackground = "caddisflyCoveredAnimals1.jpg";
+    case idSection == 9 && idOption == 0 && idAlt == 0:
+      urlBackground = "titleAnimales.jpg";
+      break;
+    case idSection == 9 && idOption == 0 && idAlt == 1:
+      urlBackground = "HelpAnimals1.jpg";
+      break;
+    case idSection == 9 && idOption == 0 && idAlt == 2:
+      urlBackground = "HelpAnimals2.jpg";
+      break;
+    case idSection == 9 && idOption == 0 && idAlt == 3:
+      urlBackground = "HelpAnimals3.jpg";
+      break;
+    case idSection == 9 && idOption == 0 && idAlt == 4:
+      urlBackground = "HelpAnimals4.jpg";
       break;
     case idSection == 9 && idOption == 1 && idAlt == 1:
+      urlBackground = "caddisflyCoveredAnimals1.jpg";
+      break;
+    case idSection == 9 && idOption == 1 && idAlt == 2:
       urlBackground = "caddisflyCoveredAnimals2.jpg";
       break;
-    case idSection == 9 && idOption == 2 && idAlt == 0:
+    case idSection == 9 && idOption == 2 && idAlt == 1:
       urlBackground = "mayflyAnimals1.jpg";
       break;
-    case idSection == 9 && idOption == 2 && idAlt == 1:
+    case idSection == 9 && idOption == 2 && idAlt == 2:
       urlBackground = "mayflyAnimals2.jpg";
       break;
-    case idSection == 9 && idOption == 3 && idAlt == 0:
+    case idSection == 9 && idOption == 3 && idAlt == 1:
       urlBackground = "caddisflyUncoveredAnimals1.jpg";
       break;
-    case idSection == 9 && idOption == 3 && idAlt == 1:
+    case idSection == 9 && idOption == 3 && idAlt == 2:
       urlBackground = "caddisflyUncoveredAnimals2.jpg";
       break;
   }

@@ -11,7 +11,7 @@
           :class="
             isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
           "
-          :src="$_getImgUrl(formColor.id, option.id)"/>
+          :src="$_getImgUrl(formColor.id, option.id, 1)"/>
         <div
           :class="[
             'overlay',

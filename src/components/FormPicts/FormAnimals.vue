@@ -1,5 +1,41 @@
 <template>
   <div class="form-section">
+    <div class="header-section">
+      <b-field
+        label="BUSCO ANIMALES EN EL RÍO"
+        message="
+        Para conocer los invertebrados que existen en el río, usaremos una red. Frotaremos las piedras y pondremos la red por debajo. A continuación, volcaremos la red en una bandeja blanca, y pondremos los invertebrados en un bote lupa para poder observarlos e identificarlos. 
+"
+      >
+      </b-field>
+    </div>
+    <div class="block guideSection">
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formAnimals.id, 0, 1)" />
+        <b-tag type="is-info">COGEMOS UNA RED</b-tag>
+      </div>
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formAnimals.id, 0, 2)" />
+        <b-tag class="guideStep__text" type="is-info"
+          >PONEMOS LA RED EN EL RÍO Y FROTAMOS LAS PIEDRAS</b-tag
+        >
+      </div>
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formAnimals.id, 0, 3)" />
+        <b-tag type="is-info" class="guideStep__text"
+          >VACIAMOS LA RED EN LA BANDEJA</b-tag
+        >
+      </div>
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formAnimals.id, 0, 4)" />
+        <b-tag class="guideStep__text" type="is-info"
+          >MIRAMOS LOS ANIMALES CON EL BOTE-LUPA</b-tag
+        >
+      </div>
+    </div>
+    <b-field class="imgHeader"
+      ><img :src="$_getImgUrl(formAnimals.id, 0, 0)" />
+    </b-field>
     <b-field class="imgSection">
       <b-checkbox-button
         class="imgOption"
@@ -13,13 +49,13 @@
               ? 'imgOption__active-left'
               : 'imgOption__inactive'
           "
-          :src="$_getImgUrl(formAnimals.id, option.id)"/><img
+          :src="$_getImgUrl(formAnimals.id, option.id, 1)"/><img
           :class="
             isSelected(option)
               ? 'imgOption__active-right'
               : 'imgOption__inactive'
           "
-          :src="$_getImgUrl(formAnimals.id, option.id, 1)"/>
+          :src="$_getImgUrl(formAnimals.id, option.id, 2)"/>
         <div
           :class="[
             'overlay',
@@ -36,7 +72,6 @@ import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/basico.pdf"),
       values: {
         waterAnimals: null
       }

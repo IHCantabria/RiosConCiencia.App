@@ -6,7 +6,7 @@ export const pictsHelperMixin = {
     };
   },
   methods: {
-    $_getImgUrl(idSection, iOption, idAlt = 0) {
+    $_getImgUrl(idSection, iOption = 0, idAlt = 0) {
       return this.imgFolder
         ? this.imgFolder(`./${getImg(idSection, iOption, idAlt)}`)
         : "";

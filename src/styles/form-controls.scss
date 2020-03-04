@@ -47,9 +47,34 @@
     padding: 0.25rem 0rem;
   }
 }
+
+.guideSection {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content:center;
+  margin: 0.5rem;
+}
+.guideStep{
+  display: flex;
+  flex-flow: column;
+  margin: 0.5rem;
+  max-width:300px;
+  &__text{
+    text-align:center;
+    white-space:pre-wrap;
+    height:auto;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
 .imgSection {
   display: flex;
   flex-flow: row wrap;
+}
+.imgHeader {
+  img{
+    width:20vw;
+ }
 }
 .imgOption {
   margin: 0.5rem;
