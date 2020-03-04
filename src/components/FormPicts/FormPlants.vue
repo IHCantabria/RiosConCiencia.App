@@ -2,7 +2,7 @@
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>GÍRATE Y MIRA </span>
+        <span>GÍRATE Y MIRA</span>
       </h5>
       <div class="header-section__help">
         <b-icon icon="information-outline" type="is-info">> </b-icon>
@@ -16,7 +16,9 @@
     <div class="block guideSection">
       <div class="guideStep">
         <img :src="$_getImgUrl(formPlants.id, 0, 1)" />
-        <b-tag type="is-info">MIRAMOS A NUESTRO ALREDEDOR</b-tag>
+        <b-tag class="guideStep__text" type="is-info"
+          >MIRAMOS A NUESTRO ALREDEDOR</b-tag
+        >
       </div>
     </div>
     <div class="imgHeader">

@@ -17,7 +17,7 @@
     <div class="block guideSection">
       <div class="guideStep">
         <img :src="$_getImgUrl(formAnimals.id, 0, 1)" />
-        <b-tag type="is-info">COGEMOS UNA RED</b-tag>
+        <b-tag class="guideStep__text" type="is-info">COGEMOS UNA RED</b-tag>
       </div>
       <div class="guideStep">
         <img :src="$_getImgUrl(formAnimals.id, 0, 2)" />
