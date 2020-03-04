@@ -13,7 +13,7 @@
               ? 'imgOption__active'
               : 'imgOption__inactive'
           "
-          :src="$_getImgUrl(0, 1, 1)"
+          :src="$_getImgUrl(1, 1, 1)"
         />
         <div
           :class="[
@@ -34,7 +34,7 @@
               ? 'imgOption__active'
               : 'imgOption__inactive'
           "
-          :src="$_getImgUrl(0, 2, 1)"
+          :src="$_getImgUrl(1, 2, 1)"
         />
         <div
           :class="[
