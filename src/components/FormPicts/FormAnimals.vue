@@ -1,14 +1,19 @@
 <template>
   <div class="form-section">
     <div class="header-section">
-      <b-field
-        label="BUSCO ANIMALES EN EL RÍO"
-        message="
+      <h5 class="title is-5 header-section__text">
+        <span>BUSCO ANIMALES EN EL RÍO</span>
+      </h5>
+      <div class="header-section__help">
+        <b-icon icon="information-outline" type="is-info">> </b-icon>
+      </div>
+    </div>
+    <b-field
+      message="
         Para conocer los invertebrados que existen en el río, usaremos una red. Frotaremos las piedras y pondremos la red por debajo. A continuación, volcaremos la red en una bandeja blanca, y pondremos los invertebrados en un bote lupa para poder observarlos e identificarlos. 
 "
-      >
-      </b-field>
-    </div>
+    >
+    </b-field>
     <div class="block guideSection">
       <div class="guideStep">
         <img :src="$_getImgUrl(formAnimals.id, 0, 1)" />
@@ -33,9 +38,13 @@
         >
       </div>
     </div>
-    <b-field class="imgHeader"
-      ><img :src="$_getImgUrl(formAnimals.id, 0, 0)" />
-    </b-field>
+    <div class="imgHeader">
+      <img :src="$_getImgUrl(formAnimals.id, 0, 0)" class="imgHeader__pic" />
+      <b-field
+        label="10. ¿Que animales has visto con la Lupa?"
+        class="imgHeader__text"
+      ></b-field>
+    </div>
     <b-field class="imgSection">
       <b-checkbox-button
         class="imgOption"
@@ -119,12 +128,13 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
 .imgOption {
-  width: 70vw;
+  width: 100%;
   display: flex;
   align-items: center;
+  max-width: 600px;
   img {
     height: 100%;
-    width: 35vw;
+    width: 50%;
   }
 }
 </style>

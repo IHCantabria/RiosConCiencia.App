@@ -72,8 +72,18 @@
   flex-flow: row wrap;
 }
 .imgHeader {
+  display:flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  &__pic {
+    margin: 0.5rem;
+    max-width: 75px;
+  }
+  &__text {
+    margin: 0.5rem;
+  }
   img{
-    width:20vw;
+    width:100%;
  }
 }
 .imgOption {
