@@ -1,5 +1,31 @@
 <template>
   <div class="form-section">
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>GÍRATE Y MIRA </span>
+      </h5>
+      <div class="header-section__help">
+        <b-icon icon="information-outline" type="is-info">> </b-icon>
+      </div>
+    </div>
+    <b-field
+      message="
+        Giraremos sobre nosotros mismos 180º para observar si encontramos en los alrededores del río las plantas que os mostramos a continuación. "
+    >
+    </b-field>
+    <div class="block guideSection">
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formPlants.id, 0, 1)" />
+        <b-tag type="is-info">MIRAMOS A NUESTRO ALREDEDOR</b-tag>
+      </div>
+    </div>
+    <div class="imgHeader">
+      <img :src="$_getImgUrl(formPlants.id, 0, 0)" class="imgHeader__pic" />
+      <b-field
+        label="9. ¿Qué plantas has visto a tu alrededor?"
+        class="imgHeader__text"
+      ></b-field>
+    </div>
     <b-field class="imgSection">
       <b-checkbox-button
         class="imgOption"
@@ -75,9 +101,18 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
 .imgOption {
-  width: 25%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   img {
+    height: 100%;
+    max-width: 150px;
     width: 100%;
+  }
+}
+.imgHeader {
+  &__pic {
+    max-width: 120px;
   }
 }
 </style>

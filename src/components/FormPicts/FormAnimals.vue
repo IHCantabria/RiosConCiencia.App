@@ -41,7 +41,7 @@
     <div class="imgHeader">
       <img :src="$_getImgUrl(formAnimals.id, 0, 0)" class="imgHeader__pic" />
       <b-field
-        label="10. ¿Que animales has visto con la Lupa?"
+        label="10. ¿Qué animales has visto con la Lupa?"
         class="imgHeader__text"
       ></b-field>
     </div>
@@ -131,10 +131,15 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  max-width: 600px;
+  max-width: 300px;
   img {
     height: 100%;
     width: 50%;
+  }
+}
+.imgHeader {
+  &__pic {
+    max-width: 75px;
   }
 }
 </style>

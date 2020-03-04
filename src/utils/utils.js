@@ -238,7 +238,7 @@ const getImg = (idSection, idOption, idAlt) => {
       urlBackground = "titlePlants.jpg";
       break;
     case idSection == 9 && idOption == 0 && idAlt == 1:
-      urlBackground = "helpPlants1.jpg";
+      urlBackground = "helpPlants1.gif";
       break;
     case idSection == 8 && idOption == 8 && idAlt == 1:
       urlBackground = "brickGarbage.jpg";
