@@ -26,7 +26,7 @@ select {
     text-decoration: underline;
     font-size: 1.2rem;
   }
-  &__block {
+  &__block{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -41,7 +41,6 @@ select {
       background: $color-primary;
       border-radius: 4px 4px 0 0;
       bottom: 100%;
-      content: "Nuevo";
       display: inline-block;
       font-size: 8px;
       font-weight: 700;
@@ -50,6 +49,16 @@ select {
       position: absolute;
       text-transform: uppercase;
       vertical-align: top;
+    }
+  }
+  &__block-spills{
+    &:before {
+      content: "AÑADIR VERTIDO";
+    }
+  }
+  &__block-waste{
+    &:before {
+      content: "AÑADIR RESIDUO";
     }
   }
 }

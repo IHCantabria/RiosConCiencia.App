@@ -60,6 +60,7 @@
       </div>
       <div class="block" v-if="!isComputedOnline">
         <b-message
+          v-if="!isFormExpertValid"
           class="results-display"
           title="Estado sin conexión"
           type="is-warning"
@@ -67,6 +68,16 @@
         >
           Actualmente te encuentras sin conexión a internet, no podras enviar el
           formulario hasta que dispongas de conexión.
+        </b-message>
+        <b-message
+          else
+          class="results-display"
+          title="Estado sin conexión"
+          type="is-warning"
+          :closable="false"
+        >
+          Actualmente te encuentras sin conexión a internet, mantente en esta
+          pantalla y espera a tener conexión para enviar el formulario.
         </b-message>
       </div>
     </div>
@@ -153,19 +164,20 @@ export default {
       try {
         this.isSendingData = true;
         await saveSample(this.user.token, sampleData);
-        this.$buefy.toast.open({
+        const toast = this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
           type: "is-success",
           duration: 5000
         });
-        setTimeout(() => {
+        toast.$on("close", () => {
           this.$root.$emit("clearExpert");
-        }, 4000);
+        });
       } catch (err) {
         this.$buefy.toast.open({
           message:
             "Ooops, se ha producido un error intentando enviar el formulario",
-          type: "is-danger"
+          type: "is-danger",
+          duration: 4000
         });
       } finally {
         this.isSendingData = false;

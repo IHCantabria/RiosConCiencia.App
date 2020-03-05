@@ -93,7 +93,8 @@ export default {
         : " No es posible cargar datos maestros del formulario si no dispones de conexión a internet";
       this.$buefy.toast.open({
         message: error,
-        type: "is-danger"
+        type: "is-danger",
+        duration: 4000
       });
     }
   }
