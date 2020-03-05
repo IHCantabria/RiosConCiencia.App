@@ -5,7 +5,7 @@
         src="@/assets/logos/LogoMinisterio-FECYT.png"
         title="Gobierno de España y Fundación Española para la Ciencia y la Tecnología"
       />
-      <img src="@/assets/logos/RedCambera.jpg" title="Red Cambera" />
+      <img src="@/assets/logos/RedCambera.png" title="Red Cambera" />
       <img src="@/assets/logos/ProyectoRios.jpg" title="Proyecto Ríos" />
     </div>
     <div class="footer-container__form-nav" v-show="isFormPage">
