@@ -1,11 +1,11 @@
 <template>
-  <div class="form-section">
+  <div class="form-section form-section-picts">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
         <span>BUSCO ANIMALES EN EL RÍO</span>
       </h5>
       <div class="header-section__help">
-        <b-icon icon="information-outline" type="is-info">> </b-icon>
+        <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
@@ -44,6 +44,11 @@
         label="10. ¿Qué animales has visto con la Lupa?"
         class="imgHeader__text"
       ></b-field>
+      <b-icon
+        class="icon "
+        icon="checkbox-marked-circle-outline"
+        type="is-info"
+      ></b-icon>
     </div>
     <b-field class="imgSection">
       <div
@@ -149,5 +154,8 @@ export default {
   &__pic {
     max-width: 75px;
   }
+}
+.imgContainer {
+  max-width: 300px;
 }
 </style>

@@ -1,24 +1,73 @@
 <template>
-  <div class="form-section">
+  <div class="form-section form-section-picts">
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>MEDIMOS LA DISTANCIA DEL RÍO</span>
+      </h5>
+      <div class="header-section__help">
+        <b-icon icon="information-outline" type="is-info"></b-icon>
+      </div>
+    </div>
+    <b-field
+      message="Para medir la distancia del río, utilizaremos una cuerda de colores. Cada color representa un tramo de distancia. Es necesario la participación de 2 personas. Nos situaremos cada una a un lado de la cuerda. Finalmente, miraremos qué distancia completa el color."
+    >
+    </b-field>
+    <div class="block guideSection">
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formWidth.id, 0, 1)" />
+        <b-tag class="guideStep__text" type="is-info"
+          >ESTO ES UNA CUERDA DE COLORES
+        </b-tag>
+      </div>
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formWidth.id, 0, 2)" />
+        <b-tag class="guideStep__text" type="is-info"
+          >MEDIMOS LA DISTANCIA DEL RÍO
+        </b-tag>
+      </div>
+      <div class="guideStep">
+        <img :src="$_getImgUrl(formWidth.id, 0, 3)" />
+        <b-tag class="guideStep__text" type="is-info"
+          >MIRAMOS EL COLOR DE LA CUERDA
+        </b-tag>
+      </div>
+    </div>
+    <div class="imgHeader">
+      <img :src="$_getImgUrl(formWidth.id, 0, 0)" class="imgHeader__pic" />
+      <b-field
+        label="2. ¿En qué color nos hemos quedado?"
+        class="imgHeader__text"
+      ></b-field>
+      <b-icon
+        class="imgHeader__icon"
+        icon="checkbox-marked-circle-outline"
+        type="is-info"
+      ></b-icon>
+    </div>
     <b-field class="imgSection">
-      <b-radio-button
-        class="imgOption"
-        v-for="option in formWidth.data.widthRiverOptions"
+      <div
+        class="imgContainer"
         :key="option.id"
-        :native-value="option"
-        v-model="values.waterWidth"
-        ><img
-          :class="
-            isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
-          "
-          :src="$_getImgUrl(formWidth.id, option.id, 1)"/>
-        <div
-          :class="[
-            'overlay',
-            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
-          ]"
-        ></div
-      ></b-radio-button>
+        v-for="option in formWidth.data.widthRiverOptions"
+      >
+        <span class="imgTexOption">{{ option.color | upperCase }}</span>
+        <b-radio-button
+          class="imgOption"
+          :native-value="option"
+          v-model="values.waterWidth"
+          ><img
+            :class="
+              isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(formWidth.id, option.id, 1)"/>
+          <div
+            :class="[
+              'overlay',
+              isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div
+        ></b-radio-button>
+      </div>
     </b-field>
   </div>
 </template>
@@ -71,9 +120,21 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
 .imgOption {
-  width: 40%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   img {
+    height: 100%;
+    max-width: 300px;
     width: 100%;
+  }
+}
+.imgContainer {
+  max-width: 300px;
+}
+.imgHeader {
+  &__pic {
+    max-width: 120px;
   }
 }
 </style>

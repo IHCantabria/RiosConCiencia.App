@@ -1,11 +1,11 @@
 <template>
-  <div class="form-section">
+  <div class="form-section form-section-picts">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
         <span>GÍRATE Y MIRA</span>
       </h5>
       <div class="header-section__help">
-        <b-icon icon="information-outline" type="is-info">> </b-icon>
+        <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
@@ -27,26 +27,36 @@
         label="9. ¿Qué plantas has visto a tu alrededor?"
         class="imgHeader__text"
       ></b-field>
+      <b-icon
+        class="imgHeader__icon"
+        icon="checkbox-marked-circle-outline"
+        type="is-info"
+      ></b-icon>
     </div>
     <b-field class="imgSection">
-      <b-checkbox-button
-        class="imgOption"
-        v-for="option in formPlants.data.plantsRiverOptions"
+      <div
+        class="imgContainer"
         :key="option.id"
-        :native-value="option"
-        v-model="values.waterPlants"
-        ><img
-          :class="
-            isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
-          "
-          :src="$_getImgUrl(formPlants.id, option.id, 1)"/>
-        <div
-          :class="[
-            'overlay',
-            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
-          ]"
-        ></div
-      ></b-checkbox-button>
+        v-for="option in formPlants.data.plantsRiverOptions"
+      >
+        <span class="imgTexOption">{{ option.name | upperCase }}</span>
+        <b-checkbox-button
+          class="imgOption"
+          :native-value="option"
+          v-model="values.waterPlants"
+          ><img
+            :class="
+              isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(formPlants.id, option.id, 1)"/>
+          <div
+            :class="[
+              'overlay',
+              isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div
+        ></b-checkbox-button>
+      </div>
     </b-field>
   </div>
 </template>
@@ -108,13 +118,16 @@ export default {
   align-items: center;
   img {
     height: 100%;
-    max-width: 150px;
+    max-width: 220px;
     width: 100%;
   }
 }
+.imgContainer {
+  max-width: 220px;
+}
 .imgHeader {
   &__pic {
-    max-width: 120px;
+    max-width: 110px;
   }
 }
 </style>

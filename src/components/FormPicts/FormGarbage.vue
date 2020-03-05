@@ -1,11 +1,11 @@
 <template>
-  <div class="form-section">
+  <div class="form-section form-section-picts">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
         <span>RECOGEMOS BASURA</span>
       </h5>
       <div class="header-section__help">
-        <b-icon icon="information-outline" type="is-info">> </b-icon>
+        <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
@@ -36,26 +36,35 @@
         label="8. ¿Qué basura hemos encontrado?"
         class="imgHeader__text"
       ></b-field>
+      <b-icon
+        class="imgHeader__icon"
+        icon="checkbox-marked-circle-outline"
+        type="is-info"
+      ></b-icon>
     </div>
     <b-field class="imgSection">
-      <b-checkbox-button
-        class="imgOption"
-        v-for="option in formGarbage.data.garbageRiverOptions"
+      <div
+        class="imgContainer"
         :key="option.id"
-        :native-value="option"
-        v-model="values.waterGarbage"
-        ><img
-          :class="
-            isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
-          "
-          :src="$_getImgUrl(formGarbage.id, option.id, 1)"/>
-        <div
-          :class="[
-            'overlay',
-            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
-          ]"
-        ></div
-      ></b-checkbox-button>
+        v-for="option in formGarbage.data.garbageRiverOptions"
+      >
+        <b-checkbox-button
+          class="imgOption"
+          :native-value="option"
+          v-model="values.waterGarbage"
+          ><img
+            :class="
+              isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(formGarbage.id, option.id, 1)"/>
+          <div
+            :class="[
+              'overlay',
+              isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div
+        ></b-checkbox-button>
+      </div>
     </b-field>
   </div>
 </template>
@@ -115,16 +124,18 @@ export default {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  max-width: 50%;
   img {
     height: 100%;
     max-width: 120px;
     width: 100%;
   }
 }
+.imgContainer {
+  max-width: 120px;
+}
 .imgHeader {
   &__pic {
-    max-width: 100px;
+    max-width: 120px;
   }
 }
 </style>
