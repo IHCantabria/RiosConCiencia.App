@@ -131,6 +131,7 @@ export default {
       };
       const indexWaste = this.checkWasteExist(newWaste);
       this.addWaste(newWaste, indexWaste);
+      this.units = 1;
       this.updateSectionValues({ values: this.values, isValid: true });
     },
     checkWasteExist(newWaste) {
