@@ -23,6 +23,7 @@ import { routeGuardMixin } from "@/mixins/route-guard.js";
 export default {
   name: "PictsView",
   components: {
+    info: () => import("@/components/FormPicts/FormInfo"),
     flow: () => import("@/components/FormPicts/FormFlow"),
     width: () => import("@/components/FormPicts/FormWidth"),
     depth: () => import("@/components/FormPicts/FormDepth"),

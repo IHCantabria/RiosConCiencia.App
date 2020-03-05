@@ -1,18 +1,23 @@
 <template>
-  <div class="form-section">
+  <div class="form-section form-section-picts">
     <div class="header-section">
-      <b-field
-        label="BUSCO ANIMALES EN EL RÍO"
-        message="
+      <h5 class="title is-5 header-section__text">
+        <span>BUSCO ANIMALES EN EL RÍO</span>
+      </h5>
+      <div class="header-section__help">
+        <b-icon icon="information-outline" type="is-info"></b-icon>
+      </div>
+    </div>
+    <b-field
+      message="
         Para conocer los invertebrados que existen en el río, usaremos una red. Frotaremos las piedras y pondremos la red por debajo. A continuación, volcaremos la red en una bandeja blanca, y pondremos los invertebrados en un bote lupa para poder observarlos e identificarlos. 
 "
-      >
-      </b-field>
-    </div>
+    >
+    </b-field>
     <div class="block guideSection">
       <div class="guideStep">
         <img :src="$_getImgUrl(formAnimals.id, 0, 1)" />
-        <b-tag type="is-info">COGEMOS UNA RED</b-tag>
+        <b-tag class="guideStep__text" type="is-info">COGEMOS UNA RED</b-tag>
       </div>
       <div class="guideStep">
         <img :src="$_getImgUrl(formAnimals.id, 0, 2)" />
@@ -33,36 +38,53 @@
         >
       </div>
     </div>
-    <b-field class="imgHeader"
-      ><img :src="$_getImgUrl(formAnimals.id, 0, 0)" />
-    </b-field>
+    <div class="imgHeader">
+      <img :src="$_getImgUrl(formAnimals.id, 0, 0)" class="imgHeader__pic" />
+      <b-field
+        label="10. ¿Qué animales has visto con la Lupa?"
+        class="imgHeader__text"
+      ></b-field>
+      <b-icon
+        class="icon "
+        icon="checkbox-marked-circle-outline"
+        type="is-info"
+      ></b-icon>
+    </div>
     <b-field class="imgSection">
-      <b-checkbox-button
-        class="imgOption"
-        v-for="option in formAnimals.data.animalsRiverOptions"
+      <div
+        class="imgContainer"
         :key="option.id"
-        :native-value="option"
-        v-model="values.waterAnimals"
-        ><img
-          :class="
-            isSelected(option)
-              ? 'imgOption__active-left'
-              : 'imgOption__inactive'
-          "
-          :src="$_getImgUrl(formAnimals.id, option.id, 1)"/><img
-          :class="
-            isSelected(option)
-              ? 'imgOption__active-right'
-              : 'imgOption__inactive'
-          "
-          :src="$_getImgUrl(formAnimals.id, option.id, 2)"/>
-        <div
-          :class="[
-            'overlay',
-            isSelected(option) ? 'overlay__active' : 'overlay__inactive'
-          ]"
-        ></div
-      ></b-checkbox-button>
+        v-for="option in formAnimals.data.animalsRiverOptions"
+      >
+        <span class="imgTexOption">{{ option.name | upperCase }}</span>
+        <b-checkbox-button
+          class="imgOption"
+          :native-value="option"
+          v-model="values.waterAnimals"
+        >
+          <img
+            :class="
+              isSelected(option)
+                ? 'imgOption__active-left'
+                : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(formAnimals.id, option.id, 1)"
+          /><img
+            :class="
+              isSelected(option)
+                ? 'imgOption__active-right'
+                : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(formAnimals.id, option.id, 2)"
+          />
+          <div
+            :class="[
+              'overlay',
+              isSelected(option) ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div>
+        </b-checkbox-button>
+      </div>
     </b-field>
   </div>
 </template>
@@ -119,12 +141,21 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
 .imgOption {
-  width: 70vw;
+  width: 100%;
   display: flex;
   align-items: center;
+  max-width: 300px;
   img {
     height: 100%;
-    width: 35vw;
+    width: 50%;
   }
+}
+.imgHeader {
+  &__pic {
+    max-width: 75px;
+  }
+}
+.imgContainer {
+  max-width: 300px;
 }
 </style>
