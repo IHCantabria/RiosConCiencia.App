@@ -8,7 +8,7 @@
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
-    <div class="form-section__block">
+    <div class="form-section__block form-section__block-waste">
       <b-field>
         <b-select
           placeholder="Seleccione tipo de residuo"
@@ -129,8 +129,18 @@ export default {
         ...this.selectedWaste,
         units: this.units
       };
-      this.values.wasteList.push(newWaste);
+      const indexWaste = this.checkWasteExist(newWaste);
+      this.addWaste(newWaste, indexWaste);
       this.updateSectionValues({ values: this.values, isValid: true });
+    },
+    checkWasteExist(newWaste) {
+      return this.values.wasteList.findIndex(waste => waste.id == newWaste.id);
+    },
+    addWaste(newWaste, index) {
+      index == -1
+        ? this.values.wasteList.push(newWaste)
+        : (this.values.wasteList[index].units =
+            this.values.wasteList[index].units + newWaste.units);
     },
     removeSelectedWaste() {
       const self = this;
