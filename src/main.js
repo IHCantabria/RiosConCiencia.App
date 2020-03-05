@@ -9,6 +9,9 @@ import Buefy from "buefy";
 /** Icons pack (MDI-Material design icons) */
 import "@mdi/font/css/materialdesignicons.css";
 
+//Import Filters
+import "./filters";
+
 /** Global mixins */
 import { datesHelperMixin } from "@/mixins/dates-helper.js";
 import { onlineHelperMixin } from "@/mixins/online-helper.js";

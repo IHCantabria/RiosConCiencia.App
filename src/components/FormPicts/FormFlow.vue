@@ -1,44 +1,101 @@
 <template>
-  <div class="form-section">
+  <div class="form-section form-section-picts">
     <div class="header-section">
-      <a :href="pdfLink" class="header-section__help" target="_blank"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
+      <h5 class="title is-5 header-section__text">
+        <span>MIRAMOS AL RÍO</span>
+      </h5>
+      <div class="header-section__help">
+        <b-icon icon="information-outline" type="is-info"></b-icon>
+      </div>
     </div>
-    <b-field>
-      <b-radio-button v-model="values.waterFlow" :native-value="false">
-        <b-icon icon="close"></b-icon>
-        <span>No</span>
-      </b-radio-button>
-      <b-radio-button v-model="values.waterFlow" :native-value="true">
-        <b-icon icon="check"></b-icon>
-        <span>Si</span>
-      </b-radio-button>
+    <b-field
+      message="Observamos si el agua del río se mueve o si por el contrario, está estancada."
+    >
+    </b-field>
+    <div class="imgHeader">
+      <img :src="$_getImgUrl(1, 0, 0)" class="imgHeader__pic" />
+      <b-field label="1. ¿El río se mueve?" class="imgHeader__text"></b-field>
+      <b-icon
+        class="imgHeader__icon"
+        icon="checkbox-marked-circle-outline"
+        type="is-info"
+      ></b-icon>
+    </div>
+    <b-field class="imgSection">
+      <div class="imgContainer">
+        <span class="imgTexOption">NO FLUYE</span>
+        <b-radio-button
+          class="imgOption"
+          v-model="values.waterFlow"
+          :native-value="false"
+        >
+          <img
+            :class="
+              values.waterFlow == false
+                ? 'imgOption__active'
+                : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(1, 1, 1)"
+          />
+          <div
+            :class="[
+              'overlay',
+              values.waterFlow == false
+                ? 'overlay__active'
+                : 'overlay__inactive'
+            ]"
+          ></div>
+        </b-radio-button>
+      </div>
+      <div class="imgContainer">
+        <span class="imgTexOption">FLUYE</span>
+        <b-radio-button
+          class="
+          imgOption"
+          v-model="values.waterFlow"
+          :native-value="true"
+        >
+          <img
+            :class="
+              values.waterFlow == true
+                ? 'imgOption__active'
+                : 'imgOption__inactive'
+            "
+            :src="$_getImgUrl(1, 2, 1)"
+          />
+          <div
+            :class="[
+              'overlay',
+              values.waterFlow == true ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div>
+        </b-radio-button>
+      </div>
     </b-field>
   </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-
+import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/basico.pdf"),
       values: {
         waterFlow: 0
       }
     };
   },
+  mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
       formFlow: state => state.formPictsSections.flow
     }),
-    waterFlowHasErrors() {
-      return this.values.waterFlow === null;
-    },
     isSectionValid() {
-      return !this.waterFlowHasErrors;
+      return true; //optional section
     }
+  },
+  created() {
+    this.imgFolder = require.context("@/assets/images/picts/flow");
   },
   mounted() {
     this.init();
@@ -62,4 +119,22 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
+.imgOption {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  img {
+    height: 100%;
+    max-width: 300px;
+    width: 100%;
+  }
+}
+.imgContainer {
+  max-width: 300px;
+}
+.imgHeader {
+  &__pic {
+    max-width: 120px;
+  }
+}
 </style>

@@ -13,6 +13,9 @@ html {
 select {
   width: 100%;
 }
+.form-section-picts{
+  width:100%;
+}
 
 .form-section {
   display: flex;
@@ -57,6 +60,7 @@ select {
   &__text{
   }
   &__help{
-    margin: 0rem 1rem;
+    margin: 0;
+    margin-left: 0.5rem;
   }
 }

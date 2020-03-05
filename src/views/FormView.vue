@@ -10,11 +10,11 @@
       ></component>
     </keep-alive>
     <app-data-loader
-      v-if="!isMasterDataLoaded"
+      v-if="!isExpertDataLoaded"
       @data-load-ready="onDataLoad"
       @data-load-error="onDataLoadError"
     />
-    <spinner v-if="!isMasterDataLoaded" :is-loading="!dataReady"></spinner>
+    <spinner v-if="!isExpertDataLoaded" :is-loading="!dataReady"></spinner>
   </div>
 </template>
 <script>
@@ -32,7 +32,8 @@ export default {
     biological: () => import("@/components/FormExpert/FormBiological"),
     riverQuality: () => import("@/components/FormExpert/FormRiverQuality"),
     ecoResult: () => import("@/components/FormExpert/FormEcoResult"),
-    "app-data-loader": () => import("@/components/renderless/AppDataLoader"),
+    "app-data-loader": () =>
+      import("@/components/renderless/AppExpertDataLoader"),
     spinner: () => import("@/components/Loading")
   },
   mixins: [routeGuardMixin],
@@ -71,7 +72,7 @@ export default {
     }),
     ...mapGetters({
       activeSectionName: "activeSectionName",
-      isMasterDataLoaded: "isMasterDataLoaded"
+      isExpertDataLoaded: "isExpertDataLoaded"
     })
   },
   methods: {

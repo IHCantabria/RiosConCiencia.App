@@ -24,6 +24,15 @@
             >Pulse para más información</a
           >
         </p>
+        <p class="about-msg__section disclaim">
+          Pictogramas ARASAAC: Todos los pictogramas usados en esta aplicación,
+          exceptuando aquellos que se han creado por los autores de esta
+          aplicación, forman parte de la colección ARASAAC, son propiedad del
+          Gobierno de Aragón y han sido creados por Sergio Palao, se publican
+          bajo licencia Creative Commons ( BY- NC- SA), autorizándose su uso
+          para fines sin ánimo lucrativo siempre que se cite la fuente, autor y
+          se comparta bajo la misma licencia.
+        </p>
       </div>
     </div>
   </div>
@@ -45,6 +54,9 @@ a:active {
   color: $color-primary;
   text-decoration: none;
   cursor: pointer;
+}
+.disclaim {
+  font-size: 0.6rem;
 }
 
 .about-msg {
