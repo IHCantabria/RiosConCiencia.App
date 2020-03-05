@@ -164,14 +164,14 @@ export default {
       try {
         this.isSendingData = true;
         await saveSample(this.user.token, sampleData);
-        this.$buefy.toast.open({
+        const toast = this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
           type: "is-success",
           duration: 5000
         });
-        setTimeout(() => {
+        toast.$on("close", () => {
           this.$root.$emit("clearExpert");
-        }, 4000);
+        });
       } catch (err) {
         this.$buefy.toast.open({
           message:
