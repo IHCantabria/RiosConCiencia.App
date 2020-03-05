@@ -64,6 +64,7 @@ export default {
         return this.activeStep;
       },
       set(value) {
+        window.scrollTo(0, 0); // go to init page when change the stepNavigator
         this.setActiveSection(value);
       }
     },
