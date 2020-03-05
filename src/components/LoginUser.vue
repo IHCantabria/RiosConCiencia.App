@@ -66,20 +66,23 @@ export default {
             : " No es posible conectarse si no dispones de conexión a internet";
           this.$buefy.toast.open({
             message: error,
-            type: "is-danger"
+            type: "is-danger",
+            duration: 4000
           });
         }
         if (err.response.status == 403)
           this.$buefy.toast.open({
             message:
               "Los datos que ha introducido no son correctos o su usuario no tiene permiso para usar la aplicación",
-            type: "is-danger"
+            type: "is-danger",
+            duration: 4000
           });
         if (err.response.status == 400) {
           this.$buefy.toast.open({
             message:
               "Debe rellenar los campos email y contraseña para poder conectarse",
-            type: "is-danger"
+            type: "is-danger",
+            duration: 4000
           });
         }
       } finally {
@@ -98,13 +101,14 @@ export default {
             message:
               "¡Atención! no tiene asignados tramos de río, no podra completar ni enviar ningun formulario",
             type: "is-danger",
-            duration: 5000
+            duration: 4000
           });
         }
       } catch (err) {
         this.$buefy.toast.open({
           message: "Fallo al recuperar tus tramos de río, pruebe mas tarde",
-          type: "is-danger"
+          type: "is-danger",
+          duration: 4000
         });
       }
     }

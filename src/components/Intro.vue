@@ -19,9 +19,7 @@
     </div>
     <div class="intro__help">
       <div class="guide-link">
-        <a :href="pdfLink" target="_blank"
-          ><b-icon icon="file-pdf" size="is-large" type="is-primary"></b-icon
-        ></a>
+        <a :href="pdfLink" target="_blank"><span>Manual de Inspección</span></a>
       </div>
     </div>
   </div>
@@ -45,6 +43,16 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+a,
+a:link,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+  color: $color-primary;
+  text-decoration: none;
+  cursor: pointer;
+}
 .intro {
   display: flex;
   flex-grow: 1;

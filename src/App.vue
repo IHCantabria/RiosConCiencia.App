@@ -55,7 +55,8 @@ export default {
     onGeolocationError() {
       this.$buefy.toast.open({
         message: "No es posible Geolocalizar la ubicación",
-        type: "is-danger"
+        type: "is-danger",
+        duration: 4000
       });
     },
     //for now just Chrome

@@ -116,6 +116,12 @@ export default {
       isValid: this.isSectionValid
     });
   },
+  watch: {
+    selectedWaste() {
+      console.log("salta el watcher");
+      this.units = 1;
+    }
+  },
   methods: {
     ...mapActions({
       updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues",

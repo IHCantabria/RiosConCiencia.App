@@ -176,7 +176,8 @@ export default {
         this.$buefy.toast.open({
           message:
             "Ooops, se ha producido un error intentando enviar el formulario",
-          type: "is-danger"
+          type: "is-danger",
+          duration: 4000
         });
       } finally {
         this.isSendingData = false;
