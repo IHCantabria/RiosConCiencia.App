@@ -5,13 +5,13 @@
     </div>
     <div class="intro__main">
       <div class="option">
-        <h2 class="subtitle">Usuario Experto</h2>
+        <h2 class="subtitle">Entrar</h2>
         <b-button size="is-large" type="is-primary" @click="expertUser()"
           >Empezar</b-button
         >
       </div>
       <div class="option">
-        <h2 class="subtitle">Usuario con Desafíos</h2>
+        <h2 class="subtitle">Entrar con Pictos</h2>
         <b-button size="is-large" type="is-primary" @click="challengeUser()"
           >Empezar</b-button
         >
