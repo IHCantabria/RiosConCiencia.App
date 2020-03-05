@@ -8,7 +8,7 @@
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
-    <div class="form-section__block">
+    <div class="form-section__block form-section__block-spills">
       <b-field label="Coordenadas (WGS84)"></b-field>
       <div class="two-controls">
         <b-field label="Lon" custom-class="is-small">
