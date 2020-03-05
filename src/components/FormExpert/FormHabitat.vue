@@ -108,7 +108,7 @@
       </b-select>
     </b-field>
     <b-field
-      label="e. Sombre en el cauce"
+      label="e. Sombra en el cauce"
       :message="{
         '*Hay que seleccionar una opción': riverShadowsHasErrors
       }"
