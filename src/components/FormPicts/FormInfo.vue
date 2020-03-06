@@ -143,6 +143,8 @@ export default {
   justify-content: center;
   margin: 0.5rem;
   &__header {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
