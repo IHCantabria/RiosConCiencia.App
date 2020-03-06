@@ -26,7 +26,50 @@ export default new Vuex.Store({
     isPictsDataLoaded: state => {
       return Object.keys(state.formPictsSections).length !== 0;
     },
-
+    garbageExist: state => {
+      return state.formPictsSections &&
+        state.formPictsSections.garbage.results.waterGarbage
+        ? state.formPictsSections.garbage.results.waterGarbage.length > 0
+          ? true
+          : false
+        : false;
+    },
+    isColorGood: state => {
+      return state.formPictsSections &&
+        state.formPictsSections.color.results.waterColor
+        ? state.formPictsSections.color.results.waterColor.isGood
+        : true;
+    },
+    isSmellGood: state => {
+      return state.formPictsSections &&
+        state.formPictsSections.smell.results.waterSmell
+        ? state.formPictsSections.smell.results.waterSmell.isGood
+        : true;
+    },
+    goodAnimals: state => {
+      return state.formPictsSections &&
+        state.formPictsSections.animals.results.waterAnimals
+        ? state.formPictsSections.animals.results.waterAnimals.filter(
+            animal => animal.isGood
+          )
+        : [];
+    },
+    goodPlants: state => {
+      return state.formPictsSections &&
+        state.formPictsSections.plants.results.waterPlants
+        ? state.formPictsSections.plants.results.waterPlants.filter(
+            plant => plant.isGood
+          )
+        : [];
+    },
+    badPlants: state => {
+      return state.formPictsSections &&
+        state.formPictsSections.plants.results.waterPlants
+        ? state.formPictsSections.plants.results.waterPlants.filter(
+            plant => !plant.isGood
+          )
+        : [];
+    },
     isFirstSection: state => {
       return state.activeSectionId === 0;
     },
@@ -42,20 +85,17 @@ export default new Vuex.Store({
         : Object.keys(state.formPictsSections)[state.activeSectionId];
     },
     isFormExpertValid: state => {
-      return (
-        state.formExpertSections.biological.isValid &&
-        state.formExpertSections.init.isValid &&
-        state.formExpertSections.basic.isValid &&
-        state.formExpertSections.habitat.isValid &&
-        state.formExpertSections.ecoSystem.isValid &&
-        state.formExpertSections.riverQuality.isValid
-      );
+      return Object.keys(state.formExpertSections).length !== 0
+        ? state.formExpertSections.biological.isValid &&
+            state.formExpertSections.init.isValid &&
+            state.formExpertSections.basic.isValid &&
+            state.formExpertSections.habitat.isValid &&
+            state.formExpertSections.ecoSystem.isValid &&
+            state.formExpertSections.riverQuality.isValid
+        : false;
     },
     isFormPictsValid: state => {
-      return (
-        state.formPictsSections.flow.isValid &&
-        state.formPictsSections.init.isValid
-      );
+      return Object.keys(state.formPictsSections).length !== 0 ? true : false;
     },
     isStateEcoReady: state => {
       return (

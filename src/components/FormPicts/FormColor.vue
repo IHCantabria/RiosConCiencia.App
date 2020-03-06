@@ -12,52 +12,52 @@
       message="Para conocer el color del río, utilizaremos una botella. Cogeremos agua del río y miraremos a través de la botella qué color tiene el agua."
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formColor.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >ESTO ES UNA BOTELLA
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formColor.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >COGEMOS AGUA DEL RÍO
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formColor.id, 0, 3)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS QUÉ COLOR TIENE</b-tag
         >
       </div>
     </div>
-    <div class="imgHeader">
-      <img :src="$_getImgUrl(formColor.id, 0, 0)" class="imgHeader__pic" />
+    <div class="img-header">
+      <img :src="$_getImgUrl(formColor.id, 0, 0)" class="img-header__pic" />
       <b-field
         label="6. ¿De qué color es el agua?"
-        class="imgHeader__text"
+        class="img-header__text"
       ></b-field>
       <b-icon
-        class="imgHeader__icon"
+        class="img-header__icon"
         icon="checkbox-marked-circle-outline"
         type="is-info"
       ></b-icon>
     </div>
-    <b-field class="imgSection">
+    <b-field class="img-section">
       <div
-        class="imgContainer"
+        class="img-container"
         :key="option.id"
         v-for="option in formColor.data.colorRiverOptions"
       >
-        <span class="imgTexOption">{{ option.name | upperCase }}</span>
+        <span class="img-option-text">{{ option.name | upperCase }}</span>
         <b-radio-button
-          class="imgOption"
+          class="img-option"
           :native-value="option"
           v-model="values.waterColor"
           ><img
             :class="
-              isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+              isSelected(option) ? 'img-option__active' : 'img-option__inactive'
             "
             :src="$_getImgUrl(formColor.id, option.id, 1)"/>
           <div
@@ -119,7 +119,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
-.imgOption {
+.img-option {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -129,10 +129,10 @@ export default {
     width: 100%;
   }
 }
-.imgContainer {
+.img-container {
   max-width: 220px;
 }
-.imgHeader {
+.img-header {
   &__pic {
     max-width: 120px;
   }

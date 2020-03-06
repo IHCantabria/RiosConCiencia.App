@@ -297,6 +297,30 @@ const getImg = (idSection, idOption, idAlt) => {
     case idSection == 10 && idOption == 3 && idAlt == 2:
       urlBackground = "caddisflyUncoveredAnimals2.jpg";
       break;
+    case idSection == 11 && idOption == 0 && idAlt == 1:
+      urlBackground = "goodGame1.jpg";
+      break;
+    case idSection == 11 && idOption == 0 && idAlt == 0:
+      urlBackground = "titleGame.jpg";
+      break;
+    case idSection == 11 && idOption == 0 && idAlt == 2:
+      urlBackground = "goodGame2.jpg";
+      break;
+    case idSection == 11 && idOption == 0 && idAlt == 3:
+      urlBackground = "badGame1.jpg";
+      break;
+    case idSection == 11 && idOption == 0 && idAlt == 4:
+      urlBackground = "badGame2.jpg";
+      break;
+    case idSection == 11 && idOption == 1 && idAlt == 1:
+      urlBackground = "clearGame.jpg";
+      break;
+    case idSection == 11 && idOption == 2 && idAlt == 1:
+      urlBackground = "decontaminateGame.jpg";
+      break;
+    case idSection == 11 && idOption == 3 && idAlt == 1:
+      urlBackground = "sowGame.jpg";
+      break;
   }
   return urlBackground;
 };

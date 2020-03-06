@@ -243,7 +243,7 @@ export default {
     invasorsComputed() {
       let invasorsComputed = this.formEcoSystem.data.invasorPlantOptions;
       invasorsComputed.forEach(invasor => {
-        invasor.value = this.formEcoSystem.data.coverageOptions[3];
+        invasor.value = this.formEcoSystem.data.coverageOptions[2];
       });
       return invasorsComputed;
     },

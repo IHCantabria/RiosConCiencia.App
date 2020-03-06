@@ -48,7 +48,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     if (
       (to.path == "/" || to.path == "/about") &&
-      Object.keys(this.formSections.flow.results).length !== 0
+      Object.keys(this.formSections.width.results).length !== 0
     ) {
       this.$buefy.dialog.confirm({
         title: "Formulario Incompleto",

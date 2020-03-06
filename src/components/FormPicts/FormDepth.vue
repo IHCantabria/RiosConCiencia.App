@@ -12,52 +12,52 @@
       message="Para medir la profundidad del río, utilizaremos un palo de colores. Cada color representa un tramo de profundidad. Meteremos el palo en el río y observaremos hasta qué color se moja el palo."
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >ESTO ES UNA PALO DE COLORES
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >METEMOS EL PALO EN EL RÍO
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 3)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS EL COLOR DEL PALO</b-tag
         >
       </div>
     </div>
-    <div class="imgHeader">
-      <img :src="$_getImgUrl(formDepth.id, 0, 0)" class="imgHeader__pic" />
+    <div class="img-header">
+      <img :src="$_getImgUrl(formDepth.id, 0, 0)" class="img-header__pic" />
       <b-field
         label="3. ¿Hasta que color esta mojado el palo?"
-        class="imgHeader__text"
+        class="img-header__text"
       ></b-field>
       <b-icon
-        class="imgHeader__icon"
+        class="img-header__icon"
         icon="checkbox-marked-circle-outline"
         type="is-info"
       ></b-icon>
     </div>
-    <b-field class="imgSection">
+    <b-field class="img-section">
       <div
-        class="imgContainer"
+        class="img-container"
         :key="option.id"
         v-for="option in formDepth.data.depthRiverOptions"
       >
-        <span class="imgTexOption">{{ option.color | upperCase }}</span>
+        <span class="img-option-text">{{ option.color | upperCase }}</span>
         <b-radio-button
-          class="imgOption"
+          class="img-option"
           :native-value="option"
           v-model="values.waterDepth"
           ><img
             :class="
-              isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+              isSelected(option) ? 'img-option__active' : 'img-option__inactive'
             "
             :src="$_getImgUrl(formDepth.id, option.id, 1)"/>
           <div
@@ -119,7 +119,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
-.imgOption {
+.img-option {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -129,10 +129,10 @@ export default {
     width: 100%;
   }
 }
-.imgContainer {
+.img-container {
   max-width: 220px;
 }
-.imgHeader {
+.img-header {
   &__pic {
     max-width: 120px;
   }

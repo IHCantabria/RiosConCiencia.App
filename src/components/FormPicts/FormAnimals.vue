@@ -14,35 +14,35 @@
 "
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info">COGEMOS UNA RED</b-tag>
+        <b-tag class="guide-step__text" type="is-info">COGEMOS UNA RED</b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >PONEMOS LA RED EN EL RÍO Y FROTAMOS LAS PIEDRAS</b-tag
         >
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 3)" />
-        <b-tag type="is-info" class="guideStep__text"
+        <b-tag type="is-info" class="guide-step__text"
           >VACIAMOS LA RED EN LA BANDEJA</b-tag
         >
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 4)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS LOS ANIMALES CON EL BOTE-LUPA</b-tag
         >
       </div>
     </div>
-    <div class="imgHeader">
-      <img :src="$_getImgUrl(formAnimals.id, 0, 0)" class="imgHeader__pic" />
+    <div class="img-header">
+      <img :src="$_getImgUrl(formAnimals.id, 0, 0)" class="img-header__pic" />
       <b-field
         label="10. ¿Qué animales has visto con la Lupa?"
-        class="imgHeader__text"
+        class="img-header__text"
       ></b-field>
       <b-icon
         class="icon "
@@ -50,30 +50,30 @@
         type="is-info"
       ></b-icon>
     </div>
-    <b-field class="imgSection">
+    <b-field class="img-section">
       <div
-        class="imgContainer"
+        class="img-container"
         :key="option.id"
         v-for="option in formAnimals.data.animalsRiverOptions"
       >
-        <span class="imgTexOption">{{ option.name | upperCase }}</span>
+        <span class="img-option-text">{{ option.name | upperCase }}</span>
         <b-checkbox-button
-          class="imgOption"
+          class="img-option"
           :native-value="option"
           v-model="values.waterAnimals"
         >
           <img
             :class="
               isSelected(option)
-                ? 'imgOption__active-left'
-                : 'imgOption__inactive'
+                ? 'img-option__active-left'
+                : 'img-option__inactive'
             "
             :src="$_getImgUrl(formAnimals.id, option.id, 1)"
           /><img
             :class="
               isSelected(option)
-                ? 'imgOption__active-right'
-                : 'imgOption__inactive'
+                ? 'img-option__active-right'
+                : 'img-option__inactive'
             "
             :src="$_getImgUrl(formAnimals.id, option.id, 2)"
           />
@@ -140,7 +140,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
-.imgOption {
+.img-option {
   width: 100%;
   display: flex;
   align-items: center;
@@ -150,12 +150,12 @@ export default {
     width: 50%;
   }
 }
-.imgHeader {
+.img-header {
   &__pic {
     max-width: 75px;
   }
 }
-.imgContainer {
+.img-container {
   max-width: 300px;
 }
 </style>

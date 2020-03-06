@@ -8,21 +8,21 @@
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
-    <div class="block infoSection">
-      <div class="infoStep">
-        <div class="infoStep__header">
+    <div class="info-section">
+      <div class="info-step">
+        <div class="info-step__header">
           <b-field
             class="info-section__text"
             message="El Proyecto Ríos trata de averiguar el estado de los ríos. Para ello, realizaremos unas actividades en el río para conocer su estado."
           >
           </b-field>
         </div>
-        <div class="infoStep__body">
+        <div class="info-step__body">
           <img :src="$_getImgUrl(0, 0, 1)" />
         </div>
       </div>
-      <div class="infoStep">
-        <div class="infoStep__header">
+      <div class="info-step">
+        <div class="info-step__header">
           <b-field
             class="info-section__text"
             label="EL RÍO"
@@ -33,12 +33,12 @@
             <b-icon icon="information-outline" type="is-info"></b-icon>
           </div>
         </div>
-        <div class="infoStep__body">
+        <div class="info-step__body">
           <img :src="$_getImgUrl(0, 0, 2)" />
         </div>
       </div>
-      <div class="infoStep">
-        <div class="infoStep__header">
+      <div class="info-step">
+        <div class="info-step__header">
           <b-field
             class="info-section__text"
             label="EL RÍO ESTÁ BIEN CUANDO..."
@@ -49,13 +49,13 @@
             <b-icon icon="information-outline" type="is-info"></b-icon>
           </div>
         </div>
-        <div class="infoStep__body">
+        <div class="info-step__body">
           <img :src="$_getImgUrl(0, 0, 3)" />
           <img :src="$_getImgUrl(0, 0, 4)" />
         </div>
       </div>
-      <div class="infoStep">
-        <div class="infoStep__header">
+      <div class="info-step">
+        <div class="info-step__header">
           <b-field
             class="info-section__text"
             label="EL RÍO ESTÁ MAL CUANDO..."
@@ -66,13 +66,13 @@
             <b-icon icon="information-outline" type="is-info"></b-icon>
           </div>
         </div>
-        <div class="infoStep__body">
+        <div class="info-step__body">
           <img :src="$_getImgUrl(0, 0, 5)" />
           <img :src="$_getImgUrl(0, 0, 6)" />
         </div>
       </div>
-      <div class="infoStep">
-        <div class="infoStep__header">
+      <div class="info-step">
+        <div class="info-step__header">
           <b-field
             class="info-section__text"
             label="COMENZAMOS..."
@@ -83,7 +83,7 @@
             <b-icon icon="information-outline" type="is-info"></b-icon>
           </div>
         </div>
-        <div class="infoStep__body">
+        <div class="info-step__body">
           <img :src="$_getImgUrl(0, 0, 7)" />
         </div>
       </div>
@@ -132,35 +132,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
-.infoSection {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-}
-.infoStep {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  margin: 0.5rem;
-  &__header {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-  }
-  &__body {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    width: 100%;
-    img {
-      max-width: 350px;
-      width: 100%;
-    }
-  }
-  &__text {
-  }
-  &__help {
-    margin: 0rem 1rem;
-  }
-}
 </style>
