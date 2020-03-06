@@ -32,32 +32,32 @@
         </b-tag>
       </div>
     </div>
-    <div class="imgHeader">
-      <img :src="$_getImgUrl(formWidth.id, 0, 0)" class="imgHeader__pic" />
+    <div class="img-header">
+      <img :src="$_getImgUrl(formWidth.id, 0, 0)" class="img-header__pic" />
       <b-field
         label="2. ¿En qué color nos hemos quedado?"
-        class="imgHeader__text"
+        class="img-header__text"
       ></b-field>
       <b-icon
-        class="imgHeader__icon"
+        class="img-header__icon"
         icon="checkbox-marked-circle-outline"
         type="is-info"
       ></b-icon>
     </div>
-    <b-field class="imgSection">
+    <b-field class="img-section">
       <div
-        class="imgContainer"
+        class="img-container"
         :key="option.id"
         v-for="option in formWidth.data.widthRiverOptions"
       >
-        <span class="imgTexOption">{{ option.color | upperCase }}</span>
+        <span class="img-option-text">{{ option.color | upperCase }}</span>
         <b-radio-button
-          class="imgOption"
+          class="img-option"
           :native-value="option"
           v-model="values.waterWidth"
           ><img
             :class="
-              isSelected(option) ? 'imgOption__active' : 'imgOption__inactive'
+              isSelected(option) ? 'img-option__active' : 'img-option__inactive'
             "
             :src="$_getImgUrl(formWidth.id, option.id, 1)"/>
           <div
@@ -119,7 +119,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
-.imgOption {
+.img-option {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -129,10 +129,10 @@ export default {
     width: 100%;
   }
 }
-.imgContainer {
+.img-container {
   max-width: 300px;
 }
-.imgHeader {
+.img-header {
   &__pic {
     max-width: 120px;
   }

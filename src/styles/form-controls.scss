@@ -101,16 +101,16 @@
     margin: 0rem 1rem;
   }
 }
-.imgSection {
+.img-section {
   display: flex;
   flex-flow: row wrap;
 }
-.imgContainer{
+.img-container{
   margin: 0.5rem;
   display: flex;
   flex-flow: column nowrap;
 }
-.imgHeader {
+.img-header {
   display:flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -132,12 +132,12 @@
     width:100%;
  }
 }
-.imgTexOption{
+.img-option-text{
   text-align:center;
   white-space:pre-wrap;
   height:100%;
 }
-.imgOption {
+.img-option {
   margin: 0.5rem;
   height:100%;
   label{
