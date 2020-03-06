@@ -26,6 +26,14 @@ export default new Vuex.Store({
     isPictsDataLoaded: state => {
       return Object.keys(state.formPictsSections).length !== 0;
     },
+    garbageExist: state => {
+      return state.formPictsSections &&
+        state.formPictsSections.garbage.results.waterGarbage
+        ? state.formPictsSections.garbage.results.waterGarbage.length > 0
+          ? true
+          : false
+        : false;
+    },
     isColorGood: state => {
       return state.formPictsSections &&
         state.formPictsSections.color.results.waterColor
