@@ -300,6 +300,9 @@ const getImg = (idSection, idOption, idAlt) => {
     case idSection == 11 && idOption == 0 && idAlt == 1:
       urlBackground = "goodGame1.jpg";
       break;
+    case idSection == 11 && idOption == 0 && idAlt == 0:
+      urlBackground = "titleGame.jpg";
+      break;
     case idSection == 11 && idOption == 0 && idAlt == 2:
       urlBackground = "goodGame2.jpg";
       break;
@@ -316,9 +319,6 @@ const getImg = (idSection, idOption, idAlt) => {
       urlBackground = "decontaminateGame.jpg";
       break;
     case idSection == 11 && idOption == 3 && idAlt == 1:
-      urlBackground = "sowGame.jpg";
-      break;
-    case idSection == 11 && idOption == 4 && idAlt == 1:
       urlBackground = "sowGame.jpg";
       break;
   }
