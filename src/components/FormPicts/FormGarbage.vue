@@ -12,20 +12,20 @@
       message="Cogemos una bolsa de basura, recogeremos la basura que encontremos cerca del río y la meteremos en la bolsa para posteriormente mirar y anotar la basura que nos hemos encontrado."
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formGarbage.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info">COGEMOS UNA BOLSA</b-tag>
+        <b-tag class="guide-step__text" type="is-info">COGEMOS UNA BOLSA</b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formGarbage.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >PONEMOS LA BASURA DENTRO DE LA BOLSA</b-tag
         >
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formGarbage.id, 0, 3)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS LA BASURA QUE HEMOS ENCONTRADO</b-tag
         >
       </div>

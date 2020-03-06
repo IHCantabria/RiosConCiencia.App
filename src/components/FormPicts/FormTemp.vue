@@ -12,22 +12,22 @@
       message="Para conocer la temperatura del río, utilizaremos un termómetro. Introduciremos el termómetro en el agua del río y esperaremos un minuto para conocer el resultado. Finalmente, miraremos qué color alcanza."
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formTemp.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >METEMOS EL TERMÓMETRO EN EL RÍO
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formTemp.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >ESPERAMOS UN MINUTO
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formTemp.id, 0, 3)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS QUÉ COLOR TENEMOS</b-tag
         >
       </div>

@@ -14,26 +14,26 @@
 "
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info">COGEMOS UNA RED</b-tag>
+        <b-tag class="guide-step__text" type="is-info">COGEMOS UNA RED</b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >PONEMOS LA RED EN EL RÍO Y FROTAMOS LAS PIEDRAS</b-tag
         >
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 3)" />
-        <b-tag type="is-info" class="guideStep__text"
+        <b-tag type="is-info" class="guide-step__text"
           >VACIAMOS LA RED EN LA BANDEJA</b-tag
         >
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 4)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS LOS ANIMALES CON EL BOTE-LUPA</b-tag
         >
       </div>

@@ -12,22 +12,22 @@
       message="Para medir la profundidad del río, utilizaremos un palo de colores. Cada color representa un tramo de profundidad. Meteremos el palo en el río y observaremos hasta qué color se moja el palo."
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >ESTO ES UNA PALO DE COLORES
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >METEMOS EL PALO EN EL RÍO
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 3)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS EL COLOR DEL PALO</b-tag
         >
       </div>

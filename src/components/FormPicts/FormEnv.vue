@@ -12,10 +12,10 @@
       message="Giraremos sobre nosotros mismos 180º para observar qué elementos encontramos en los alrededores del río."
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formEnv.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS A NUESTRO ALREDEDOR</b-tag
         >
       </div>

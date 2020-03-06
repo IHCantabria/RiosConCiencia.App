@@ -12,22 +12,22 @@
       message="Para conocer el olor del río, utilizaremos una botella. Cogeremos agua del río y oleremos el contenido de la botella para conocer el olor que tiene el agua."
     >
     </b-field>
-    <div class="block guideSection">
-      <div class="guideStep">
+    <div class="block guide-section">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formSmell.id, 0, 1)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >ESTO ES UNA BOTELLA
         </b-tag>
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formSmell.id, 0, 2)" />
-        <b-tag class="guideStep__text" type="is-info"
+        <b-tag class="guide-step__text" type="is-info"
           >COGEMOS AGUA DEL RÍO</b-tag
         >
       </div>
-      <div class="guideStep">
+      <div class="guide-step">
         <img :src="$_getImgUrl(formSmell.id, 0, 3)" />
-        <b-tag class="guideStep__text" type="is-info">OLEMOS EL AGUA</b-tag>
+        <b-tag class="guide-step__text" type="is-info">OLEMOS EL AGUA</b-tag>
       </div>
     </div>
     <div class="imgHeader">
