@@ -118,7 +118,6 @@ export default {
   },
   watch: {
     selectedWaste() {
-      console.log("salta el watcher");
       this.units = 1;
     }
   },
