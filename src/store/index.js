@@ -44,7 +44,7 @@ export default new Vuex.Store({
         ? state.formPictsSections.animals.results.waterAnimals.filter(
             animal => animal.isGood
           )
-        : [{ id: 0, name: "dummy" }];
+        : [];
     },
     goodPlants: state => {
       return state.formPictsSections &&
@@ -52,9 +52,9 @@ export default new Vuex.Store({
         ? state.formPictsSections.plants.results.waterPlants.filter(
             plant => plant.isGood
           )
-        : [{ id: 0, name: "dummy" }];
+        : [];
     },
-    BadPlants: state => {
+    badPlants: state => {
       return state.formPictsSections &&
         state.formPictsSections.plants.results.waterPlants
         ? state.formPictsSections.plants.results.waterPlants.filter(
