@@ -22,7 +22,7 @@ export default {
         this.finishedExpertForm();
       });
       this.$root.$on("clearPicts", () => {
-        this.finishedExpertForm();
+        this.finishedPictsForm();
       });
     },
     logout() {
