@@ -29,8 +29,11 @@ export default {
   name: "Intro",
   data() {
     return {
-      pdfLink: require("../assets/pdfs/manual2019.pdf")
+      pdfLink: null
     };
+  },
+  created() {
+    this.pdfLink = require("../assets/pdfs/manual2019.pdf");
   },
   methods: {
     expertUser() {
