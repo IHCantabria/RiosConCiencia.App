@@ -81,3 +81,7 @@ This software use:
 Some images taken from :
 
 - Header Photo by [Nicholas Bukofski](https://unsplash.com/@bukofskicreative?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com)
+
+Picts images taken from :
+
+-  Pictogramas ARASAAC -  Gobierno de Aragón property, created Sergio Palao - Creative Commons ( BY- NC- SA) License
