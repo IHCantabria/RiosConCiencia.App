@@ -219,7 +219,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/ecosistema.pdf"),
+      pdfLink: null,
       values: {
         samplePointCoords: {
           lon: 0,
@@ -235,6 +235,9 @@ export default {
         riverEcosystemSpecies: []
       }
     };
+  },
+  created() {
+    this.pdfLink = require("../../assets/pdfs/ecosistema.pdf");
   },
   computed: {
     ...mapState({

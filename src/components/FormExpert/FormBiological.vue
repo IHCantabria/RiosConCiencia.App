@@ -60,11 +60,14 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/diagnostico.pdf"),
+      pdfLink: null,
       values: {
         bioQualityIndex: 0
       }
     };
+  },
+  created() {
+    this.pdfLink = require("../../assets/pdfs/diagnostico.pdf");
   },
   computed: {
     ...mapState({

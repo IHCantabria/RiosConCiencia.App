@@ -240,7 +240,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/basico.pdf"),
+      pdfLink: null,
       values: {
         waterFlow: true,
         waterLevel: null,
@@ -258,6 +258,9 @@ export default {
         riverMarginLandUseRight: []
       }
     };
+  },
+  created() {
+    this.pdfLink = require("../../assets/pdfs/basico.pdf");
   },
   computed: {
     ...mapState({

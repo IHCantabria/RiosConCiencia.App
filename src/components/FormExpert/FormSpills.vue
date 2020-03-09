@@ -186,9 +186,12 @@ export default {
       return true; //optional section
     }
   },
+  created() {
+    this.pdfLink = require("../../assets/pdfs/vertidos.pdf");
+  },
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/vertidos.pdf"),
+      pdfLink: null,
       values: {
         spillsList: null
       },

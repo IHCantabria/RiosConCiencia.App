@@ -83,9 +83,12 @@ export default {
       return true; //optional section
     }
   },
+  created() {
+    this.pdfLink = require("../../assets/pdfs/residuos.pdf");
+  },
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/residuos.pdf"),
+      pdfLink: null,
       values: {
         wasteList: []
       },

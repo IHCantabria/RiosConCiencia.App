@@ -5,7 +5,9 @@
         <span>PROYECTO RÍOS</span>
       </h5>
       <div class="header-section__help">
-        <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a :href="pdfLinks[0]" target="_blank"
+          ><b-icon icon="information-outline" type="is-info"></b-icon
+        ></a>
       </div>
     </div>
     <div class="info-section">
@@ -30,7 +32,9 @@
           >
           </b-field>
           <div class="info-section__help">
-            <b-icon icon="information-outline" type="is-info"></b-icon>
+            <a :href="pdfLinks[1]" target="_blank"
+              ><b-icon icon="information-outline" type="is-info"></b-icon
+            ></a>
           </div>
         </div>
         <div class="info-step__body">
@@ -46,7 +50,9 @@
           >
           </b-field>
           <div class="info-section__help">
-            <b-icon icon="information-outline" type="is-info"></b-icon>
+            <a :href="pdfLinks[2]" target="_blank"
+              ><b-icon icon="information-outline" type="is-info"></b-icon
+            ></a>
           </div>
         </div>
         <div class="info-step__body">
@@ -63,7 +69,9 @@
           >
           </b-field>
           <div class="info-section__help">
-            <b-icon icon="information-outline" type="is-info"></b-icon>
+            <a :href="pdfLinks[3]" target="_blank"
+              ><b-icon icon="information-outline" type="is-info"></b-icon
+            ></a>
           </div>
         </div>
         <div class="info-step__body">
@@ -80,7 +88,9 @@
           >
           </b-field>
           <div class="info-section__help">
-            <b-icon icon="information-outline" type="is-info"></b-icon>
+            <a :href="pdfLinks[0]" target="_blank"
+              ><b-icon icon="information-outline" type="is-info"></b-icon
+            ></a>
           </div>
         </div>
         <div class="info-step__body">
@@ -95,6 +105,11 @@ import { mapState, mapActions } from "vuex";
 import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
   mixins: [pictsHelperMixin],
+  data() {
+    return {
+      pdfLinks: null
+    };
+  },
   computed: {
     ...mapState({
       formInfo: state => state.formPictsSections.info
@@ -105,6 +120,12 @@ export default {
   },
   created() {
     this.imgFolder = require.context("@/assets/images/picts/info");
+    this.pdfLinks = [
+      require("../../assets/pdfs/RCC1.pdf"),
+      require("../../assets/pdfs/RCC2.pdf"),
+      require("../../assets/pdfs/RCC3.pdf"),
+      require("../../assets/pdfs/RCC4.pdf")
+    ];
   },
   mounted() {
     this.init();

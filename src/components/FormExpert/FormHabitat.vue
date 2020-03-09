@@ -238,7 +238,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      pdfLink: require("../../assets/pdfs/habitat.pdf"),
+      pdfLink: null,
       values: {
         stonesInPools: null,
         substrateComposition: [],
@@ -256,6 +256,9 @@ export default {
         "rápido / poco profundo"
       ]
     };
+  },
+  created() {
+    this.pdfLink = require("../../assets/pdfs/habitat.pdf");
   },
   computed: {
     ...mapState({
