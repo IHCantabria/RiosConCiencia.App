@@ -259,6 +259,7 @@ export default {
       handler(newVal) {
         if (newVal != undefined) {
           this.values.state = newVal;
+          window.scrollTo(0, 0); // go to init page when change the state value
           if (newVal != null) this.setNewMessage(newVal);
         }
       }
