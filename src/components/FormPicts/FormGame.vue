@@ -274,15 +274,6 @@ export default {
       this.sowed = false;
       this.decontaminated = false;
     },
-    sowPlants() {
-      this.sowed = true;
-    },
-    clearRiver() {
-      this.cleaned = true;
-    },
-    decontaminateRiver() {
-      this.decontaminated = true;
-    },
     calculateStatus() {
       let state;
       if (this.isRiverFine) {
