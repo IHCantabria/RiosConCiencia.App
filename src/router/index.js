@@ -25,6 +25,7 @@ const routes = [
     name: "formexpert",
     beforeEnter: (to, from, next) => {
       !store.getters.userIsLogged ? next({ name: "login" }) : next();
+      store.getters.userCanDoExpertForm ? next() : next(false);
     },
     component: () =>
       import(/* webpackChunkName: "formexpert" */ "../views/FormView.vue")
@@ -34,6 +35,7 @@ const routes = [
     name: "formpicts",
     beforeEnter: (to, from, next) => {
       !store.getters.userIsLogged ? next({ name: "login" }) : next();
+      store.getters.userCanDoPictsForm ? next() : next(false);
     },
     component: () =>
       import(/* webpackChunkName: "formpicts" */ "../views/PictsView.vue")

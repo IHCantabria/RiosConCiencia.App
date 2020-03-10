@@ -5,7 +5,7 @@
         <b-message
           title="Estado del Río"
           class="results-display"
-          :type="values.state != 1 ? 'is-success' : 'is-warning'"
+          :type="values.gameState != 1 ? 'is-success' : 'is-warning'"
           :closable="false"
         >
           <div class="info-section">
@@ -14,7 +14,7 @@
                 <b-field class="info-section__text" :message="stateMessage">
                 </b-field>
               </div>
-              <div v-if="values.state != 1" class="info-step__body">
+              <div v-if="values.gameState != 1" class="info-step__body">
                 <img :src="$_getImgUrl(formSections.game.id, 0, 1)" />
                 <img :src="$_getImgUrl(formSections.game.id, 0, 2)" />
               </div>
@@ -26,7 +26,7 @@
           </div>
         </b-message>
       </div>
-      <div v-if="values.state == 1" class="minigame">
+      <div v-if="values.gameState == 1" class="minigame">
         <div class="img-header">
           <img
             :src="$_getImgUrl(formSections.game.id, 0, 0)"
@@ -165,7 +165,7 @@ export default {
       decontaminated: false,
       isSendingData: false,
       values: {
-        state: 0 //states: 0 = Correct, 1 = Incorrect, 2 = Corrected
+        gameState: 0 //states: 0 = Correct, 1 = Incorrect, 2 = Corrected
       }
     };
   },
@@ -208,7 +208,7 @@ export default {
       );
     },
     isFormPictsCorrect() {
-      return this.values.state == 1 ? false : true;
+      return this.values.gameState == 1 ? false : true;
     },
     isReadySend() {
       return (
@@ -258,7 +258,7 @@ export default {
       immediate: true,
       handler(newVal) {
         if (newVal != undefined) {
-          this.values.state = newVal;
+          this.values.gameState = newVal;
           window.scrollTo(0, 0); // go to init page when change the state value
           if (newVal != null) this.setNewMessage(newVal);
         }
@@ -275,15 +275,15 @@ export default {
       this.decontaminated = false;
     },
     calculateStatus() {
-      let state;
+      let gameState;
       if (this.isRiverFine) {
-        state = 0;
+        gameState = 0;
       } else if (this.isRiverSick) {
-        state = 1;
+        gameState = 1;
       } else {
-        state = 2;
+        gameState = 2;
       }
-      return state;
+      return gameState;
     },
     setNewMessage(newState) {
       if (newState == 0) {
@@ -292,8 +292,6 @@ export default {
       } else if (newState == 1) {
         this.stateMessage =
           "El río presenta un mal estado. Sin embargo queremos que el río esté bien. ¿Qué podemos hacer?";
-        // this.stateMessage =
-        //   "Marcamos las actividades que podemos realizar para que el río mejore. De esta manera, conseguiremos que el estado del río sea bueno.";
       } else {
         this.stateMessage =
           "Con las actividades que hemos seleccionado para mejorar el río, conseguimos que el río esté bien y podamos: pescar peces y comerlos, regar las huertas donde cultivamos frutas y verduras y  jugar y disfrutar en él.";

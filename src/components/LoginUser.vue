@@ -31,7 +31,7 @@
 </template>
 <script>
 import { login, getUserRiverSections } from "@/api/riosconciencia.js";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -43,6 +43,12 @@ export default {
       userPassword: "",
       isLoading: false
     };
+  },
+  computed: {
+    ...mapGetters({
+      userCanDoExpertForm: "userCanDoExpertForm",
+      userCanDoPictsForm: "userCanDoPictsForm"
+    })
   },
   methods: {
     ...mapActions({
@@ -96,19 +102,19 @@ export default {
           authenticatedUser.id
         );
         this.loadRiverSections(userRiverSections);
-        if (userRiverSections == "") {
+        if (userRiverSections == "" && this.userCanDoExpertForm) {
           this.$buefy.toast.open({
             message:
               "¡Atención! no tiene asignados tramos de río, no podra completar ni enviar ningun formulario",
             type: "is-danger",
-            duration: 4000
+            duration: 8000
           });
         }
       } catch (err) {
         this.$buefy.toast.open({
           message: "Fallo al recuperar tus tramos de río, pruebe mas tarde",
           type: "is-danger",
-          duration: 4000
+          duration: 5000
         });
       }
     }
