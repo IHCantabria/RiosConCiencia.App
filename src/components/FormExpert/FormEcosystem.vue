@@ -114,14 +114,20 @@
       :type="{ 'is-danger': transparencyHasErrors }"
     ></b-field>
 
-    <div class="field">
-      <b-checkbox
-        v-for="option in formEcoSystem.data.transparencyOptions"
-        :key="option.id"
-        v-model="values.samplePointWaterTransparency"
-        :native-value="option"
-        >{{ option.name }}
-      </b-checkbox>
+    <div class="block">
+      <div class="radio-rows">
+        <div class="radio-rows__options-container">
+          <b-field>
+            <b-radio-button
+              v-for="option in formEcoSystem.data.transparencyOptions"
+              :key="option.id"
+              v-model="values.waterTransparency"
+              :native-value="option"
+              >{{ option.name }}
+            </b-radio-button>
+          </b-field>
+        </div>
+      </div>
     </div>
     <div class="is-divider"></div>
     <b-field label="c. La vida en el río y las riberas"> </b-field>
@@ -229,7 +235,7 @@ export default {
         samplePointDepth: 0,
         samplePointWaterVelocity: 0,
         samplePointWaterTemp: 0,
-        samplePointWaterTransparency: [],
+        waterTransparency: null,
         riverEcosystem: [],
         riverEcosystemInvPlantsCoverage: [],
         riverEcosystemSpecies: []
@@ -270,7 +276,7 @@ export default {
       return this.values.samplePointWidth === 0;
     },
     transparencyHasErrors() {
-      return this.values.samplePointWaterTransparency.length === 0;
+      return this.values.waterTransparency === null;
     },
     isSectionValid() {
       return (
