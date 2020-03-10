@@ -201,7 +201,8 @@ export default {
       );
       formResults.riverMarginLandUse = this._setupRiverMarginsValues(
         this.formSections.basic.results.riverMarginLandUseLeft,
-        this.formSections.basic.results.riverMarginLandUseRight
+        this.formSections.basic.results.riverMarginLandUseRight,
+        this.formSections.basic.data.riverSideOptions
       );
 
       return formResults;
