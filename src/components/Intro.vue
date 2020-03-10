@@ -4,13 +4,13 @@
       <img src="@/assets/logos/RiosConCiencia.png" title="Ríos Con Ciencia" />
     </div>
     <div class="intro__main">
-      <div class="option">
+      <div v-if="userCanDoExpertForm" class="option">
         <h2 class="subtitle">Entrar</h2>
         <b-button size="is-large" type="is-primary" @click="expertUser()"
           >Empezar</b-button
         >
       </div>
-      <div class="option">
+      <div v-if="userCanDoPictsForm" class="option">
         <h2 class="subtitle">Entrar con Pictos</h2>
         <b-button size="is-large" type="is-primary" @click="challengeUser()"
           >Empezar</b-button
@@ -32,12 +32,19 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Intro",
   data() {
     return {
       pdfLink: null
     };
+  },
+  computed: {
+    ...mapGetters({
+      userCanDoExpertForm: "userCanDoExpertForm",
+      userCanDoPictsForm: "userCanDoPictsForm"
+    })
   },
   created() {
     this.pdfLink = require("../assets/pdfs/manual2019.pdf");

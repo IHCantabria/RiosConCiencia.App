@@ -26,6 +26,12 @@ export default new Vuex.Store({
     isPictsDataLoaded: state => {
       return Object.keys(state.formPictsSections).length !== 0;
     },
+    userCanDoExpertForm: state => {
+      return state.user.roleId != 4;
+    },
+    userCanDoPictsForm: state => {
+      return state.user.roleId != 3;
+    },
     garbageExist: state => {
       return state.formPictsSections.results &&
         state.formPictsSections.garbage.results.waterGarbage
