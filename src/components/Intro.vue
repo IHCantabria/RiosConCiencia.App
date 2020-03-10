@@ -19,7 +19,14 @@
     </div>
     <div class="intro__help">
       <div class="guide-link">
-        <a :href="pdfLink" target="_blank"><span>Manual de Inspección</span></a>
+        <a :href="pdfLink" target="_blank">
+          <b-icon
+            class="guide-link__icon"
+            icon="cloud-download"
+            type="is-info"
+          ></b-icon>
+          <span>Manual de Inspección</span></a
+        >
       </div>
     </div>
   </div>
@@ -81,6 +88,12 @@ a:active {
     margin: 1rem;
     align-items: flex-end;
     align-content: flex-end;
+  }
+}
+
+.guide-link {
+  &__icon {
+    padding-right: 1rem;
   }
 }
 

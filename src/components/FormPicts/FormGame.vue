@@ -259,6 +259,7 @@ export default {
       handler(newVal) {
         if (newVal != undefined) {
           this.values.state = newVal;
+          window.scrollTo(0, 0); // go to init page when change the state value
           if (newVal != null) this.setNewMessage(newVal);
         }
       }
@@ -272,15 +273,6 @@ export default {
       this.cleaned = false;
       this.sowed = false;
       this.decontaminated = false;
-    },
-    sowPlants() {
-      this.sowed = true;
-    },
-    clearRiver() {
-      this.cleaned = true;
-    },
-    decontaminateRiver() {
-      this.decontaminated = true;
     },
     calculateStatus() {
       let state;

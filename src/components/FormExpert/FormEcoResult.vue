@@ -190,30 +190,31 @@ export default {
           ...formResults,
           ...this.formSections[section].results,
           user: this.user,
-          //TODO: no haría falta mandar este tipo de objeto, hay que cambiar en la BD el modelo
-          ecoStatus: { cat: this.ecoStatusIndex, totalPoints: 0 }
+          ecoStatus: this.ecoStatusIndex
         };
       }
       // Add sides prop to river margins values
       formResults.riverMarginConditions = this._setupRiverMarginsValues(
         this.formSections.basic.results.riverMarginConditionsLeft,
-        this.formSections.basic.results.riverMarginConditionsRight
+        this.formSections.basic.results.riverMarginConditionsRight,
+        this.formSections.basic.data.riverSideOptions
       );
       formResults.riverMarginLandUse = this._setupRiverMarginsValues(
         this.formSections.basic.results.riverMarginLandUseLeft,
-        this.formSections.basic.results.riverMarginLandUseRight
+        this.formSections.basic.results.riverMarginLandUseRight,
+        this.formSections.basic.data.riverSideOptions
       );
 
       return formResults;
     },
-    _setupRiverMarginsValues(leftMarginValues, rightMarginValues) {
+    _setupRiverMarginsValues(leftMarginValues, rightMarginValues, riverSides) {
       const fullList = [];
       for (let item of leftMarginValues) {
-        item.side = 1;
+        item.side = riverSides[0].id;
         fullList.push(item);
       }
       for (let item of rightMarginValues) {
-        item.side = 2;
+        item.side = riverSides[1].id;
         fullList.push(item);
       }
       return fullList;
