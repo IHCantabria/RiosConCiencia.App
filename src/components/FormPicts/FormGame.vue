@@ -5,7 +5,7 @@
         <b-message
           title="Estado del Río"
           class="results-display"
-          :type="values.gameState != 1 ? 'is-success' : 'is-warning'"
+          :type="isFormGood ? 'is-success' : 'is-warning'"
           :closable="false"
         >
           <div class="info-section">
@@ -14,7 +14,7 @@
                 <b-field class="info-section__text" :message="stateMessage">
                 </b-field>
               </div>
-              <div v-if="values.gameState != 1" class="info-step__body">
+              <div v-if="isFormGood" class="info-step__body">
                 <img :src="$_getImgUrl(formSections.game.id, 0, 1)" />
                 <img :src="$_getImgUrl(formSections.game.id, 0, 2)" />
               </div>
@@ -26,7 +26,7 @@
           </div>
         </b-message>
       </div>
-      <div v-if="values.gameState == 1" class="minigame">
+      <div v-if="!isFormGood" class="minigame">
         <div class="img-header">
           <img
             :src="$_getImgUrl(formSections.game.id, 0, 0)"
@@ -165,16 +165,18 @@ export default {
       decontaminated: false,
       isSendingData: false,
       values: {
-        gameState: 0 //states: 0 = Correct, 1 = Incorrect, 2 = Corrected
+        gameState: null //states: 0 = Correct, 1 = Incorrect, 2 = Corrected
       }
     };
   },
   computed: {
     ...mapState({
       user: state => state.user,
-      formSections: state => state.formPictsSections
+      formSections: state => state.formPictsSections,
+      game: state => state.formPictsSections.game
     }),
     ...mapGetters({
+      activeSectionName: "activeSectionName",
       goodPlants: "goodPlants",
       garbageExist: "garbageExist",
       badPlants: "badPlants",
@@ -185,6 +187,9 @@ export default {
     }),
     isSectionValid() {
       return true; //optional section
+    },
+    isFormGood() {
+      return this.values.gameState.value != 2 ? true : false;
     },
     gameStatus() {
       if (!this.isFormPictsValid) return null;
@@ -208,7 +213,10 @@ export default {
       );
     },
     isFormPictsCorrect() {
-      return this.values.gameState == 1 ? false : true;
+      return this.values.gameState ==
+        this.game.data.gameStateOptions.find(state => state.value == 2)
+        ? false
+        : true;
     },
     isReadySend() {
       return (
@@ -256,11 +264,17 @@ export default {
   watch: {
     gameStatus: {
       immediate: true,
-      handler(newVal) {
+      handler(newVal, oldVal) {
         if (newVal != undefined) {
           this.values.gameState = newVal;
-          window.scrollTo(0, 0); // go to init page when change the state value
-          if (newVal != null) this.setNewMessage(newVal);
+          if (
+            newVal != null &&
+            (oldVal != null || oldVal != undefined) &&
+            newVal.value != oldVal.value
+          ) {
+            this.setNewMessage(newVal.value);
+            if (this.activeSectionName == "game") window.scrollTo(0, 0); // go to init page when change the state value in the game view
+          }
         }
       }
     }
@@ -277,19 +291,25 @@ export default {
     calculateStatus() {
       let gameState;
       if (this.isRiverFine) {
-        gameState = 0;
+        gameState = this.game.data.gameStateOptions.find(
+          state => state.value == 1
+        );
       } else if (this.isRiverSick) {
-        gameState = 1;
+        gameState = this.game.data.gameStateOptions.find(
+          state => state.value == 2
+        );
       } else {
-        gameState = 2;
+        gameState = this.game.data.gameStateOptions.find(
+          state => state.value == 3
+        );
       }
       return gameState;
     },
     setNewMessage(newState) {
-      if (newState == 0) {
+      if (newState == 1) {
         this.stateMessage =
           "El río presenta un buen estado por lo que podemos: pescar peces y comerlos, regar las huertas donde cultivamos frutas y verduras y  jugar y disfrutar en él.";
-      } else if (newState == 1) {
+      } else if (newState == 2) {
         this.stateMessage =
           "El río presenta un mal estado. Sin embargo queremos que el río esté bien. ¿Qué podemos hacer?";
       } else {
