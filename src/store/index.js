@@ -34,6 +34,7 @@ export default new Vuex.Store({
     },
     garbageExist: state => {
       return state.formPictsSections.garbage &&
+        state.formPictsSections.garbage.results &&
         state.formPictsSections.garbage.results.waterGarbage
         ? state.formPictsSections.garbage.results.waterGarbage.length > 0
           ? true
@@ -42,18 +43,21 @@ export default new Vuex.Store({
     },
     isColorGood: state => {
       return state.formPictsSections.color &&
+        state.formPictsSections.color.results &&
         state.formPictsSections.color.results.waterColor
         ? state.formPictsSections.color.results.waterColor.isGood
         : true;
     },
     isSmellGood: state => {
       return state.formPictsSections.smell &&
+        state.formPictsSections.smell.results &&
         state.formPictsSections.smell.results.waterSmell
         ? state.formPictsSections.smell.results.waterSmell.isGood
         : true;
     },
     goodAnimals: state => {
       return state.formPictsSections.animals &&
+        state.formPictsSections.animals.results &&
         state.formPictsSections.animals.results.waterAnimals
         ? state.formPictsSections.animals.results.waterAnimals.filter(
             animal => animal.isGood
@@ -62,6 +66,7 @@ export default new Vuex.Store({
     },
     goodPlants: state => {
       return state.formPictsSections.plants &&
+        state.formPictsSections.plants.results &&
         state.formPictsSections.plants.results.waterPlants
         ? state.formPictsSections.plants.results.waterPlants.filter(
             plant => plant.isGood
@@ -70,6 +75,7 @@ export default new Vuex.Store({
     },
     badPlants: state => {
       return state.formPictsSections.plants &&
+        state.formPictsSections.plants.results &&
         state.formPictsSections.plants.results.waterPlants
         ? state.formPictsSections.plants.results.waterPlants.filter(
             plant => !plant.isGood
