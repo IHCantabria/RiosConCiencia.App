@@ -33,7 +33,7 @@ export default new Vuex.Store({
       return state.user.roleId != 3;
     },
     garbageExist: state => {
-      return state.formPictsSections.results &&
+      return state.formPictsSections.garbage &&
         state.formPictsSections.garbage.results.waterGarbage
         ? state.formPictsSections.garbage.results.waterGarbage.length > 0
           ? true
@@ -41,19 +41,19 @@ export default new Vuex.Store({
         : false;
     },
     isColorGood: state => {
-      return state.formPictsSections.results &&
+      return state.formPictsSections.color &&
         state.formPictsSections.color.results.waterColor
         ? state.formPictsSections.color.results.waterColor.isGood
         : true;
     },
     isSmellGood: state => {
-      return state.formPictsSections.results &&
+      return state.formPictsSections.smell &&
         state.formPictsSections.smell.results.waterSmell
         ? state.formPictsSections.smell.results.waterSmell.isGood
         : true;
     },
     goodAnimals: state => {
-      return state.formPictsSections.results &&
+      return state.formPictsSections.animals &&
         state.formPictsSections.animals.results.waterAnimals
         ? state.formPictsSections.animals.results.waterAnimals.filter(
             animal => animal.isGood
@@ -61,7 +61,7 @@ export default new Vuex.Store({
         : [];
     },
     goodPlants: state => {
-      return state.formPictsSections.results &&
+      return state.formPictsSections.plants &&
         state.formPictsSections.plants.results.waterPlants
         ? state.formPictsSections.plants.results.waterPlants.filter(
             plant => plant.isGood
@@ -69,7 +69,7 @@ export default new Vuex.Store({
         : [];
     },
     badPlants: state => {
-      return state.formPictsSections.results &&
+      return state.formPictsSections.plants &&
         state.formPictsSections.plants.results.waterPlants
         ? state.formPictsSections.plants.results.waterPlants.filter(
             plant => !plant.isGood
