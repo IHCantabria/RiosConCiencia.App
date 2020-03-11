@@ -148,7 +148,7 @@
   </div>
 </template>
 <script>
-// import { saveSample } from "@/api/riosconciencia.js";
+import { saveSamplePict } from "@/api/riosconciencia.js";
 import { mapState, mapGetters, mapActions } from "vuex";
 import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
@@ -321,8 +321,7 @@ export default {
       const sampleData = this._prepareSampleObj();
       try {
         this.isSendingData = true;
-        console.log(sampleData);
-        // await saveSample(this.user.token, sampleData);
+        await saveSamplePict(this.user.token, sampleData);
         const toast = this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
           type: "is-success",
@@ -343,8 +342,15 @@ export default {
       }
     },
     _prepareSampleObj() {
-      //TODO hacer el objeto para mandar las respuestas a la base de datos
-      return {};
+      var formResults = {};
+      for (let section of Object.keys(this.formSections)) {
+        formResults = {
+          ...formResults,
+          ...this.formSections[section].results,
+          user: this.user
+        };
+      }
+      return formResults;
     }
   }
 };
