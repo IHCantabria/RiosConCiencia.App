@@ -134,12 +134,11 @@
         </b-message>
       </div>
     </div>
-    <div class="big-button">
+    <div class="big-button" v-show="isReadySend">
       <b-button
         type="is-danger"
         size="is-medium"
         expanded
-        :disabled="!isReadySend"
         @click="sendSampleData()"
         >Enviar Resultados</b-button
       >

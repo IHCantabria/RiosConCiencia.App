@@ -4,7 +4,7 @@
       <h5 class="title is-5 header-section__text">
         <span>GÍRATE Y MIRA</span>
       </h5>
-      <div class="header-section__help">
+      <div class="header-section__help" @click="$_toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
@@ -13,7 +13,7 @@
         Giraremos sobre nosotros mismos 180º para observar si encontramos en los alrededores del río las plantas que os mostramos a continuación. "
     >
     </b-field>
-    <div class="block guide-section">
+    <div v-show="isHelpActive" class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formPlants.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info"
@@ -23,10 +23,6 @@
     </div>
     <div class="img-header">
       <img :src="$_getImgUrl(formPlants.id, 0, 0)" class="img-header__pic" />
-      <b-field
-        label="9. ¿Qué plantas has visto a tu alrededor?"
-        class="img-header__text"
-      ></b-field>
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -127,7 +123,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 110px;
+    max-width: 200px;
   }
 }
 </style>

@@ -4,7 +4,7 @@
       <h5 class="title is-5 header-section__text">
         <span>MEDIMOS LA PROFUNDIDAD DEL RÍO</span>
       </h5>
-      <div class="header-section__help">
+      <div class="header-section__help" @click="$_toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
@@ -12,7 +12,7 @@
       message="Para medir la profundidad del río, utilizaremos un palo de colores. Cada color representa un tramo de profundidad. Meteremos el palo en el río y observaremos hasta qué color se moja el palo."
     >
     </b-field>
-    <div class="block guide-section">
+    <div v-show="isHelpActive" class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info"
@@ -34,10 +34,6 @@
     </div>
     <div class="img-header">
       <img :src="$_getImgUrl(formDepth.id, 0, 0)" class="img-header__pic" />
-      <b-field
-        label="3. ¿Hasta que color esta mojado el palo?"
-        class="img-header__text"
-      ></b-field>
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -134,7 +130,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 220px;
   }
 }
 </style>

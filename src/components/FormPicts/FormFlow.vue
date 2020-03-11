@@ -4,9 +4,7 @@
       <h5 class="title is-5 header-section__text">
         <span>MIRAMOS AL RÍO</span>
       </h5>
-      <div class="header-section__help">
-        <b-icon icon="information-outline" type="is-info"></b-icon>
-      </div>
+      <div class="header-section__help"></div>
     </div>
     <b-field
       message="Observamos si el agua del río se mueve o si por el contrario, está estancada."
@@ -14,7 +12,6 @@
     </b-field>
     <div class="img-header">
       <img :src="$_getImgUrl(1, 0, 0)" class="img-header__pic" />
-      <b-field label="1. ¿El río se mueve?" class="img-header__text"></b-field>
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -23,7 +20,7 @@
     </div>
     <b-field class="img-section">
       <div class="img-container">
-        <span class="img-option-text">NO FLUYE</span>
+        <span class="img-option-text">NO SE MUEVE</span>
         <b-radio-button
           class="img-option"
           v-model="values.waterFlow"
@@ -48,7 +45,7 @@
         </b-radio-button>
       </div>
       <div class="img-container">
-        <span class="img-option-text">FLUYE</span>
+        <span class="img-option-text">SI SE MUEVE</span>
         <b-radio-button
           class="
           img-option"
@@ -134,7 +131,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 200px;
   }
 }
 </style>
