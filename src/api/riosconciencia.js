@@ -61,10 +61,22 @@ const saveSample = async (token, sample) => {
   return res;
 };
 
+const saveSamplePict = async (token, sample) => {
+  const url = `${RIOSCONCIENCIA_API.public}/SaveSamplePict`;
+
+  _basicHeaders.Authorization = `Bearer ${token}`;
+
+  const res = await axios.post(url, sample, {
+    headers: _basicHeaders
+  });
+  return res;
+};
+
 export {
   getExpertMasterData,
   getPictsMasterData,
   login,
   getUserRiverSections,
-  saveSample
+  saveSample,
+  saveSamplePict
 };
