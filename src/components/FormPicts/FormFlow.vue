@@ -4,9 +4,12 @@
       <h5 class="title is-5 header-section__text">
         <span>MIRAMOS AL RÍO</span>
       </h5>
-      <div class="header-section__help"></div>
+      <div class="header-section__help" @click="$_toggleHelp()">
+        <b-icon icon="information-outline" type="is-info"></b-icon>
+      </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Observamos si el agua del río se mueve o si por el contrario, está estancada."
     >
     </b-field>

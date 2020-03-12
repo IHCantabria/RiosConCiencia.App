@@ -9,10 +9,11 @@
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Para conocer el olor del río, utilizaremos una botella. Cogeremos agua del río y oleremos el contenido de la botella para conocer el olor que tiene el agua."
     >
     </b-field>
-    <div v-show="isHelpActive" class="block guide-section">
+    <div class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formSmell.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info"

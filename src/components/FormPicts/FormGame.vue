@@ -32,10 +32,6 @@
             :src="$_getImgUrl(formSections.game.id, 0, 0)"
             class="img-header__pic"
           />
-          <b-field
-            label="11. ¿Que podemos hacer para que el río este bien?"
-            class="img-header__text"
-          ></b-field>
           <b-icon
             class="img-header__icon"
             icon="checkbox-marked-circle-outline"
@@ -371,7 +367,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 200px;
   }
 }
 </style>

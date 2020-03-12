@@ -9,10 +9,11 @@
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Para medir la profundidad del río, utilizaremos un palo de colores. Cada color representa un tramo de profundidad. Meteremos el palo en el río y observaremos hasta qué color se moja el palo."
     >
     </b-field>
-    <div v-show="isHelpActive" class="block guide-section">
+    <div class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formDepth.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info"

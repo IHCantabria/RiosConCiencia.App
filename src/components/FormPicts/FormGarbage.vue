@@ -9,10 +9,11 @@
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Cogemos una bolsa de basura, recogeremos la basura que encontremos cerca del río y la meteremos en la bolsa para posteriormente mirar y anotar la basura que nos hemos encontrado."
     >
     </b-field>
-    <div v-show="isHelpActive" class="block guide-section">
+    <div class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formGarbage.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info">COGEMOS UNA BOLSA</b-tag>

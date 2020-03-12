@@ -9,10 +9,11 @@
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Giraremos sobre nosotros mismos 180º para observar qué elementos encontramos en los alrededores del río."
     >
     </b-field>
-    <div v-show="isHelpActive" class="block guide-section">
+    <div class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formEnv.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info"

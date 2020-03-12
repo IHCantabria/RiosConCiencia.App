@@ -9,10 +9,11 @@
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Para conocer el color del río, utilizaremos una botella. Cogeremos agua del río y miraremos a través de la botella qué color tiene el agua."
     >
     </b-field>
-    <div v-show="isHelpActive" class="block guide-section">
+    <div class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formColor.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info"

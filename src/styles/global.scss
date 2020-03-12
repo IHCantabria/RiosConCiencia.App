@@ -69,7 +69,14 @@ select {
   &__text{
   }
   &__help{
+    display:flex;
+    flex-flow: row nowrap;
     margin: 0;
     margin-left: 0.5rem;
+  }
+  &__help-item{
+    margin: 0;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 }

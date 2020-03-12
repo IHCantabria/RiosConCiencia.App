@@ -9,10 +9,11 @@
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Para conocer la temperatura del río, utilizaremos un termómetro. Introduciremos el termómetro en el agua del río y esperaremos un minuto para conocer el resultado. Finalmente, miraremos qué color alcanza."
     >
     </b-field>
-    <div v-show="isHelpActive" class="block guide-section">
+    <div class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formTemp.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info"

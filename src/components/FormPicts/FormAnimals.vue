@@ -9,12 +9,13 @@
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="
         Para conocer los invertebrados que existen en el río, usaremos una red. Frotaremos las piedras y pondremos la red por debajo. A continuación, volcaremos la red en una bandeja blanca, y pondremos los invertebrados en un bote lupa para poder observarlos e identificarlos. 
 "
     >
     </b-field>
-    <div v-if="isHelpActive" class="block guide-section">
+    <div class="block guide-section">
       <div class="guide-step">
         <img :src="$_getImgUrl(formAnimals.id, 0, 1)" />
         <b-tag class="guide-step__text" type="is-info">COGEMOS UNA RED</b-tag>
