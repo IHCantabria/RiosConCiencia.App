@@ -4,11 +4,12 @@
       <h5 class="title is-5 header-section__text">
         <span>RECOGEMOS BASURA</span>
       </h5>
-      <div class="header-section__help">
+      <div class="header-section__help" @click="$_toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Cogemos una bolsa de basura, recogeremos la basura que encontremos cerca del río y la meteremos en la bolsa para posteriormente mirar y anotar la basura que nos hemos encontrado."
     >
     </b-field>
@@ -32,10 +33,6 @@
     </div>
     <div class="img-header">
       <img :src="$_getImgUrl(formGarbage.id, 0, 0)" class="img-header__pic" />
-      <b-field
-        label="8. ¿Qué basura hemos encontrado?"
-        class="img-header__text"
-      ></b-field>
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -126,16 +123,16 @@ export default {
   align-items: center;
   img {
     height: 100%;
-    max-width: 120px;
+    max-width: 140px;
     width: 100%;
   }
 }
 .img-container {
-  max-width: 120px;
+  max-width: 140px;
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 160px;
   }
 }
 </style>

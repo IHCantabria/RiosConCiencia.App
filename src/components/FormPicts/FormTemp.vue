@@ -4,11 +4,12 @@
       <h5 class="title is-5 header-section__text">
         <span>MEDIMOS LA TEMPERATURA DEL RÍO </span>
       </h5>
-      <div class="header-section__help">
+      <div class="header-section__help" @click="$_toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Para conocer la temperatura del río, utilizaremos un termómetro. Introduciremos el termómetro en el agua del río y esperaremos un minuto para conocer el resultado. Finalmente, miraremos qué color alcanza."
     >
     </b-field>
@@ -34,10 +35,6 @@
     </div>
     <div class="img-header">
       <img :src="$_getImgUrl(formTemp.id, 0, 0)" class="img-header__pic" />
-      <b-field
-        label="4. ¿Hasta que color llega el termómetro?"
-        class="img-header__text"
-      ></b-field>
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -134,7 +131,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 200px;
   }
 }
 </style>

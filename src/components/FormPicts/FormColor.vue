@@ -4,11 +4,12 @@
       <h5 class="title is-5 header-section__text">
         <span>MIRAMOS EL COLOR DEL RÍO</span>
       </h5>
-      <div class="header-section__help">
+      <div class="header-section__help" @click="$_toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Para conocer el color del río, utilizaremos una botella. Cogeremos agua del río y miraremos a través de la botella qué color tiene el agua."
     >
     </b-field>
@@ -34,10 +35,6 @@
     </div>
     <div class="img-header">
       <img :src="$_getImgUrl(formColor.id, 0, 0)" class="img-header__pic" />
-      <b-field
-        label="6. ¿De qué color es el agua?"
-        class="img-header__text"
-      ></b-field>
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -134,7 +131,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 200px;
   }
 }
 </style>

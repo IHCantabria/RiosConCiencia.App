@@ -4,11 +4,12 @@
       <h5 class="title is-5 header-section__text">
         <span>MEDIMOS LA DISTANCIA DEL RÍO</span>
       </h5>
-      <div class="header-section__help">
+      <div class="header-section__help" @click="$_toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="Para medir la distancia del río, utilizaremos una cuerda de colores. Cada color representa un tramo de distancia. Es necesario la participación de 2 personas. Nos situaremos cada una a un lado de la cuerda. Finalmente, miraremos qué distancia completa el color."
     >
     </b-field>
@@ -34,10 +35,6 @@
     </div>
     <div class="img-header">
       <img :src="$_getImgUrl(formWidth.id, 0, 0)" class="img-header__pic" />
-      <b-field
-        label="2. ¿En qué color nos hemos quedado?"
-        class="img-header__text"
-      ></b-field>
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -134,7 +131,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 200px;
   }
 }
 </style>

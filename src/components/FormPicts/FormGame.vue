@@ -32,10 +32,6 @@
             :src="$_getImgUrl(formSections.game.id, 0, 0)"
             class="img-header__pic"
           />
-          <b-field
-            label="11. ¿Que podemos hacer para que el río este bien?"
-            class="img-header__text"
-          ></b-field>
           <b-icon
             class="img-header__icon"
             icon="checkbox-marked-circle-outline"
@@ -134,12 +130,11 @@
         </b-message>
       </div>
     </div>
-    <div class="big-button">
+    <div class="big-button" v-show="isReadySend">
       <b-button
         type="is-danger"
         size="is-medium"
         expanded
-        :disabled="!isReadySend"
         @click="sendSampleData()"
         >Enviar Resultados</b-button
       >
@@ -229,7 +224,9 @@ export default {
       return this.garbageExist;
     },
     isSowAvailable() {
-      return this.goodPlants.length == 0 ? true : false;
+      return this.goodPlants.length == 0 || this.badPlants.length > 0
+        ? true
+        : false;
     },
     isDecontaminateAvailable() {
       return !this.isSmellGood ||
@@ -267,11 +264,7 @@ export default {
       handler(newVal, oldVal) {
         if (newVal != undefined) {
           this.values.gameState = newVal;
-          if (
-            newVal != null &&
-            (oldVal != null || oldVal != undefined) &&
-            newVal.value != oldVal.value
-          ) {
+          if (newVal != null && newVal != oldVal) {
             this.setNewMessage(newVal.value);
             if (this.activeSectionName == "game") window.scrollTo(0, 0); // go to init page when change the state value in the game view
           }
@@ -372,7 +365,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 120px;
+    max-width: 200px;
   }
 }
 </style>

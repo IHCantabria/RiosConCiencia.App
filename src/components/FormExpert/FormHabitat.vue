@@ -4,9 +4,14 @@
       <h5 class="title is-5 header-section__text">
         <span>4. Índice del Hábitat Fluvial (100m)</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
+      <div class="header-section__help">
+        <a :href="pdfLink" class="header-section__help-item" target="_blank"
+          ><b-icon icon="information-outline" type="is-primary"></b-icon
+        ></a>
+        <a :href="pdfLink2" class="header-section__help-item" target="_blank"
+          ><b-icon icon="book-information-variant" type="is-primary"></b-icon
+        ></a>
+      </div>
     </div>
     <b-field
       label="a. Grado de inclusión de las piedras, cantos y gravas en rápidos y pozas"
@@ -239,6 +244,7 @@ export default {
   data() {
     return {
       pdfLink: null,
+      pdfLink2: null,
       values: {
         stonesInPools: null,
         substrateComposition: [],
@@ -259,6 +265,7 @@ export default {
   },
   created() {
     this.pdfLink = require("../../assets/pdfs/habitat.pdf");
+    this.pdfLink2 = require("../../assets/pdfs/fichaIHF2019.pdf");
   },
   computed: {
     ...mapState({

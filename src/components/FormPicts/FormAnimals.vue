@@ -4,11 +4,12 @@
       <h5 class="title is-5 header-section__text">
         <span>BUSCO ANIMALES EN EL RÍO</span>
       </h5>
-      <div class="header-section__help">
+      <div class="header-section__help" @click="$_toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
     <b-field
+      v-show="isHelpActive"
       message="
         Para conocer los invertebrados que existen en el río, usaremos una red. Frotaremos las piedras y pondremos la red por debajo. A continuación, volcaremos la red en una bandeja blanca, y pondremos los invertebrados en un bote lupa para poder observarlos e identificarlos. 
 "
@@ -40,10 +41,6 @@
     </div>
     <div class="img-header">
       <img :src="$_getImgUrl(formAnimals.id, 0, 0)" class="img-header__pic" />
-      <b-field
-        label="10. ¿Qué animales has visto con la Lupa?"
-        class="img-header__text"
-      ></b-field>
       <b-icon
         class="icon "
         icon="checkbox-marked-circle-outline"
@@ -152,7 +149,7 @@ export default {
 }
 .img-header {
   &__pic {
-    max-width: 75px;
+    max-width: 140px;
   }
 }
 .img-container {
