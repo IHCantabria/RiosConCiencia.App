@@ -224,7 +224,9 @@ export default {
       return this.garbageExist;
     },
     isSowAvailable() {
-      return this.goodPlants.length == 0 ? true : false;
+      return this.goodPlants.length == 0 || this.badPlants.length > 0
+        ? true
+        : false;
     },
     isDecontaminateAvailable() {
       return !this.isSmellGood ||
@@ -262,11 +264,7 @@ export default {
       handler(newVal, oldVal) {
         if (newVal != undefined) {
           this.values.gameState = newVal;
-          if (
-            newVal != null &&
-            (oldVal != null || oldVal != undefined) &&
-            newVal.value != oldVal.value
-          ) {
+          if (newVal != null && newVal != oldVal) {
             this.setNewMessage(newVal.value);
             if (this.activeSectionName == "game") window.scrollTo(0, 0); // go to init page when change the state value in the game view
           }
