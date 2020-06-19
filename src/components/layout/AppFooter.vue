@@ -6,7 +6,7 @@
         title="Gobierno de España y Fundación Española para la Ciencia y la Tecnología"
       />
       <img src="@/assets/logos/RedCambera.png" title="Red Cambera" />
-      <img src="@/assets/logos/ProyectoRios.jpg" title="Proyecto Ríos" />
+      <img src="@/assets/logos/ProyectoRios.png" title="Proyecto Ríos" />
     </div>
     <div class="footer-container__form-nav" v-show="isFormPage">
       <form-fields-nav></form-fields-nav>

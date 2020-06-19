@@ -5,7 +5,7 @@
     </div>
     <div class="about__msg">
       <p class="about__msg-section">
-        RiosConCienciApp es una herramienta digital que facilita la toma de
+        RíosConCienciApp es una herramienta digital que facilita la toma de
         datos en el río a las personas voluntarias en el marco del Proyecto
         Ríos. Además, está diseñada para que, por medio de pictogramas, personas
         con desafíos en su desarrollo puedan disfrutar también del río y su

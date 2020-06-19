@@ -1,6 +1,6 @@
-# RiosConCienciApp
+# RíosConCienciApp
 
-> El objetivo principal del proyecto RiosConCiencia es el diseño, arquitectura, validación e implementación de un sistema inclusivo para la ciencia ciudadana fluvial en el marco del Proyecto Ríos.
+> El objetivo principal del proyecto RíosConCiencia es el diseño, arquitectura, validación e implementación de un sistema inclusivo para la ciencia ciudadana fluvial en el marco del Proyecto Ríos.
 
 ## Project setup
 
