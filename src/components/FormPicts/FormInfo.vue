@@ -46,7 +46,7 @@
                 type="is-info"
               ></b-icon>
             </div>
-            <a :href="pdfLinks[2]" target="_blank"
+            <a :href="pdfLinks[1]" target="_blank"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
