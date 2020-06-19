@@ -26,16 +26,12 @@ export default {
       }
     },
     async initForm() {
-      try {
-        const masterData = await getPictsMasterData(this.user.token);
-        // prepare form data
-        for (const name of Object.keys(masterData)) {
-          masterData[name].isValid = false;
-        }
-        this.loadPictsFormData(masterData);
-      } catch (err) {
-        console.error(err);
+      const masterData = await getPictsMasterData(this.user.token);
+      // prepare form data
+      for (const name of Object.keys(masterData)) {
+        masterData[name].isValid = false;
       }
+      this.loadPictsFormData(masterData);
     }
   },
   render: () => null
