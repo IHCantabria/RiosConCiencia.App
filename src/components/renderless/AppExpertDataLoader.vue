@@ -26,16 +26,12 @@ export default {
       }
     },
     async initForm() {
-      try {
-        const masterData = await getExpertMasterData(this.user.token);
-        // prepare form data
-        for (const name of Object.keys(masterData)) {
-          masterData[name].isValid = false;
-        }
-        this.loadExpertFormData(masterData);
-      } catch (err) {
-        console.error(err);
+      const masterData = await getExpertMasterData(this.user.token);
+      // prepare form data
+      for (const name of Object.keys(masterData)) {
+        masterData[name].isValid = false;
       }
+      this.loadExpertFormData(masterData);
     }
   },
   render: () => null

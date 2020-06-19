@@ -46,7 +46,11 @@ export default {
     };
   },
   beforeRouteLeave(to, from, next) {
-    if (
+    //if the load master data fail let the router go back to main page
+    if (!this.formSections.width) {
+      next();
+      //if the user try to leave the form shwo a warm
+    } else if (
       (to.path == "/" || to.path == "/about") &&
       Object.keys(this.formSections.width.results).length !== 0
     ) {
@@ -91,6 +95,8 @@ export default {
       this.setActiveSection(0);
     },
     onDataLoadError() {
+      //dataReady switch to hide spinner
+      this.dataReady = true;
       let error = this.isComputedOnline
         ? "No ha sido posible cargar datos maestros del formulario, el servidor esta caido"
         : " No es posible cargar datos maestros del formulario si no dispones de conexión a internet";
@@ -99,6 +105,8 @@ export default {
         type: "is-danger",
         duration: 4000
       });
+      this.dataReady = false;
+      this.$router.push("/");
     }
   }
 };
