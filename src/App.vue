@@ -72,7 +72,7 @@ export default {
           this.isInstallerReady = true;
           this.$buefy.dialog.confirm({
             title: "Instalar App",
-            message: "¿ Desea instalar RiosConCiencia App en su dispositivo ?",
+            message: "¿ Desea instalar RíosConCienciApp en su dispositivo ?",
             cancelText: "No",
             confirmText: "Si",
             type: "is-primary",
