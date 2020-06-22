@@ -7,4 +7,4 @@ LocalForage.config({
 });
 
 export default LocalForage;
-export const formStore = LocalForage.createInstance({ name: "form" });
+export const formStore = LocalForage.createInstance({ name: "store" });
