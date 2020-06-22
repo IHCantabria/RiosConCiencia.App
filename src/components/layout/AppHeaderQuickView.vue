@@ -11,7 +11,6 @@
       </div>
     </div>
     <div class="quickview__item">
-      <div class="quickview__item-value">{{ computedTime }}</div>
       <div class="quickview__item-description">
         <img src="@/assets/icons/calendar.png" />
         <span class="text-light">{{ computedDate }}</span>
@@ -44,9 +43,6 @@ export default {
     },
     computedDate() {
       return this.$_getLocalDate();
-    },
-    computedTime() {
-      return this.$_getLocalTime();
     },
     computedTemp() {
       return this.weather.temp != null
