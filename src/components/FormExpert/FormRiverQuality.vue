@@ -4,9 +4,14 @@
       <h5 class="title is-5 header-section__text">
         <span>7. Calidad del Bosque de Ribera (QRISI)</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
+      <div class="header-section__help">
+        <a :href="pdfLink" class="header-section__help-item" target="_blank"
+          ><b-icon icon="information-outline" type="is-primary"></b-icon
+        ></a>
+        <a :href="pdfLink2" class="header-section__help-item" target="_blank"
+          ><b-icon icon="book-information-variant" type="is-primary"></b-icon
+        ></a>
+      </div>
     </div>
     <b-field label="a. Estructura de las riberas, grado de naturalidad">
     </b-field>
@@ -108,6 +113,7 @@ export default {
   data() {
     return {
       pdfLink: null,
+      pdfLink2: null,
       values: {
         riverbankNaturalness: 0,
         riverbankConections: null,
@@ -117,6 +123,7 @@ export default {
   },
   created() {
     this.pdfLink = require("../../assets/pdfs/ribera.pdf");
+    this.pdfLink2 = require("../../assets/pdfs/fichaQRISI2019.pdf");
   },
   computed: {
     ...mapState({
