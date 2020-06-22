@@ -36,8 +36,21 @@ register(`${process.env.BASE_URL}service-worker.js`, {
 });
 
 var refreshing;
-navigator.serviceWorker.addEventListener("controllerchange", () => {
+navigator.serviceWorker.addEventListener("controllerchange", async () => {
   if (refreshing) return;
+  await clearCache(); //clear cache
+  EventBus.$emit("clear_store"); //clear store
   location.reload();
   refreshing = true;
 });
+
+//Clear all the cache after update
+const clearCache = async () => {
+  await caches.keys().then(function(keyList) {
+    return Promise.all(
+      keyList.map(function(key) {
+        return caches.delete(key);
+      })
+    );
+  });
+};

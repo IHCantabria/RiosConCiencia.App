@@ -1,4 +1,4 @@
-import LocalForage from "localforage";
+import formStore from "../local";
 import VuexPersistence from "vuex-persist";
 
 export default function createPersistedState(options = {}) {
@@ -6,7 +6,7 @@ export default function createPersistedState(options = {}) {
     const VuexForage = new VuexPersistence({
       ...options,
 
-      storage: LocalForage,
+      storage: formStore,
       asyncStorage: true,
 
       // Used to trigger `storageReady` event as soon as the state is loaded

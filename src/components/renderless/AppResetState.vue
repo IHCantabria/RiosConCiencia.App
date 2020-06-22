@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from "vuex";
-
+import EventBus from "../../utils/event-bus";
 export default {
   mounted() {
     this.$nextTick(() => {
@@ -9,6 +9,8 @@ export default {
   },
   methods: {
     ...mapActions({
+      clearIndexDB: "clearIndexDB",
+      setDefaultStateStore: "setDefaultStateStore",
       setActiveUser: "setActiveUser",
       clearExpertFormResponses: "clearExpertFormResponses",
       clearPictsFormResponses: "clearPictsFormResponses",
@@ -24,6 +26,15 @@ export default {
       this.$root.$on("clearPicts", () => {
         this.finishedPictsForm();
       });
+      EventBus.$on("clear_store", () => {
+        //Clear vuex-persistence and indexdb
+        this.resetState();
+      });
+    },
+    resetState() {
+      this.$router.push("login");
+      this.clearIndexDB();
+      this.setDefaultStateStore();
     },
     logout() {
       this.setActiveUser({});

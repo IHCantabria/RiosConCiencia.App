@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import createPersistedState from "./plugins/persistent";
 import * as types from "./types";
 import { checkNestedProperty } from "./../utils/utils";
-
+import formStore from "@/store/local";
 Vue.use(Vuex);
 
 const plugins = [createPersistedState({})];
@@ -170,9 +170,29 @@ export default new Vuex.Store({
         Vue.set(state.formPictsSections[section], "results", {});
         Vue.set(state.formPictsSections[section], "isValid", false);
       });
+    },
+    [types.SET_EXPERT_SECTION_STATE_CLEAR](state, formExpertSections) {
+      state.formExpertSections = formExpertSections;
+    },
+    [types.SET_PICTS_SECTION_STATE_CLEAR](state, formPictsSections) {
+      state.formPictsSections = formPictsSections;
     }
   },
   actions: {
+    clearIndexDB() {
+      formStore.clear();
+    },
+    setDefaultStateStore(context) {
+      context.commit(types.SET_ACTIVE_USER, {});
+      context.commit(types.SET_RIVER_SECTIONS_USER, []);
+      context.commit(types.SET_ACTIVE_SECTION, 0);
+      context.commit(types.SET_ACTIVE_FORM, 0);
+      context.commit(types.SET_EXPERT_SECTION_STATE_CLEAR, {});
+      context.commit(types.SET_PICTS_SECTION_STATE_CLEAR, {});
+      context.commit(types.SET_GOOD_ANIMALS_ABSENCE, false);
+      context.commit(types.SET_GOOD_PLANTS_ABSENCE, false);
+      context.commit(types.SET_GARBAGE_ABSENCE, false);
+    },
     setActiveUser(context, user) {
       context.commit(types.SET_ACTIVE_USER, user);
     },
