@@ -169,14 +169,14 @@ export default {
     ...mapState({
       user: state => state.user,
       formSections: state => state.formPictsSections,
-      game: state => state.formPictsSections.game
+      game: state => state.formPictsSections.game,
+      goodPlantsAbsence: state => state.goodPlantsAbsence,
+      garbageAbsence: state => state.garbageAbsence,
+      goodAnimalsAbsence: state => state.goodAnimalsAbsence
     }),
     ...mapGetters({
       activeSectionName: "activeSectionName",
-      goodPlants: "goodPlants",
-      garbageExist: "garbageExist",
       badPlants: "badPlants",
-      goodAnimals: "goodAnimals",
       isSmellGood: "isSmellGood",
       isColorGood: "isColorGood",
       isFormPictsValid: "isFormPictsValid"
@@ -193,10 +193,10 @@ export default {
     },
     isRiverFine() {
       return (
-        this.goodPlants.length > 0 &&
+        !this.goodPlantsAbsence &&
         this.badPlants.length == 0 &&
-        !this.garbageExist &&
-        this.goodAnimals.length > 0 &&
+        this.garbageAbsence &&
+        !this.goodAnimalsAbsence &&
         this.isSmellGood &&
         this.isColorGood
       );
@@ -222,17 +222,13 @@ export default {
       );
     },
     isClearAvailable() {
-      return this.garbageExist;
+      return !this.garbageAbsence;
     },
     isSowAvailable() {
-      return this.goodPlants.length == 0 || this.badPlants.length > 0
-        ? true
-        : false;
+      return this.goodPlantsAbsence || this.badPlants.length > 0 ? true : false;
     },
     isDecontaminateAvailable() {
-      return !this.isSmellGood ||
-        !this.isColorGood ||
-        this.goodAnimals.length == 0
+      return !this.isSmellGood || !this.isColorGood || this.goodAnimalsAbsence
         ? true
         : false;
     },

@@ -1,6 +1,16 @@
 const fs = require("fs");
 module.exports = {
   chainWebpack: config => {
+    if (process.env.NODE_ENV === "production") {
+      //Build PRO
+      config.devtool("none");
+    } else if (!process.env.WEBPACK_DEV_SERVER) {
+      //BUILD DEV
+      config.devtool("eval-source-map");
+    } else {
+      //LOCAL DEV
+      config.devtool("eval");
+    }
     config.plugin("define").tap(definitions => {
       definitions[0]["process.env"]["VERSION"] = JSON.stringify(
         require("./package.json").version
@@ -21,6 +31,11 @@ module.exports = {
     https: true,
     key: fs.readFileSync("./certificate/localhost-key.pem"),
     cert: fs.readFileSync("./certificate/localhost.pem")
+  },
+  pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: false
+    }
   },
   css: {
     loaderOptions: {

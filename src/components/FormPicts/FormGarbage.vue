@@ -40,6 +40,22 @@
       ></b-icon>
     </div>
     <b-field class="img-section">
+      <div class="img-container">
+        <b-checkbox-button
+          class="img-option"
+          :native-value="false"
+          v-model="absence"
+          ><img
+            :class="absence ? 'img-option__active' : 'img-option__inactive'"
+            :src="$_getImgUrl(formGarbage.id, 9, 1)"/>
+          <div
+            :class="[
+              'overlay',
+              absence ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div
+        ></b-checkbox-button>
+      </div>
       <div
         class="img-container"
         :key="option.id"
@@ -80,10 +96,33 @@ export default {
   mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
-      formGarbage: state => state.formPictsSections.garbage
+      formGarbage: state => state.formPictsSections.garbage,
+      garbageAbsence: state => state.garbageAbsence
     }),
+    absence: {
+      get() {
+        return this.garbageAbsence;
+      },
+      set(value) {
+        this.setGarbageAbsence(value);
+      }
+    },
     isSectionValid() {
       return true; //optional section
+    }
+  },
+  watch: {
+    absence(newValue) {
+      if (newValue) {
+        this.values.waterGarbage = [];
+      }
+    },
+    values: {
+      deep: true,
+      handler() {
+        if (this.absence && this.values.waterGarbage.length > 0)
+          this.absence = false;
+      }
     }
   },
   created() {
@@ -101,7 +140,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
+      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues",
+      setGarbageAbsence: "setGarbageAbsence"
     }),
     init() {
       this.values.waterGarbage = []; //default value and make beforeUpdate hook jump
@@ -128,6 +168,7 @@ export default {
   img {
     height: 100%;
     max-width: 140px;
+    min-width: 124px;
     width: 100%;
   }
 }

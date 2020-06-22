@@ -234,14 +234,17 @@ const getImg = (idSection, idOption, idAlt) => {
     case idSection == 8 && idOption == 7 && idAlt == 1:
       urlBackground = "cigaretteGarbage.jpg";
       break;
+    case idSection == 8 && idOption == 8 && idAlt == 1:
+      urlBackground = "brickGarbage.jpg";
+      break;
+    case idSection == 8 && idOption == 9 && idAlt == 1:
+      urlBackground = "absence.jpg";
+      break;
     case idSection == 9 && idOption == 0 && idAlt == 0:
       urlBackground = "titlePlants.jpg";
       break;
     case idSection == 9 && idOption == 0 && idAlt == 1:
       urlBackground = "helpPlants1.gif";
-      break;
-    case idSection == 8 && idOption == 8 && idAlt == 1:
-      urlBackground = "brickGarbage.jpg";
       break;
     case idSection == 9 && idOption == 1 && idAlt == 1:
       urlBackground = "nettlePlants.jpg";
@@ -263,6 +266,9 @@ const getImg = (idSection, idOption, idAlt) => {
       break;
     case idSection == 9 && idOption == 7 && idAlt == 1:
       urlBackground = "bambuPlants.jpg";
+      break;
+    case idSection == 9 && idOption == 8 && idAlt == 1:
+      urlBackground = "absence.jpg";
       break;
     case idSection == 10 && idOption == 0 && idAlt == 0:
       urlBackground = "titleAnimals.jpg";
@@ -296,6 +302,9 @@ const getImg = (idSection, idOption, idAlt) => {
       break;
     case idSection == 10 && idOption == 3 && idAlt == 2:
       urlBackground = "caddisflyUncoveredAnimals2.jpg";
+      break;
+    case idSection == 10 && idOption == 4 && idAlt == 1:
+      urlBackground = "absence.jpg";
       break;
     case idSection == 11 && idOption == 0 && idAlt == 1:
       urlBackground = "goodGame1.jpg";

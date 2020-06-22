@@ -17,7 +17,10 @@ export default new Vuex.Store({
     activeSectionId: 0,
     activeFormId: 0, // formExpert == 0, formPicts == 1
     formExpertSections: {},
-    formPictsSections: {}
+    formPictsSections: {},
+    goodPlantsAbsence: false,
+    garbageAbsence: false,
+    goodAnimalsAbsence: false
   },
   getters: {
     isExpertDataLoaded: state => {
@@ -32,15 +35,6 @@ export default new Vuex.Store({
     userCanDoPictsForm: state => {
       return state.user.roleId != 3;
     },
-    garbageExist: state => {
-      return state.formPictsSections.garbage &&
-        state.formPictsSections.garbage.results &&
-        state.formPictsSections.garbage.results.waterGarbage
-        ? state.formPictsSections.garbage.results.waterGarbage.length > 0
-          ? true
-          : false
-        : false;
-    },
     isColorGood: state => {
       return state.formPictsSections.color &&
         state.formPictsSections.color.results &&
@@ -54,24 +48,6 @@ export default new Vuex.Store({
         state.formPictsSections.smell.results.waterSmell
         ? state.formPictsSections.smell.results.waterSmell.isGood
         : true;
-    },
-    goodAnimals: state => {
-      return state.formPictsSections.animals &&
-        state.formPictsSections.animals.results &&
-        state.formPictsSections.animals.results.waterAnimals
-        ? state.formPictsSections.animals.results.waterAnimals.filter(
-            animal => animal.isGood
-          )
-        : [];
-    },
-    goodPlants: state => {
-      return state.formPictsSections.plants &&
-        state.formPictsSections.plants.results &&
-        state.formPictsSections.plants.results.waterPlants
-        ? state.formPictsSections.plants.results.waterPlants.filter(
-            plant => plant.isGood
-          )
-        : [];
     },
     badPlants: state => {
       return state.formPictsSections.plants &&
@@ -174,6 +150,15 @@ export default new Vuex.Store({
         payload.isValid
       );
     },
+    [types.SET_GOOD_ANIMALS_ABSENCE](state, goodAnimalsAbsence) {
+      state.goodAnimalsAbsence = goodAnimalsAbsence;
+    },
+    [types.SET_GOOD_PLANTS_ABSENCE](state, goodPlantsAbsence) {
+      state.goodPlantsAbsence = goodPlantsAbsence;
+    },
+    [types.SET_GARBAGE_ABSENCE](state, garbageAbsence) {
+      state.garbageAbsence = garbageAbsence;
+    },
     [types.DELETE_EXPERT_SECTION_VALUES](state) {
       Object.keys(state.formExpertSections).forEach(section => {
         Vue.set(state.formExpertSections[section], "results", {});
@@ -223,6 +208,15 @@ export default new Vuex.Store({
       };
       context.commit(types.SET_PICTS_SECTION_STATE, params);
     },
+    setGoodAnimalsAbsence(context, goodAnimalsAbsence) {
+      context.commit(types.SET_GOOD_ANIMALS_ABSENCE, goodAnimalsAbsence);
+    },
+    setGoodPlantsAbsence(context, goodPlantsAbsence) {
+      context.commit(types.SET_GOOD_PLANTS_ABSENCE, goodPlantsAbsence);
+    },
+    setGarbageAbsence(context, garbageAbsence) {
+      context.commit(types.SET_GARBAGE_ABSENCE, garbageAbsence);
+    },
     updateSectionValues(context, payload) {
       const params = {
         name: context.getters.activeSectionName,
@@ -239,6 +233,9 @@ export default new Vuex.Store({
     clearPictsFormResponses(context) {
       context.commit(types.SET_ACTIVE_SECTION, 0);
       context.commit(types.DELETE_PICTS_SECTION_VALUES);
+      context.commit(types.SET_GOOD_ANIMALS_ABSENCE, false);
+      context.commit(types.SET_GOOD_PLANTS_ABSENCE, false);
+      context.commit(types.SET_GARBAGE_ABSENCE, false);
     },
     clearExpertFormResponses(context) {
       context.commit(types.SET_ACTIVE_SECTION, 0);

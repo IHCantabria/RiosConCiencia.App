@@ -48,6 +48,25 @@
       ></b-icon>
     </div>
     <b-field class="img-section">
+      <div class="img-container">
+        <span class="img-option-text">NO HAY ANIMALES BUENOS</span>
+        <b-checkbox-button
+          class="img-option-center img-option"
+          :native-value="false"
+          v-model="absence"
+        >
+          <img
+            :class="absence ? 'img-option__active' : 'img-option__inactive'"
+            :src="$_getImgUrl(formAnimals.id, 4, 1)"
+          />
+          <div
+            :class="[
+              'overlay',
+              absence ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div>
+        </b-checkbox-button>
+      </div>
       <div
         class="img-container"
         :key="option.id"
@@ -100,10 +119,33 @@ export default {
   mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
-      formAnimals: state => state.formPictsSections.animals
+      formAnimals: state => state.formPictsSections.animals,
+      goodAnimalsAbsence: state => state.goodAnimalsAbsence
     }),
+    absence: {
+      get() {
+        return this.goodAnimalsAbsence;
+      },
+      set(value) {
+        this.setGoodAnimalsAbsence(value);
+      }
+    },
     isSectionValid() {
       return true; //optional section
+    }
+  },
+  watch: {
+    absence(newValue) {
+      if (newValue) {
+        this.values.waterAnimals = [];
+      }
+    },
+    values: {
+      deep: true,
+      handler() {
+        if (this.absence && this.values.waterAnimals.length > 0)
+          this.absence = false;
+      }
     }
   },
   created() {
@@ -121,7 +163,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
+      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues",
+      setGoodAnimalsAbsence: "setGoodAnimalsAbsence"
     }),
     init() {
       this.values.waterAnimals = []; //default value and make beforeUpdate hook jump
@@ -151,12 +194,20 @@ export default {
     width: 50%;
   }
 }
+.img-option-center {
+  max-width: 100px;
+  img {
+    max-height: 80px;
+    width: 100%;
+  }
+}
 .img-header {
   &__pic {
     max-width: 140px;
   }
 }
 .img-container {
+  align-items: center;
   max-width: 300px;
 }
 </style>
