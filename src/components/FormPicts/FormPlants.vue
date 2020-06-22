@@ -31,6 +31,23 @@
       ></b-icon>
     </div>
     <b-field class="img-section">
+      <div class="img-container">
+        <span class="img-option-text">NO HAY PLANTAS BUENAS</span>
+        <b-checkbox-button
+          class="img-option"
+          :native-value="false"
+          v-model="absence"
+          ><img
+            :class="absence ? 'img-option__active' : 'img-option__inactive'"
+            :src="$_getImgUrl(formPlants.id, 8, 1)"/>
+          <div
+            :class="[
+              'overlay',
+              absence ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div
+        ></b-checkbox-button>
+      </div>
       <div
         class="img-container"
         :key="option.id"
@@ -66,7 +83,8 @@ export default {
     return {
       values: {
         waterPlants: null
-      }
+      },
+      absence: false
     };
   },
   mixins: [pictsHelperMixin],
@@ -76,6 +94,19 @@ export default {
     }),
     isSectionValid() {
       return true; //optional section
+    }
+  },
+  watch: {
+    absence(newValue) {
+      if (newValue) {
+        this.removeGoodPlants();
+      }
+    },
+    values: {
+      deep: true,
+      handler() {
+        if (this.absence && this.checkGoodPlants()) this.absence = false;
+      }
     }
   },
   created() {
@@ -98,6 +129,11 @@ export default {
     init() {
       this.values.waterPlants = []; //default value and make beforeUpdate hook jump
     },
+    checkGoodPlants() {
+      return this.values.waterPlants.filter(plant => plant.isGood).length > 0
+        ? true
+        : false;
+    },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/plants", true);
     },
@@ -107,6 +143,11 @@ export default {
           ? false
           : true
         : "";
+    },
+    removeGoodPlants() {
+      this.values.waterPlants = this.values.waterPlants.filter(
+        plant => !plant.isGood
+      );
     }
   }
 };
@@ -120,6 +161,7 @@ export default {
   img {
     height: 100%;
     max-width: 220px;
+    max-height: 188px;
     width: 100%;
   }
 }

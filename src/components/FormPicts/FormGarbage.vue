@@ -40,6 +40,22 @@
       ></b-icon>
     </div>
     <b-field class="img-section">
+      <div class="img-container">
+        <b-checkbox-button
+          class="img-option"
+          :native-value="false"
+          v-model="absence"
+          ><img
+            :class="absence ? 'img-option__active' : 'img-option__inactive'"
+            :src="$_getImgUrl(formGarbage.id, 9, 1)"/>
+          <div
+            :class="[
+              'overlay',
+              absence ? 'overlay__active' : 'overlay__inactive'
+            ]"
+          ></div
+        ></b-checkbox-button>
+      </div>
       <div
         class="img-container"
         :key="option.id"
@@ -74,7 +90,8 @@ export default {
     return {
       values: {
         waterGarbage: null
-      }
+      },
+      absence: false
     };
   },
   mixins: [pictsHelperMixin],
@@ -84,6 +101,20 @@ export default {
     }),
     isSectionValid() {
       return true; //optional section
+    }
+  },
+  watch: {
+    absence(newValue) {
+      if (newValue) {
+        this.values.waterGarbage = [];
+      }
+    },
+    values: {
+      deep: true,
+      handler() {
+        if (this.absence && this.values.waterGarbage.length > 0)
+          this.absence = false;
+      }
     }
   },
   created() {
@@ -128,6 +159,7 @@ export default {
   img {
     height: 100%;
     max-width: 140px;
+    min-width: 124px;
     width: 100%;
   }
 }
