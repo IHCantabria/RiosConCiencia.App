@@ -19,7 +19,7 @@
           <optgroup
             v-for="(group, index) in formWaste.data.wasteOptions"
             :key="index"
-            :label="group.material"
+            :label="group.material | upperCase"
           >
             <option
               v-for="(option, index) in group.options"
