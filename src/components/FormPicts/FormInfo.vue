@@ -158,6 +158,7 @@
   </div>
 </template>
 <script>
+import requireContext from "require-context.macro";
 import { mapState, mapActions } from "vuex";
 import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
@@ -192,7 +193,7 @@ export default {
     }
   },
   created() {
-    this.imgFolder = require.context("@/assets/images/picts/info");
+    this._loadAssests();
     this.pdfLinks = [
       require("../../assets/pdfs/RCC1.pdf"),
       require("../../assets/pdfs/RCC2.pdf"),
@@ -220,6 +221,9 @@ export default {
         values: this.values,
         isValid: this.isSectionValid
       });
+    },
+    _loadAssests() {
+      this.imgFolder = requireContext("@/assets/images/picts/info", true);
     },
     toggleHelpRiver() {
       this.helpRiverActive = !this.helpRiverActive;
