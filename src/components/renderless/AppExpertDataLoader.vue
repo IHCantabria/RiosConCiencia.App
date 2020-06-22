@@ -10,7 +10,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.init();
+      if (this.user.token) this.init();
     });
   },
   methods: {
