@@ -143,6 +143,7 @@
   </div>
 </template>
 <script>
+import requireContext from "require-context.macro";
 import { saveSamplePict } from "@/api/riosconciencia.js";
 import { mapState, mapGetters, mapActions } from "vuex";
 import { pictsHelperMixin } from "@/mixins/picts-helper.js";
@@ -246,7 +247,7 @@ export default {
     }
   },
   created() {
-    this.imgFolder = require.context("@/assets/images/picts/game");
+    this._loadAssests();
   },
   mounted() {
     this.init();
@@ -280,6 +281,9 @@ export default {
       this.cleaned = false;
       this.sowed = false;
       this.decontaminated = false;
+    },
+    _loadAssests() {
+      this.imgFolder = requireContext("@/assets/images/picts/game", true);
     },
     calculateStatus() {
       let gameState;

@@ -58,6 +58,7 @@
   </div>
 </template>
 <script>
+import requireContext from "require-context.macro";
 import { mapState, mapActions } from "vuex";
 import { pictsHelperMixin } from "@/mixins/picts-helper.js";
 export default {
@@ -78,7 +79,7 @@ export default {
     }
   },
   created() {
-    this.imgFolder = require.context("@/assets/images/picts/plants");
+    this._loadAssests();
   },
   mounted() {
     this.init();
@@ -96,6 +97,9 @@ export default {
     }),
     init() {
       this.values.waterPlants = []; //default value and make beforeUpdate hook jump
+    },
+    _loadAssests() {
+      this.imgFolder = requireContext("@/assets/images/picts/plants", true);
     },
     isSelected(object) {
       return this.values.waterPlants
