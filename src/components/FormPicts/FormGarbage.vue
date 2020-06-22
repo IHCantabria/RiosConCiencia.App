@@ -90,15 +90,23 @@ export default {
     return {
       values: {
         waterGarbage: null
-      },
-      absence: false
+      }
     };
   },
   mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
-      formGarbage: state => state.formPictsSections.garbage
+      formGarbage: state => state.formPictsSections.garbage,
+      garbageAbsence: state => state.garbageAbsence
     }),
+    absence: {
+      get() {
+        return this.garbageAbsence;
+      },
+      set(value) {
+        this.setGarbageAbsence(value);
+      }
+    },
     isSectionValid() {
       return true; //optional section
     }
@@ -132,7 +140,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
+      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues",
+      setGarbageAbsence: "setGarbageAbsence"
     }),
     init() {
       this.values.waterGarbage = []; //default value and make beforeUpdate hook jump

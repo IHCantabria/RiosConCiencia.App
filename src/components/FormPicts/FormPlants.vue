@@ -83,15 +83,23 @@ export default {
     return {
       values: {
         waterPlants: null
-      },
-      absence: false
+      }
     };
   },
   mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
-      formPlants: state => state.formPictsSections.plants
+      formPlants: state => state.formPictsSections.plants,
+      goodPlantsAbsence: state => state.goodPlantsAbsence
     }),
+    absence: {
+      get() {
+        return this.goodPlantsAbsence;
+      },
+      set(value) {
+        this.setGoodPlantsAbsence(value);
+      }
+    },
     isSectionValid() {
       return true; //optional section
     }
@@ -124,7 +132,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
+      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues",
+      setGoodPlantsAbsence: "setGoodPlantsAbsence"
     }),
     init() {
       this.values.waterPlants = []; //default value and make beforeUpdate hook jump

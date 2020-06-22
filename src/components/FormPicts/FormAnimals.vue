@@ -113,15 +113,23 @@ export default {
     return {
       values: {
         waterAnimals: null
-      },
-      absence: false
+      }
     };
   },
   mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
-      formAnimals: state => state.formPictsSections.animals
+      formAnimals: state => state.formPictsSections.animals,
+      goodAnimalsAbsence: state => state.goodAnimalsAbsence
     }),
+    absence: {
+      get() {
+        return this.goodAnimalsAbsence;
+      },
+      set(value) {
+        this.setGoodAnimalsAbsence(value);
+      }
+    },
     isSectionValid() {
       return true; //optional section
     }
@@ -155,7 +163,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
+      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues",
+      setGoodAnimalsAbsence: "setGoodAnimalsAbsence"
     }),
     init() {
       this.values.waterAnimals = []; //default value and make beforeUpdate hook jump
