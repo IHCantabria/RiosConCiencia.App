@@ -54,8 +54,8 @@
           type="is-warning"
           :closable="false"
         >
-          No podras enviar el formulario hasta que completes todos las secciones
-          que estan incompletas.
+          No podrás enviar el formulario hasta que completes todas las secciones
+          que están incompletas.
         </b-message>
       </div>
       <div class="block" v-if="!isComputedOnline">
