@@ -149,7 +149,9 @@ export default {
       const qrisiIndexValue = this.riverQuality.results.qrisiIndex.cat.value;
       const bioQualityIndexValue = this.bioQuality.results.bioQualityIndex
         .value;
-
+      if (bioQualityIndexValue == 0) {
+        return this._getStatusForNoCalculable();
+      }
       if (qrisiIndexValue === 3) {
         return this._getStatusForGoodQrisi(bioQualityIndexValue);
       } else if (qrisiIndexValue === 2) {
@@ -239,6 +241,9 @@ export default {
       if (bioQualityIndexValue === 3) return this.statusOptions[4];
       if (bioQualityIndexValue === 2) return this.statusOptions[4];
       return this.statusOptions[4];
+    },
+    _getStatusForNoCalculable() {
+      return this.statusOptions[5];
     }
   }
 };
