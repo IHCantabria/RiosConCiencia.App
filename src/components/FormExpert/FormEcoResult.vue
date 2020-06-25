@@ -70,7 +70,7 @@
           formulario hasta que dispongas de conexión.
         </b-message>
         <b-message
-          else
+          v-else
           class="results-display"
           title="Estado sin conexión"
           type="is-warning"
