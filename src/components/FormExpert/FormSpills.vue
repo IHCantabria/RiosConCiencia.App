@@ -313,7 +313,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/styles/form-controls.scss";
-
 .table-container {
   padding: 1rem;
 }
