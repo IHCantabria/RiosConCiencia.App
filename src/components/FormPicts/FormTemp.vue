@@ -1,5 +1,5 @@
 <template>
-  <div class="form-section form-section-picts">
+  <div class="form-section-picts form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
         <span>MEDIMOS LA TEMPERATURA DEL RÍO </span>
