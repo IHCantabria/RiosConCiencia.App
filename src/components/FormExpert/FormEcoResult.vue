@@ -81,6 +81,16 @@
         </b-message>
       </div>
     </div>
+    <b-field
+      class="observations-field"
+      label="Si hay ocurrido algo reseñable durante el muestreo o ha encontrado algo que no ha podido ser cubierto en el formulario, detállelo aquí:"
+    >
+      <b-input
+        maxlength="300"
+        type="textarea"
+        v-model="values.observations"
+      ></b-input>
+    </b-field>
     <div class="big-button">
       <b-button
         type="is-danger"
@@ -249,6 +259,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/styles/form-controls.scss";
 .results {
   padding: 1rem;
   &__rate {
