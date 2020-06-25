@@ -101,6 +101,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/styles/form-controls.scss";
 .results {
   padding: 1rem;
   &__rate {
