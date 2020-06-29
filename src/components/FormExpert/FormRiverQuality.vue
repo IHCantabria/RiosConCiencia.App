@@ -100,6 +100,7 @@
               >
               </b-rate>
             </div>
+            <div class="block">{{ qrisiIndexTotalPoints }} puntos</div>
           </b-message>
         </div>
       </div>
