@@ -316,10 +316,10 @@ export default {
         .then(res => {
           this.values.samplePointCoords.lon = parseFloat(
             res.coords.longitude
-          ).toFixed(5);
+          ).toFixed(7);
           this.values.samplePointCoords.lat = parseFloat(
             res.coords.latitude
-          ).toFixed(5);
+          ).toFixed(7);
         })
         .catch(() => {
           this.$buefy.toast.open({

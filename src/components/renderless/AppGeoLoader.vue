@@ -27,8 +27,8 @@ export default {
       getUserGeolocation()
         .then(res => {
           const position = {
-            lon: res.coords.longitude,
-            lat: res.coords.latitude
+            lon: parseFloat(res.coords.longitude).toFixed(7),
+            lat: parseFloat(res.coords.latitude).toFixed(7)
           };
           this.setUserPosition(position);
         })

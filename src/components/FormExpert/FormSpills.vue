@@ -258,8 +258,8 @@ export default {
     getActualPosition() {
       getUserGeolocation()
         .then(res => {
-          this.spillLongitude = parseFloat(res.coords.longitude).toFixed(5);
-          this.spillLatitude = parseFloat(res.coords.latitude).toFixed(5);
+          this.spillLongitude = parseFloat(res.coords.longitude).toFixed(7);
+          this.spillLatitude = parseFloat(res.coords.latitude).toFixed(7);
         })
         .catch(() => {
           this.$buefy.toast.open({
