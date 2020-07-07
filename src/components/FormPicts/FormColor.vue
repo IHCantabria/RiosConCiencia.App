@@ -48,7 +48,7 @@
         v-for="option in formColor.data.colorRiverOptions"
       >
         <span class="img-option-text">{{ option.name | upperCase }}</span>
-        <b-radio-button
+        <b-checkbox-button
           class="img-option"
           :native-value="option"
           v-model="values.waterColor"
@@ -63,7 +63,7 @@
               isSelected(option) ? 'overlay__active' : 'overlay__inactive'
             ]"
           ></div
-        ></b-radio-button>
+        ></b-checkbox-button>
       </div>
     </b-field>
   </div>
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       values: {
-        waterColor: 0
+        waterColor: null
       }
     };
   },
@@ -89,6 +89,16 @@ export default {
       return true; //optional section
     }
   },
+  watch: {
+    values: {
+      deep: true,
+      handler(newValue) {
+        if (newValue.waterColor.length > 1) {
+          this.values.waterColor.shift();
+        }
+      }
+    }
+  },
   created() {
     this._loadAssests();
   },
@@ -96,9 +106,14 @@ export default {
     this.init();
   },
   beforeUpdate() {
+    const valuesFormated = {
+      waterColor: this.values.waterColor.length
+        ? this.values.waterColor[0]
+        : null
+    };
     this.updateSpecificPictsSectionValues({
       name: "color",
-      values: this.values,
+      values: valuesFormated,
       isValid: this.isSectionValid
     });
   },
@@ -107,13 +122,17 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterColor = null; //default value and make beforeUpdate hook jump
+      this.values.waterColor = []; //default value and make beforeUpdate hook jump
     },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/color", true);
     },
     isSelected(object) {
-      return this.values.waterColor == object;
+      return this.values.waterColor
+        ? this.values.waterColor.findIndex(obj => obj.id == object.id) == -1
+          ? false
+          : true
+        : "";
     }
   }
 };

@@ -24,32 +24,28 @@
     <b-field class="img-section">
       <div class="img-container">
         <span class="img-option-text">NO SE MUEVE</span>
-        <b-radio-button
+        <b-checkbox-button
           class="img-option"
           v-model="values.waterFlow"
           :native-value="false"
         >
           <img
             :class="
-              values.waterFlow == false
-                ? 'img-option__active'
-                : 'img-option__inactive'
+              isSelected(false) ? 'img-option__active' : 'img-option__inactive'
             "
             :src="$_getImgUrl(1, 1, 1)"
           />
           <div
             :class="[
               'overlay',
-              values.waterFlow == false
-                ? 'overlay__active'
-                : 'overlay__inactive'
+              isSelected(false) ? 'overlay__active' : 'overlay__inactive'
             ]"
           ></div>
-        </b-radio-button>
+        </b-checkbox-button>
       </div>
       <div class="img-container">
         <span class="img-option-text">SI SE MUEVE</span>
-        <b-radio-button
+        <b-checkbox-button
           class="
           img-option"
           v-model="values.waterFlow"
@@ -57,19 +53,17 @@
         >
           <img
             :class="
-              values.waterFlow == true
-                ? 'img-option__active'
-                : 'img-option__inactive'
+              isSelected(true) ? 'img-option__active' : 'img-option__inactive'
             "
             :src="$_getImgUrl(1, 2, 1)"
           />
           <div
             :class="[
               'overlay',
-              values.waterFlow == true ? 'overlay__active' : 'overlay__inactive'
+              isSelected(true) ? 'overlay__active' : 'overlay__inactive'
             ]"
           ></div>
-        </b-radio-button>
+        </b-checkbox-button>
       </div>
     </b-field>
   </div>
@@ -82,7 +76,7 @@ export default {
   data() {
     return {
       values: {
-        waterFlow: 0
+        waterFlow: null
       }
     };
   },
@@ -95,6 +89,16 @@ export default {
       return true; //optional section
     }
   },
+  watch: {
+    values: {
+      deep: true,
+      handler(newValue) {
+        if (newValue.waterFlow.length > 1) {
+          this.values.waterFlow.shift();
+        }
+      }
+    }
+  },
   created() {
     this._loadAssests();
   },
@@ -102,9 +106,12 @@ export default {
     this.init();
   },
   beforeUpdate() {
+    const valuesFormated = {
+      waterFlow: this.values.waterFlow.length ? this.values.waterFlow[0] : null
+    };
     this.updateSpecificPictsSectionValues({
       name: "flow",
-      values: this.values,
+      values: valuesFormated,
       isValid: this.isSectionValid
     });
   },
@@ -113,10 +120,17 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterFlow = null; //default value and make beforeUpdate hook jump
+      this.values.waterFlow = []; //default value and make beforeUpdate hook jump
     },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/flow", true);
+    },
+    isSelected(object) {
+      return this.values.waterFlow
+        ? this.values.waterFlow.findIndex(obj => obj == object) == -1
+          ? false
+          : true
+        : "";
     }
   }
 };

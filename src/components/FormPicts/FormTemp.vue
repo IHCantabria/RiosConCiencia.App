@@ -48,7 +48,7 @@
         v-for="option in formTemp.data.tempRiverOptions"
       >
         <span class="img-option-text">{{ option.color | upperCase }}</span>
-        <b-radio-button
+        <b-checkbox-button
           class="img-option"
           :native-value="option"
           v-model="values.waterTemp"
@@ -63,7 +63,7 @@
               isSelected(option) ? 'overlay__active' : 'overlay__inactive'
             ]"
           ></div
-        ></b-radio-button>
+        ></b-checkbox-button>
       </div>
     </b-field>
   </div>
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       values: {
-        waterTemp: 0
+        waterTemp: null
       }
     };
   },
@@ -89,6 +89,16 @@ export default {
       return true; //optional section
     }
   },
+  watch: {
+    values: {
+      deep: true,
+      handler(newValue) {
+        if (newValue.waterTemp.length > 1) {
+          this.values.waterTemp.shift();
+        }
+      }
+    }
+  },
   created() {
     this._loadAssests();
   },
@@ -96,9 +106,12 @@ export default {
     this.init();
   },
   beforeUpdate() {
+    const valuesFormated = {
+      waterTemp: this.values.waterTemp.length ? this.values.waterTemp[0] : null
+    };
     this.updateSpecificPictsSectionValues({
       name: "temp",
-      values: this.values,
+      values: valuesFormated,
       isValid: this.isSectionValid
     });
   },
@@ -107,13 +120,17 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterTemp = null; //default value and make beforeUpdate hook jump
+      this.values.waterTemp = []; //default value and make beforeUpdate hook jump
     },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/temp", true);
     },
     isSelected(object) {
-      return this.values.waterTemp == object;
+      return this.values.waterTemp
+        ? this.values.waterTemp.findIndex(obj => obj == object) == -1
+          ? false
+          : true
+        : "";
     }
   }
 };
