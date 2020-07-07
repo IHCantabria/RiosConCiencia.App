@@ -137,6 +137,7 @@ export default {
     }),
     init() {
       this.values.waterPlants = []; //default value and make beforeUpdate hook jump
+      this.setGoodPlantsAbsence(false);
     },
     checkGoodPlants() {
       return this.values.waterPlants.filter(plant => plant.isGood).length > 0

@@ -168,6 +168,7 @@ export default {
     }),
     init() {
       this.values.waterAnimals = []; //default value and make beforeUpdate hook jump
+      this.setGoodAnimalsAbsence(false);
     },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/animals", true);
