@@ -48,7 +48,7 @@
         v-for="option in formWidth.data.widthRiverOptions"
       >
         <span class="img-option-text">{{ option.color | upperCase }}</span>
-        <b-radio-button
+        <b-checkbox-button
           class="img-option"
           :native-value="option"
           v-model="values.waterWidth"
@@ -63,7 +63,7 @@
               isSelected(option) ? 'overlay__active' : 'overlay__inactive'
             ]"
           ></div
-        ></b-radio-button>
+        ></b-checkbox-button>
       </div>
     </b-field>
   </div>
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       values: {
-        waterWidth: 0
+        waterWidth: null
       }
     };
   },
@@ -89,6 +89,16 @@ export default {
       return true; //optional section
     }
   },
+  watch: {
+    values: {
+      deep: true,
+      handler(newValue) {
+        if (newValue.waterWidth.length > 1) {
+          this.values.waterWidth.shift();
+        }
+      }
+    }
+  },
   created() {
     this._loadAssests();
   },
@@ -96,9 +106,14 @@ export default {
     this.init();
   },
   beforeUpdate() {
+    const valuesFormated = {
+      waterWidth: this.values.waterWidth.length
+        ? this.values.waterWidth[0]
+        : null
+    };
     this.updateSpecificPictsSectionValues({
       name: "width",
-      values: this.values,
+      values: valuesFormated,
       isValid: this.isSectionValid
     });
   },
@@ -107,13 +122,17 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterWidth = null; //default value and make beforeUpdate hook jump
+      this.values.waterWidth = []; //default value and make beforeUpdate hook jump
     },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/width", true);
     },
     isSelected(object) {
-      return this.values.waterWidth == object;
+      return this.values.waterWidth
+        ? this.values.waterWidth.findIndex(obj => obj == object) == -1
+          ? false
+          : true
+        : "";
     }
   }
 };

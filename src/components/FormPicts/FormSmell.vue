@@ -45,7 +45,7 @@
         :key="option.id"
         v-for="option in formSmell.data.smellRiverOptions"
       >
-        <b-radio-button
+        <b-checkbox-button
           class="img-option"
           :native-value="option"
           v-model="values.waterSmell"
@@ -60,7 +60,7 @@
               isSelected(option) ? 'overlay__active' : 'overlay__inactive'
             ]"
           ></div
-        ></b-radio-button>
+        ></b-checkbox-button>
       </div>
     </b-field>
   </div>
@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       values: {
-        waterSmell: 0
+        waterSmell: null
       }
     };
   },
@@ -86,6 +86,16 @@ export default {
       return true; //optional section
     }
   },
+  watch: {
+    values: {
+      deep: true,
+      handler(newValue) {
+        if (newValue.waterSmell.length > 1) {
+          this.values.waterSmell.shift();
+        }
+      }
+    }
+  },
   created() {
     this._loadAssests();
   },
@@ -93,9 +103,14 @@ export default {
     this.init();
   },
   beforeUpdate() {
+    const valuesFormated = {
+      waterSmell: this.values.waterSmell.length
+        ? this.values.waterSmell[0]
+        : null
+    };
     this.updateSpecificPictsSectionValues({
       name: "smell",
-      values: this.values,
+      values: valuesFormated,
       isValid: this.isSectionValid
     });
   },
@@ -104,13 +119,17 @@ export default {
       updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
     }),
     init() {
-      this.values.waterSmell = null; //default value and make beforeUpdate hook jump
+      this.values.waterSmell = []; //default value and make beforeUpdate hook jump
     },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/smell", true);
     },
     isSelected(object) {
-      return this.values.waterSmell == object;
+      return this.values.waterSmell
+        ? this.values.waterSmell.findIndex(obj => obj == object) == -1
+          ? false
+          : true
+        : "";
     }
   }
 };

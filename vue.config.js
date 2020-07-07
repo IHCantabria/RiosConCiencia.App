@@ -9,7 +9,7 @@ module.exports = {
       config.devtool("eval-source-map");
     } else {
       //LOCAL DEV
-      config.devtool("eval");
+      config.devtool("source-map");
     }
     config.plugin("define").tap(definitions => {
       definitions[0]["process.env"]["VERSION"] = JSON.stringify(
