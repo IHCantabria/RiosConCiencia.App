@@ -79,14 +79,14 @@ export default {
         if (err.response.status == 403)
           this.$buefy.toast.open({
             message:
-              "Los datos que ha introducido no son correctos o su usuario no tiene permiso para usar la aplicación",
+              "Los datos que has introducido no son correctos o tu usuario no tiene permiso para usar la aplicación",
             type: "is-danger",
             duration: 4000
           });
         if (err.response.status == 400) {
           this.$buefy.toast.open({
             message:
-              "Debe rellenar los campos email y contraseña para poder conectarse",
+              "Debes rellenar los campos email y contraseña para poder conectarte",
             type: "is-danger",
             duration: 4000
           });
@@ -105,14 +105,14 @@ export default {
         if (userRiverSections == "" && this.userCanDoExpertForm) {
           this.$buefy.toast.open({
             message:
-              "¡Atención! no tiene asignados tramos de río, no podra completar ni enviar ningun formulario",
+              "¡Atención! no tienes asignados tramos de río, no podras completar ni enviar ningun formulario",
             type: "is-danger",
             duration: 8000
           });
         }
       } catch (err) {
         this.$buefy.toast.open({
-          message: "Fallo al recuperar tus tramos de río, pruebe mas tarde",
+          message: "Fallo al recuperar tus tramos de río, prueba mas tarde",
           type: "is-danger",
           duration: 5000
         });
