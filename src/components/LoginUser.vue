@@ -10,7 +10,7 @@
           type="email"
           v-model="userEmail"
           icon="email"
-          >>
+        >
         </b-input>
       </b-field>
       <b-field label="Contraseña">
