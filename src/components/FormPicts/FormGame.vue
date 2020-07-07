@@ -177,6 +177,7 @@ export default {
     ...mapGetters({
       activeSectionName: "activeSectionName",
       badPlants: "badPlants",
+      garbageExist: "garbageExist",
       isSmellGood: "isSmellGood",
       isColorGood: "isColorGood",
       isFormPictsValid: "isFormPictsValid"
@@ -195,7 +196,7 @@ export default {
       return (
         !this.goodPlantsAbsence &&
         this.badPlants.length == 0 &&
-        this.garbageAbsence &&
+        (this.garbageAbsence || !this.garbageExist) &&
         !this.goodAnimalsAbsence &&
         this.isSmellGood &&
         this.isColorGood
@@ -222,7 +223,7 @@ export default {
       );
     },
     isClearAvailable() {
-      return !this.garbageAbsence;
+      return !this.garbageAbsence && this.garbageExist ? true : false;
     },
     isSowAvailable() {
       return this.goodPlantsAbsence || this.badPlants.length > 0 ? true : false;
@@ -361,6 +362,8 @@ export default {
   }
 }
 .img-container {
+  margin-left: auto;
+  margin-right: auto;
   max-width: 300px;
 }
 .img-header {

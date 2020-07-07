@@ -35,6 +35,15 @@ export default new Vuex.Store({
     userCanDoPictsForm: state => {
       return state.user.roleId != 3;
     },
+    garbageExist: state => {
+      return state.formPictsSections.garbage &&
+        state.formPictsSections.garbage.results &&
+        state.formPictsSections.garbage.results.waterGarbage
+        ? state.formPictsSections.garbage.results.waterGarbage.length > 0
+          ? true
+          : false
+        : false;
+    },
     isColorGood: state => {
       return state.formPictsSections.color &&
         state.formPictsSections.color.results &&

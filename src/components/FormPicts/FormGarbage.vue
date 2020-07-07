@@ -145,6 +145,7 @@ export default {
     }),
     init() {
       this.values.waterGarbage = []; //default value and make beforeUpdate hook jump
+      this.setGarbageAbsence(false);
     },
     _loadAssests() {
       this.imgFolder = requireContext("@/assets/images/picts/garbage", true);
