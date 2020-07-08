@@ -20,10 +20,15 @@
 }
 
 .checkboxes-group {
-  margin: 0.5rem;
+  margin: 1rem 0;
   &__title {
-    margin-right: 0.8rem;
     font-size: 0.9rem;
+    font-style: italic;
+    font-weight: bold;
+  }
+  &__subtitle {
+    font-size: 0.8rem;
+    font-weight: bold;
   }
 }
 
