@@ -28,6 +28,15 @@
           >Pulse para más información</a
         >
       </p>
+      <p class="about__msg-section">
+        Se puede acceder a los resultados de este proyecto en el siguiente
+        enlace.
+      </p>
+      <p class="about__msg-section">
+        <a href="https://riosconcienciavisor.ihcantabria.com/" target="_blank"
+          >Pulse para ir al geovisor de los datos del proyecto</a
+        >
+      </p>
       <p class="about__msg-section disclaim">
         Pictogramas ARASAAC: Todos los pictogramas usados en esta aplicación,
         exceptuando aquellos que se han creado por los autores de esta
