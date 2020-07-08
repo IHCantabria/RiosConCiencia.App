@@ -14,7 +14,7 @@ export default {
       this.isOnline = false;
       this.$buefy.toast.open({
         message:
-          "¡Cuidado estas sin conexión! Puedes seguir trabajando en el formulario pero no podras enviarlo hasta tener conexión",
+          "¡Cuidado, estás sin conexión! Puedes seguir trabajando en el formulario, pero no podrás enviarlo hasta tener conexión.",
         type: "is-danger",
         duration: 6000
       });

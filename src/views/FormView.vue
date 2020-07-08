@@ -57,9 +57,9 @@ export default {
       this.$buefy.dialog.confirm({
         title: "Formulario Incompleto",
         message:
-          "¿Seguro que desea abandonar esta sección? El formulario no ha sido completado y las respuestas actuales no estarán guardadas cuando vuelva a entrar.",
+          "¿Seguro que deseas abandonar esta sección? El formulario no ha sido completado y las respuestas actuales no estarán guardadas cuando vuelvas a entrar.",
         confirmText: "Confirmar",
-        cancelText: "No Abandonar",
+        cancelText: "No abandonar",
         type: "is-danger",
         hasIcon: true,
         onCancel: () => next(false),

@@ -2,7 +2,7 @@
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>6. Calidad Biológica del Agua</span>
+        <span>6. Calidad biológica del agua</span>
       </h5>
       <a :href="pdfLink" class="header-section__help" target="_blank"
         ><b-icon icon="information-outline" type="is-primary"></b-icon

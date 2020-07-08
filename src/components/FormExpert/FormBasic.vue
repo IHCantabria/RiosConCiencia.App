@@ -2,7 +2,7 @@
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>1. Inspección Básica del Tramo (500m)</span>
+        <span>1. Inspección básica del tramo (500 m)</span>
       </h5>
       <a :href="pdfLink" class="header-section__help" target="_blank"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
@@ -24,7 +24,7 @@
         type="is-success"
       >
         <b-icon icon="check"></b-icon>
-        <span>Si</span>
+        <span>Sí</span>
       </b-radio-button>
     </b-field>
     <b-field
@@ -140,7 +140,7 @@
         </b-select>
       </b-field>
     </div>
-    <b-field label="f. ¿Que color tiene el agua?">
+    <b-field label="f. ¿Qué color tiene el agua?">
       <b-select icon="invert-colors" v-model="values.waterColor">
         <option
           v-for="(option, index) in formBasic.data.waterColorOptions"
@@ -150,7 +150,7 @@
         >
       </b-select>
     </b-field>
-    <b-field label="g. ¿Que olor tiene el agua?">
+    <b-field label="g. ¿Qué olor tiene el agua?">
       <b-select icon="grain" v-model="values.waterSmell">
         <option
           v-for="(option, index) in formBasic.data.waterSmellOptions"
@@ -173,9 +173,9 @@
     </div>
 
     <b-field
-      label="i. ¿En que condiciones se encuentran las márgenes de nuestro río?"
+      label="i. ¿En qué condiciones se encuentran las márgenes de nuestro río?"
       :message="{
-        '*Selecciona las condiciones en cada margen del río': riverConditionsHasErrors
+        '*Selecciona, al menos, una condición en las márgenes': riverConditionsHasErrors
       }"
       type="is-danger"
     >
@@ -205,7 +205,7 @@
       <b-field
         label="j. ¿Cuáles son los usos del suelo en las márgenes del río?"
         :message="{
-          '*Selecciona al menos un uso del suelo en cada margen': landUseHasErrors
+          '*Selecciona, al menos, un uso del suelo en las márgenes': landUseHasErrors
         }"
         type="is-danger"
       >

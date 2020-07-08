@@ -2,7 +2,7 @@
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>3. Inspección de Residuos (100m)</span>
+        <span>3. Inspección de residuos (100 m)</span>
       </h5>
       <a :href="pdfLink" class="header-section__help" target="_blank"
         ><b-icon icon="information-outline" type="is-primary"></b-icon

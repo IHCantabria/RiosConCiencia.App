@@ -2,7 +2,7 @@
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>4. Índice del Hábitat Fluvial (100m)</span>
+        <span>4. El hábitat fluvial (100 m)</span>
       </h5>
       <div class="header-section__help">
         <a :href="pdfLink" class="header-section__help-item" target="_blank"

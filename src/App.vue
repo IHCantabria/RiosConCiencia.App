@@ -54,7 +54,7 @@ export default {
     },
     onGeolocationError() {
       this.$buefy.toast.open({
-        message: "No es posible Geolocalizar la ubicación",
+        message: "No es posible geolocalizar la ubicación",
         type: "is-danger",
         duration: 4000
       });
@@ -72,9 +72,9 @@ export default {
           this.isInstallerReady = true;
           this.$buefy.dialog.confirm({
             title: "Instalar App",
-            message: "¿ Desea instalar RíosConCienciApp en su dispositivo ?",
+            message: "¿Deseas instalar RíosConCienciApp en tu dispositivo?",
             cancelText: "No",
-            confirmText: "Si",
+            confirmText: "Sí",
             type: "is-primary",
             onConfirm: () => {
               this.installer();
