@@ -13,6 +13,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     userRiverSections: [],
+    userRiverSectionsPicts: [],
     userPosition: null,
     activeSectionId: 0,
     activeFormId: 0, // formExpert == 0, formPicts == 1
@@ -133,6 +134,9 @@ export default new Vuex.Store({
     [types.SET_RIVER_SECTIONS_USER](state, userRiverSections) {
       state.userRiverSections = userRiverSections;
     },
+    [types.SET_RIVER_SECTIONS_PICTS_USER](state, userRiverSectionsPicts) {
+      state.userRiverSectionsPicts = userRiverSectionsPicts;
+    },
     [types.SET_EXPERT_SECTION_STATE](state, payload) {
       state.formExpertSections[payload.name].isValid = payload.isValid;
     },
@@ -210,6 +214,9 @@ export default new Vuex.Store({
     },
     loadRiverSections(context, riverSections) {
       context.commit(types.SET_RIVER_SECTIONS_USER, riverSections);
+    },
+    loadRiverSectionsPicts(context, riverSectionsPicts) {
+      context.commit(types.SET_RIVER_SECTIONS_PICTS_USER, riverSectionsPicts);
     },
     loadExpertFormData(context, formData) {
       context.commit(types.LOAD_EXPERT_FORM_DATA, formData);

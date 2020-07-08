@@ -53,7 +53,8 @@ export default {
   methods: {
     ...mapActions({
       setActiveUser: "setActiveUser",
-      loadRiverSections: "loadRiverSections"
+      loadRiverSections: "loadRiverSections",
+      loadRiverSectionsPicts: "loadRiverSectionsPicts"
     }),
     async loginUser() {
       try {
@@ -101,7 +102,11 @@ export default {
           authenticatedUser.token,
           authenticatedUser.id
         );
-        this.loadRiverSections(userRiverSections);
+        const riverSectionsFormated = this.getRiverSectionsSplit(
+          userRiverSections
+        );
+        this.loadRiverSections(riverSectionsFormated.expert);
+        this.loadRiverSectionsPicts(riverSectionsFormated.picts);
         if (userRiverSections == "" && this.userCanDoExpertForm) {
           this.$buefy.toast.open({
             message:
@@ -117,6 +122,30 @@ export default {
           duration: 5000
         });
       }
+    },
+    getRiverSectionsSplit(riverSections) {
+      const riverSectionExpert = this.getRiverSectionsFormated(
+        riverSections.filter(section => !section.isTeaSection)
+      );
+      const riverSectionPicts = this.getRiverSectionsFormated(
+        riverSections.filter(section => section.isTeaSection)
+      );
+      return { expert: riverSectionExpert, picts: riverSectionPicts };
+    },
+    getRiverSectionsFormated(sections) {
+      return sections.map(section => {
+        return {
+          id: section.idRiverSection,
+          name: section.alias,
+          coordX: section.coordX,
+          coordY: section.coordY,
+          municipality: section.municipality,
+          riverName: section.riverName,
+          riverType: section.riverType,
+          catchment: section.catchment,
+          riverAlias: section.riverAlias
+        };
+      });
     }
   }
 };

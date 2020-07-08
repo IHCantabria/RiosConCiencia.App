@@ -178,7 +178,7 @@
       </div>
     </div>
     <b-field
-      label="g. Cobertura de la vegetación acúatica"
+      label="g. Cobertura de la vegetación acuática"
       :message="{
         '*Hay que seleccionar una opción para cada elemento': aquaticVegetationHasErrors
       }"

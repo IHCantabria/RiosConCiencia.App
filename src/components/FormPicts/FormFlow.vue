@@ -76,6 +76,7 @@ export default {
   data() {
     return {
       values: {
+        riverSection: null,
         waterFlow: null
       }
     };
@@ -83,7 +84,8 @@ export default {
   mixins: [pictsHelperMixin],
   computed: {
     ...mapState({
-      formFlow: state => state.formPictsSections.flow
+      formFlow: state => state.formPictsSections.flow,
+      riverSectionsPicts: state => state.userRiverSectionsPicts
     }),
     isSectionValid() {
       return true; //optional section
@@ -107,6 +109,7 @@ export default {
   },
   beforeUpdate() {
     const valuesFormated = {
+      riverSection: this.riverSectionsPicts[0],
       waterFlow: this.values.waterFlow.length ? this.values.waterFlow[0] : null
     };
     this.updateSpecificPictsSectionValues({
