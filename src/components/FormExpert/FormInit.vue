@@ -1,6 +1,13 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">0. Datos iniciales</h5>
+    <div class="header-section">
+      <h5 class="title is-5 header-section__text">
+        <span>0. Datos iniciales</span>
+      </h5>
+      <a :href="pdfLink" class="header-section__help" target="_blank"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
+    </div>
     <b-field label="Nombre del responsable">
       <label>{{ userFullName }}</label>
     </b-field>
@@ -111,6 +118,9 @@ export default {
   mounted() {
     this.init();
   },
+  created() {
+    this.pdfLink = require("../../assets/pdfs/manual2019.pdf");
+  },
   beforeUpdate() {
     this.updateSpecificExpertSectionValues({
       name: "init",
@@ -120,6 +130,7 @@ export default {
   },
   data() {
     return {
+      pdfLink: null,
       values: {
         partners: null,
         riverSection: null,
