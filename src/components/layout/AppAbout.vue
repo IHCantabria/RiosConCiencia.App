@@ -30,11 +30,11 @@
       </p>
       <p class="about__msg-section">
         Se puede acceder a los resultados de este proyecto en el siguiente
-        enlace
+        enlace.
       </p>
       <p class="about__msg-section">
         <a href="https://riosconcienciavisor.ihcantabria.com/" target="_blank"
-          >Pulse para ver los datos del proyecto</a
+          >Pulse para ir al geovisor de los datos del proyecto</a
         >
       </p>
       <p class="about__msg-section disclaim">
