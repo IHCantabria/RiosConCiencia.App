@@ -268,13 +268,13 @@ export default {
     }),
     landUseHasErrors() {
       return (
-        this.values.riverMarginLandUseLeft.length === 0 ||
+        this.values.riverMarginLandUseLeft.length === 0 &&
         this.values.riverMarginLandUseRight.length === 0
       );
     },
     riverConditionsHasErrors() {
       return (
-        this.values.riverMarginConditionsLeft.length === 0 ||
+        this.values.riverMarginConditionsLeft.length === 0 &&
         this.values.riverMarginConditionsRight.length === 0
       );
     },
