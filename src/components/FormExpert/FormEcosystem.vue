@@ -47,46 +47,25 @@
         >Obtener posición actual</b-button
       >
     </b-field>
-    <b-field
-      label="Anchura (m)"
-      custom-class="is-small"
-      :message="{
-        '*Hay que definir la anchura': sampleWidthHasErrors
-      }"
-      :type="{ 'is-danger': sampleWidthHasErrors }"
-    >
+    <b-field label="Anchura (m)" custom-class="is-small">
       <b-numberinput
         v-model="values.samplePointWidth"
         step="0.1"
-        min="0.1"
+        min="0"
       ></b-numberinput>
     </b-field>
-    <b-field
-      label="Profundidad media (m)"
-      custom-class="is-small"
-      :message="{
-        '*Hay que definir la profundidad': sampleDepthHasErrors
-      }"
-      :type="{ 'is-danger': sampleDepthHasErrors }"
-    >
+    <b-field label="Profundidad media (m)" custom-class="is-small">
       <b-numberinput
         v-model="values.samplePointDepth"
         step="0.1"
-        min="0.1"
+        min="0"
       ></b-numberinput>
     </b-field>
-    <b-field
-      label="Velocidad del agua (m/s)"
-      custom-class="is-small"
-      :message="{
-        '*Hay que definir la velocidad del agua': waterVelocityHasErrors
-      }"
-      :type="{ 'is-danger': waterVelocityHasErrors }"
-    >
+    <b-field label="Velocidad del agua (m/s)" custom-class="is-small">
       <b-numberinput
         v-model="values.samplePointWaterVelocity"
         step="0.1"
-        min="0.1"
+        min="0"
       ></b-numberinput>
     </b-field>
     <b-field label="Caudal" custom-class="is-small"> </b-field>
@@ -101,7 +80,10 @@
       }"
       :type="{ 'is-danger': waterTempHasErrors }"
     >
-      <b-numberinput v-model="values.samplePointWaterTemp"></b-numberinput>
+      <b-numberinput
+        step="0.5"
+        v-model="values.samplePointWaterTemp"
+      ></b-numberinput>
     </b-field>
     <b-field label="Transparencia" custom-class="is-small"> </b-field>
     <b-field
@@ -231,9 +213,9 @@ export default {
           lon: 0,
           lat: 0
         },
-        samplePointWidth: 0,
-        samplePointDepth: 0,
-        samplePointWaterVelocity: 0,
+        samplePointWidth: null,
+        samplePointDepth: null,
+        samplePointWaterVelocity: null,
         samplePointWaterTemp: 0,
         waterTransparency: null,
         riverEcosystem: [],
@@ -244,6 +226,22 @@ export default {
   },
   created() {
     this.pdfLink = require("../../assets/pdfs/ecosistema.pdf");
+  },
+  watch: {
+    values: {
+      deep: true,
+      handler(newValue) {
+        if (newValue.samplePointWidth == 0) {
+          this.values.samplePointWidth = null;
+        }
+        if (newValue.samplePointDepth == 0) {
+          this.values.samplePointDepth = null;
+        }
+        if (newValue.samplePointWaterVelocity == 0) {
+          this.values.samplePointWaterVelocity = null;
+        }
+      }
+    }
   },
   computed: {
     ...mapState({
@@ -263,29 +261,14 @@ export default {
         this.values.samplePointWaterVelocity
       );
     },
-    sampleDepthHasErrors() {
-      return this.values.samplePointDepth === 0;
-    },
-    waterVelocityHasErrors() {
-      return this.values.samplePointWaterVelocity === 0;
-    },
     waterTempHasErrors() {
       return this.values.samplePointWaterTemp === null;
-    },
-    sampleWidthHasErrors() {
-      return this.values.samplePointWidth === 0;
     },
     transparencyHasErrors() {
       return this.values.waterTransparency === null;
     },
     isSectionValid() {
-      return (
-        !this.sampleDepthHasErrors &&
-        !this.waterVelocityHasErrors &&
-        !this.waterTempHasErrors &&
-        !this.sampleWidthHasErrors &&
-        !this.transparencyHasErrors
-      );
+      return !this.waterTempHasErrors && !this.transparencyHasErrors;
     }
   },
   mounted() {
