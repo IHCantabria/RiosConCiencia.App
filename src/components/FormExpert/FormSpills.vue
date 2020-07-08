@@ -2,7 +2,7 @@
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span> 2. Inspección de Vertidos (500m)</span>
+        <span> 2. Inspección de vertidos (500 m)</span>
       </h5>
       <a :href="pdfLink" class="header-section__help" target="_blank"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
@@ -263,7 +263,7 @@ export default {
         })
         .catch(() => {
           this.$buefy.toast.open({
-            message: "No es posible Geolocalizar la ubicación",
+            message: "No es posible geolocalizar la ubicación",
             type: "is-danger",
             duration: 4000
           });

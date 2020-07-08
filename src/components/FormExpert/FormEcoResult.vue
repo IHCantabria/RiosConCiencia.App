@@ -24,7 +24,7 @@
         </b-field>
       </b-message>
     </div>
-    <h5 class="title is-5">8. Estado Ecológico</h5>
+    <h5 class="title is-5">8. Estado ecológico</h5>
     <div>
       <div class="block" v-if="isFormExpertValid">
         <b-message
@@ -83,7 +83,7 @@
     </div>
     <b-field
       class="observations-field"
-      label="Si hay ocurrido algo reseñable durante el muestreo o ha encontrado algo que no ha podido ser cubierto en el formulario, detállelo aquí:"
+      label="Si ha ocurrido algo reseñable durante el muestreo o has encontrado algo que no has podido reflejar en el formulario, detállalo aquí:"
     >
       <b-input
         maxlength="300"

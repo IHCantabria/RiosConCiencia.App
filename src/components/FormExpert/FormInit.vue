@@ -1,6 +1,6 @@
 <template>
   <div class="form-section">
-    <h5 class="title is-5">0. Datos Iniciales</h5>
+    <h5 class="title is-5">0. Datos iniciales</h5>
     <b-field label="Nombre del responsable">
       <label>{{ userFullName }}</label>
     </b-field>

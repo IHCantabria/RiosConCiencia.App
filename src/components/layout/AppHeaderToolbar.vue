@@ -35,9 +35,9 @@ export default {
       this.$buefy.dialog.confirm({
         title: "Desconectar Usuario",
         message:
-          "¿Seguro que quiere cerrar sesión? Se perderán los datos de cualquier formulario no enviado.",
+          "¿Seguro que quieres cerrar la sesión? Se perderán los datos de cualquier formulario no enviado.",
         confirmText: "Cerrar sesión",
-        cancelText: "Volver atras",
+        cancelText: "Volver atrás",
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => this.$root.$emit("logout")
