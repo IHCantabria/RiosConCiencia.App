@@ -118,14 +118,12 @@
       :class="['block', CategoryOrder(category)]"
       :key="indexCat + 10"
     >
-      <b-field :label="category.name" custom-class="is-small"> </b-field>
-      <div
-        class="block"
-        v-for="(group, indexGroup) in category.options"
-        :key="indexGroup"
-      >
+      <div class="checkboxes-group">
+        <label class="checkboxes-group__title">{{ category.name }}</label>
+      </div>
+      <div v-for="(group, indexGroup) in category.options" :key="indexGroup">
         <div class="checkboxes-group">
-          <label class="checkboxes-group__title">{{ group.name }}</label>
+          <label class="checkboxes-group__subtitle">{{ group.name }}</label>
         </div>
         <div class="field" v-for="option in group.options" :key="option.id">
           <b-checkbox v-model="values.riverEcosystem" :native-value="option">{{
@@ -148,7 +146,7 @@
       <template v-if="category.id == 2">
         <div class="block" key="20">
           <div class="checkboxes-group">
-            <label class="checkboxes-group__title"
+            <label class="checkboxes-group__subtitle"
               >Invasoras / Alóctonas (grado de cobertura)</label
             >
           </div>
@@ -191,7 +189,9 @@
         .eukaryoteSimpleOptions"
       :key="indexCatSimple"
     >
-      <b-field :label="category.name" custom-class="is-small"> </b-field>
+      <div class="checkboxes-group">
+        <label class="checkboxes-group__title">{{ category.name }}</label>
+      </div>
       <div class="field" v-for="option in category.options" :key="option.id">
         <b-checkbox v-model="values.riverEcosystem" :native-value="option">{{
           option.name
