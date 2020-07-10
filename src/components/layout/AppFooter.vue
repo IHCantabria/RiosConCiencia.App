@@ -1,6 +1,9 @@
 <template>
   <div class="footer-container">
     <div class="footer-container__logos" v-show="!isFormPage">
+      <div class="claim-container">
+        <span>Con la colaboración de:</span>
+      </div>
       <img
         src="@/assets/logos/LogoMinisterio-FECYT.png"
         title="Gobierno de España y Fundación Española para la Ciencia y la Tecnología"
@@ -38,11 +41,18 @@ export default {
     height: 100%;
     & img {
       max-height: 10vh;
-      padding: 0.5rem 1rem;
+      padding: 0 1rem 1rem 1rem;
     }
   }
   &__form-nav {
     margin: 1rem;
   }
+}
+.claim-container {
+  text-align: left;
+  font-style: italic;
+  font-weight: bold;
+  padding: 0.4rem 1rem 0 1rem;
+  font-size: 0.7rem;
 }
 </style>
