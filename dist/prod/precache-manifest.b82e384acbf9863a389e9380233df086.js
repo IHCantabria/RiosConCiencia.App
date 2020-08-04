@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9b0c026c394c71c669eda0d9c2ea2f95",
-    "url": "/cambera_ico.ico"
+    "url": "/cambera_icon.ico"
   },
   {
     "revision": "6fd79da132c46805b11e",
