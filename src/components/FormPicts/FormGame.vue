@@ -135,6 +135,7 @@
         type="is-danger"
         size="is-medium"
         expanded
+        :disabled="isSendActive"
         @click="sendSampleData()"
         >Enviar Resultados</b-button
       >
@@ -160,6 +161,7 @@ export default {
       sowed: false,
       decontaminated: false,
       isSendingData: false,
+      isSendActive: false,
       values: {
         gameState: null //states: 0 = Correct, 1 = Incorrect, 2 = Corrected
       }
@@ -312,6 +314,7 @@ export default {
       }
     },
     async sendSampleData() {
+      this.isSendActive = true;
       const sampleData = this._prepareSampleObj();
       try {
         this.isSendingData = true;
@@ -319,17 +322,21 @@ export default {
         const toast = this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
           type: "is-success",
-          duration: 5000
+          duration: 6000
         });
         toast.$on("close", () => {
+          this.isSendActive = false;
           this.$root.$emit("clearPicts");
         });
       } catch (err) {
-        this.$buefy.toast.open({
+        const toast = this.$buefy.toast.open({
           message:
             "Ooops, se ha producido un error intentando enviar el formulario",
           type: "is-danger",
-          duration: 4000
+          duration: 6000
+        });
+        toast.$on("close", () => {
+          this.isSendActive = false;
         });
       } finally {
         this.isSendingData = false;

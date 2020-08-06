@@ -95,8 +95,8 @@ export default {
       //dataReady switch to hide spinner
       this.dataReady = true;
       let error = this.isComputedOnline
-        ? "No ha sido posible cargar datos maestros del formulario, el servidor esta caido"
-        : " No es posible cargar datos maestros del formulario si no dispones de conexión a internet";
+        ? "No ha sido posible cargar datos maestros del formulario. El servidor está caído."
+        : " No es posible cargar datos maestros del formulario si no dispones de conexión a internet.";
       this.$buefy.toast.open({
         message: error,
         type: "is-danger",
