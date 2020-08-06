@@ -2,7 +2,7 @@
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>5. El ecosistema acúatico (50 m)</span>
+        <span>5. El ecosistema acuático (50 m)</span>
       </h5>
       <a :href="pdfLink" class="header-section__help" target="_blank"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
