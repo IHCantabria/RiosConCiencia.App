@@ -11,7 +11,7 @@
     <b-field
       v-show="isHelpActive"
       message="
-        Giraremos sobre nosotros mismos 180º para observar si encontramos en los alrededores del río las plantas que os mostramos a continuación. "
+        Giraremos sobre nosotros mismos 180º para observar si encontramos en los alrededores del río las plantas que os mostramos a continuación. Pueden ser plantas autóctonas y que se consideran buenas (p.e. ortigas, avellanos, fresnos y robles) o plantas exóticas invasoras que se consideran malas (p.e. plumero, vara de San José y bambú japonés)."
     >
     </b-field>
     <div class="block guide-section">
