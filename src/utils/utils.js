@@ -344,7 +344,7 @@ const roundValue = (number, decimals) => {
   return +(Math.round(number + "e+" + decimals) + "e-" + decimals);
 };
 
-const promiseTimeout = function(ms, promise) {
+const promiseTimeout = (ms, promise) => {
   // Create a promise that rejects in <ms> milliseconds
   let timeout = new Promise((resolve, reject) => {
     let id = setTimeout(() => {
@@ -357,7 +357,7 @@ const promiseTimeout = function(ms, promise) {
   return Promise.race([promise, timeout]);
 };
 
-const checkNestedProperty = function(obj, propertyPath) {
+const checkNestedProperty = (obj, propertyPath) => {
   if (!propertyPath) return false;
 
   var properties = propertyPath.split(".");
@@ -375,11 +375,23 @@ const checkNestedProperty = function(obj, propertyPath) {
   return true;
 };
 
+const canDoExpert = roleId => {
+  const RoleIdsExpert = [1, 2, 3, 7, 8];
+  return RoleIdsExpert.includes(parseInt(roleId));
+};
+
+const canDoPicts = roleId => {
+  const RoleIdsPicts = [1, 2, 4, 7, 9];
+  return RoleIdsPicts.includes(parseInt(roleId));
+};
+
 export {
   fillArray,
   deepCloneMultiArray,
   roundValue,
   promiseTimeout,
   checkNestedProperty,
-  getImg
+  getImg,
+  canDoExpert,
+  canDoPicts
 };

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "./plugins/persistent";
 import * as types from "./types";
-import { checkNestedProperty } from "./../utils/utils";
+import { checkNestedProperty, canDoExpert, canDoPicts } from "./../utils/utils";
 import formStore from "@/store/local";
 Vue.use(Vuex);
 
@@ -31,10 +31,10 @@ export default new Vuex.Store({
       return Object.keys(state.formPictsSections).length !== 0;
     },
     userCanDoExpertForm: state => {
-      return state.user.roleId != 4;
+      return canDoExpert(state.user.roleId);
     },
     userCanDoPictsForm: state => {
-      return state.user.roleId != 3;
+      return canDoPicts(state.user.roleId);
     },
     garbageExist: state => {
       return state.formPictsSections.garbage &&
