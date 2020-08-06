@@ -209,30 +209,32 @@
         </div>
       </div>
     </div>
-    <b-field label="h. Valor del Índice del Hábitat Fluvial (IHF)"> </b-field>
-    <div class="results">
-      <div class="block">
-        <b-message
-          class="results-display"
-          :title="habitatIndex.cat.name"
-          type="is-info"
-          :closable="false"
-        >
-          {{ habitatIndex.cat.description }}
-          <div class="results__rate">
-            <b-rate
-              v-model="habitatIndex.cat.value"
-              icon-pack="mdi"
-              icon="star"
-              :max="3"
-              size="is-medium"
-              :show-text="false"
-              :disabled="true"
-            >
-            </b-rate>
-          </div>
-          <div class="block">{{ habitatIndexTotalPoints }} puntos</div>
-        </b-message>
+    <div v-if="values.habitatIndex !== null">
+      <b-field label="h. Valor del Índice del Hábitat Fluvial (IHF)"> </b-field>
+      <div class="results">
+        <div class="block">
+          <b-message
+            class="results-display"
+            :title="habitatIndex.cat.name"
+            type="is-info"
+            :closable="false"
+          >
+            {{ habitatIndex.cat.description }}
+            <div class="results__rate">
+              <b-rate
+                v-model="habitatIndex.cat.value"
+                icon-pack="mdi"
+                icon="star"
+                :max="3"
+                size="is-medium"
+                :show-text="false"
+                :disabled="true"
+              >
+              </b-rate>
+            </div>
+            <div class="block">{{ habitatIndexTotalPoints }} puntos</div>
+          </b-message>
+        </div>
       </div>
     </div>
   </div>
@@ -253,7 +255,7 @@ export default {
         riverShadows: null,
         randomElements: [],
         aquaticVegetation: [],
-        habitatIndex: {}
+        habitatIndex: null
       },
       velocityAndDepthTypes: [
         "rápido / profundo",
@@ -305,10 +307,12 @@ export default {
       );
     },
     habitatIndex() {
-      return {
-        cat: this.getHabitatCategory(this.habitatIndexTotalPoints),
-        totalPoints: this.habitatIndexTotalPoints
-      };
+      return this.isSectionValid
+        ? {
+            cat: this.getHabitatCategory(this.habitatIndexTotalPoints),
+            totalPoints: this.habitatIndexTotalPoints
+          }
+        : null;
     },
     substrateHasErrors() {
       for (let element of this.values.substrateComposition) {
