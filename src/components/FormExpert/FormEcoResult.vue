@@ -96,7 +96,7 @@
         type="is-danger"
         size="is-medium"
         expanded
-        :disabled="!isReadySend"
+        :disabled="!isReadySend || isSendActive"
         @click="sendSampleData()"
         >Enviar Resultados</b-button
       >
@@ -117,7 +117,8 @@ export default {
       values: {
         ecoStatus: {}
       },
-      isSendingData: false
+      isSendingData: false,
+      isSendActive: false
     };
   },
   computed: {
@@ -171,6 +172,7 @@ export default {
       }
     },
     async sendSampleData() {
+      this.isSendActive = true;
       this.values.ecoStatus = this.ecoStatusIndex;
       const sampleData = this._prepareSampleObj();
       try {
@@ -179,17 +181,21 @@ export default {
         const toast = this.$buefy.toast.open({
           message: "¡Enhorabuena! El formulario se ha enviado con éxito",
           type: "is-success",
-          duration: 5000
+          duration: 6000
         });
         toast.$on("close", () => {
+          this.isSendActive = false;
           this.$root.$emit("clearExpert");
         });
       } catch (err) {
-        this.$buefy.toast.open({
+        const toast = this.$buefy.toast.open({
           message:
             "Ooops, se ha producido un error intentando enviar el formulario",
           type: "is-danger",
-          duration: 4000
+          duration: 6000
+        });
+        toast.$on("close", () => {
+          this.isSendActive = false;
         });
       } finally {
         this.isSendingData = false;
