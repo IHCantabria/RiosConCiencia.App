@@ -27,6 +27,16 @@
 
     - Master
     - Tag
+	
+## Settings site
+    - feature_net45: 'no'
+    - net_core: 'no'
+    - core_version: 'no'
+    - httpplatform: 'no'
+    - managedRuntimeVersion_pool: 'no managed'
+    - enable32BitAppOnWin64_pool: 'false'
+    - managedPipeLineMode_pool: 'integrated'
+    - iiswin_aut: 'no'
 
 ## Url GIT
 
@@ -45,10 +55,6 @@ _Development_
 ## Other settings
 
 Select only if needed:
-
-**NET-CORE version**
-
-`_____________`
 
 **Binary repo**
 
