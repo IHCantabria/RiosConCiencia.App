@@ -29,8 +29,8 @@ module.exports = {
   devServer: {
     open: true,
     https: true,
-    key: fs.readFileSync("./certificate/localhost-key.pem"),
-    cert: fs.readFileSync("./certificate/localhost.pem")
+    key: fs.readFileSync("./certificate/localhostDev-key.pem"),
+    cert: fs.readFileSync("./certificate/localhostDev.pem")
   },
   pluginOptions: {
     webpackBundleAnalyzer: {
