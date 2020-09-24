@@ -107,19 +107,15 @@ export default {
         );
         this.loadRiverSections(riverSectionsFormated.expert);
         this.loadRiverSectionsPicts(riverSectionsFormated.picts);
-        if (userRiverSections == "" && this.userCanDoExpertForm) {
-          this.$buefy.toast.open({
-            message:
-              "¡Atención! no tienes asignados tramos de río, no podras completar ni enviar ningun formulario",
-            type: "is-danger",
-            duration: 8000
-          });
-        }
       } catch (err) {
+        var msg =
+          err.response.status == 404
+            ? "¡Atención! no tienes asignados tramos de río, no podras completar ni enviar ningun formulario experto."
+            : "Fallo al recuperar tus tramos de río, prueba mas tarde";
         this.$buefy.toast.open({
-          message: "Fallo al recuperar tus tramos de río, prueba mas tarde",
+          message: msg,
           type: "is-danger",
-          duration: 5000
+          duration: 8000
         });
       }
     },
