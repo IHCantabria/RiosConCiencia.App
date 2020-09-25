@@ -3,6 +3,7 @@
   <b-steps
     size="is-small"
     v-model="stepControl"
+    :mobile-mode="stepItemCfg.mobileMode"
     :animated="stepItemCfg.isAnimated"
     :has-navigation="stepItemCfg.hasNavigation"
   >
@@ -51,6 +52,7 @@ export default {
         isStepsClickable: true,
         isAnimated: true,
         hasNavigation: true,
+        mobileMode: null,
         customNavigation: true,
         prevIcon: "chevron-left",
         nextIcon: "chevron-right",
