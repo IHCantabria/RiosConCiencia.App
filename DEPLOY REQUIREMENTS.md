@@ -19,6 +19,16 @@
     - Dev
     - Prod
 
+## ANSIBLE RECIPE NAME
+
+_Production_
+
+    - Deploy RiosConCiencia.App - PROD
+
+_Development_
+
+    - Deploy RiosConCiencia.App - DEV
+
 ## App folder
 
 `RiosConCiencia.App`
@@ -27,8 +37,9 @@
 
     - Master
     - Tag
-	
+
 ## Settings site
+
     - feature_net45: 'no'
     - net_core: 'no'
     - core_version: 'no'
@@ -37,6 +48,10 @@
     - enable32BitAppOnWin64_pool: 'false'
     - managedPipeLineMode_pool: 'integrated'
     - iiswin_aut: 'no'
+
+## LOG
+
+    - log: 'no'
 
 ## Url GIT
 
@@ -50,7 +65,17 @@ _Production_
 
 _Development_
 
-    - riosconcienciades.ihcantabria.com
+    - riosconcienciadev.ihcantabria.com
+
+## URL APPLICATION
+
+_Production_
+
+    - riosconciencia.ihcantabria.com
+
+_Development_
+
+    - riosconcienciadev.ihcantabria.com
 
 ## Other settings
 
