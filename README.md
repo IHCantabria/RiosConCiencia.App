@@ -77,6 +77,7 @@ This software use:
 
 - [Buefy](https://buefy.org/) - MIT License
 - [Bulma](https://bulma.io/) - MIT License
+- Weather data provided by [OpenWeather](https://openweathermap.org/) - License CC BY-SA 4.0
 
 Some images taken from :
 
