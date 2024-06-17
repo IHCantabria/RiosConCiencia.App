@@ -1,3 +1,44 @@
+<script setup>
+import { ref, computed, onMounted, onBeforeUpdate } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// DATA
+const pdfLink = ref(null);
+const values = ref({
+  bioQualityIndex: 0,
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+  // TODO: Fix this
+  // this.pdfLink = require("../../assets/pdfs/diagnostico.pdf");
+});
+onBeforeUpdate(() => {
+  appStore.updateSpecificExpertSectionValues({
+    name: "biological",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+});
+
+// COMPUTED
+const bioQualityHasErrors = computed(() => {
+  return values.value.bioQualityIndex === null;
+});
+const isSectionValid = computed(() => {
+  return !bioQualityHasErrors.value;
+});
+
+// METHODS
+const init = () => {
+  values.value.bioQualityIndex = null; //default value and make beforeUpdate hook jump
+};
+</script>
+
 <template>
   <div class="form-section">
     <div class="header-section">
@@ -10,26 +51,27 @@
     </div>
     <b-field
       :message="{
-        '*Seleccione una opción': bioQualityHasErrors
+        '*Seleccione una opción': bioQualityHasErrors,
       }"
       :type="{ 'is-danger': bioQualityHasErrors }"
     >
       <b-select
+        v-model="values.bioQualityIndex"
         placeholder="Selecciona calidad biológica del agua"
         icon="thumbs-up-down"
         expanded=""
-        v-model="values.bioQualityIndex"
       >
         <option
-          v-for="(option, index) in formBiological.data.bioQualityOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.biological.data
+            .bioQualityOptions"
           :key="index"
+          :value="option"
         >
-          {{ option.name }}</option
-        >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
-    <div class="results" v-if="values.bioQualityIndex !== null">
+    <div v-if="values.bioQualityIndex !== null" class="results">
       <div class="block">
         <b-message
           class="results-display"
@@ -54,60 +96,16 @@
     </div>
   </div>
 </template>
-<script>
-import { mapState, mapActions } from "vuex";
 
-export default {
-  data() {
-    return {
-      pdfLink: null,
-      values: {
-        bioQualityIndex: 0
-      }
-    };
-  },
-  created() {
-    this.pdfLink = require("../../assets/pdfs/diagnostico.pdf");
-  },
-  computed: {
-    ...mapState({
-      formBiological: state => state.formExpertSections.biological
-    }),
-    bioQualityHasErrors() {
-      return this.values.bioQualityIndex === null;
-    },
-    isSectionValid() {
-      return !this.bioQualityHasErrors;
-    }
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    this.updateSpecificExpertSectionValues({
-      name: "biological",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
-    }),
-    init() {
-      this.values.bioQualityIndex = null; //default value and make beforeUpdate hook jump
-    }
-  }
-};
-</script>
 <style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
 .results {
   padding: 1rem;
+
   &__rate {
     padding: 1rem;
   }
 }
+
 .results-display {
   max-width: 500px;
 }

@@ -1,10 +1,75 @@
+<script setup>
+import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+import { usePictsHelper } from "@/composables/usePictsHelper.js";
+
+import titleFlowImg from "@/assets/images/picts/flow/titleFlow.jpg";
+import riverImg from "@/assets/images/picts/flow/river.jpg";
+import riverFlow from "@/assets/images/picts/flow/riverFlow.gif";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+const { isHelpActive, toggleHelp } = usePictsHelper();
+
+// DATA
+const values = ref({
+  riverSection: null,
+  waterFlow: null,
+});
+
+// COMPUTED
+const isSectionValid = computed(() => {
+  return true; //optional section
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+});
+onBeforeUpdate(() => {
+  const valuesFormated = {
+    riverSection: appStore.userRiverSectionsPicts[0],
+    waterFlow: values.value.waterFlow.length ? values.value.waterFlow[0] : null,
+  };
+  appStore.updateSpecificPictsSectionValues({
+    name: "flow",
+    values: valuesFormated,
+    isValid: isSectionValid.value,
+  });
+});
+
+// METHODS
+
+const init = () => {
+  values.value.waterFlow = []; //default value and make beforeUpdate hook jump
+};
+const isSelected = (object) => {
+  return values.value.waterFlow
+    ? values.value.waterFlow.findIndex((obj) => obj == object) == -1
+      ? false
+      : true
+    : "";
+};
+
+// WATCHERS
+watch(
+  () => values.value,
+  (newValue) => {
+    if (newValue.waterFlow.length > 1) {
+      values.value.waterFlow.shift();
+    }
+  },
+  { deep: true },
+);
+</script>
+
 <template>
   <div class="form-section-picts form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
         <span>MIRAMOS AL RÍO</span>
       </h5>
-      <div class="header-section__help" @click="$_toggleHelp()">
+      <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
@@ -14,7 +79,7 @@
     >
     </b-field>
     <div class="img-header">
-      <img :src="$_getImgUrl(1, 0, 0)" class="img-header__pic" />
+      <img :src="titleFlowImg" class="img-header__pic" alt="TitleFlow Img" />
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
@@ -25,20 +90,21 @@
       <div class="img-container">
         <span class="img-option-text">NO SE MUEVE</span>
         <b-checkbox-button
-          class="img-option"
           v-model="values.waterFlow"
+          class="img-option"
           :native-value="false"
         >
           <img
             :class="
               isSelected(false) ? 'img-option__active' : 'img-option__inactive'
             "
-            :src="$_getImgUrl(1, 1, 1)"
+            :src="riverImg"
+            alt="River Img"
           />
           <div
             :class="[
               'overlay',
-              isSelected(false) ? 'overlay__active' : 'overlay__inactive'
+              isSelected(false) ? 'overlay__active' : 'overlay__inactive',
             ]"
           ></div>
         </b-checkbox-button>
@@ -46,21 +112,21 @@
       <div class="img-container">
         <span class="img-option-text">SI SE MUEVE</span>
         <b-checkbox-button
-          class="
-          img-option"
           v-model="values.waterFlow"
+          class="img-option"
           :native-value="true"
         >
           <img
             :class="
               isSelected(true) ? 'img-option__active' : 'img-option__inactive'
             "
-            :src="$_getImgUrl(1, 2, 1)"
+            :src="riverFlow"
+            alt="River Flow"
           />
           <div
             :class="[
               'overlay',
-              isSelected(true) ? 'overlay__active' : 'overlay__inactive'
+              isSelected(true) ? 'overlay__active' : 'overlay__inactive',
             ]"
           ></div>
         </b-checkbox-button>
@@ -68,91 +134,24 @@
     </b-field>
   </div>
 </template>
-<script>
-import requireContext from "require-context.macro";
-import { mapState, mapActions } from "vuex";
-import { pictsHelperMixin } from "@/mixins/picts-helper.js";
-export default {
-  data() {
-    return {
-      values: {
-        riverSection: null,
-        waterFlow: null
-      }
-    };
-  },
-  mixins: [pictsHelperMixin],
-  computed: {
-    ...mapState({
-      formFlow: state => state.formPictsSections.flow,
-      riverSectionsPicts: state => state.userRiverSectionsPicts
-    }),
-    isSectionValid() {
-      return true; //optional section
-    }
-  },
-  watch: {
-    values: {
-      deep: true,
-      handler(newValue) {
-        if (newValue.waterFlow.length > 1) {
-          this.values.waterFlow.shift();
-        }
-      }
-    }
-  },
-  created() {
-    this._loadAssests();
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    const valuesFormated = {
-      riverSection: this.riverSectionsPicts[0],
-      waterFlow: this.values.waterFlow.length ? this.values.waterFlow[0] : null
-    };
-    this.updateSpecificPictsSectionValues({
-      name: "flow",
-      values: valuesFormated,
-      isValid: this.isSectionValid
-    });
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
-    }),
-    init() {
-      this.values.waterFlow = []; //default value and make beforeUpdate hook jump
-    },
-    _loadAssests() {
-      this.imgFolder = requireContext("@/assets/images/picts/flow", true);
-    },
-    isSelected(object) {
-      return this.values.waterFlow
-        ? this.values.waterFlow.findIndex(obj => obj == object) == -1
-          ? false
-          : true
-        : "";
-    }
-  }
-};
-</script>
+
 <style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
 .img-option {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+
   img {
     height: 100%;
     max-width: 300px;
     width: 100%;
   }
 }
+
 .img-container {
   max-width: 300px;
 }
+
 .img-header {
   &__pic {
     max-width: 200px;

@@ -1,18 +1,13 @@
+<script setup>
+import IntroComponent from "@/components/IntroComponent.vue";
+</script>
+
 <template>
   <div class="welcome">
-    <intro />
+    <IntroComponent />
   </div>
 </template>
-<script>
-import { routeGuardMixin } from "@/mixins/route-guard.js";
-export default {
-  name: "WelcomeView",
-  components: {
-    intro: () => import("@/components/Intro")
-  },
-  mixins: [routeGuardMixin]
-};
-</script>
+
 <style lang="scss" scoped>
 .welcome {
   margin: 1rem;

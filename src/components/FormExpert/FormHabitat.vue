@@ -1,3 +1,168 @@
+<script setup>
+import { ref, onMounted, onBeforeUpdate, computed } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// DATA
+const pdfLink = ref(null);
+const pdfLink2 = ref(null);
+const values = ref({
+  stonesInPools: null,
+  substrateComposition: [],
+  rapidsFrequency: null,
+  velocityAndDepth: null,
+  riverShadows: null,
+  randomElements: [],
+  aquaticVegetation: [],
+  habitatIndex: null,
+});
+const velocityAndDepthTypes = [
+  "rápido / profundo",
+  "lento / profundo",
+  "lento / poco profundo",
+  "rápido / poco profundo",
+];
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+  // TODO: Fix this
+  // pdfLink.value = require("../../assets/pdfs/habitat.pdf");
+  // pdfLink2.value = require("../../assets/pdfs/fichaIHF2019.pdf");
+});
+onBeforeUpdate(() => {
+  values.value.habitatIndex = habitatIndex.value;
+  appStore.updateSpecificExpertSectionValues({
+    name: "habitat",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+});
+// COMPUTED
+const randomElementPresenceOptionsFilter = computed(() => {
+  return appStore.formExpertSections.habitat.data.randomElementPresenceOptions.filter(
+    (element) => element.id != 2,
+  );
+});
+const substrateCompositionSUM = computed(() => {
+  return getTotalPoints(values.value.substrateComposition);
+});
+const randomElementsSUM = computed(() => {
+  return getTotalPoints(values.value.randomElements);
+});
+const aquaticVegetationSUM = computed(() => {
+  return getTotalPoints(values.value.aquaticVegetation);
+});
+const habitatIndexTotalPoints = computed(() => {
+  return (
+    parseInt(
+      values.value.stonesInPools ? values.value.stonesInPools.points : 0,
+    ) +
+    parseInt(
+      values.value.rapidsFrequency ? values.value.rapidsFrequency.points : 0,
+    ) +
+    parseInt(substrateCompositionSUM.value) +
+    parseInt(
+      values.value.velocityAndDepth ? values.value.velocityAndDepth.points : 0,
+    ) +
+    parseInt(values.value.riverShadows ? values.value.riverShadows.points : 0) +
+    parseInt(randomElementsSUM.value) +
+    parseInt(aquaticVegetationSUM.value)
+  );
+});
+const habitatIndex = computed(() => {
+  return isSectionValid.value
+    ? {
+        cat: getHabitatCategory(habitatIndexTotalPoints.value),
+        totalPoints: habitatIndexTotalPoints.value,
+      }
+    : null;
+});
+const substrateHasErrors = computed(() => {
+  for (const element of values.value.substrateComposition) {
+    if (Object.keys(element.value).length === 0) return true;
+  }
+  return false;
+});
+const randomElementsHasErrors = computed(() => {
+  for (const element of values.value.randomElements) {
+    if (Object.keys(element.value).length === 0) return true;
+  }
+  return false;
+});
+const aquaticVegetationHasErrors = computed(() => {
+  for (const element of values.value.aquaticVegetation) {
+    if (Object.keys(element.value).length === 0) return true;
+  }
+  return false;
+});
+const stonesInPoolsHasErrors = computed(() => {
+  return values.value.stonesInPools === null;
+});
+const rapidsFrequencyHasErrors = computed(() => {
+  return values.value.rapidsFrequency === null;
+});
+const velocityAndDepthHasErrors = computed(() => {
+  return values.value.velocityAndDepth === null;
+});
+const riverShadowsHasErrors = computed(() => {
+  return values.value.riverShadows === null;
+});
+const isSectionValid = computed(() => {
+  return (
+    !substrateHasErrors.value &&
+    !randomElementsHasErrors.value &&
+    !stonesInPoolsHasErrors.value &&
+    !rapidsFrequencyHasErrors.value &&
+    !velocityAndDepthHasErrors.value &&
+    !riverShadowsHasErrors.value &&
+    !aquaticVegetationHasErrors.value
+  );
+});
+
+// METHODS
+const init = () => {
+  prepareComplexObjects();
+};
+const prepareComplexObjects = () => {
+  //for objects that needs "value" as another object. ie: values with "points".
+  for (const element of appStore.formExpertSections.habitat.data
+    .substrateCompositionOptions) {
+    values.value.substrateComposition.push({ ...element, value: {} });
+  }
+  for (const element of appStore.formExpertSections.habitat.data
+    .aquaticVegetationOptions) {
+    values.value.aquaticVegetation.push({ ...element, value: {} });
+  }
+  for (const element of appStore.formExpertSections.habitat.data
+    .randomElementOptions) {
+    values.value.randomElements.push({ ...element, value: {} });
+  }
+};
+const getTotalPoints = (items) => {
+  let sum = 0;
+  for (const item of items) {
+    if (item.value.points) {
+      sum = sum + item.value.points;
+    }
+  }
+  return sum;
+};
+const getHabitatCategory = (totalPoints) => {
+  if (totalPoints > 60)
+    return appStore.formExpertSections.habitat.data
+      .habitatIndexCategoriesOptions[0];
+  if (habitatIndexTotalPoints.value < 40)
+    return appStore.formExpertSections.habitat.data
+      .habitatIndexCategoriesOptions[2];
+
+  return appStore.formExpertSections.habitat.data
+    .habitatIndexCategoriesOptions[1];
+};
+</script>
+
 <template>
   <div class="form-section">
     <div class="header-section">
@@ -16,56 +181,61 @@
     <b-field
       label="a. Grado de inclusión de las piedras, cantos y gravas en rápidos y pozas"
       :message="{
-        '*Hay que seleccionar una opción': stonesInPoolsHasErrors
+        '*Hay que seleccionar una opción': stonesInPoolsHasErrors,
       }"
       :type="{ 'is-danger': stonesInPoolsHasErrors }"
     >
       <b-select
-        icon="gradient"
-        placeholder="Seleccione una opción"
         v-model="values.stonesInPools"
+        icon="gradient-vertical"
+        placeholder="Seleccione una opción"
       >
         <option
-          v-for="(option, index) in formHabitat.data.stonesInPoolsOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.habitat.data
+            .stonesInPoolsOptions"
           :key="index"
-          >{{ option.name }}</option
+          :value="option"
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field
       label="b. Frecuencia de rápidos"
       :message="{
-        '*Hay que seleccionar una opción': rapidsFrequencyHasErrors
+        '*Hay que seleccionar una opción': rapidsFrequencyHasErrors,
       }"
       :type="{ 'is-danger': rapidsFrequencyHasErrors }"
     >
       <b-select
+        v-model="values.rapidsFrequency"
         icon="waves"
         placeholder="Seleccione una opción"
-        v-model="values.rapidsFrequency"
       >
         <option
-          v-for="(option, index) in formHabitat.data.rapidFrequencyOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.habitat.data
+            .rapidFrequencyOptions"
           :key="index"
-          >{{ option.name }}</option
+          :value="option"
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field
       label="c. Composición del sustrato"
       :message="{
-        '*Hay que seleccionar una opción para cada elemento': substrateHasErrors
+        '*Hay que seleccionar una opción para cada elemento':
+          substrateHasErrors,
       }"
       :type="{ 'is-danger': substrateHasErrors }"
     >
     </b-field>
     <div class="block">
       <div
-        class="radio-rows"
         v-for="(type, index) in values.substrateComposition"
         :key="index"
+        class="radio-rows"
       >
         <div class="radio-rows__label-container">
           {{ type.name }}
@@ -73,11 +243,11 @@
         <div class="radio-rows__options-container">
           <b-field>
             <b-radio-button
-              v-for="option in formHabitat.data
+              v-for="option in appStore.formExpertSections.habitat.data
                 .substrateCompositionPresenceOptions"
               :key="option.id"
-              :native-value="option"
               v-model="values.substrateComposition[index].value"
+              :native-value="option"
               >{{ option.name }}</b-radio-button
             >
           </b-field>
@@ -95,56 +265,61 @@
     </b-taglist>
     <b-field
       :message="{
-        '*Hay que seleccionar una opción': velocityAndDepthHasErrors
+        '*Hay que seleccionar una opción': velocityAndDepthHasErrors,
       }"
       :type="{ 'is-danger': velocityAndDepthHasErrors }"
     >
       <b-select
+        v-model="values.velocityAndDepth"
         icon="format-list-bulleted-type"
         placeholder="Seleccione una opción"
-        v-model="values.velocityAndDepth"
       >
         <option
-          v-for="(option, index) in formHabitat.data.velocityAndDepthOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.habitat.data
+            .velocityAndDepthOptions"
           :key="index"
-          >{{ option.name }}</option
+          :value="option"
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field
       label="e. Sombra en el cauce"
       :message="{
-        '*Hay que seleccionar una opción': riverShadowsHasErrors
+        '*Hay que seleccionar una opción': riverShadowsHasErrors,
       }"
       :type="{ 'is-danger': riverShadowsHasErrors }"
     >
       <b-select
+        v-model="values.riverShadows"
         icon="box-shadow"
         placeholder="Seleccione una opción"
-        v-model="values.riverShadows"
       >
         <option
-          v-for="(option, index) in formHabitat.data.riverShadowsOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.habitat.data
+            .riverShadowsOptions"
           :key="index"
-          >{{ option.name }}</option
+          :value="option"
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field
       label="f. Presencia de elementos de heterogeneidad"
       :message="{
-        '*Hay que seleccionar una opción para cada elemento': randomElementsHasErrors
+        '*Hay que seleccionar una opción para cada elemento':
+          randomElementsHasErrors,
       }"
       :type="{ 'is-danger': randomElementsHasErrors }"
     >
     </b-field>
     <div class="block">
       <div
-        class="radio-rows"
         v-for="(element, index) in values.randomElements"
         :key="index"
+        class="radio-rows"
       >
         <div class="radio-rows__label-container">
           {{ element.name }}
@@ -153,11 +328,11 @@
           <template v-if="element.id != 1">
             <b-field>
               <b-radio-button
-                class="radio-rows__options-container-item"
                 v-for="option in randomElementPresenceOptionsFilter"
                 :key="option.id"
-                :native-value="option"
                 v-model="values.randomElements[index].value"
+                class="radio-rows__options-container-item"
+                :native-value="option"
                 >{{ option.name }}</b-radio-button
               ></b-field
             >
@@ -165,11 +340,12 @@
           <template v-else>
             <b-field>
               <b-radio-button
-                class="radio-rows__options-container-item"
-                v-for="option in formHabitat.data.randomElementPresenceOptions"
+                v-for="option in appStore.formExpertSections.habitat.data
+                  .randomElementPresenceOptions"
                 :key="option.id"
-                :native-value="option"
                 v-model="values.randomElements[index].value"
+                class="radio-rows__options-container-item"
+                :native-value="option"
                 >{{ option.name }}</b-radio-button
               ></b-field
             >
@@ -180,16 +356,17 @@
     <b-field
       label="g. Cobertura de la vegetación acuática"
       :message="{
-        '*Hay que seleccionar una opción para cada elemento': aquaticVegetationHasErrors
+        '*Hay que seleccionar una opción para cada elemento':
+          aquaticVegetationHasErrors,
       }"
       :type="{ 'is-danger': aquaticVegetationHasErrors }"
     >
     </b-field>
     <div class="block">
       <div
-        class="radio-rows"
         v-for="(type, index) in values.aquaticVegetation"
         :key="index"
+        class="radio-rows"
       >
         <div class="radio-rows__label-container">
           {{ type.name }}
@@ -197,12 +374,12 @@
         <div class="radio-rows__options-container">
           <b-field>
             <b-radio-button
-              class="radio-rows__options-container-item"
-              v-for="option in formHabitat.data
+              v-for="option in appStore.formExpertSections.habitat.data
                 .aquaticVegetationCoverageOptions"
               :key="option.id"
-              :native-value="option"
               v-model="values.aquaticVegetation[index].value"
+              class="radio-rows__options-container-item"
+              :native-value="option"
               >{{ option.name }}</b-radio-button
             ></b-field
           >
@@ -239,181 +416,16 @@
     </div>
   </div>
 </template>
-<script>
-import { mapState, mapActions } from "vuex";
 
-export default {
-  data() {
-    return {
-      pdfLink: null,
-      pdfLink2: null,
-      values: {
-        stonesInPools: null,
-        substrateComposition: [],
-        rapidsFrequency: null,
-        velocityAndDepth: null,
-        riverShadows: null,
-        randomElements: [],
-        aquaticVegetation: [],
-        habitatIndex: null
-      },
-      velocityAndDepthTypes: [
-        "rápido / profundo",
-        "lento / profundo",
-        "lento / poco profundo",
-        "rápido / poco profundo"
-      ]
-    };
-  },
-  created() {
-    this.pdfLink = require("../../assets/pdfs/habitat.pdf");
-    this.pdfLink2 = require("../../assets/pdfs/fichaIHF2019.pdf");
-  },
-  computed: {
-    ...mapState({
-      formHabitat: state => state.formExpertSections.habitat
-    }),
-    randomElementPresenceOptionsFilter() {
-      return this.formHabitat.data.randomElementPresenceOptions.filter(
-        element => element.id != 2
-      );
-    },
-    substrateCompositionSUM() {
-      return this.getTotalPoints(this.values.substrateComposition);
-    },
-    randomElementsSUM() {
-      return this.getTotalPoints(this.values.randomElements);
-    },
-    aquaticVegetationSUM() {
-      return this.getTotalPoints(this.values.aquaticVegetation);
-    },
-    habitatIndexTotalPoints() {
-      return (
-        parseInt(
-          this.values.stonesInPools ? this.values.stonesInPools.points : 0
-        ) +
-        parseInt(
-          this.values.rapidsFrequency ? this.values.rapidsFrequency.points : 0
-        ) +
-        parseInt(this.substrateCompositionSUM) +
-        parseInt(
-          this.values.velocityAndDepth ? this.values.velocityAndDepth.points : 0
-        ) +
-        parseInt(
-          this.values.riverShadows ? this.values.riverShadows.points : 0
-        ) +
-        parseInt(this.randomElementsSUM) +
-        parseInt(this.aquaticVegetationSUM)
-      );
-    },
-    habitatIndex() {
-      return this.isSectionValid
-        ? {
-            cat: this.getHabitatCategory(this.habitatIndexTotalPoints),
-            totalPoints: this.habitatIndexTotalPoints
-          }
-        : null;
-    },
-    substrateHasErrors() {
-      for (let element of this.values.substrateComposition) {
-        if (Object.keys(element.value).length === 0) return true;
-      }
-      return false;
-    },
-    randomElementsHasErrors() {
-      for (let element of this.values.randomElements) {
-        if (Object.keys(element.value).length === 0) return true;
-      }
-      return false;
-    },
-    aquaticVegetationHasErrors() {
-      for (let element of this.values.aquaticVegetation) {
-        if (Object.keys(element.value).length === 0) return true;
-      }
-      return false;
-    },
-    stonesInPoolsHasErrors() {
-      return this.values.stonesInPools === null;
-    },
-    rapidsFrequencyHasErrors() {
-      return this.values.rapidsFrequency === null;
-    },
-    velocityAndDepthHasErrors() {
-      return this.values.velocityAndDepth === null;
-    },
-    riverShadowsHasErrors() {
-      return this.values.riverShadows === null;
-    },
-    isSectionValid() {
-      return (
-        !this.substrateHasErrors &&
-        !this.randomElementsHasErrors &&
-        !this.stonesInPoolsHasErrors &&
-        !this.rapidsFrequencyHasErrors &&
-        !this.velocityAndDepthHasErrors &&
-        !this.riverShadowsHasErrors &&
-        !this.aquaticVegetationHasErrors
-      );
-    }
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    this.values.habitatIndex = this.habitatIndex;
-    this.updateSpecificExpertSectionValues({
-      name: "habitat",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
-    }),
-    init() {
-      this.prepareComplexObjects();
-    },
-    prepareComplexObjects() {
-      //for objects that needs "value" as another object. ie: values with "points".
-      for (const element of this.formHabitat.data.substrateCompositionOptions) {
-        this.values.substrateComposition.push({ ...element, value: {} });
-      }
-      for (const element of this.formHabitat.data.aquaticVegetationOptions) {
-        this.values.aquaticVegetation.push({ ...element, value: {} });
-      }
-      for (const element of this.formHabitat.data.randomElementOptions) {
-        this.values.randomElements.push({ ...element, value: {} });
-      }
-    },
-    getTotalPoints(items) {
-      var sum = 0;
-      for (const item of items) {
-        if (item.value.points) {
-          sum = sum + item.value.points;
-        }
-      }
-      return sum;
-    },
-    getHabitatCategory(totalPoints) {
-      if (totalPoints > 60)
-        return this.formHabitat.data.habitatIndexCategoriesOptions[0];
-      if (this.habitatIndexTotalPoints < 40)
-        return this.formHabitat.data.habitatIndexCategoriesOptions[2];
-
-      return this.formHabitat.data.habitatIndexCategoriesOptions[1];
-    }
-  }
-};
-</script>
 <style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
 .results {
   padding: 1rem;
+
   &__rate {
     padding: 1rem;
   }
 }
+
 .results-display {
   max-width: 500px;
 }

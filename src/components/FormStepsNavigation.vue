@@ -1,8 +1,44 @@
+<script setup>
+import { computed, ref } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// DATA
+const stepItemCfg = ref({
+  isStepsClickable: true,
+  isAnimated: true,
+  hasNavigation: true,
+  mobileMode: null,
+  customNavigation: true,
+  prevIcon: "chevron-left",
+  nextIcon: "chevron-right",
+  isProfileSuccess: true,
+});
+
+// COMPUTED
+const stepControl = computed({
+  get: () => {
+    return appStore.activeSectionId;
+  },
+  set: (value) => {
+    window.scrollTo(0, 0); // go to init page when change the stepNavigator
+    appStore.setActiveSection(value);
+  },
+});
+
+const sections = computed(() => {
+  return appStore.activeFormId == 0
+    ? appStore.formExpertSections
+    : appStore.formPictsSections;
+});
+</script>
+
 <template>
-  <!--TODO: Hacer componente Base reutilizable -->
   <b-steps
-    size="is-small"
     v-model="stepControl"
+    size="is-small"
     :mobile-mode="stepItemCfg.mobileMode"
     :animated="stepItemCfg.isAnimated"
     :has-navigation="stepItemCfg.hasNavigation"
@@ -18,15 +54,14 @@
 
     <template
       v-if="stepItemCfg.customNavigation"
-      slot="navigation"
-      slot-scope="{ previous, next }"
+      #navigation="{ previous, next }"
     >
-      <div class="customNavButtons">
+      <div class="custom-nav-buttons">
         <b-button
           type="is-primary"
           icon-pack="mdi"
           icon-left="less-than"
-          :disabled="isFirstSection"
+          :disabled="appStore.isFirstSection"
           @click.prevent="previous.action"
           >Anterior
         </b-button>
@@ -34,7 +69,7 @@
           type="is-primary"
           icon-pack="mdi"
           icon-right="greater-than"
-          :disabled="isLastSection(sections)"
+          :disabled="appStore.isLastSection(sections)"
           @click.prevent="next.action"
         >
           Siguiente
@@ -43,56 +78,9 @@
     </template>
   </b-steps>
 </template>
-<script>
-import { mapState, mapGetters, mapActions } from "vuex";
-export default {
-  data() {
-    return {
-      stepItemCfg: {
-        isStepsClickable: true,
-        isAnimated: true,
-        hasNavigation: true,
-        mobileMode: null,
-        customNavigation: true,
-        prevIcon: "chevron-left",
-        nextIcon: "chevron-right",
-        isProfileSuccess: true
-      }
-    };
-  },
-  computed: {
-    stepControl: {
-      get() {
-        return this.activeStep;
-      },
-      set(value) {
-        window.scrollTo(0, 0); // go to init page when change the stepNavigator
-        this.setActiveSection(value);
-      }
-    },
-    ...mapState({
-      sectionsExpert: state => state.formExpertSections,
-      sectionsPicts: state => state.formPictsSections,
-      activeStep: state => state.activeSectionId,
-      activeForm: state => state.activeFormId
-    }),
-    ...mapGetters({
-      isFirstSection: "isFirstSection",
-      isLastSection: "isLastSection"
-    }),
-    sections() {
-      return this.activeForm == 0 ? this.sectionsExpert : this.sectionsPicts;
-    }
-  },
-  methods: {
-    ...mapActions({
-      setActiveSection: "setActiveSection"
-    })
-  }
-};
-</script>
+
 <style lang="scss" scoped>
-.customNavButtons {
+.custom-nav-buttons {
   display: flex;
   justify-content: space-between;
 }

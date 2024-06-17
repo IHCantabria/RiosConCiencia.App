@@ -8,11 +8,12 @@
 
 ## App Template
 
-    - Website
+    - Release
 
 ## System
 
-    - IIS - Windows Server
+    - Windows
+    - Linux
 
 ## Environment
 
@@ -23,59 +24,60 @@
 
 _Production_
 
-    - Deploy RiosConCiencia.App - PROD
+    - Deploy app_name - PROD
 
 _Development_
 
-    - Deploy RiosConCiencia.App - DEV
+    - Deploy app_name - DEV
 
 ## App folder
 
-`RiosConCiencia.App`
+`_____________`
 
 ## Distribution
 
-    - Master
-    - Tag
+    - Release
 
 ## Settings site
 
-    - feature_net45: 'no'
-    - net_core: 'no'
-    - core_version: 'no'
-    - httpplatform: 'no'
-    - managedRuntimeVersion_pool: 'no managed'
-    - enable32BitAppOnWin64_pool: 'false'
-    - managedPipeLineMode_pool: 'integrated'
-    - iiswin_aut: 'no'
+    - feature_net45: 'si'/'no'
+    - net_core: 'si'/'no'
+    - core_version: '3.1.1'/'3.1.3'/'other'/'no'
+    - httpplatform: 'no'/'si'
+    - managedRuntimeVersion_pool: 'no managed'/'v4.0'/'v2.0'
+    - enable32BitAppOnWin64_pool: 'false'/'true'
+    - managedPipeLineMode_pool: 'integrated'/'Classic'
+    - iiswin_aut: 'no'/'si'
+    - thredds_whitelist: 'no'/'si'
 
 ## LOG
 
-    - log: 'no'
+    - log: 'no' / 'si'
 
 ## Url GIT
 
-    - git@github.com:IHCantabria/RiosConCiencia.App.git
+     la direccion en git.com va sin ssh (GITEA)
+    - ssh  git@193.144.208.195:222/IT/nombre_aplicacion.git
 
 ## DNS
 
 _Production_
 
-    - riosconciencia.ihcantabria.com
+    - app_name.ihcantabria.com
 
 _Development_
 
-    - riosconcienciadev.ihcantabria.com
+    - app_namedev.ihcantabria.com
 
 ## URL APPLICATION
 
 _Production_
 
-    - riosconciencia.ihcantabria.com
+    - app_name.ihcantabria.com/path
 
 _Development_
 
-    - riosconcienciadev.ihcantabria.com
+    - app_namedev.ihcantabria.com/path
 
 ## Other settings
 
@@ -91,11 +93,16 @@ Select only if needed:
 
 **Backup**
 
+    - Tags
+    - Snapshot
+    - Clone/Backup
+
 ---
 
 **Do you need any other configuration?**
 
-`_______________________________________________________________________________`
+- app_name here must be equal to name property inside package.json 
+- Descargar Release: https://api.github.com/repos/IHCantabria/app_name/releases/tags/app_name-{{ version }}-{{ entorno }}.zip
 
 <br>
 
@@ -103,7 +110,7 @@ Select only if needed:
 
 **What applications, services, or data sources is this application related to?**
 
-`RiosConciencia.Api, RiosConCiencia.Visor`
+`_______________________________________________________________________________`
 
 ## Credits
 
@@ -111,4 +118,4 @@ Select only if needed:
 
 ## FAQ
 
-- Document provided by the system administrators [David del Prado](https://ihcantabria.com/directorio-personal/tecnologo/david-del-prado-secadas/) y [Gloria Zamora](https://ihcantabria.com/directorio-personal/tecnologo/gloria-zamora/)
+- Document provided by the system administrators [David del Prado](https://ihcantabria.com/directorio-personal/david-del-prado-secadas/) y [Luis Gutierrez](https://ihcantabria.com/directorio-personal/luis-gutierrez/)

@@ -4,14 +4,14 @@ import axios from "axios";
 const _basicHeaders = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS"
+  "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
 };
 
 const login = async (email, password) => {
   const url = `${RIOSCONCIENCIA_API.public}/Authenticate`;
   const auth = {
     email: email,
-    password: password
+    password: password,
   };
   const res = await axios.post(url, auth);
   return res.data;
@@ -23,29 +23,29 @@ const getUserRiverSections = async (token, userId) => {
   _basicHeaders.Authorization = `Bearer ${token}`;
 
   const res = await axios.get(url, {
-    headers: _basicHeaders
+    headers: _basicHeaders,
   });
   return res.data;
 };
 
-const getExpertMasterData = async token => {
+const getExpertMasterData = async (token) => {
   const url = `${RIOSCONCIENCIA_API.public}/GetSectionsExpertMasterData`;
 
   _basicHeaders.Authorization = `Bearer ${token}`;
 
   const res = await axios.get(url, {
-    headers: _basicHeaders
+    headers: _basicHeaders,
   });
   return res.data;
 };
 
-const getPictsMasterData = async token => {
+const getPictsMasterData = async (token) => {
   const url = `${RIOSCONCIENCIA_API.public}/GetSectionsPictsMasterData`;
 
   _basicHeaders.Authorization = `Bearer ${token}`;
 
   const res = await axios.get(url, {
-    headers: _basicHeaders
+    headers: _basicHeaders,
   });
   return res.data;
 };
@@ -56,7 +56,7 @@ const saveSample = async (token, sample) => {
   _basicHeaders.Authorization = `Bearer ${token}`;
 
   const res = await axios.post(url, sample, {
-    headers: _basicHeaders
+    headers: _basicHeaders,
   });
   return res;
 };
@@ -67,7 +67,7 @@ const saveSamplePict = async (token, sample) => {
   _basicHeaders.Authorization = `Bearer ${token}`;
 
   const res = await axios.post(url, sample, {
-    headers: _basicHeaders
+    headers: _basicHeaders,
   });
   return res;
 };
@@ -78,5 +78,5 @@ export {
   login,
   getUserRiverSections,
   saveSample,
-  saveSamplePict
+  saveSamplePict,
 };

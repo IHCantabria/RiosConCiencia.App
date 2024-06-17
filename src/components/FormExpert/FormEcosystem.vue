@@ -1,3 +1,120 @@
+<!-- eslint-disable promise/always-return -->
+<script setup>
+import { ref, onBeforeUpdate, computed, onMounted, watch } from "vue";
+import { getUserGeolocation } from "@/api/geolocation.js";
+import { useAppStore } from "@/store/appStore.js";
+import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// DATA
+const pdfLink = ref(null);
+const values = ref({
+  samplePointCoords: {
+    lon: 0,
+    lat: 0,
+  },
+  samplePointWidth: null,
+  samplePointDepth: null,
+  samplePointWaterVelocity: null,
+  samplePointWaterTemp: 0,
+  waterTransparency: null,
+  riverEcosystem: [],
+  riverEcosystemInvPlantsCoverage: [],
+  riverEcosystemSpecies: [],
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+  // TODO: Fix this
+  // pdfLink.value = require("../../assets/pdfs/ecosistema.pdf");
+});
+onBeforeUpdate(() => {
+  appStore.updateSpecificExpertSectionValues({
+    name: "ecoSystem",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+});
+
+// COMPUTED
+const invasorsComputed = computed(() => {
+  const invasorsComputed =
+    appStore.formExpertSections.ecoSystem.data.invasorPlantOptions;
+  invasorsComputed.forEach((invasor) => {
+    invasor.value =
+      appStore.formExpertSections.ecoSystem.data.coverageOptions[2];
+  });
+  return invasorsComputed;
+});
+const flow = computed(() => {
+  return (
+    values.value.samplePointWidth *
+    values.value.samplePointDepth *
+    values.value.samplePointWaterVelocity
+  );
+});
+const waterTempHasErrors = computed(() => {
+  return values.value.samplePointWaterTemp === null;
+});
+const transparencyHasErrors = computed(() => {
+  return values.value.waterTransparency === null;
+});
+const isSectionValid = computed(() => {
+  return !waterTempHasErrors.value && !transparencyHasErrors.value;
+});
+
+// METHODS
+// ...mapActions({
+//   updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues",
+// }),
+const init = () => {
+  values.value.samplePointWaterTemp = null; //default value and make beforeUpdate hook jump
+};
+const InvasorSelectedIndex = (option) => {
+  return values.value.riverEcosystemInvPlantsCoverage.indexOf(option);
+};
+const CategoryOrder = (item) => {
+  return `eukaryote${item.id}`;
+};
+const getActualPosition = () => {
+  return getUserGeolocation()
+    .then((res) => {
+      values.value.samplePointCoords.lon = parseFloat(
+        res.coords.longitude,
+      ).toFixed(7);
+      values.value.samplePointCoords.lat = parseFloat(
+        res.coords.latitude,
+      ).toFixed(7);
+    })
+    .catch(() => {
+      Toast.open({
+        message: "No es posible geolocalizar la ubicación",
+        type: "is-danger",
+        duration: 4000,
+      });
+    });
+};
+
+// WATCHERS
+watch(
+  () => values.value,
+  (newValue) => {
+    if (newValue.samplePointWidth == 0) {
+      values.value.samplePointWidth = null;
+    }
+    if (newValue.samplePointDepth == 0) {
+      values.value.samplePointDepth = null;
+    }
+    if (newValue.samplePointWaterVelocity == 0) {
+      values.value.samplePointWaterVelocity = null;
+    }
+  },
+);
+</script>
+
 <template>
   <div class="form-section">
     <div class="header-section">
@@ -13,25 +130,25 @@
     <div class="two-controls">
       <b-field label="Lon" custom-class="is-small">
         <b-input
+          v-model="values.samplePointCoords.lon"
           placeholder="Number"
           type="number"
           min="-180"
           max="180"
           step="any"
           custom-class="is-small"
-          v-model="values.samplePointCoords.lon"
         >
         </b-input>
       </b-field>
       <b-field label="Lat" custom-class="is-small">
         <b-input
+          v-model="values.samplePointCoords.lat"
           placeholder="Number"
           type="number"
           min="-90"
           max="90"
           step="any"
           custom-class="is-small"
-          v-model="values.samplePointCoords.lat"
         >
         </b-input>
       </b-field>
@@ -76,13 +193,13 @@
       label="Temperatura (°C)"
       custom-class="is-small"
       :message="{
-        '*Hay que definir la temperatura del agua': waterTempHasErrors
+        '*Hay que definir la temperatura del agua': waterTempHasErrors,
       }"
       :type="{ 'is-danger': waterTempHasErrors }"
     >
       <b-numberinput
-        step="0.5"
         v-model="values.samplePointWaterTemp"
+        step="0.5"
       ></b-numberinput>
     </b-field>
     <b-field label="Transparencia" custom-class="is-small"> </b-field>
@@ -91,7 +208,7 @@
         ninguno, marcar el 0)"
       custom-class="is-small"
       :message="{
-        '*Al menos un sector debe estar marcado': transparencyHasErrors
+        '*Al menos un sector debe estar marcado': transparencyHasErrors,
       }"
       :type="{ 'is-danger': transparencyHasErrors }"
     ></b-field>
@@ -101,7 +218,8 @@
         <div class="radio-rows__options-container">
           <b-field>
             <b-radio-button
-              v-for="option in formEcoSystem.data.transparencyOptions"
+              v-for="option in appStore.formExpertSections.ecoSystem.data
+                .transparencyOptions"
               :key="option.id"
               v-model="values.waterTransparency"
               :native-value="option"
@@ -114,9 +232,10 @@
     <div class="is-divider"></div>
     <b-field label="c. La vida en el río y las riberas"> </b-field>
     <div
-      v-for="(category, indexCat) in formEcoSystem.data.eukaryoteComplexOptions"
-      :class="['block', CategoryOrder(category)]"
+      v-for="(category, indexCat) in appStore.formExpertSections.ecoSystem.data
+        .eukaryoteComplexOptions"
       :key="indexCat + 10"
+      :class="['block', CategoryOrder(category)]"
     >
       <div class="checkboxes-group">
         <label class="checkboxes-group__title">{{ category.name }}</label>
@@ -125,18 +244,18 @@
         <div class="checkboxes-group">
           <label class="checkboxes-group__subtitle">{{ group.name }}</label>
         </div>
-        <div class="field" v-for="option in group.options" :key="option.id">
+        <div v-for="option in group.options" :key="option.id" class="field">
           <b-checkbox v-model="values.riverEcosystem" :native-value="option">{{
             option.name
           }}</b-checkbox>
           <div
-            class="field sub-check"
             v-for="subOpt in option.options"
             :key="subOpt.id"
+            class="field sub-check"
           >
             <b-checkbox
-              size="is-small"
               v-model="values.riverEcosystemSpecies"
+              size="is-small"
               :native-value="subOpt"
               >{{ subOpt.name }}</b-checkbox
             >
@@ -144,16 +263,16 @@
         </div>
       </div>
       <template v-if="category.id == 2">
-        <div class="block" key="20">
+        <div key="20" class="block">
           <div class="checkboxes-group">
             <label class="checkboxes-group__subtitle"
               >Invasoras / Alóctonas (grado de cobertura)</label
             >
           </div>
           <div
-            class="field"
             v-for="option in invasorsComputed"
             :key="option.id"
+            class="field"
           >
             <b-checkbox
               v-model="values.riverEcosystemInvPlantsCoverage"
@@ -161,20 +280,21 @@
               >{{ option.name }}</b-checkbox
             >
             <div
-              class="radio-rows__options-container"
               v-if="InvasorSelectedIndex(option) != -1"
+              class="radio-rows__options-container"
             >
               <b-field>
                 <b-radio-button
-                  class="radio-rows__options-container-item"
-                  v-for="type in formEcoSystem.data.coverageOptions"
+                  v-for="type in appStore.formExpertSections.ecoSystem.data
+                    .coverageOptions"
                   :key="type.id"
-                  :native-value="type"
                   v-model="
                     values.riverEcosystemInvPlantsCoverage[
                       InvasorSelectedIndex(option)
                     ].value
                   "
+                  class="radio-rows__options-container-item"
+                  :native-value="type"
                   >{{ type.name }}</b-radio-button
                 >
               </b-field>
@@ -184,15 +304,15 @@
       </template>
     </div>
     <div
-      :class="['block', CategoryOrder(category)]"
-      v-for="(category, indexCatSimple) in formEcoSystem.data
-        .eukaryoteSimpleOptions"
+      v-for="(category, indexCatSimple) in appStore.formExpertSections.ecoSystem
+        .data.eukaryoteSimpleOptions"
       :key="indexCatSimple"
+      :class="['block', CategoryOrder(category)]"
     >
       <div class="checkboxes-group">
         <label class="checkboxes-group__title">{{ category.name }}</label>
       </div>
-      <div class="field" v-for="option in category.options" :key="option.id">
+      <div v-for="option in category.options" :key="option.id" class="field">
         <b-checkbox v-model="values.riverEcosystem" :native-value="option">{{
           option.name
         }}</b-checkbox>
@@ -200,150 +320,44 @@
     </div>
   </div>
 </template>
-<script>
-import { getUserGeolocation } from "@/api/geolocation.js";
-import { mapState, mapActions } from "vuex";
 
-export default {
-  data() {
-    return {
-      pdfLink: null,
-      values: {
-        samplePointCoords: {
-          lon: 0,
-          lat: 0
-        },
-        samplePointWidth: null,
-        samplePointDepth: null,
-        samplePointWaterVelocity: null,
-        samplePointWaterTemp: 0,
-        waterTransparency: null,
-        riverEcosystem: [],
-        riverEcosystemInvPlantsCoverage: [],
-        riverEcosystemSpecies: []
-      }
-    };
-  },
-  created() {
-    this.pdfLink = require("../../assets/pdfs/ecosistema.pdf");
-  },
-  watch: {
-    values: {
-      deep: true,
-      handler(newValue) {
-        if (newValue.samplePointWidth == 0) {
-          this.values.samplePointWidth = null;
-        }
-        if (newValue.samplePointDepth == 0) {
-          this.values.samplePointDepth = null;
-        }
-        if (newValue.samplePointWaterVelocity == 0) {
-          this.values.samplePointWaterVelocity = null;
-        }
-      }
-    }
-  },
-  computed: {
-    ...mapState({
-      formEcoSystem: state => state.formExpertSections.ecoSystem
-    }),
-    invasorsComputed() {
-      let invasorsComputed = this.formEcoSystem.data.invasorPlantOptions;
-      invasorsComputed.forEach(invasor => {
-        invasor.value = this.formEcoSystem.data.coverageOptions[2];
-      });
-      return invasorsComputed;
-    },
-    flow() {
-      return (
-        this.values.samplePointWidth *
-        this.values.samplePointDepth *
-        this.values.samplePointWaterVelocity
-      );
-    },
-    waterTempHasErrors() {
-      return this.values.samplePointWaterTemp === null;
-    },
-    transparencyHasErrors() {
-      return this.values.waterTransparency === null;
-    },
-    isSectionValid() {
-      return !this.waterTempHasErrors && !this.transparencyHasErrors;
-    }
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    this.updateSpecificExpertSectionValues({
-      name: "ecoSystem",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
-    }),
-    init() {
-      this.values.samplePointWaterTemp = null; //default value and make beforeUpdate hook jump
-    },
-    InvasorSelectedIndex(option) {
-      return this.values.riverEcosystemInvPlantsCoverage.indexOf(option);
-    },
-    CategoryOrder(item) {
-      return `eukaryote${item.id}`;
-    },
-    getActualPosition() {
-      getUserGeolocation()
-        .then(res => {
-          this.values.samplePointCoords.lon = parseFloat(
-            res.coords.longitude
-          ).toFixed(7);
-          this.values.samplePointCoords.lat = parseFloat(
-            res.coords.latitude
-          ).toFixed(7);
-        })
-        .catch(() => {
-          this.$buefy.toast.open({
-            message: "No es posible geolocalizar la ubicación",
-            type: "is-danger",
-            duration: 4000
-          });
-        });
-    }
-  }
-};
-</script>
 <style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
 .sub-check {
   margin: 1rem;
 }
+
 .eukaryote1 {
   order: 1;
 }
+
 .eukaryote2 {
   order: 2;
 }
+
 .eukaryote3 {
   order: 3;
 }
+
 .eukaryote4 {
   order: 4;
 }
+
 .eukaryote5 {
   order: 5;
 }
+
 .eukaryote6 {
   order: 6;
 }
+
 .eukaryote7 {
   order: 7;
 }
+
 .eukaryote8 {
   order: 8;
 }
+
 .eukaryote9 {
   order: 9;
 }

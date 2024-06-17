@@ -1,3 +1,60 @@
+<script setup>
+import { ref, computed, onMounted, onBeforeUpdate } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// COMPUTED
+const riverSectionHasErrors = computed(() => {
+  return values.value.riverSection === null;
+});
+const userFullName = computed(() => {
+  return `${appStore.user.name ? appStore.user.name : ""} ${
+    appStore.user.surnames ? appStore.user.surnames : ""
+  }`;
+});
+const weatherHasErrors = computed(() => {
+  return values.value.weatherToday === null;
+});
+const weather48HasErrors = computed(() => {
+  return values.value.weather48h === null;
+});
+const isSectionValid = computed(() => {
+  return (
+    !weatherHasErrors.value &&
+    !weather48HasErrors.value &&
+    !riverSectionHasErrors.value
+  );
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+  // TODO: Fix this
+  // this.pdfLink = require("../../assets/pdfs/manual2019.pdf");
+});
+onBeforeUpdate(() => {
+  appStore.updateSpecificExpertSectionValues({
+    name: "init",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+});
+
+// DATA
+const pdfLink = ref(null);
+const values = ref({
+  partners: null,
+  riverSection: null,
+  weatherToday: null,
+  weather48h: null,
+});
+const init = () => {
+  values.value.partners = ""; //default value and make beforeUpdate hook jump
+};
+</script>
+
 <template>
   <div class="form-section">
     <div class="header-section">
@@ -17,21 +74,22 @@
     <b-field
       label="Tramo"
       :message="{
-        '*Hay que seleccionar un tramo': riverSectionHasErrors
+        '*Hay que seleccionar un tramo': riverSectionHasErrors,
       }"
       :type="{ 'is-danger': riverSectionHasErrors }"
     >
       <b-select
+        v-model="values.riverSection"
         icon="go-kart-track"
         placeholder="Seleccione Tramo"
-        v-model="values.riverSection"
       >
         <option
-          v-for="option in userRiverSections"
+          v-for="option in appStore.userRiverSections"
           :key="option.id"
           :value="option"
-          >{{ option.name }}</option
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field label="Cuenca / Municipio">
@@ -44,111 +102,44 @@
     <b-field
       label="Clima hoy"
       :message="{
-        '*Hay que seleccionar una opción': weatherHasErrors
+        '*Hay que seleccionar una opción': weatherHasErrors,
       }"
       :type="{ 'is-danger': weatherHasErrors }"
     >
       <b-select
+        v-model="values.weatherToday"
         icon="weather-lightning-rainy"
         placeholder="Seleccione una opción"
-        v-model="values.weatherToday"
       >
         <option
-          v-for="option in formInit.data.weatherOptions"
+          v-for="option in appStore.formExpertSections.init.data.weatherOptions"
           :key="option.id"
           :value="option"
-          >{{ option.name }}</option
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field
       label="Clima últimos 2 días"
       :message="{
-        '*Hay que seleccionar una opción': weather48HasErrors
+        '*Hay que seleccionar una opción': weather48HasErrors,
       }"
       :type="{ 'is-danger': weather48HasErrors }"
     >
       <b-select
+        v-model="values.weather48h"
         icon="weather-lightning-rainy"
         placeholder="Seleccione una opción"
-        v-model="values.weather48h"
       >
         <option
-          v-for="option in formInit.data.weatherOptions"
+          v-for="option in appStore.formExpertSections.init.data.weatherOptions"
           :key="option.id"
           :value="option"
-          >{{ option.name }}</option
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
   </div>
 </template>
-<script>
-import { mapState, mapActions } from "vuex";
-
-export default {
-  computed: {
-    ...mapState({
-      user: state => state.user,
-      formInit: state => state.formExpertSections.init,
-      userRiverSections: state => state.userRiverSections
-    }),
-    riverSectionHasErrors() {
-      return this.values.riverSection === null;
-    },
-    userFullName() {
-      return `${this.user.name ? this.user.name : ""} ${
-        this.user.surnames ? this.user.surnames : ""
-      }`;
-    },
-    weatherHasErrors() {
-      return this.values.weatherToday === null;
-    },
-    weather48HasErrors() {
-      return this.values.weather48h === null;
-    },
-    isSectionValid() {
-      return (
-        !this.weatherHasErrors &&
-        !this.weather48HasErrors &&
-        !this.riverSectionHasErrors
-      );
-    }
-  },
-  mounted() {
-    this.init();
-  },
-  created() {
-    this.pdfLink = require("../../assets/pdfs/manual2019.pdf");
-  },
-  beforeUpdate() {
-    this.updateSpecificExpertSectionValues({
-      name: "init",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  data() {
-    return {
-      pdfLink: null,
-      values: {
-        partners: null,
-        riverSection: null,
-        weatherToday: null,
-        weather48h: null
-      }
-    };
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
-    }),
-    init() {
-      this.values.partners = ""; //default value and make beforeUpdate hook jump
-    }
-  }
-};
-</script>
-<style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
-</style>

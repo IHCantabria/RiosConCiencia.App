@@ -1,39 +1,38 @@
-<script>
+<script setup>
+import { onMounted, nextTick } from "vue";
 import { getExpertMasterData } from "@/api/riosconciencia.js";
-import { mapState, mapActions } from "vuex";
+import { useAppStore } from "@/store/appStore.js";
 
-export default {
-  computed: {
-    ...mapState({
-      user: state => state.user
-    })
-  },
-  mounted() {
-    this.$nextTick(() => {
-      if (this.user.token) this.init();
-    });
-  },
-  methods: {
-    ...mapActions({
-      loadExpertFormData: "loadExpertFormData"
-    }),
-    async init() {
-      try {
-        await this.initForm();
-        this.$emit("data-load-ready");
-      } catch (e) {
-        this.$emit("data-load-error", `Error loading data. Detail: ${e}`);
-      }
-    },
-    async initForm() {
-      const masterData = await getExpertMasterData(this.user.token);
-      // prepare form data
-      for (const name of Object.keys(masterData)) {
-        masterData[name].isValid = false;
-      }
-      this.loadExpertFormData(masterData);
-    }
-  },
-  render: () => null
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// EMITS
+const emit = defineEmits(["data-load-ready", "data-load-error"]);
+
+// LYFECYCLE
+onMounted(async () => {
+  await nextTick();
+  if (appStore.user.token) init();
+});
+
+// METHODS
+const init = async () => {
+  try {
+    await initForm();
+    emit("data-load-ready");
+  } catch (e) {
+    emit("data-load-error", `Error loading data. Detail: ${e}`);
+  }
+};
+
+const initForm = async () => {
+  const masterData = await getExpertMasterData(appStore.user.token);
+  // prepare form data
+  for (const name of Object.keys(masterData)) {
+    masterData[name].isValid = false;
+  }
+  appStore.loadExpertFormData(masterData);
 };
 </script>
+
+<template><div /></template>

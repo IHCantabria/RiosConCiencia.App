@@ -1,18 +1,13 @@
+<script setup>
+import LoginUser from "@/components/LoginUser.vue";
+</script>
+
 <template>
   <div class="login">
-    <login-user />
+    <LoginUser />
   </div>
 </template>
-<script>
-import { routeGuardMixin } from "@/mixins/route-guard.js";
-export default {
-  name: "LoginView",
-  mixins: [routeGuardMixin],
-  components: {
-    "login-user": () => import("@/components/LoginUser")
-  }
-};
-</script>
+
 <style lang="scss" scoped>
 .login {
   margin: 1rem;

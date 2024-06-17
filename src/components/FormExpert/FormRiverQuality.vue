@@ -1,3 +1,85 @@
+<script setup>
+import { ref, onMounted, onBeforeUpdate, computed } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// DATA
+const pdfLink = ref(null);
+const pdfLink2 = ref(null);
+const values = ref({
+  riverbankNaturalness: 0,
+  riverbankConections: null,
+  riverbankVegetations: null,
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+  // TODO: Fix this
+  // pdfLink.value = require("../../assets/pdfs/ribera.pdf");
+  // pdfLink2.value = require("../../assets/pdfs/fichaQRISI2019.pdf");
+});
+onBeforeUpdate(() => {
+  values.value.qrisiIndex = qrisiIndex.value;
+  appStore.updateSpecificExpertSectionValues({
+    name: "riverQuality",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+});
+
+// COMPUTED
+const qrisiIndexTotalPoints = computed(() => {
+  if (isSectionValid.value) {
+    return (
+      parseInt(values.value.riverbankNaturalness.value) +
+      parseInt(values.value.riverbankVegetations.value) +
+      parseInt(values.value.riverbankConections.value)
+    );
+  }
+  return 0;
+});
+const qrisiIndex = computed(() => {
+  return {
+    cat: getRiverQualityCategory(qrisiIndexTotalPoints.value),
+    totalPoints: qrisiIndexTotalPoints.value,
+  };
+});
+const naturalnessHasErrors = computed(() => {
+  return values.value.riverbankNaturalness === null;
+});
+const vegetationsHasErrors = computed(() => {
+  return values.value.riverbankVegetations === null;
+});
+const connectionsHasErrors = computed(() => {
+  return values.value.riverbankConections === null;
+});
+const isSectionValid = computed(() => {
+  return (
+    !naturalnessHasErrors.value &&
+    !vegetationsHasErrors.value &&
+    !connectionsHasErrors.value
+  );
+});
+
+// METHODS
+const init = () => {
+  values.value.riverbankNaturalness = null; //default value and make beforeUpdate hook jump
+};
+const getRiverQualityCategory = (totalPoints) => {
+  if (totalPoints <= 4)
+    return appStore.formExpertSections.riverQuality.data
+      .qrisiCategoriesOptions[2];
+  if (totalPoints > 4 && totalPoints <= 8)
+    return appStore.formExpertSections.riverQuality.data
+      .qrisiCategoriesOptions[1];
+  return appStore.formExpertSections.riverQuality.data
+    .qrisiCategoriesOptions[0];
+};
+</script>
+
 <template>
   <div class="form-section">
     <div class="header-section">
@@ -17,64 +99,67 @@
     </b-field>
     <b-field
       :message="{
-        '*Hay que seleccionar una opción': naturalnessHasErrors
+        '*Hay que seleccionar una opción': naturalnessHasErrors,
       }"
       :type="{ 'is-danger': naturalnessHasErrors }"
     >
       <b-select
-        icon="tree"
         v-model="values.riverbankNaturalness"
+        icon="tree"
         placeholder="Seleccione una opción"
       >
         <option
-          v-for="(option, index) in formRiverQuality.data
-            .riverbankNaturalnessOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.riverQuality
+            .data.riverbankNaturalnessOptions"
           :key="index"
-          >{{ option.name }}</option
+          :value="option"
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field label="b. Conexión con las formas vegetales adyacentes"> </b-field>
     <b-field
       :message="{
-        '*Hay que seleccionar una opción': connectionsHasErrors
+        '*Hay que seleccionar una opción': connectionsHasErrors,
       }"
       :type="{ 'is-danger': connectionsHasErrors }"
     >
       <b-select
-        icon="transition"
         v-model="values.riverbankConections"
+        icon="transition"
         placeholder="Seleccione una opción"
       >
         <option
-          v-for="(option, index) in formRiverQuality.data
-            .riverbankConectionsOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.riverQuality
+            .data.riverbankConectionsOptions"
           :key="index"
-          >{{ option.name }}</option
+          :value="option"
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field label="c. Continuidad de la vegetación"> </b-field>
     <b-field
       :message="{
-        '*Hay que seleccionar una opción': vegetationsHasErrors
+        '*Hay que seleccionar una opción': vegetationsHasErrors,
       }"
       :type="{ 'is-danger': vegetationsHasErrors }"
     >
       <b-select
-        icon="transit-connection"
         v-model="values.riverbankVegetations"
+        icon="transit-connection"
         placeholder="Seleccione una opción"
       >
         <option
-          v-for="(option, index) in formRiverQuality.data
-            .riverbankVegetationsOptions"
-          :value="option"
+          v-for="(option, index) in appStore.formExpertSections.riverQuality
+            .data.riverbankVegetationsOptions"
           :key="index"
-          >{{ option.name }}</option
+          :value="option"
         >
+          {{ option.name }}
+        </option>
       </b-select>
     </b-field>
     <div v-if="isSectionValid">
@@ -107,98 +192,16 @@
     </div>
   </div>
 </template>
-<script>
-import { mapState, mapActions } from "vuex";
 
-export default {
-  data() {
-    return {
-      pdfLink: null,
-      pdfLink2: null,
-      values: {
-        riverbankNaturalness: 0,
-        riverbankConections: null,
-        riverbankVegetations: null
-      }
-    };
-  },
-  created() {
-    this.pdfLink = require("../../assets/pdfs/ribera.pdf");
-    this.pdfLink2 = require("../../assets/pdfs/fichaQRISI2019.pdf");
-  },
-  computed: {
-    ...mapState({
-      formRiverQuality: state => state.formExpertSections.riverQuality
-    }),
-    qrisiIndexTotalPoints() {
-      if (this.isSectionValid) {
-        return (
-          parseInt(this.values.riverbankNaturalness.value) +
-          parseInt(this.values.riverbankVegetations.value) +
-          parseInt(this.values.riverbankConections.value)
-        );
-      }
-      return 0;
-    },
-    qrisiIndex() {
-      return {
-        cat: this.getRiverQualityCategory(this.qrisiIndexTotalPoints),
-        totalPoints: this.qrisiIndexTotalPoints
-      };
-    },
-    naturalnessHasErrors() {
-      return this.values.riverbankNaturalness === null;
-    },
-    vegetationsHasErrors() {
-      return this.values.riverbankVegetations === null;
-    },
-    connectionsHasErrors() {
-      return this.values.riverbankConections === null;
-    },
-    isSectionValid() {
-      return (
-        !this.naturalnessHasErrors &&
-        !this.vegetationsHasErrors &&
-        !this.connectionsHasErrors
-      );
-    }
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    this.values.qrisiIndex = this.qrisiIndex;
-    this.updateSpecificExpertSectionValues({
-      name: "riverQuality",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues"
-    }),
-    init() {
-      this.values.riverbankNaturalness = null; //default value and make beforeUpdate hook jump
-    },
-    getRiverQualityCategory(totalPoints) {
-      if (totalPoints <= 4)
-        return this.formRiverQuality.data.qrisiCategoriesOptions[2];
-      if (totalPoints > 4 && totalPoints <= 8)
-        return this.formRiverQuality.data.qrisiCategoriesOptions[1];
-      return this.formRiverQuality.data.qrisiCategoriesOptions[0];
-    }
-  }
-};
-</script>
 <style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
 .results {
   padding: 1rem;
+
   &__rate {
     padding: 1rem;
   }
 }
+
 .results-display {
   max-width: 500px;
 }

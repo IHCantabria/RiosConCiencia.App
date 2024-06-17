@@ -1,3 +1,5 @@
+const ENV = import.meta.env;
+
 export const RIOSCONCIENCIA_API = {
-  public: process.env.VUE_APP_API_RIOSCONCIENCIA
+  public: ENV.VITE_API_TOOL,
 };

@@ -1,3 +1,90 @@
+<script setup>
+import { ref, computed, onMounted, onBeforeUpdate } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import helpInfo1 from "@/assets/images/picts/info/helpInfo1.jpg";
+import helpInfo2 from "@/assets/images/picts/info/helpInfo2.jpg";
+import helpInfo3 from "@/assets/images/picts/info/helpInfo3.jpg";
+import helpInfo4 from "@/assets/images/picts/info/helpInfo4.jpg";
+import helpInfo5 from "@/assets/images/picts/info/helpInfo5.jpg";
+import helpInfo6 from "@/assets/images/picts/info/helpInfo6.jpg";
+import helpInfo7 from "@/assets/images/picts/info/helpInfo7.jpg";
+import RCC1PDF from "@/assets/pdfs/RCC1.pdf";
+import RCC2PDF from "@/assets/pdfs/RCC2.pdf";
+import RCC3PDF from "@/assets/pdfs/RCC3.pdf";
+import RCC4PDF from "@/assets/pdfs/RCC4.pdf";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+const { isHelpActive, toggleHelp } = usePictsHelper();
+
+// DATA
+const helpRiverActive = ref(false);
+const helpRiverGoodActive = ref(false);
+const helpRiverBadActive = ref(false);
+const helpRiverBeginActive = ref(false);
+const values = ref({});
+
+// COMPUTED
+const isSectionValid = computed(() => {
+  return true; //optional section
+});
+const isHelpRiverActive = computed(() => {
+  return helpRiverActive.value;
+});
+const isHelpRiverGoodActive = computed(() => {
+  return helpRiverGoodActive.value;
+});
+const isHelpRiverBadActive = computed(() => {
+  return helpRiverBadActive.value;
+});
+const isHelpRiverBeginActive = computed(() => {
+  return helpRiverBeginActive.value;
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+});
+
+onBeforeUpdate(() => {
+  appStore.updateSpecificPictsSectionValues({
+    name: "info",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+});
+
+// METHODS
+const init = () => {
+  appStore.updateSpecificPictsSectionValues({
+    name: "info",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+};
+const toggleHelpRiver = () => {
+  helpRiverActive.value = !helpRiverActive.value;
+};
+const toggleHelpRiverGood = () => {
+  helpRiverGoodActive.value = !helpRiverGoodActive.value;
+};
+const toggleHelpRiverBad = () => {
+  helpRiverBadActive.value = !helpRiverBadActive.value;
+};
+const toggleHelpRiverBegin = () => {
+  helpRiverBeginActive.value = !helpRiverBeginActive.value;
+};
+const downloadPDF = (PDF, PDFName) => {
+  const link = document.createElement("a");
+  link.href = PDF;
+  link.download = `${PDFName}.pdf`;
+  link.target = "_blank";
+  link.click();
+  link.remove();
+};
+</script>
+
 <template>
   <div class="form-section form-section-picts">
     <div class="header-section">
@@ -5,14 +92,14 @@
         <span>PROYECTO RÍOS</span>
       </h5>
       <div class="header-section__help">
-        <div @click="$_toggleHelp()">
+        <div @click="toggleHelp()">
           <b-icon
             icon="information-outline"
             class="header-section__help-item"
             type="is-info"
           ></b-icon>
         </div>
-        <a :href="pdfLinks[0]" target="_blank"
+        <a @click="downloadPDF(RCC1PDF, 'RCC1')"
           ><b-icon
             icon="book-information-variant"
             class="header-section__help-item"
@@ -32,7 +119,7 @@
           </b-field>
         </div>
         <div class="info-step__body">
-          <img :src="$_getImgUrl(0, 0, 1)" />
+          <img :src="helpInfo1" alt="helpInfo1" />
         </div>
       </div>
       <div class="info-step">
@@ -46,7 +133,7 @@
                 type="is-info"
               ></b-icon>
             </div>
-            <a :href="pdfLinks[1]" target="_blank"
+            <a @click="downloadPDF(RCC2PDF, 'RCC2')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
@@ -56,11 +143,11 @@
           </div>
         </div>
         <b-field
-          message="El río sirve para, por ejemplo: pescar peces y comerlos, regar las huertas donde cultivamos frutas y verduras y jugar y disfrutar en él."
           v-show="isHelpRiverActive"
+          message="El río sirve para, por ejemplo: pescar peces y comerlos, regar las huertas donde cultivamos frutas y verduras y jugar y disfrutar en él."
         ></b-field>
         <div class="info-step__body">
-          <img :src="$_getImgUrl(0, 0, 2)" />
+          <img :src="helpInfo2" alt="helpInfo2" />
         </div>
       </div>
       <div class="info-step">
@@ -78,7 +165,7 @@
                 type="is-info"
               ></b-icon>
             </div>
-            <a :href="pdfLinks[2]" target="_blank"
+            <a @click="downloadPDF(RCC3PDF, 'RCC3')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
@@ -88,12 +175,12 @@
           </div>
         </div>
         <b-field
-          message="Se puede considerar que el río está bien cuando: 1) el agua está limpia; 2) no encontramos basura en las márgenes y; 3) existen invertebrados que indican que la calidad del agua es buena."
           v-show="isHelpRiverGoodActive"
+          message="Se puede considerar que el río está bien cuando: 1) el agua está limpia; 2) no encontramos basura en las márgenes y; 3) existen invertebrados que indican que la calidad del agua es buena."
         ></b-field>
         <div class="info-step__body">
-          <img :src="$_getImgUrl(0, 0, 3)" />
-          <img :src="$_getImgUrl(0, 0, 4)" />
+          <img :src="helpInfo3" alt="helpInfo3" />
+          <img :src="helpInfo4" alt="helpInfo4" />
         </div>
       </div>
       <div class="info-step">
@@ -108,7 +195,7 @@
                 type="is-info"
               ></b-icon>
             </div>
-            <a :href="pdfLinks[3]" target="_blank"
+            <a @click="downloadPDF(RCC4PDF, 'RCC4')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
@@ -118,12 +205,12 @@
           </div>
         </div>
         <b-field
-          message="Se puede considerar que el río está mal cuando: 1) el agua está sucia; 2) encontramos basura en las márgenes y; 3) no hay invertebrados que indican que la calidad del agua es buena, viviendo en su lugar otro tipo de invertebrados menos exigentes."
           v-show="isHelpRiverBadActive"
+          message="Se puede considerar que el río está mal cuando: 1) el agua está sucia; 2) encontramos basura en las márgenes y; 3) no hay invertebrados que indican que la calidad del agua es buena, viviendo en su lugar otro tipo de invertebrados menos exigentes."
         ></b-field>
         <div class="info-step__body">
-          <img :src="$_getImgUrl(0, 0, 5)" />
-          <img :src="$_getImgUrl(0, 0, 6)" />
+          <img :src="helpInfo5" alt="helpInfo5" />
+          <img :src="helpInfo6" alt="helpInfo6" />
         </div>
       </div>
       <div class="info-step">
@@ -137,7 +224,7 @@
                 type="is-info"
               ></b-icon>
             </div>
-            <a :href="pdfLinks[0]" target="_blank"
+            <a @click="downloadPDF(RCC1PDF, 'RCC1')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
@@ -147,99 +234,13 @@
           </div>
         </div>
         <b-field
-          message="Comenzamos a realizar unas actividades para conocer el estado del río."
           v-show="isHelpRiverBeginActive"
+          message="Comenzamos a realizar unas actividades para conocer el estado del río."
         ></b-field>
         <div class="info-step__body">
-          <img :src="$_getImgUrl(0, 0, 7)" />
+          <img :src="helpInfo7" alt="helpInfo7" />
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
-import requireContext from "require-context.macro";
-import { mapState, mapActions } from "vuex";
-import { pictsHelperMixin } from "@/mixins/picts-helper.js";
-export default {
-  mixins: [pictsHelperMixin],
-  data() {
-    return {
-      pdfLinks: null,
-      helpRiverActive: false,
-      helpRiverGoodActive: false,
-      helpRiverBadActive: false,
-      helpRiverBeginActive: false
-    };
-  },
-  computed: {
-    ...mapState({
-      formInfo: state => state.formPictsSections.info
-    }),
-    isSectionValid() {
-      return true; //optional section
-    },
-    isHelpRiverActive() {
-      return this.helpRiverActive;
-    },
-    isHelpRiverGoodActive() {
-      return this.helpRiverGoodActive;
-    },
-    isHelpRiverBadActive() {
-      return this.helpRiverBadActive;
-    },
-    isHelpRiverBeginActive() {
-      return this.helpRiverBeginActive;
-    }
-  },
-  created() {
-    this._loadAssests();
-    this.pdfLinks = [
-      require("../../assets/pdfs/RCC1.pdf"),
-      require("../../assets/pdfs/RCC2.pdf"),
-      require("../../assets/pdfs/RCC3.pdf"),
-      require("../../assets/pdfs/RCC4.pdf")
-    ];
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    this.updateSpecificPictsSectionValues({
-      name: "info",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues"
-    }),
-    init() {
-      this.updateSpecificPictsSectionValues({
-        name: "info",
-        values: this.values,
-        isValid: this.isSectionValid
-      });
-    },
-    _loadAssests() {
-      this.imgFolder = requireContext("@/assets/images/picts/info", true);
-    },
-    toggleHelpRiver() {
-      this.helpRiverActive = !this.helpRiverActive;
-    },
-    toggleHelpRiverGood() {
-      this.helpRiverGoodActive = !this.helpRiverGoodActive;
-    },
-    toggleHelpRiverBad() {
-      this.helpRiverBadActive = !this.helpRiverBadActive;
-    },
-    toggleHelpRiverBegin() {
-      this.helpRiverBeginActive = !this.helpRiverBeginActive;
-    }
-  }
-};
-</script>
-<style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
-</style>

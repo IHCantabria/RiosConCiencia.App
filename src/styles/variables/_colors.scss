@@ -1,0 +1,17 @@
+/* Colors */
+$app-background-color: #eaedf1 !default;
+$color-primary: #64b3dc !default;
+$color-primary-shade: #589ec2 !default;
+$color-primary-tint: #74bbe0 !default;
+
+/* Types */
+$info: #339fd7 !default;
+$error: #ea5354 !default;
+$warning: #f1d000 !default;
+$success: #11b896 !default;
+$types: (
+  success: $success,
+  info: $info,
+  warning: $warning,
+  error: $error,
+);

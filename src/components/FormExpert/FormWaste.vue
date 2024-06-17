@@ -1,3 +1,98 @@
+<script setup>
+import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+
+// DATA
+const pdfLink = ref(null);
+const values = ref({
+  wasteList: [],
+});
+const selectedWaste = ref({});
+const units = ref(1);
+const wasteTable = ref({
+  selectedRows: [],
+  columns: [
+    {
+      field: "name",
+      label: "Residuo",
+    },
+    {
+      field: "units",
+      label: "Unidades",
+    },
+  ],
+});
+
+// COMPUTED
+const isSectionValid = computed(() => {
+  return true; // optional section
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+  updateSpecificExpertSectionValues();
+  // TODO: Fix this
+  // pdfLink.value = require("../../assets/pdfs/ribera.pdf");
+});
+onBeforeUpdate(() => {
+  updateSpecificExpertSectionValues();
+});
+// METHODS
+const updateSpecificExpertSectionValues = () => {
+  appStore.updateSpecificExpertSectionValues({
+    name: "waste",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+};
+
+const init = () => {
+  selectedWaste.value =
+    appStore.formExpertSections.waste.data.wasteOptions[0].options[0];
+};
+const saveNewWaste = () => {
+  const newWaste = {
+    ...selectedWaste.value,
+    units: units.value,
+  };
+  const indexWaste = checkWasteExist(newWaste);
+  addWaste(newWaste, indexWaste);
+  units.value = 1;
+  appStore.updateSectionValues({ values: values.value, isValid: true });
+};
+const checkWasteExist = (newWaste) => {
+  return values.value.wasteList.findIndex((waste) => waste.id == newWaste.id);
+};
+const addWaste = (newWaste, index) => {
+  index == -1
+    ? values.value.wasteList.push(newWaste)
+    : (values.value.wasteList[index].units =
+        values.value.wasteList[index].units + newWaste.units);
+};
+const removeSelectedWaste = () => {
+  for (const element of wasteTable.value.selectedRows) {
+    const filtered = values.value.wasteList.filter((value) => {
+      return value !== element;
+    });
+    values.value.wasteList = filtered;
+  }
+  wasteTable.value.selectedRows = [];
+  appStore.updateSectionValues({ values: values.value, isValid: true });
+};
+
+// WATCHERS
+watch(
+  () => selectedWaste.value,
+  () => {
+    units.value = 1;
+  },
+);
+</script>
+
 <template>
   <div class="form-section">
     <div class="header-section">
@@ -11,19 +106,20 @@
     <div class="form-section__block form-section__block-waste">
       <b-field>
         <b-select
+          v-model="selectedWaste"
           placeholder="Seleccione tipo de residuo"
           icon="delete-variant"
           expanded=""
-          v-model="selectedWaste"
         >
           <optgroup
-            v-for="(group, index) in formWaste.data.wasteOptions"
+            v-for="(group, index) in appStore.formExpertSections.waste.data
+              .wasteOptions"
             :key="index"
-            :label="group.material | upperCase"
+            :label="group.material.toUpperCase()"
           >
             <option
-              v-for="(option, index) in group.options"
-              :key="index"
+              v-for="(option, indexOption) in group.options"
+              :key="indexOption"
               :value="option"
             >
               {{ option.name }}
@@ -34,15 +130,13 @@
       <b-field>
         <b-numberinput v-model="units" min="1"></b-numberinput>
       </b-field>
-      <b-button type="is-primary" @click="saveNewWaste">
-        Guardar
-      </b-button>
+      <b-button type="is-primary" @click="saveNewWaste"> Guardar </b-button>
     </div>
-    <div class="table-container" v-if="values.wasteList.length > 0">
+    <div v-if="values.wasteList.length > 0" class="table-container">
       <b-table
+        v-model:checked-rows="wasteTable.selectedRows"
         :data="values.wasteList"
         :columns="wasteTable.columns"
-        :checked-rows.sync="wasteTable.selectedRows"
         :narrowed="true"
         :mobile-cards="false"
         checkable
@@ -71,102 +165,8 @@
     </b-field>
   </div>
 </template>
-<script>
-import { mapState, mapActions } from "vuex";
 
-export default {
-  computed: {
-    ...mapState({
-      formWaste: state => state.formExpertSections.waste
-    }),
-    isSectionValid() {
-      return true; //optional section
-    }
-  },
-  created() {
-    this.pdfLink = require("../../assets/pdfs/residuos.pdf");
-  },
-  data() {
-    return {
-      pdfLink: null,
-      values: {
-        wasteList: []
-      },
-      selectedWaste: {},
-      units: 1,
-      wasteTable: {
-        selectedRows: [],
-        columns: [
-          {
-            field: "name",
-            label: "Residuo"
-          },
-          {
-            field: "units",
-            label: "Unidades"
-          }
-        ]
-      }
-    };
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    this.updateSpecificExpertSectionValues({
-      name: "waste",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  watch: {
-    selectedWaste() {
-      this.units = 1;
-    }
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificExpertSectionValues: "updateSpecificExpertSectionValues",
-      updateSectionValues: "updateSectionValues"
-    }),
-    init() {
-      this.selectedWaste = this.formWaste.data.wasteOptions[0].options[0];
-    },
-    saveNewWaste() {
-      const newWaste = {
-        ...this.selectedWaste,
-        units: this.units
-      };
-      const indexWaste = this.checkWasteExist(newWaste);
-      this.addWaste(newWaste, indexWaste);
-      this.units = 1;
-      this.updateSectionValues({ values: this.values, isValid: true });
-    },
-    checkWasteExist(newWaste) {
-      return this.values.wasteList.findIndex(waste => waste.id == newWaste.id);
-    },
-    addWaste(newWaste, index) {
-      index == -1
-        ? this.values.wasteList.push(newWaste)
-        : (this.values.wasteList[index].units =
-            this.values.wasteList[index].units + newWaste.units);
-    },
-    removeSelectedWaste() {
-      const self = this;
-      for (const element of this.wasteTable.selectedRows) {
-        var filtered = self.values.wasteList.filter(value => {
-          return value !== element;
-        });
-        self.values.wasteList = filtered;
-      }
-      this.wasteTable.selectedRows = [];
-      this.updateSectionValues({ values: this.values, isValid: true });
-    }
-  }
-};
-</script>
 <style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
 .table-container {
   padding: 1rem;
 }

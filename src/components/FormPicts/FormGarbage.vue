@@ -1,10 +1,106 @@
+<script setup>
+import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
+import { useAppStore } from "@/store/appStore.js";
+import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import titleGarbage from "@/assets/images/picts/garbage/titleGarbage.jpg";
+import helpGarbage1 from "@/assets/images/picts/garbage/helpGarbage1.jpg";
+import helpGarbage2 from "@/assets/images/picts/garbage/helpGarbage2.jpg";
+import helpGarbage3 from "@/assets/images/picts/garbage/helpGarbage3.jpg";
+import plasticBagGarbage from "@/assets/images/picts/garbage/plasticBagGarbage.jpg";
+import plasticBottleGarbage from "@/assets/images/picts/garbage/plasticBottleGarbage.jpg";
+import paperGarbage from "@/assets/images/picts/garbage/paperGarbage.jpg";
+import canGarbage from "@/assets/images/picts/garbage/canGarbage.jpg";
+import glassBottleGarbage from "@/assets/images/picts/garbage/glassBottleGarbage.jpg";
+import clothesGarbage from "@/assets/images/picts/garbage/clothesGarbage.jpg";
+import cigaretteGarbage from "@/assets/images/picts/garbage/cigaretteGarbage.jpg";
+import brickGarbage from "@/assets/images/picts/garbage/brickGarbage.jpg";
+import absenceImg from "@/assets/images/picts/garbage/absence.jpg";
+
+// STORES & COMPOSABLES
+const appStore = useAppStore();
+const { isHelpActive, toggleHelp } = usePictsHelper();
+
+// DATA
+const values = ref({
+  waterGarbage: null,
+});
+
+// COMPUTED
+const isSectionValid = computed(() => {
+  return true; //optional section
+});
+const absence = computed({
+  get: () => appStore.garbageAbsence,
+  set: (value) => appStore.setGarbageAbsence(value),
+});
+
+// LYFECYCLE
+onMounted(() => {
+  init();
+});
+onBeforeUpdate(() => {
+  appStore.updateSpecificPictsSectionValues({
+    name: "garbage",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+});
+
+// METHODS
+const init = () => {
+  values.value.waterGarbage = []; //default value and make beforeUpdate hook jump
+  appStore.setGarbageAbsence(false);
+};
+const isSelected = (object) => {
+  return (
+    values.value.waterGarbage?.findIndex((obj) => obj.id == object.id) != -1
+  );
+};
+const getOptionImg = (id) => {
+  switch (id) {
+    case 1:
+      return plasticBagGarbage;
+    case 2:
+      return plasticBottleGarbage;
+    case 3:
+      return paperGarbage;
+    case 4:
+      return canGarbage;
+    case 5:
+      return glassBottleGarbage;
+    case 6:
+      return clothesGarbage;
+    case 7:
+      return cigaretteGarbage;
+    case 8:
+      return brickGarbage;
+  }
+};
+
+// WATCHERS
+watch(
+  () => values.value,
+  () => {
+    if (absence.value && values.value.waterGarbage.length > 0) {
+      absence.value = false;
+    }
+  },
+  { deep: true },
+);
+watch(absence, (newValue) => {
+  if (newValue) {
+    values.value.waterGarbage = [];
+  }
+});
+</script>
+
 <template>
   <div class="form-section-picts form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
         <span>RECOGEMOS BASURA</span>
       </h5>
-      <div class="header-section__help" @click="$_toggleHelp()">
+      <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
     </div>
@@ -15,157 +111,86 @@
     </b-field>
     <div class="block guide-section">
       <div class="guide-step">
-        <img :src="$_getImgUrl(formGarbage.id, 0, 1)" />
+        <img :src="helpGarbage1" alt="helpGarbage1" />
         <b-tag class="guide-step__text" type="is-info">COGEMOS UNA BOLSA</b-tag>
       </div>
       <div class="guide-step">
-        <img :src="$_getImgUrl(formGarbage.id, 0, 2)" />
+        <img :src="helpGarbage2" alt="helpGarbage2" />
         <b-tag class="guide-step__text" type="is-info"
           >PONEMOS LA BASURA DENTRO DE LA BOLSA</b-tag
         >
       </div>
       <div class="guide-step">
-        <img :src="$_getImgUrl(formGarbage.id, 0, 3)" />
+        <img :src="helpGarbage3" alt="helpGarbage3" />
         <b-tag class="guide-step__text" type="is-info"
           >MIRAMOS LA BASURA QUE HEMOS ENCONTRADO</b-tag
         >
       </div>
     </div>
     <div class="img-header">
-      <img :src="$_getImgUrl(formGarbage.id, 0, 0)" class="img-header__pic" />
+      <img :src="titleGarbage" alt="titleGarbage" class="img-header__pic" />
       <b-icon
         class="img-header__icon"
         icon="checkbox-marked-circle-outline"
         type="is-info"
       ></b-icon>
     </div>
-    <b-field class="img-section">
-      <div class="img-container">
-        <b-checkbox-button
-          class="img-option"
-          :native-value="false"
-          v-model="absence"
-          ><img
-            :class="absence ? 'img-option__active' : 'img-option__inactive'"
-            :src="$_getImgUrl(formGarbage.id, 9, 1)"/>
-          <div
-            :class="[
-              'overlay',
-              absence ? 'overlay__active' : 'overlay__inactive'
-            ]"
-          ></div
-        ></b-checkbox-button>
-      </div>
-      <div
-        class="img-container"
-        :key="option.id"
-        v-for="option in formGarbage.data.garbageRiverOptions"
-      >
-        <b-checkbox-button
-          class="img-option"
-          :native-value="option"
-          v-model="values.waterGarbage"
-          ><img
-            :class="
-              isSelected(option) ? 'img-option__active' : 'img-option__inactive'
-            "
-            :src="$_getImgUrl(formGarbage.id, option.id, 1)"/>
-          <div
-            :class="[
-              'overlay',
-              isSelected(option) ? 'overlay__active' : 'overlay__inactive'
-            ]"
-          ></div
-        ></b-checkbox-button>
+    <b-field>
+      <div class="img-section">
+        <div class="img-container">
+          <b-checkbox-button
+            v-model="absence"
+            class="img-option"
+            :native-value="false"
+            ><img
+              :class="absence ? 'img-option__active' : 'img-option__inactive'"
+              :src="absenceImg"
+              alt="absenceImg" />
+            <div
+              :class="[
+                'overlay',
+                absence ? 'overlay__active' : 'overlay__inactive',
+              ]"
+            ></div
+          ></b-checkbox-button>
+        </div>
+        <div
+          v-for="option in appStore.formPictsSections.garbage.data
+            .garbageRiverOptions"
+          :key="option.id"
+          class="img-container"
+        >
+          <b-checkbox-button
+            v-model="values.waterGarbage"
+            class="img-option"
+            :native-value="option"
+            ><img
+              :class="
+                isSelected(option)
+                  ? 'img-option__active'
+                  : 'img-option__inactive'
+              "
+              :src="getOptionImg(option.id)"
+              :alt="option.id + 'img'" />
+            <div
+              :class="[
+                'overlay',
+                isSelected(option) ? 'overlay__active' : 'overlay__inactive',
+              ]"
+            ></div
+          ></b-checkbox-button>
+        </div>
       </div>
     </b-field>
   </div>
 </template>
-<script>
-import requireContext from "require-context.macro";
-import { mapState, mapActions } from "vuex";
-import { pictsHelperMixin } from "@/mixins/picts-helper.js";
-export default {
-  data() {
-    return {
-      values: {
-        waterGarbage: null
-      }
-    };
-  },
-  mixins: [pictsHelperMixin],
-  computed: {
-    ...mapState({
-      formGarbage: state => state.formPictsSections.garbage,
-      garbageAbsence: state => state.garbageAbsence
-    }),
-    absence: {
-      get() {
-        return this.garbageAbsence;
-      },
-      set(value) {
-        this.setGarbageAbsence(value);
-      }
-    },
-    isSectionValid() {
-      return true; //optional section
-    }
-  },
-  watch: {
-    absence(newValue) {
-      if (newValue) {
-        this.values.waterGarbage = [];
-      }
-    },
-    values: {
-      deep: true,
-      handler() {
-        if (this.absence && this.values.waterGarbage.length > 0)
-          this.absence = false;
-      }
-    }
-  },
-  created() {
-    this._loadAssests();
-  },
-  mounted() {
-    this.init();
-  },
-  beforeUpdate() {
-    this.updateSpecificPictsSectionValues({
-      name: "garbage",
-      values: this.values,
-      isValid: this.isSectionValid
-    });
-  },
-  methods: {
-    ...mapActions({
-      updateSpecificPictsSectionValues: "updateSpecificPictsSectionValues",
-      setGarbageAbsence: "setGarbageAbsence"
-    }),
-    init() {
-      this.values.waterGarbage = []; //default value and make beforeUpdate hook jump
-      this.setGarbageAbsence(false);
-    },
-    _loadAssests() {
-      this.imgFolder = requireContext("@/assets/images/picts/garbage", true);
-    },
-    isSelected(object) {
-      return this.values.waterGarbage
-        ? this.values.waterGarbage.findIndex(obj => obj.id == object.id) == -1
-          ? false
-          : true
-        : "";
-    }
-  }
-};
-</script>
+
 <style lang="scss" scoped>
-@import "@/styles/form-controls.scss";
 .img-option {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+
   img {
     height: 100%;
     max-width: 140px;
@@ -173,9 +198,11 @@ export default {
     width: 100%;
   }
 }
+
 .img-container {
   max-width: 140px;
 }
+
 .img-header {
   &__pic {
     max-width: 160px;

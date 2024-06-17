@@ -1,39 +1,49 @@
 .img-option {
-  label.b-radio.radio.button.is-primary{
+  label.b-radio.radio.button.is-primary {
     background-color: #64b300;
   }
-  label.b-radio.radio.button.is-focused{
+
+  label.b-radio.radio.button.is-focused {
     border-color: transparent;
   }
+
   .b-radio.radio.button {
     padding: 0;
-    border:0;
-    height:100%;
-    width:100%;
+    border: 0;
+    height: 100%;
+    width: 100%;
     background-color: transparent;
   }
-  label.b-checkbox.checkbox.button.is-primary{
+
+  label.b-checkbox.checkbox.button.is-primary {
     background-color: #64b300;
   }
-  label.b-checkbox.checkbox.button.is-focused{
+
+  label.b-checkbox.checkbox.button.is-focused {
     border-color: transparent;
     box-shadow: none;
   }
+
   .b-checkbox.checkbox.button {
     padding: 0;
-    border:0;
-    height:100%;
-    width:100%;
+    border: 0;
+    height: 100%;
+    width: 100%;
     background-color: transparent;
   }
 }
+
 .field.img-section.has-addons {
-  justify-content:center;
+  justify-content: center;
 }
+
 div.control.img-option {
-  margin-right:0.5rem !important;
+  /* stylelint-disable-next-line declaration-no-important */
+  margin-right: 0.5rem !important;
 }
-span.tag.guide-step__text.is-info{
-  white-space:pre-wrap;
-  height:auto;
+
+/* stylelint-disable-next-line selector-class-pattern */
+span.tag.guide-step__text.is-info {
+  white-space: pre-wrap;
+  height: auto;
 }
