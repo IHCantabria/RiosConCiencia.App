@@ -4,12 +4,13 @@ import { ref, onBeforeUpdate, computed, onMounted, watch } from "vue";
 import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
+import { downloadPDF } from "@/utils/download-pdf";
+import EcosystemPDF from "@/assets/pdfs/ecosistema.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
 
 // DATA
-const pdfLink = ref(null);
 const values = ref({
   samplePointCoords: {
     lon: 0,
@@ -28,8 +29,6 @@ const values = ref({
 // LYFECYCLE
 onMounted(() => {
   init();
-  // TODO: Fix this
-  // pdfLink.value = require("../../assets/pdfs/ecosistema.pdf");
 });
 onBeforeUpdate(() => {
   if (appStore.formExpertSent) return;
@@ -122,7 +121,9 @@ watch(
       <h5 class="title is-5 header-section__text">
         <span>5. El ecosistema acuático (50 m)</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
+      <a
+        class="header-section__help"
+        @click="downloadPDF(EcosystemPDF, 'Ecosistema')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

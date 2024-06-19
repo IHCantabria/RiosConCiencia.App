@@ -1,13 +1,14 @@
 <script setup>
 import { ref, onMounted, onBeforeUpdate, computed } from "vue";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import RiberaPDF from "@/assets/pdfs/ribera.pdf";
+import FichaQRISI2019PDF from "@/assets/pdfs/fichaQRISI2019.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
 
 // DATA
-const pdfLink = ref(null);
-const pdfLink2 = ref(null);
 const values = ref({
   riverbankNaturalness: 0,
   riverbankConections: null,
@@ -17,9 +18,6 @@ const values = ref({
 // LYFECYCLE
 onMounted(() => {
   init();
-  // TODO: Fix this
-  // pdfLink.value = require("../../assets/pdfs/ribera.pdf");
-  // pdfLink2.value = require("../../assets/pdfs/fichaQRISI2019.pdf");
 });
 onBeforeUpdate(() => {
   if (appStore.formExpertSent) return;
@@ -88,10 +86,14 @@ const getRiverQualityCategory = (totalPoints) => {
         <span>7. Calidad del Bosque de Ribera (QRISI)</span>
       </h5>
       <div class="header-section__help">
-        <a :href="pdfLink" class="header-section__help-item" target="_blank"
+        <a
+          class="header-section__help-item"
+          @click="downloadPDF(RiberaPDF, 'ribera')"
           ><b-icon icon="information-outline" type="is-primary"></b-icon
         ></a>
-        <a :href="pdfLink2" class="header-section__help-item" target="_blank"
+        <a
+          class="header-section__help-item"
+          @click="downloadPDF(FichaQRISI2019PDF, 'fichaQRISI2019')"
           ><b-icon icon="book-information-variant" type="is-primary"></b-icon
         ></a>
       </div>

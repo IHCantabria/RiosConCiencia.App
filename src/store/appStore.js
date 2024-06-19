@@ -92,10 +92,6 @@ export const useAppStore = defineStore("appStore", {
     },
   },
   actions: {
-    clearIndexDB() {
-      // TODO: Check this
-      // formStore.clear();
-    },
     setDefaultStateStore() {
       this.user = {};
       this.userRiverSections = [];

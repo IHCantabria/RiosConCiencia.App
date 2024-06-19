@@ -4,6 +4,8 @@ import { ref, onMounted, onBeforeUpdate, computed } from "vue";
 import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
+import { downloadPDF } from "@/utils/download-pdf";
+import VertidosPDF from "@/assets/pdfs/vertidos.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -21,8 +23,6 @@ const isSectionValid = computed(() => {
 // LYFECYCLE
 onMounted(() => {
   init();
-  // TODO: Fix this
-  // pdfLink.value = require("../../assets/pdfs/vertidos.pdf");
   updateSpecificExpertSectionValues();
 });
 onBeforeUpdate(() => {
@@ -30,7 +30,6 @@ onBeforeUpdate(() => {
 });
 
 // DATA
-const pdfLink = ref(null);
 const values = ref({
   spillsList: null,
 });
@@ -149,7 +148,9 @@ const removeSelectedSpills = () => {
       <h5 class="title is-5 header-section__text">
         <span> 2. Inspección de vertidos (500 m)</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
+      <a
+        class="header-section__help"
+        @click="downloadPDF(VertidosPDF, 'vertidos')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

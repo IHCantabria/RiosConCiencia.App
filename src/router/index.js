@@ -66,7 +66,6 @@ const router = createRouter({
 //   next();
 // };
 
-// TODO: CHECK THIS
 router.beforeEach(() => {
   const backbuttonPulsed = inject("$backbuttonPulsed");
   if (backbuttonPulsed.value) {

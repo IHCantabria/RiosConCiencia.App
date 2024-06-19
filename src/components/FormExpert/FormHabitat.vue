@@ -1,13 +1,14 @@
 <script setup>
 import { ref, onMounted, onBeforeUpdate, computed } from "vue";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import HabitatPDF from "@/assets/pdfs/habitat.pdf";
+import HabitatPDF2 from "@/assets/pdfs/fichaIHF2019.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
 
 // DATA
-const pdfLink = ref(null);
-const pdfLink2 = ref(null);
 const values = ref({
   stonesInPools: null,
   substrateComposition: [],
@@ -28,9 +29,6 @@ const velocityAndDepthTypes = [
 // LYFECYCLE
 onMounted(() => {
   init();
-  // TODO: Fix this
-  // pdfLink.value = require("../../assets/pdfs/habitat.pdf");
-  // pdfLink2.value = require("../../assets/pdfs/fichaIHF2019.pdf");
 });
 onBeforeUpdate(() => {
   if (appStore.formExpertSent) return;
@@ -171,10 +169,14 @@ const getHabitatCategory = (totalPoints) => {
         <span>4. El hábitat fluvial (100 m)</span>
       </h5>
       <div class="header-section__help">
-        <a :href="pdfLink" class="header-section__help-item" target="_blank"
+        <a
+          class="header-section__help-item"
+          @click="downloadPDF(HabitatPDF, 'habitat')"
           ><b-icon icon="information-outline" type="is-primary"></b-icon
         ></a>
-        <a :href="pdfLink2" class="header-section__help-item" target="_blank"
+        <a
+          class="header-section__help-item"
+          @click="downloadPDF(HabitatPDF2, 'fichaIHF2019')"
           ><b-icon icon="book-information-variant" type="is-primary"></b-icon
         ></a>
       </div>

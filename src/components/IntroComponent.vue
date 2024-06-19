@@ -1,16 +1,11 @@
 <script setup>
-import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import ManualPDF from "@/assets/pdfs/manual2019.pdf";
 
 const router = useRouter();
 const appStore = useAppStore();
-const pdfLink = ref(null);
-
-onMounted(() => {
-  // TODO: Fix this
-  // pdfLink.value = require("../assets/pdfs/manual2019.pdf");
-});
 
 const expertUser = () => {
   router.push({ name: "formexpert" });
@@ -45,7 +40,7 @@ const challengeUser = () => {
     </div>
     <div class="intro__help">
       <div class="guide-link">
-        <a :href="pdfLink" target="_blank">
+        <a @click="downloadPDF(ManualPDF, 'manual')">
           <b-icon
             class="guide-link__icon"
             icon="cloud-download"

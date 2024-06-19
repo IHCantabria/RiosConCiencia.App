@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import helpInfo1 from "@/assets/images/picts/info/helpInfo1.jpg";
 import helpInfo2 from "@/assets/images/picts/info/helpInfo2.jpg";
 import helpInfo3 from "@/assets/images/picts/info/helpInfo3.jpg";
@@ -75,14 +76,6 @@ const toggleHelpRiverBad = () => {
 };
 const toggleHelpRiverBegin = () => {
   helpRiverBeginActive.value = !helpRiverBeginActive.value;
-};
-const downloadPDF = (PDF, PDFName) => {
-  const link = document.createElement("a");
-  link.href = PDF;
-  link.download = `${PDFName}.pdf`;
-  link.target = "_blank";
-  link.click();
-  link.remove();
 };
 </script>
 

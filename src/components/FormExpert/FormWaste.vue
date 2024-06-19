@@ -1,12 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import residuosPDF from "@/assets/pdfs/residuos.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
 
 // DATA
-const pdfLink = ref(null);
 const values = ref({
   wasteList: [],
 });
@@ -35,8 +36,6 @@ const isSectionValid = computed(() => {
 onMounted(() => {
   init();
   updateSpecificExpertSectionValues();
-  // TODO: Fix this
-  // pdfLink.value = require("../../assets/pdfs/ribera.pdf");
 });
 onBeforeUpdate(() => {
   updateSpecificExpertSectionValues();
@@ -100,7 +99,10 @@ watch(
       <h5 class="title is-5 header-section__text">
         <span>3. Inspección de residuos (100 m)</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
+      <a
+        class="header-section__help"
+        target="_blank"
+        @click="downloadPDF(residuosPDF, 'residuos')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

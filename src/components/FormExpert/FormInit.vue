@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import ManualPDF from "@/assets/pdfs/manual2019.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -31,8 +33,6 @@ const isSectionValid = computed(() => {
 // LYFECYCLE
 onMounted(() => {
   init();
-  // TODO: Fix this
-  // this.pdfLink = require("../../assets/pdfs/manual2019.pdf");
 });
 onBeforeUpdate(() => {
   if (appStore.formExpertSent) return;
@@ -44,7 +44,6 @@ onBeforeUpdate(() => {
 });
 
 // DATA
-const pdfLink = ref(null);
 const values = ref({
   partners: null,
   riverSection: null,
@@ -62,7 +61,7 @@ const init = () => {
       <h5 class="title is-5 header-section__text">
         <span>0. Datos iniciales</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
+      <a class="header-section__help" @click="downloadPDF(ManualPDF, 'manual')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

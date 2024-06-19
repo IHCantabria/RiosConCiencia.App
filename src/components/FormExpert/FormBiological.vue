@@ -1,12 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import DiagnosticoPDF from "@/assets/pdfs/diagnostico.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
 
 // DATA
-const pdfLink = ref(null);
 const values = ref({
   bioQualityIndex: 0,
 });
@@ -14,8 +15,6 @@ const values = ref({
 // LYFECYCLE
 onMounted(() => {
   init();
-  // TODO: Fix this
-  // this.pdfLink = require("../../assets/pdfs/diagnostico.pdf");
 });
 onBeforeUpdate(() => {
   if (appStore.formExpertSent) return;
@@ -46,7 +45,9 @@ const init = () => {
       <h5 class="title is-5 header-section__text">
         <span>6. Calidad biológica del agua</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
+      <a
+        class="header-section__help"
+        @click="downloadPDF(DiagnosticoPDF, 'diagnostico')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

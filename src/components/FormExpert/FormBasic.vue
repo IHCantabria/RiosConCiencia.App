@@ -1,9 +1,10 @@
 <script setup>
 import { ref, onMounted, onBeforeUpdate, computed } from "vue";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import BasicoPDF from "@/assets/pdfs/basico.pdf";
 
 // DATA
-const pdfLink = ref(null);
 const values = ref({
   waterFlow: true,
   waterLevel: null,
@@ -27,8 +28,6 @@ const appStore = useAppStore();
 // LYFECYCLE
 onMounted(() => {
   init();
-  // TODO: Fix this
-  // pdfLink.value = require("../../assets/pdfs/basico.pdf");
 });
 onBeforeUpdate(() => {
   if (appStore.formExpertSent) return;
@@ -95,7 +94,7 @@ const init = () => {
       <h5 class="title is-5 header-section__text">
         <span>1. Inspección básica del tramo (500 m)</span>
       </h5>
-      <a :href="pdfLink" class="header-section__help" target="_blank"
+      <a class="header-section__help" @click="downloadPDF(BasicoPDF, 'Basico')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
