@@ -23,13 +23,10 @@ onMounted(() => {
   init();
   // TODO: Fix this
   // pdfLink.value = require("../../assets/pdfs/vertidos.pdf");
+  updateSpecificExpertSectionValues();
 });
 onBeforeUpdate(() => {
-  appStore.updateSpecificExpertSectionValues({
-    name: "spills",
-    values: values.value,
-    isValid: isSectionValid.value,
-  });
+  updateSpecificExpertSectionValues();
 });
 
 // DATA
@@ -82,6 +79,16 @@ const spillsTable = ref({
 const init = () => {
   values.value.spillsList = []; //default value and make beforeUpdate hook jump
 };
+
+const updateSpecificExpertSectionValues = () => {
+  if (appStore.formExpertSent) return;
+  appStore.updateSpecificExpertSectionValues({
+    name: "spills",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+};
+
 const getActualPosition = () => {
   getUserGeolocation()
     .then((res) => {

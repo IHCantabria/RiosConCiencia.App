@@ -31,6 +31,7 @@ onMounted(() => {
   init();
 });
 onBeforeUpdate(() => {
+  if (appStore.pictsFormSent) return;
   const valuesFormated = {
     waterTemp: values.value.waterTemp.length ? values.value.waterTemp[0] : null,
   };

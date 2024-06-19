@@ -102,7 +102,6 @@ onMounted(() => {
   init();
 });
 onBeforeUpdate(() => {
-  console.log("onBeforeUpdate");
   appStore.updateSpecificPictsSectionValues({
     name: "game",
     values: values.value,
@@ -118,7 +117,6 @@ const init = () => {
   decontaminated.value = false;
 };
 const calculateStatus = () => {
-  console.log("calculateStatus");
   let gameState;
   if (isRiverFine.value) {
     gameState = appStore.formPictsSections.game.data.gameStateOptions.find(
@@ -159,8 +157,9 @@ const sendSampleData = async () => {
       duration: 6000,
     });
     setTimeout(() => {
-      isSendActive.value = false;
       appStore.clearPictsFormResponses();
+      isSendActive.value = false;
+      appStore.pictsFormSent = true;
       router.push("/");
     }, 6000);
   } catch (err) {
@@ -180,14 +179,12 @@ const sendSampleData = async () => {
 const _prepareSampleObj = () => {
   let formResults = {};
   for (const section of Object.keys(appStore.formPictsSections)) {
-    console.log(section, appStore.formPictsSections[section]);
     formResults = {
       ...formResults,
       ...appStore.formPictsSections[section].results,
       user: appStore.user,
     };
   }
-  console.log(formResults);
   return formResults;
 };
 
@@ -200,7 +197,7 @@ watch(
       values.value.gameState = newVal;
       if (newVal != null && newVal != oldVal) {
         setNewMessage(newVal.value);
-        if (appStore.activeSectionName == "game") window.scrollTo(0, 0); // go to init page when change the state value in the appStore.formPictsSections.game view
+        if (appStore.activeSectionName == "game") window.scrollTo(0, 0);
       }
     }
   },

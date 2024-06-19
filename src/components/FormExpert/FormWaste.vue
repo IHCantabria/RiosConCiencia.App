@@ -43,6 +43,7 @@ onBeforeUpdate(() => {
 });
 // METHODS
 const updateSpecificExpertSectionValues = () => {
+  if (appStore.formExpertSent) return;
   appStore.updateSpecificExpertSectionValues({
     name: "waste",
     values: values.value,

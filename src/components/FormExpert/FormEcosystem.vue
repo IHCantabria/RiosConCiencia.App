@@ -32,6 +32,7 @@ onMounted(() => {
   // pdfLink.value = require("../../assets/pdfs/ecosistema.pdf");
 });
 onBeforeUpdate(() => {
+  if (appStore.formExpertSent) return;
   appStore.updateSpecificExpertSectionValues({
     name: "ecoSystem",
     values: values.value,

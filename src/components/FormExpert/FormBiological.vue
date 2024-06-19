@@ -18,6 +18,7 @@ onMounted(() => {
   // this.pdfLink = require("../../assets/pdfs/diagnostico.pdf");
 });
 onBeforeUpdate(() => {
+  if (appStore.formExpertSent) return;
   appStore.updateSpecificExpertSectionValues({
     name: "biological",
     values: values.value,

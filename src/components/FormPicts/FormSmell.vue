@@ -28,6 +28,7 @@ onMounted(() => {
   init();
 });
 onBeforeUpdate(() => {
+  if (appStore.pictsFormSent) return;
   const valuesFormated = {
     waterSmell: values.value.waterSmell.length
       ? values.value.waterSmell[0]

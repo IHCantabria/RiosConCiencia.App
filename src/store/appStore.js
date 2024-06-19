@@ -10,7 +10,9 @@ export const useAppStore = defineStore("appStore", {
     activeSectionId: 0,
     activeFormId: 0, // formExpert == 0, formPicts == 1
     formExpertSections: {},
+    formExpertSent: false,
     formPictsSections: {},
+    pictsFormSent: false,
     goodPlantsAbsence: false,
     garbageAbsence: false,
     goodAnimalsAbsence: false,
@@ -191,5 +193,5 @@ export const useAppStore = defineStore("appStore", {
       this.clearExpertFormResponses();
     },
   },
-  persist: true,
+  persist: false,
 });

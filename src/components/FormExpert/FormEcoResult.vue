@@ -42,6 +42,7 @@ onBeforeUpdate(() => {
 
 // METHODS
 const updateSpecificExpertSectionValues = () => {
+  if (appStore.formExpertSent) return;
   appStore.updateSpecificExpertSectionValues({
     name: "ecoResult",
     values: values.value,
@@ -77,8 +78,9 @@ const sendSampleData = async () => {
       duration: 6000,
     });
     setTimeout(() => {
-      isSendActive.value = false;
       appStore.clearExpertFormResponses();
+      isSendActive.value = false;
+      appStore.formExpertSent = true;
       router.push("/");
     }, 6000);
   } catch (err) {

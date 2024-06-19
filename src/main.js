@@ -5,6 +5,7 @@ import App from "./App.vue";
 import router from "./router";
 import { mobileEventsPlugin } from "./plugins/mobileEventsPlugin";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+// eslint-disable-next-line import/no-unresolved
 import { registerSW } from "virtual:pwa-register";
 import "@mdi/font/css/materialdesignicons.css";
 import { useAppStore } from "./store/appStore";

@@ -35,6 +35,7 @@ onMounted(() => {
   // this.pdfLink = require("../../assets/pdfs/manual2019.pdf");
 });
 onBeforeUpdate(() => {
+  if (appStore.formExpertSent) return;
   appStore.updateSpecificExpertSectionValues({
     name: "init",
     values: values.value,

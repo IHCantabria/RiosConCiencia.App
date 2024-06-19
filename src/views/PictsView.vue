@@ -1,10 +1,7 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { onBeforeRouteLeave, useRouter } from "vue-router";
-import {
-  ToastProgrammatic as Toast,
-  DialogProgrammatic as Dialog,
-} from "@fantage9/buefy-vue3";
+import { onMounted, ref } from "vue";
+import { onBeforeRouteLeave } from "vue-router";
+import { DialogProgrammatic as Dialog } from "@fantage9/buefy-vue3";
 import { useAppStore } from "@/store/appStore.js";
 
 import info from "@/components/FormPicts/FormInfo.vue";
@@ -19,26 +16,44 @@ import garbage from "@/components/FormPicts/FormGarbage.vue";
 import plants from "@/components/FormPicts/FormPlants.vue";
 import animals from "@/components/FormPicts/FormAnimals.vue";
 import game from "@/components/FormPicts/FormGame.vue";
-import AppDataLoader from "@/components/renderless/AppPictsDataLoader.vue";
-import spinner from "@/components/LoadingComponent.vue";
 
 // STORES & COMPOSABLES
-const router = useRouter();
 const appStore = useAppStore();
+
+// DATA
+const formReady = ref(false);
 
 // LYFECYCLE
 onMounted(() => {
+  appStore.pictsFormSent = false;
   init();
 });
-onBeforeRouteLeave((to, from, next) => {
-  //if the load master data fail let the router go back to main page
-  if (!appStore.formPictsSections.width) {
-    next();
-    //if the user try to leave the form shwo a warm
-  } else if (
+onBeforeRouteLeave(async (to) => {
+  if (
     (to.path == "/" || to.path == "/about") &&
     Object.keys(appStore.formPictsSections.width.results).length !== 0
   ) {
+    const leave = await confirmDialog();
+    if (!leave) {
+      return false;
+    } else {
+      appStore.formPictsSections.width.results = {};
+      appStore.pictsFormSent = false;
+      return { name: to.name };
+    }
+  }
+  return true;
+});
+
+// METHODS
+const init = () => {
+  resetValidForms();
+  appStore.setActiveForm(1); // PictsForm
+  appStore.setActiveSection(0);
+  formReady.value = true;
+};
+const confirmDialog = () => {
+  return new Promise((resolve) => {
     Dialog.confirm({
       title: "Formulario Incompleto",
       message:
@@ -47,90 +62,57 @@ onBeforeRouteLeave((to, from, next) => {
       cancelText: "No abandonar",
       type: "is-danger",
       hasIcon: true,
-      onCancel: () => next(false),
-      onConfirm: () => next(),
+      onCancel: () => resolve(false),
+      onConfirm: () => resolve(true),
     });
-  } else {
-    next();
-  }
-});
-
-// DATA
-const dataReady = ref(false);
-
-// METHODS
-const onDataLoad = () => {
-  dataReady.value = true;
-};
-const init = () => {
-  appStore.setActiveForm(1); // PictsForm
-  appStore.setActiveSection(0);
-};
-const onDataLoadError = () => {
-  //dataReady switch to hide spinner
-  dataReady.value = true;
-  const error = appStore.isOnline
-    ? "No ha sido posible cargar datos maestros del formulario. El servidor está caído."
-    : " No es posible cargar datos maestros del formulario si no dispones de conexión a internet.";
-  Toast.open({
-    message: error,
-    type: "is-danger",
-    duration: 4000,
   });
-  dataReady.value = false;
-  router.push("/");
+};
+
+const resetValidForms = async () => {
+  for (const name of Object.keys(appStore.formPictsSections)) {
+    appStore.formPictsSections[name].isValid = false;
+  }
 };
 </script>
 
 <template>
-  <div class="section">
-    <AppDataLoader
-      v-if="!appStore.isPictsDataLoaded"
-      @data-load-ready="onDataLoad"
-      @data-load-error="onDataLoadError"
-    />
-    <template v-else>
-      <KeepAlive>
-        <info v-show="appStore.activeSectionName === 'info'" />
-      </KeepAlive>
-      <KeepAlive>
-        <flow v-show="appStore.activeSectionName === 'flow'" />
-      </KeepAlive>
-      <KeepAlive>
-        <width v-show="appStore.activeSectionName === 'width'" />
-      </KeepAlive>
-      <KeepAlive>
-        <depth v-show="appStore.activeSectionName === 'depth'" />
-      </KeepAlive>
-      <KeepAlive>
-        <temp v-show="appStore.activeSectionName === 'temp'" />
-      </KeepAlive>
-      <KeepAlive>
-        <env v-show="appStore.activeSectionName === 'env'" />
-      </KeepAlive>
-      <KeepAlive>
-        <color v-show="appStore.activeSectionName === 'color'" />
-      </KeepAlive>
-      <KeepAlive>
-        <smell v-show="appStore.activeSectionName === 'smell'" />
-      </KeepAlive>
-      <KeepAlive>
-        <garbage v-show="appStore.activeSectionName === 'garbage'" />
-      </KeepAlive>
-      <KeepAlive>
-        <plants v-show="appStore.activeSectionName === 'plants'" />
-      </KeepAlive>
-      <KeepAlive>
-        <animals v-show="appStore.activeSectionName === 'animals'" />
-      </KeepAlive>
-      <KeepAlive>
-        <game v-show="appStore.activeSectionName === 'game'" />
-      </KeepAlive>
-    </template>
-    <spinner
-      v-if="!appStore.isPictsDataLoaded"
-      :is-loading="!dataReady"
-    ></spinner>
+  <div v-if="formReady" class="section">
+    <KeepAlive>
+      <info v-show="appStore.activeSectionName === 'info'" />
+    </KeepAlive>
+    <KeepAlive>
+      <flow v-show="appStore.activeSectionName === 'flow'" />
+    </KeepAlive>
+    <KeepAlive>
+      <width v-show="appStore.activeSectionName === 'width'" />
+    </KeepAlive>
+    <KeepAlive>
+      <depth v-show="appStore.activeSectionName === 'depth'" />
+    </KeepAlive>
+    <KeepAlive>
+      <temp v-show="appStore.activeSectionName === 'temp'" />
+    </KeepAlive>
+    <KeepAlive>
+      <env v-show="appStore.activeSectionName === 'env'" />
+    </KeepAlive>
+    <KeepAlive>
+      <color v-show="appStore.activeSectionName === 'color'" />
+    </KeepAlive>
+    <KeepAlive>
+      <smell v-show="appStore.activeSectionName === 'smell'" />
+    </KeepAlive>
+    <KeepAlive>
+      <garbage v-show="appStore.activeSectionName === 'garbage'" />
+    </KeepAlive>
+    <KeepAlive>
+      <plants v-show="appStore.activeSectionName === 'plants'" />
+    </KeepAlive>
+    <KeepAlive>
+      <animals v-show="appStore.activeSectionName === 'animals'" />
+    </KeepAlive>
+    <KeepAlive>
+      <game v-show="appStore.activeSectionName === 'game'" />
+    </KeepAlive>
   </div>
 </template>
 

@@ -31,6 +31,7 @@ onMounted(() => {
   // pdfLink.value = require("../../assets/pdfs/basico.pdf");
 });
 onBeforeUpdate(() => {
+  if (appStore.formExpertSent) return;
   appStore.updateSpecificExpertSectionValues({
     name: "basic",
     values: values.value,

@@ -1,41 +1,49 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import WelcomeView from "../views/WelcomeView.vue";
-import LoginView from "../views/LoginView.vue";
 import { useAppStore } from "../store/appStore";
-import { inject } from "vue";
+// import { inject } from "vue";
 
 const routes = [
   {
     path: "/",
     name: "welcome",
-    beforeEnter: (to, from, next) => {
+    beforeEnter: (to, from) => {
       const appStore = useAppStore();
-      !appStore.userIsLogged ? next({ name: "login" }) : next();
+      if (!appStore.userIsLogged && from.name !== "login") {
+        return { name: "login" };
+      }
     },
-    component: WelcomeView,
+    component: () => import("../views/WelcomeView.vue"),
   },
   {
     path: "/login",
     name: "login",
-    component: LoginView,
+    component: () => import("../views/LoginView.vue"),
   },
   {
     path: "/formexpert",
     name: "formexpert",
-    beforeEnter: (to, from, next) => {
+    beforeEnter: () => {
       const appStore = useAppStore();
-      !appStore.userIsLogged ? next({ name: "login" }) : next();
-      appStore.userCanDoExpertForm ? next() : next(false);
+
+      if (!appStore.userIsLogged || !appStore.isExpertDataLoaded) {
+        return { name: "login" };
+      } else if (!appStore.userCanDoExpertForm) {
+        return false;
+      }
     },
     component: () => import("../views/FormView.vue"),
   },
   {
     path: "/formpicts",
     name: "formpicts",
-    beforeEnter: (to, from, next) => {
+    beforeEnter: () => {
       const appStore = useAppStore();
-      !appStore.userIsLogged ? next({ name: "login" }) : next();
-      appStore.userCanDoPictsForm ? next() : next(false);
+      //  same with isPictsDataLoaded
+      if (!appStore.userIsLogged || !appStore.isExpertDataLoaded) {
+        return { name: "login" };
+      } else if (!appStore.userCanDoPictsForm) {
+        return false;
+      }
     },
     component: () => import("../views/PictsView.vue"),
   },
@@ -58,15 +66,12 @@ const router = createRouter({
 //   next();
 // };
 
-router.beforeEach((to, from, next) => {
-  const backbuttonPulsed = inject("$backbuttonPulsed");
-  // waitForStorageToBeReady();
-  if (!backbuttonPulsed.value) {
-    next();
-  } else {
-    next(false);
-    backbuttonPulsed.value = false;
-  }
-});
+// router.beforeEach(() => {
+//   const backbuttonPulsed = inject("$backbuttonPulsed");
+//   if (backbuttonPulsed.value) {
+//     backbuttonPulsed.value = false;
+//     return false;
+//   }
+// });
 
 export default router;

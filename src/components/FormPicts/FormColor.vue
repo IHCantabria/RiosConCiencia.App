@@ -30,6 +30,7 @@ onMounted(() => {
   init();
 });
 onBeforeUpdate(() => {
+  if (appStore.pictsFormSent) return;
   const valuesFormated = {
     waterColor: values.value.waterColor.length
       ? values.value.waterColor[0]

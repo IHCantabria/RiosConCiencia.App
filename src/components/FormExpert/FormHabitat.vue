@@ -33,6 +33,7 @@ onMounted(() => {
   // pdfLink2.value = require("../../assets/pdfs/fichaIHF2019.pdf");
 });
 onBeforeUpdate(() => {
+  if (appStore.formExpertSent) return;
   values.value.habitatIndex = habitatIndex.value;
   appStore.updateSpecificExpertSectionValues({
     name: "habitat",

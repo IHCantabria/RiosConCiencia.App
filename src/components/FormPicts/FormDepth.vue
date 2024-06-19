@@ -30,6 +30,7 @@ onMounted(() => {
   init();
 });
 onBeforeUpdate(() => {
+  if (appStore.pictsFormSent) return;
   const valuesFormated = {
     waterDepth: values.value.waterDepth.length
       ? values.value.waterDepth[0]

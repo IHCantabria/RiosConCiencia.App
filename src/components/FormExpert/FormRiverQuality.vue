@@ -22,6 +22,7 @@ onMounted(() => {
   // pdfLink2.value = require("../../assets/pdfs/fichaQRISI2019.pdf");
 });
 onBeforeUpdate(() => {
+  if (appStore.formExpertSent) return;
   values.value.qrisiIndex = qrisiIndex.value;
   appStore.updateSpecificExpertSectionValues({
     name: "riverQuality",

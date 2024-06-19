@@ -42,6 +42,7 @@ onMounted(() => {
   init();
 });
 onBeforeUpdate(() => {
+  if (appStore.pictsFormSent) return;
   appStore.updateSpecificPictsSectionValues({
     name: "animals",
     values: values.value,

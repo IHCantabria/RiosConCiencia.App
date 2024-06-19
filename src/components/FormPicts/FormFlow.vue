@@ -27,6 +27,7 @@ onMounted(() => {
   init();
 });
 onBeforeUpdate(() => {
+  if (appStore.pictsFormSent) return;
   const valuesFormated = {
     riverSection: appStore.userRiverSectionsPicts[0],
     waterFlow: values.value.waterFlow.length ? values.value.waterFlow[0] : null,
