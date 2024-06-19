@@ -193,5 +193,5 @@ export const useAppStore = defineStore("appStore", {
       this.clearExpertFormResponses();
     },
   },
-  persist: false,
+  persist: true,
 });

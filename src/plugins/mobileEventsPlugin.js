@@ -10,6 +10,11 @@ export const mobileEventsPlugin = {
       backbuttonPulsed.value = true;
     };
 
-    window.addEventListener("popstate", handlePopState);
+    // Verifica si el usuario está en un dispositivo móvil
+    const isMobileAndroid = /Android/i.test(navigator.userAgent);
+
+    if (isMobileAndroid) {
+      window.addEventListener("popstate", handlePopState);
+    }
   },
 };

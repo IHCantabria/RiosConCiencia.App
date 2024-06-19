@@ -31,7 +31,8 @@ onMounted(() => {
 onBeforeRouteLeave(async (to) => {
   if (
     (to.path == "/" || to.path == "/about") &&
-    Object.keys(appStore.formPictsSections.width.results).length !== 0
+    (!appStore.formPictsSections.width.results ||
+      Object.keys(appStore.formPictsSections.width.results).length !== 0)
   ) {
     const leave = await confirmDialog();
     if (!leave) {
