@@ -12,9 +12,7 @@ const appStore = useAppStore();
 
 // COMPUTED
 const spillDisabled = computed(() => {
-  return (
-    values.value.spillSource === null || values.value.spillDiameter === null
-  );
+  return spillSource.value === null || spillDiameter.value === null;
 });
 const isSectionValid = computed(() => {
   return true; //optional section
@@ -132,10 +130,10 @@ const resetSpillValues = () => {
 };
 const removeSelectedSpills = () => {
   for (const spill of spillsTable.value.selectedRows) {
-    const filtered = self.values.spillsList.filter((value) => {
+    const filtered = values.value.spillsList.filter((value) => {
       return value !== spill;
     });
-    self.values.spillsList = filtered;
+    values.value.spillsList = filtered;
   }
   spillsTable.value.selectedRows = [];
   appStore.updateSectionValues({ values: values.value, isValid: true });
@@ -144,10 +142,8 @@ const removeSelectedSpills = () => {
 
 <template>
   <div class="form-section">
-    <div class="header-section">
-      <h5 class="title is-5 header-section__text">
-        <span> 2. Inspección de vertidos (500 m)</span>
-      </h5>
+    <div class="header-section mt-5">
+      <b-field label="1.11. Inspección de vertidos (500 m)"> </b-field>
       <a
         class="header-section__help"
         @click="downloadPDF(VertidosPDF, 'vertidos')"
