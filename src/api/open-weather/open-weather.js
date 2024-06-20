@@ -1,7 +1,7 @@
 import { OPEN_WEATHER } from "./open-weather-config.js";
 import axios from "axios";
 
-const getWeather = async point => {
+const getWeather = async (point) => {
   const url = `${OPEN_WEATHER.url}lat=${point.lat}&lon=${point.lon}&units=metric&APIKEY=${OPEN_WEATHER.APIKEY}`;
   const res = await axios.get(url);
   const weather = _extractWeatherData(res.data);
@@ -9,16 +9,16 @@ const getWeather = async point => {
 };
 
 function _extractWeatherData(data) {
-  var weather = {
+  const weather = {
     temp: data.main.temp,
     conditionName: data.weather[0].main,
-    conditionIcon: _weatherIcon(data.weather[0].icon)
+    conditionIcon: _weatherIcon(data.weather[0].icon),
   };
   return weather;
 }
 
 function _weatherIcon(weatherIcon) {
-  var icon;
+  let icon;
 
   switch (weatherIcon) {
     case "01d":

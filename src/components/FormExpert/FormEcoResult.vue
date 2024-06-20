@@ -128,12 +128,12 @@ const _setupRiverMarginsValues = (
 ) => {
   const fullList = [];
   for (const item of leftMarginValues) {
-    item.side = riverSides[0].id;
-    fullList.push(item);
+    const newItem = { ...item, side: riverSides[0].id };
+    fullList.push(newItem);
   }
   for (const item of rightMarginValues) {
-    item.side = riverSides[1].id;
-    fullList.push(item);
+    const newItem = { ...item, side: riverSides[1].id };
+    fullList.push(newItem);
   }
   return fullList;
 };
