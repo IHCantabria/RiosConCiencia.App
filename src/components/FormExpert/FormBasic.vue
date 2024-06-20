@@ -98,7 +98,7 @@ const init = () => {
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
-    <b-field label="a. ¿El agua del río fluye?"> </b-field>
+    <b-field label="1.1 ¿El agua del río fluye?"> </b-field>
     <b-field>
       <b-radio-button
         v-model="values.waterFlow"
@@ -118,7 +118,7 @@ const init = () => {
       </b-radio-button>
     </b-field>
     <b-field
-      label="b. ¿Es el nivel del agua habitual para la época del año?"
+      label="1.2 Según vuestra opinión, ¿el nivel del agua es el habitual para la época del año?"
       :message="{
         '*Hay que seleccionar una opción': waterLevelHasErrors,
       }"
@@ -147,7 +147,7 @@ const init = () => {
       ></b-input>
     </b-field>
     <b-field
-      label="c. Anchura media del cauce (m)"
+      label="1.3. Anchura media del cauce (m.):"
       :message="{
         '*Hay que seleccionar una opción': riverBedWidthHasErrors,
       }"
@@ -169,7 +169,7 @@ const init = () => {
       </b-select>
     </b-field>
     <b-field
-      label="d. Profundidad media del cauce (cm)"
+      label="1.4. Profundidad media del cauce (cm.):"
       :message="{
         '*Hay que seleccionar una opción': riverBedDepthHasErrors,
       }"
@@ -191,7 +191,7 @@ const init = () => {
         </option>
       </b-select>
     </b-field>
-    <b-field label="e. Anchura media de la zona de ribera (m)"> </b-field>
+    <b-field label="1.5. Anchura media de la zona de ribera (m.):"> </b-field>
     <div class="two-controls">
       <b-field
         label="Izquierda"
@@ -240,7 +240,7 @@ const init = () => {
         </b-select>
       </b-field>
     </div>
-    <b-field label="f. ¿Qué color tiene el agua?">
+    <b-field label="1.6. ¿Cuál es el color del agua?">
       <b-select v-model="values.waterColor" icon="invert-colors">
         <option
           v-for="(option, index) in appStore.formExpertSections.basic.data
@@ -252,7 +252,7 @@ const init = () => {
         </option>
       </b-select>
     </b-field>
-    <b-field label="g. ¿Qué olor tiene el agua?">
+    <b-field label="1.7. ¿Qué olor tiene el agua?">
       <b-select v-model="values.waterSmell" icon="grain">
         <option
           v-for="(option, index) in appStore.formExpertSections.basic.data
@@ -264,7 +264,7 @@ const init = () => {
         </option>
       </b-select>
     </b-field>
-    <b-field label="h. Existen..."></b-field>
+    <b-field label="1.8. ¿Hay indicios de?"></b-field>
     <div class="block">
       <b-checkbox
         v-for="(option, index) in appStore.formExpertSections.basic.data
@@ -278,7 +278,7 @@ const init = () => {
     </div>
 
     <b-field
-      label="i. ¿En qué condiciones se encuentran las márgenes de nuestro río?"
+      label="1.9. ¿En qué condiciones se encuentran las márgenes de nuestro tramo del río?"
       :message="{
         '*Selecciona, al menos, una condición en las márgenes':
           riverConditionsHasErrors,
@@ -310,7 +310,7 @@ const init = () => {
     </div>
     <div class="checks-container">
       <b-field
-        label="j. ¿Cuáles son los usos del suelo en las márgenes del río?"
+        label="1.10. ¿Cuáles son los usos del suelo en las márgenes del río?"
         :message="{
           '*Selecciona, al menos, un uso del suelo en las márgenes':
             landUseHasErrors,
