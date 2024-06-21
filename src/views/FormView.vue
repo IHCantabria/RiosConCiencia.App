@@ -6,13 +6,10 @@ import { DialogProgrammatic as Dialog } from "@fantage9/buefy-vue3";
 
 import init from "@/components/FormExpert/FormInit.vue";
 import basic from "@/components/FormExpert/FormBasic.vue";
-import spills from "@/components/FormExpert/FormSpills.vue";
-import waste from "@/components/FormExpert/FormWaste.vue";
 import habitat from "@/components/FormExpert/FormHabitat.vue";
 import ecoSystem from "@/components/FormExpert/FormEcosystem.vue";
-import biological from "@/components/FormExpert/FormBiological.vue";
-import riverQuality from "@/components/FormExpert/FormRiverQuality.vue";
-import ecoResult from "@/components/FormExpert/FormEcoResult.vue";
+import biodiversity from "@/components/FormExpert/FormBioDiversity.vue";
+import health from "@/components/FormExpert/FormHealth.vue";
 import { useAppStore } from "@/store/appStore.js";
 
 // STORES & COMPOSABLES
@@ -84,25 +81,16 @@ const resetValidForms = async () => {
       <basic v-show="appStore.activeSectionName === 'basic'" />
     </KeepAlive>
     <KeepAlive>
-      <spills v-show="appStore.activeSectionName === 'spills'" />
-    </KeepAlive>
-    <KeepAlive>
-      <waste v-show="appStore.activeSectionName === 'waste'" />
-    </KeepAlive>
-    <KeepAlive>
       <habitat v-show="appStore.activeSectionName === 'habitat'" />
     </KeepAlive>
     <KeepAlive>
       <ecoSystem v-show="appStore.activeSectionName === 'ecoSystem'" />
     </KeepAlive>
     <KeepAlive>
-      <biological v-show="appStore.activeSectionName === 'biological'" />
+      <biodiversity v-show="appStore.activeSectionName === 'biodiversity'" />
     </KeepAlive>
     <KeepAlive>
-      <riverQuality v-show="appStore.activeSectionName === 'riverQuality'" />
-    </KeepAlive>
-    <KeepAlive>
-      <ecoResult v-show="appStore.activeSectionName === 'ecoResult'" />
+      <health v-show="appStore.activeSectionName === 'health'" />
     </KeepAlive>
   </div>
 </template>
