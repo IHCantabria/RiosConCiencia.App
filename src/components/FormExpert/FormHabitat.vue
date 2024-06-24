@@ -278,7 +278,7 @@ const prepareComplexObjects = () => {
     >
       <b-select
         v-model="values.transversalObstacle"
-        icon="gradient-vertical"
+        icon="bridge"
         placeholder="Seleccione una opción"
       >
         <option

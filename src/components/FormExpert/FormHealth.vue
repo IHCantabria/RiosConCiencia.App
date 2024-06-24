@@ -236,20 +236,25 @@ watch(
       <h5 class="title is-5 header-section__text">
         <span>5. ESTADO DE SALUD DEL RÍO </span>
       </h5>
-      <a
-        class="header-section__help"
-        @click="downloadPDF(DiagnosticoPDF, 'diagnostico')"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
     </div>
     <!-- BIOLOGICAL -->
-    <b-field
-      label="5.1  Calidad biológica del agua"
-      :message="{
-        '*Seleccione una opción': bioQualityHasErrors,
-      }"
-      :type="{ 'is-danger': bioQualityHasErrors }"
-    >
+    <div class="header-section mt-3">
+      <b-field
+        label="5.1  Calidad biológica del agua"
+        :message="{
+          '*Seleccione una opción': bioQualityHasErrors,
+        }"
+        :type="{ 'is-danger': bioQualityHasErrors }"
+      ></b-field>
+      <div class="header-section__help">
+        <a
+          class="header-section__help"
+          @click="downloadPDF(DiagnosticoPDF, 'diagnostico')"
+          ><b-icon icon="information-outline" type="is-primary"></b-icon
+        ></a>
+      </div>
+    </div>
+    <b-field>
       <b-select
         v-model="values.bioQualityIndex"
         placeholder="Selecciona calidad biológica del agua"
@@ -290,7 +295,7 @@ watch(
       </div>
     </div>
     <!-- RIVER QUALITY -->
-    <div class="header-section">
+    <div class="header-section mt-3">
       <b-field label="5.2 Calidad del bosque de ribera"></b-field>
       <div class="header-section__help">
         <a

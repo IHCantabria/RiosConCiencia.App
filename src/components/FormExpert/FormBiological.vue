@@ -60,7 +60,8 @@ const CategoryOrder = (item) => {
         <span>4. Estudio de la biodiversidad (100 m)</span>
       </h5>
     </div>
-    <b-field label="4.1  Inventario de especies de flora y fauna"> </b-field>
+    <b-field label="4.1  Inventario de especies de flora y fauna" class="mt-3">
+    </b-field>
     <div
       v-for="(category, indexCat) in appStore.formExpertSections.biological.data
         .eukaryoteComplexOptions"
