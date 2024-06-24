@@ -15,8 +15,8 @@ export function useGeoLoader() {
     try {
       const res = await getUserGeolocation();
       const position = {
-        lon: parseFloat(res.coords.longitude).toFixed(7),
-        lat: parseFloat(res.coords.latitude).toFixed(7),
+        lon: parseFloat(parseFloat(res.coords.longitude).toFixed(7)),
+        lat: parseFloat(parseFloat(res.coords.latitude).toFixed(7)),
       };
       setUserPosition(position);
       isGeoDataReady.value = true;

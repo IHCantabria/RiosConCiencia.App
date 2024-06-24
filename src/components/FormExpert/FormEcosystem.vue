@@ -15,6 +15,10 @@ const values = ref({
   samplePointWaterVelocity: null,
   samplePointWaterTemp: 0,
   waterTransparency: null,
+  samplePointCoords: {
+    lon: null,
+    lat: null,
+  },
 });
 
 // LYFECYCLE
@@ -51,6 +55,9 @@ const isSectionValid = computed(() => {
 // METHODS
 const init = () => {
   values.value.samplePointWaterTemp = null; //default value and make beforeUpdate hook jump
+  values.value.samplePointCoords = JSON.parse(
+    JSON.stringify(appStore.userPosition),
+  );
 };
 
 // WATCHERS
