@@ -8,7 +8,7 @@ import init from "@/components/FormExpert/FormInit.vue";
 import basic from "@/components/FormExpert/FormBasic.vue";
 import habitat from "@/components/FormExpert/FormHabitat.vue";
 import ecoSystem from "@/components/FormExpert/FormEcosystem.vue";
-import biodiversity from "@/components/FormExpert/FormBioDiversity.vue";
+import biological from "@/components/FormExpert/FormBiological.vue";
 import health from "@/components/FormExpert/FormHealth.vue";
 import { useAppStore } from "@/store/appStore.js";
 
@@ -74,24 +74,36 @@ const resetValidForms = async () => {
 
 <template>
   <div v-if="formReady" class="section">
-    <KeepAlive>
-      <init v-show="appStore.activeSectionName === 'init'" />
-    </KeepAlive>
-    <KeepAlive>
-      <basic v-show="appStore.activeSectionName === 'basic'" />
-    </KeepAlive>
-    <KeepAlive>
-      <habitat v-show="appStore.activeSectionName === 'habitat'" />
-    </KeepAlive>
-    <KeepAlive>
-      <ecoSystem v-show="appStore.activeSectionName === 'ecoSystem'" />
-    </KeepAlive>
-    <KeepAlive>
-      <biodiversity v-show="appStore.activeSectionName === 'biodiversity'" />
-    </KeepAlive>
-    <KeepAlive>
-      <health v-show="appStore.activeSectionName === 'health'" />
-    </KeepAlive>
+    <div v-show="appStore.activeSectionName === 'init'">
+      <KeepAlive>
+        <init />
+      </KeepAlive>
+    </div>
+    <div v-show="appStore.activeSectionName === 'basic'">
+      <KeepAlive>
+        <basic />
+      </KeepAlive>
+    </div>
+    <div v-show="appStore.activeSectionName === 'habitat'">
+      <KeepAlive>
+        <habitat />
+      </KeepAlive>
+    </div>
+    <div v-show="appStore.activeSectionName === 'ecoSystem'">
+      <KeepAlive>
+        <ecoSystem />
+      </KeepAlive>
+    </div>
+    <div v-show="appStore.activeSectionName === 'biological'">
+      <KeepAlive>
+        <biological />
+      </KeepAlive>
+    </div>
+    <div v-show="appStore.activeSectionName === 'health'">
+      <KeepAlive>
+        <health />
+      </KeepAlive>
+    </div>
   </div>
 </template>
 

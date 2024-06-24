@@ -1,7 +1,6 @@
 <!-- eslint-disable promise/always-return -->
-<!-- TODO:  Add text areas to "Otras" options -->
 <script setup>
-import { ref, onBeforeUpdate, computed } from "vue";
+import { ref, onBeforeUpdate, computed, onMounted } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 
 // STORES & COMPOSABLES
@@ -15,29 +14,37 @@ const values = ref({
 });
 
 // LYFECYCLE
+onMounted(() => {
+  updateSpecificExpertSectionValues();
+});
+
 onBeforeUpdate(() => {
   if (appStore.formExpertSent) return;
-  appStore.updateSpecificExpertSectionValues({
-    name: "biodiversity",
-    values: values.value,
-    isValid: isSectionValid.value,
-  });
+  updateSpecificExpertSectionValues();
 });
 
 // COMPUTED
 const invasorsComputed = computed(() => {
   const invasorsComputed =
-    appStore.formExpertSections.biodiversity.data.invasorPlantOptions;
+    appStore.formExpertSections.biological.data.invasorPlantOptions;
   invasorsComputed.forEach((invasor) => {
     invasor.value =
-      appStore.formExpertSections.biodiversity.data.coverageOptions[2];
+      appStore.formExpertSections.biological.data.coverageOptions[2];
   });
   return invasorsComputed;
 });
 const isSectionValid = computed(() => {
-  return true; //TODO: Check this
+  return true;
 });
 
+// METHODS
+const updateSpecificExpertSectionValues = () => {
+  appStore.updateSpecificExpertSectionValues({
+    name: "biological",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+};
 const InvasorSelectedIndex = (option) => {
   return values.value.riverEcosystemInvPlantsCoverage.indexOf(option);
 };
@@ -54,20 +61,22 @@ const CategoryOrder = (item) => {
       </h5>
     </div>
     <b-field label="4.1  Inventario de especies de flora y fauna"> </b-field>
-    <!-- TODO: Add below title to "Invertebrados section" </b-field> -->
-    <!-- <b-field label="4.2  Muestreo e identificación de macroinvertebrados bentónicos"> </b-field> -->
     <div
-      v-for="(category, indexCat) in appStore.formExpertSections.biodiversity
-        .data.eukaryoteComplexOptions"
+      v-for="(category, indexCat) in appStore.formExpertSections.biological.data
+        .eukaryoteComplexOptions"
       :key="indexCat + 10"
       :class="['block', CategoryOrder(category)]"
     >
+      <b-field
+        v-if="category.name === 'Invertebrados'"
+        label="4.2  Muestreo e identificación de macroinvertebrados bentónicos"
+      />
       <div class="checkboxes-group">
-        <label class="checkboxes-group__title">{{ category.name }}</label>
+        <span class="checkboxes-group__title">{{ category.name }}</span>
       </div>
       <div v-for="(group, indexGroup) in category.options" :key="indexGroup">
         <div class="checkboxes-group">
-          <label class="checkboxes-group__subtitle">{{ group.name }}</label>
+          <span class="checkboxes-group__subtitle">{{ group.name }}</span>
         </div>
         <div v-for="option in group.options" :key="option.id" class="field">
           <b-checkbox v-model="values.riverEcosystem" :native-value="option">
@@ -91,9 +100,9 @@ const CategoryOrder = (item) => {
       <template v-if="category.id == 2">
         <div key="20" class="block">
           <div class="checkboxes-group">
-            <label class="checkboxes-group__subtitle">
-              Invasoras / Alóctonas (grado de cobertura)
-            </label>
+            <span class="checkboxes-group__subtitle">
+              Invasoras / Alóctonas (grado de cobertura) total parcial puntual
+            </span>
           </div>
           <div
             v-for="option in invasorsComputed"
@@ -103,15 +112,16 @@ const CategoryOrder = (item) => {
             <b-checkbox
               v-model="values.riverEcosystemInvPlantsCoverage"
               :native-value="option"
-              >{{ option.name }}</b-checkbox
             >
+              {{ option.name }}
+            </b-checkbox>
             <div
               v-if="InvasorSelectedIndex(option) != -1"
               class="radio-rows__options-container"
             >
               <b-field>
                 <b-radio-button
-                  v-for="type in appStore.formExpertSections.biodiversity.data
+                  v-for="type in appStore.formExpertSections.biological.data
                     .coverageOptions"
                   :key="type.id"
                   v-model="
@@ -132,7 +142,7 @@ const CategoryOrder = (item) => {
     </div>
     <div
       v-for="(category, indexCatSimple) in appStore.formExpertSections
-        .biodiversity.data.eukaryoteSimpleOptions"
+        .biological.data.eukaryoteSimpleOptions"
       :key="indexCatSimple"
       :class="['block', CategoryOrder(category)]"
     >

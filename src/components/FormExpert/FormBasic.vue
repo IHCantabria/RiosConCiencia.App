@@ -27,7 +27,7 @@ const values = ref({
   riverMarginConditionsRight: [],
   riverMarginLandUseLeft: [],
   riverMarginLandUseRight: [],
-  spillsList: null,
+  spillsList: [],
   wasteList: [],
 });
 const spillDiameter = ref(null);
@@ -146,7 +146,7 @@ const init = () => {
   values.value.waterSmell =
     appStore.formExpertSections.basic.data.waterSmellOptions[0];
   selectedWaste.value =
-    appStore.formExpertSections.waste.data.wasteOptions[0].options[0];
+    appStore.formExpertSections.basic.data.wasteOptions[0].options[0];
 };
 const updateSpecificExpertSectionValues = () => {
   if (appStore.formExpertSent) return;
@@ -174,8 +174,8 @@ const getActualPosition = () => {
 const saveNewSpill = () => {
   const newSpill = {
     position: {
-      longitude: spillLongitude.value,
-      latitude: spillLatitude.value,
+      longitude: parseFloat(spillLongitude.value),
+      latitude: parseFloat(spillLatitude.value),
     },
     diameter: spillDiameter.value,
     flow: spillFlow.value,
@@ -560,7 +560,7 @@ watch(
           placeholder="Seleccione una opción"
         >
           <option
-            v-for="(option, index) in appStore.formExpertSections.spills.data
+            v-for="(option, index) in appStore.formExpertSections.basic.data
               .spillDiameterOptions"
             :key="index"
             :value="option"
@@ -576,7 +576,7 @@ watch(
           placeholder="Seleccione una opción"
         >
           <option
-            v-for="option in appStore.formExpertSections.spills.data
+            v-for="option in appStore.formExpertSections.basic.data
               .spillFlowOptions"
             :key="option.id"
             :value="option"
@@ -592,7 +592,7 @@ watch(
           placeholder="Seleccione una opción"
         >
           <option
-            v-for="option in appStore.formExpertSections.spills.data
+            v-for="option in appStore.formExpertSections.basic.data
               .spillColorOptions"
             :key="option.id"
             :value="option"
@@ -608,7 +608,7 @@ watch(
           placeholder="Seleccione una opción"
         >
           <option
-            v-for="option in appStore.formExpertSections.spills.data
+            v-for="option in appStore.formExpertSections.basic.data
               .spillSmellOptions"
             :key="option.id"
             :value="option"
@@ -627,7 +627,7 @@ watch(
           placeholder="Seleccione una opción"
         >
           <option
-            v-for="option in appStore.formExpertSections.spills.data
+            v-for="option in appStore.formExpertSections.basic.data
               .spillSourceOptions"
             :key="option.id"
             :value="option"
@@ -685,9 +685,7 @@ watch(
   <!-- WASTE -->
   <div class="form-section">
     <div class="header-section">
-      <h5 class="title is-5 header-section__text">
-        <span>3. Inspección de residuos (100 m)</span>
-      </h5>
+      <b-field label="1.12 Inspección de residuos (500 m)"></b-field>
       <a
         class="header-section__help"
         target="_blank"
@@ -704,7 +702,7 @@ watch(
           expanded=""
         >
           <optgroup
-            v-for="(group, index) in appStore.formExpertSections.waste.data
+            v-for="(group, index) in appStore.formExpertSections.basic.data
               .wasteOptions"
             :key="index"
             :label="group.material.toUpperCase()"

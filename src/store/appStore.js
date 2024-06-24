@@ -72,7 +72,7 @@ export const useAppStore = defineStore("appStore", {
             sections.basic.isValid &&
             sections.habitat.isValid &&
             sections.ecoSystem.isValid &&
-            sections.riverQuality.isValid
+            sections.health.isValid
         : false;
     },
     isFormPictsValid() {
@@ -81,7 +81,7 @@ export const useAppStore = defineStore("appStore", {
     isStateEcoReady() {
       return (
         checkNestedProperty(
-          this.formExpertSections.riverQuality,
+          this.formExpertSections.health,
           "results.qrisiIndex",
         ) &&
         checkNestedProperty(

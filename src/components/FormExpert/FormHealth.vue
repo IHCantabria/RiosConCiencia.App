@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUpdate } from "vue";
+import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import DiagnosticoPDF from "@/assets/pdfs/diagnostico.pdf";
 import RiberaPDF from "@/assets/pdfs/ribera.pdf";
@@ -16,11 +16,12 @@ const appStore = useAppStore();
 
 // DATA
 const values = ref({
-  bioQualityIndex: 0,
-  riverbankNaturalness: 0,
+  bioQualityIndex: null,
+  riverbankNaturalness: null,
   riverbankConections: null,
   riverbankVegetations: null,
   qrisiIndex: null,
+  riverbankInvasive: null,
   ecoStatus: {},
 });
 const isSendingData = ref(false);
@@ -28,7 +29,6 @@ const isSendActive = ref(false);
 
 // LYFECYCLE
 onMounted(() => {
-  init();
   updateSpecificExpertSectionValues();
 });
 onBeforeUpdate(() => {
@@ -36,16 +36,17 @@ onBeforeUpdate(() => {
 });
 
 // COMPUTED
-const bioQualityHasErrors = computed(() => {
-  return values.value.bioQualityIndex === null;
-});
 const qrisiIndexTotalPoints = computed(() => {
   if (areBiologicalAndRiverQualityValid.value) {
-    return (
-      parseInt(values.value.riverbankNaturalness) +
-      parseInt(values.value.riverbankVegetations) +
-      parseInt(values.value.riverbankConections)
-    );
+    const summatory =
+      parseInt(values.value.riverbankNaturalness?.value) +
+      parseInt(values.value.riverbankVegetations?.value) +
+      parseInt(values.value.riverbankConections?.value);
+    const invasiveValue = values.value.riverbankInvasive?.value;
+    if (invasiveValue) {
+      return summatory + invasiveValue;
+    }
+    return summatory;
   }
   return 0;
 });
@@ -54,6 +55,9 @@ const qrisiIndex = computed(() => {
     cat: getRiverQualityCategory(qrisiIndexTotalPoints.value),
     totalPoints: qrisiIndexTotalPoints.value,
   };
+});
+const bioQualityHasErrors = computed(() => {
+  return values.value.bioQualityIndex === null;
 });
 const naturalnessHasErrors = computed(() => {
   return values.value.riverbankNaturalness === null;
@@ -80,26 +84,19 @@ const isReadySend = computed(() => {
   return appStore.isFormExpertValid && appStore.isOnline;
 });
 const isSectionValid = computed(() => {
-  return ecoStatusIndex.value !== null;
+  return areBiologicalAndRiverQualityValid.value !== null;
 });
 const statusOptions = computed(() => {
-  return appStore.formExpertSections.ecoResult.data.ecologicalStateOptions;
+  return appStore.formExpertSections.health.data.ecologicalStateOptions;
 });
 
 // METHODS
-const init = () => {
-  values.value.bioQualityIndex = null; //default value and make beforeUpdate hook jump
-  values.value.riverbankNaturalness = null; //default value and make beforeUpdate hook jump
-};
 const getRiverQualityCategory = (totalPoints) => {
   if (totalPoints <= 4)
-    return appStore.formExpertSections.riverQuality.data
-      .qrisiCategoriesOptions[2];
+    return appStore.formExpertSections.health.data.qrisiCategoriesOptions[2];
   if (totalPoints > 4 && totalPoints <= 8)
-    return appStore.formExpertSections.riverQuality.data
-      .qrisiCategoriesOptions[1];
-  return appStore.formExpertSections.riverQuality.data
-    .qrisiCategoriesOptions[0];
+    return appStore.formExpertSections.health.data.qrisiCategoriesOptions[1];
+  return appStore.formExpertSections.health.data.qrisiCategoriesOptions[0];
 };
 const updateSpecificExpertSectionValues = () => {
   if (appStore.formExpertSent) return;
@@ -112,9 +109,9 @@ const updateSpecificExpertSectionValues = () => {
 };
 const calculateStatus = () => {
   const qrisiIndexValue =
-    appStore.formExpertSections.riverQuality.results.qrisiIndex.cat.value;
+    appStore.formExpertSections.health.results.qrisiIndex.cat.value;
   const bioQualityIndexValue =
-    appStore.formExpertSections.biological.results.bioQualityIndex.value;
+    appStore.formExpertSections.health.results.bioQualityIndex.value;
   if (bioQualityIndexValue == 0) {
     return _getStatusForNoCalculable();
   }
@@ -168,6 +165,7 @@ const _prepareSampleObj = () => {
       ecoStatus: ecoStatusIndex.value,
     };
   }
+
   // Add sides prop to river margins values
   formResults.riverMarginConditions = _setupRiverMarginsValues(
     appStore.formExpertSections.basic.results.riverMarginConditionsLeft,
@@ -222,6 +220,14 @@ const _getStatusForBadQrisi = (bioQualityIndexValue) => {
 const _getStatusForNoCalculable = () => {
   return statusOptions.value[5];
 };
+
+// WATCHERS
+watch(
+  () => values.value,
+  () => {
+    updateSpecificExpertSectionValues();
+  },
+);
 </script>
 
 <template>
@@ -251,7 +257,7 @@ const _getStatusForNoCalculable = () => {
         expanded=""
       >
         <option
-          v-for="(option, index) in appStore.formExpertSections.biological.data
+          v-for="(option, index) in appStore.formExpertSections.health.data
             .bioQualityOptions"
           :key="index"
           :value="option"
@@ -313,8 +319,8 @@ const _getStatusForNoCalculable = () => {
         placeholder="Seleccione una opción"
       >
         <option
-          v-for="(option, index) in appStore.formExpertSections.riverQuality
-            .data.riverbankNaturalnessOptions"
+          v-for="(option, index) in appStore.formExpertSections.health.data
+            .riverbankNaturalnessOptions"
           :key="index"
           :value="option"
         >
@@ -335,8 +341,8 @@ const _getStatusForNoCalculable = () => {
         placeholder="Seleccione una opción"
       >
         <option
-          v-for="(option, index) in appStore.formExpertSections.riverQuality
-            .data.riverbankConectionsOptions"
+          v-for="(option, index) in appStore.formExpertSections.health.data
+            .riverbankConectionsOptions"
           :key="index"
           :value="option"
         >
@@ -344,8 +350,9 @@ const _getStatusForNoCalculable = () => {
         </option>
       </b-select>
     </b-field>
-    <b-field label="c. Continuidad de la vegetación"> </b-field>
+
     <b-field
+      label="c. Continuidad de la vegetación"
       :message="{
         '*Hay que seleccionar una opción': vegetationsHasErrors,
       }"
@@ -357,8 +364,8 @@ const _getStatusForNoCalculable = () => {
         placeholder="Seleccione una opción"
       >
         <option
-          v-for="(option, index) in appStore.formExpertSections.riverQuality
-            .data.riverbankVegetationsOptions"
+          v-for="(option, index) in appStore.formExpertSections.health.data
+            .riverbankVegetationsOptions"
           :key="index"
           :value="option"
         >
@@ -367,13 +374,22 @@ const _getStatusForNoCalculable = () => {
       </b-select>
     </b-field>
     <b-field label="d. Grado de cobertura de especies exóticas invasoras">
-      <!-- TODO: Add new form -->
-      <!-- 
-       Lo ideal sería que si en el apartado de invasoras se marca alguna de las opciones: total, parcial o puntual, se reste directamente: -6, -4, -2 en el cálculo del bosque de ribera.
-       -->
+      <b-select
+        v-model="values.riverbankInvasive"
+        icon="sprout"
+        placeholder="Seleccione una opción"
+      >
+        <option
+          v-for="(option, index) in appStore.formExpertSections.health.data
+            .riverbankInvasiveOptions"
+          :key="index"
+          :value="option"
+        >
+          {{ option.name }}
+        </option>
+      </b-select>
     </b-field>
     <div v-if="areBiologicalAndRiverQualityValid">
-      <!-- TODO: Hacer sumatorio de los apartados del bosque de ribera. -->
       <b-field label="Interpretación"> </b-field>
       <div class="results">
         <div class="block">
@@ -410,21 +426,14 @@ const _getStatusForNoCalculable = () => {
           type="is-success"
           :closable="false"
         >
-          <b-field label="Hábitat Fluvial">
-            <b-tag type="is-info" size="is-medium">{{
-              appStore.formExpertSections.habitat.results.habitatIndex.cat.name
-            }}</b-tag>
-          </b-field>
           <b-field label="Calidad Biológica del Agua">
             <b-tag type="is-info" size="is-medium">{{
-              appStore.formExpertSections.biological.results.bioQualityIndex
-                .name
+              appStore.formExpertSections.health.results.bioQualityIndex.name
             }}</b-tag>
           </b-field>
           <b-field label="Calidad del Bosque de Ribera">
             <b-tag type="is-info" size="is-medium">{{
-              appStore.formExpertSections.riverQuality.results.qrisiIndex.cat
-                .name
+              appStore.formExpertSections.health.results.qrisiIndex.cat.name
             }}</b-tag>
           </b-field>
         </b-message>

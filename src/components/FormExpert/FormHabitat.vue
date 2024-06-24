@@ -10,9 +10,12 @@ const appStore = useAppStore();
 
 // DATA
 const values = ref({
+  rapidsFrequencies: [],
   substrateComposition: [],
   riverShadows: null,
   randomElements: [],
+  stonesInPools: null,
+  transversalObstacle: null,
 });
 
 // LYFECYCLE
@@ -39,6 +42,18 @@ const substrateHasErrors = computed(() => {
   }
   return false;
 });
+const rapidFrequencyHasErrors = computed(() => {
+  for (const element of values.value.rapidsFrequencies) {
+    if (Object.keys(element.value).length === 0) return true;
+  }
+  return false;
+});
+const stonesInPoolsHasErrors = computed(() => {
+  return values.value.stonesInPools === null;
+});
+const aquaticTransversalObstacleHasErrors = computed(() => {
+  return values.value.transversalObstacle === null;
+});
 const randomElementsHasErrors = computed(() => {
   for (const element of values.value.randomElements) {
     if (Object.keys(element.value).length === 0) return true;
@@ -51,6 +66,9 @@ const riverShadowsHasErrors = computed(() => {
 const isSectionValid = computed(() => {
   return (
     !substrateHasErrors.value &&
+    !stonesInPoolsHasErrors.value &&
+    !aquaticTransversalObstacleHasErrors.value &&
+    !rapidFrequencyHasErrors.value &&
     !randomElementsHasErrors.value &&
     !riverShadowsHasErrors.value
   );
@@ -62,6 +80,10 @@ const init = () => {
 };
 const prepareComplexObjects = () => {
   //for objects that needs "value" as another object. ie: values with "points".
+  for (const element of appStore.formExpertSections.habitat.data
+    .rapidFrequencyOptions) {
+    values.value.rapidsFrequencies.push({ ...element, value: {} });
+  }
   for (const element of appStore.formExpertSections.habitat.data
     .substrateCompositionOptions) {
     values.value.substrateComposition.push({ ...element, value: {} });
@@ -92,12 +114,60 @@ const prepareComplexObjects = () => {
         ></a>
       </div>
     </div>
-    <b-field label="2.1 Movilidad de sedimentos:">
-      <!-- TODO: Add new inputs -->
+    <b-field
+      label="2.1 Movilidad de sedimentos:"
+      :message="{
+        '*Hay que seleccionar una opción': stonesInPoolsHasErrors,
+      }"
+      :type="{ 'is-danger': stonesInPoolsHasErrors }"
+    >
+      <b-select
+        v-model="values.stonesInPools"
+        icon="gradient-vertical"
+        placeholder="Seleccione una opción"
+      >
+        <option
+          v-for="(option, index) in appStore.formExpertSections.habitat.data
+            .stonesInPoolsOptions"
+          :key="index"
+          :value="option"
+        >
+          {{ option.name }}
+        </option>
+      </b-select>
     </b-field>
-    <b-field label="2.2 Tipo de estructura longitudinal:">
-      <!-- TODO: Add new inputs -->
+    <b-field
+      label="2.2 Tipo de estructura longitudinal:"
+      :message="{
+        '*Hay que seleccionar una opción para cada elemento':
+          rapidFrequencyHasErrors,
+      }"
+      :type="{ 'is-danger': rapidFrequencyHasErrors }"
+    >
     </b-field>
+    <div class="block">
+      <div
+        v-for="(type, index) in values.rapidsFrequencies"
+        :key="index"
+        class="radio-rows"
+      >
+        <div class="radio-rows__label-container">
+          {{ type.name }}
+        </div>
+        <div class="radio-rows__options-container">
+          <b-field>
+            <b-radio-button
+              v-for="option in appStore.formExpertSections.habitat.data
+                .rapidFrequencyPresenceOptions"
+              :key="option.id"
+              v-model="values.rapidsFrequencies[index].value"
+              :native-value="option"
+              >{{ option.name }}</b-radio-button
+            >
+          </b-field>
+        </div>
+      </div>
+    </div>
     <b-field
       label="2.3 Composición del sustrato:"
       :message="{
@@ -107,7 +177,6 @@ const prepareComplexObjects = () => {
       :type="{ 'is-danger': substrateHasErrors }"
     >
     </b-field>
-    <!-- TODO: Check substrate form update with new API version -->
     <div class="block">
       <div
         v-for="(type, index) in values.substrateComposition"
@@ -153,7 +222,6 @@ const prepareComplexObjects = () => {
         </option>
       </b-select>
     </b-field>
-    <!-- TODO: Check 2.5 form update with new API version -->
     <b-field
       label="2.5 Presencia de elementos de heterogeneidad:"
       :message="{
@@ -201,8 +269,27 @@ const prepareComplexObjects = () => {
         </div>
       </div>
     </div>
-    <b-field label=" 2.6 Presencia de obstáculos transversales:">
-      <!-- TODO: Add new form -->
+    <b-field
+      label=" 2.6 Presencia de obstáculos transversales:"
+      :message="{
+        '*Hay que seleccionar una opción': aquaticTransversalObstacleHasErrors,
+      }"
+      :type="{ 'is-danger': aquaticTransversalObstacleHasErrors }"
+    >
+      <b-select
+        v-model="values.transversalObstacle"
+        icon="gradient-vertical"
+        placeholder="Seleccione una opción"
+      >
+        <option
+          v-for="(option, index) in appStore.formExpertSections.habitat.data
+            .aquaticTransversalObstacleOptions"
+          :key="index"
+          :value="option"
+        >
+          {{ option.name }}
+        </option>
+      </b-select>
     </b-field>
   </div>
 </template>
