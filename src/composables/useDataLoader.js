@@ -17,7 +17,15 @@ export function useDataLoader() {
     }
   };
 
-  return { initDataLoader };
+  const updateRiverSections = async () => {
+    try {
+      await getRiverSections();
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  return { initDataLoader, updateRiverSections };
 }
 
 // River sections

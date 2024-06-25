@@ -45,6 +45,11 @@ const confirmLogout = () => {
           <b-icon icon="help-circle" size="is-medium"></b-icon>
         </router-link>
       </div>
+      <div v-if="appStore.userHasSettingsAccess" class="nav__link">
+        <router-link to="/settings">
+          <b-icon icon="cog" size="is-medium"></b-icon>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
