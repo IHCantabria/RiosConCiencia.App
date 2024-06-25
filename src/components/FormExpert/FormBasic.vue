@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUpdate, computed, watch } from "vue";
+import { ref, onMounted, onBeforeUpdate, computed } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
@@ -71,7 +71,6 @@ const spillsTable = ref({
   ],
 });
 const selectedWaste = ref({});
-const units = ref(1);
 const wasteTable = ref({
   selectedRows: [],
   columns: [
@@ -80,11 +79,12 @@ const wasteTable = ref({
       label: "Residuo",
     },
     {
-      field: "units",
-      label: "Unidades",
+      field: "presence",
+      label: "Presencia",
     },
   ],
 });
+const wasteTypesList = ref([]);
 
 // LYFECYCLE
 onMounted(() => {
@@ -137,6 +137,20 @@ const isSectionValid = computed(() => {
     !riverSideWidthLeftHasErrors.value
   );
 });
+const wasteTypesTags = computed(() => {
+  // each values.wasteList element has a idWasteType. I need to fill return an array with all the wasteTypes found. All the wasteTypes are wasteTypes.value
+  const wasteTypesArray = [];
+  for (const waste of values.value.wasteList) {
+    const wasteTypeName = wasteTypesList.value.find(
+      (wasteType) => wasteType.id == waste.idWasteType,
+    );
+    // if the wasteType is not in the array, add it
+    if (!wasteTypesArray.includes(wasteTypeName.name)) {
+      wasteTypesArray.push(wasteTypeName.name);
+    }
+  }
+  return wasteTypesArray;
+});
 
 // METHODS
 const init = () => {
@@ -147,6 +161,17 @@ const init = () => {
     appStore.formExpertSections.basic.data.waterSmellOptions[0];
   selectedWaste.value =
     appStore.formExpertSections.basic.data.wasteOptions[0].options[0];
+  setWasteTypes();
+};
+const setWasteTypes = () => {
+  const wasteTypesArray = [];
+  for (const waste of appStore.formExpertSections.basic.data.wasteOptions) {
+    wasteTypesArray.push({
+      id: waste.id,
+      name: waste.material,
+    });
+  }
+  wasteTypesList.value = JSON.parse(JSON.stringify(wasteTypesArray));
 };
 const updateSpecificExpertSectionValues = () => {
   if (appStore.formExpertSent) return;
@@ -212,11 +237,11 @@ const removeSelectedSpills = () => {
 const saveNewWaste = () => {
   const newWaste = {
     ...selectedWaste.value,
-    units: units.value,
+    units: 1,
+    presence: "Sí",
   };
   const indexWaste = checkWasteExist(newWaste);
   addWaste(newWaste, indexWaste);
-  units.value = 1;
   appStore.updateSectionValues({ values: values.value, isValid: true });
 };
 const checkWasteExist = (newWaste) => {
@@ -238,14 +263,6 @@ const removeSelectedWaste = () => {
   wasteTable.value.selectedRows = [];
   appStore.updateSectionValues({ values: values.value, isValid: true });
 };
-
-// WATCHERS
-watch(
-  () => selectedWaste.value,
-  () => {
-    units.value = 1;
-  },
-);
 </script>
 
 <template>
@@ -717,12 +734,21 @@ watch(
           </optgroup>
         </b-select>
       </b-field>
-      <b-field>
-        <b-numberinput v-model="units" min="1"></b-numberinput>
-      </b-field>
       <b-button type="is-primary" @click="saveNewWaste"> Guardar </b-button>
     </div>
     <div v-if="values.wasteList.length > 0" class="table-container">
+      <div class="table-container-tags">
+        <b-tag
+          v-for="(wasteType, index) in wasteTypesTags"
+          :key="index"
+          type="is-primary"
+          outlined
+          size="is-small"
+          class="table-container-tags__tag"
+        >
+          {{ wasteType }}
+        </b-tag>
+      </div>
       <b-table
         v-model:checked-rows="wasteTable.selectedRows"
         :data="values.wasteList"
@@ -744,7 +770,6 @@ watch(
     </div>
     <b-field v-if="wasteTable.selectedRows.length > 0">
       <b-button
-        type="is-primary"
         icon-left="delete"
         outlined
         size="is-small"
@@ -759,5 +784,13 @@ watch(
 <style lang="scss" scoped>
 .table-container {
   padding: 1rem;
+}
+
+.table-container-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
 }
 </style>
