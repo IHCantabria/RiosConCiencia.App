@@ -42,7 +42,6 @@ const init = async () => {
 
 <template>
   <div class="settings-view">
-    <h3 class="title">Gestión</h3>
     <div class="content">
       <SettingCards class="content__cards" />
       <div v-if="settingsStore.isDataReady" class="content__settings">
@@ -57,13 +56,7 @@ const init = async () => {
 <style lang="scss" scoped>
 .settings-view {
   height: 100%;
-
-  .title {
-    font-size: 2rem;
-    font-weight: 500;
-    text-align: start;
-    margin: 0.5rem 1.5rem;
-  }
+  padding-top: 2rem;
 
   .content {
     display: flex;

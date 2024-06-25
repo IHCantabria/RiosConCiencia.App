@@ -28,10 +28,11 @@ const activeMenuOption = (option) => {
     <div
       v-for="option in menuOptions"
       :key="option.id"
+      class="menu-option"
       :class="
         settingsStore.selectedMenuOption?.id === option.id
-          ? 'menu-option-selected'
-          : 'menu-option'
+          ? 'menu-option--selected'
+          : ''
       "
       @click="activeMenuOption(option)"
     >
@@ -47,7 +48,7 @@ const activeMenuOption = (option) => {
           alt="Option icon"
         />
       </span>
-      <span>{{ option.text }}</span>
+      <span class="text">{{ option.text }}</span>
     </div>
   </div>
 </template>
@@ -56,6 +57,7 @@ const activeMenuOption = (option) => {
 .workplace-container {
   height: 100%;
   display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -71,25 +73,14 @@ const activeMenuOption = (option) => {
   box-shadow: 8px 0 32px 0 rgb(0 0 0 / 15%);
   border-radius: 16px;
   cursor: pointer;
-}
 
-.menu-option:hover {
-  background-color: #f5f5f5;
-}
+  &--selected {
+    background-color: app-variables.$color-primary-dark;
+  }
 
-.menu-option-selected {
-  display: flex;
-  width: 175px;
-  height: 175px;
-  padding: 16px;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  background-color: black;
-  box-shadow: 8px 0 32px 0 rgb(0 0 0 / 15%);
-  border-radius: 16px;
-  cursor: pointer;
+  &:hover {
+    background-color: rgb(243 242 242);
+  }
 }
 
 .icon-circle {
@@ -103,9 +94,28 @@ const activeMenuOption = (option) => {
   background-color: #f5f5f5;
 }
 
-@media (min-width: app-variables.$breakpoint-tablet-to-desktop) {
+@media (max-width: app-variables.$breakpoint-tablet-to-desktop) {
   .workplace-container {
-    flex-direction: column;
+    flex-direction: row;
+    max-width: 90vw;
+    margin-bottom: 1rem;
+  }
+
+  .menu-option {
+    width: 100%;
+    height: 65px;
+    flex-direction: row;
+    padding: 4px;
+  }
+
+  .icon-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .text {
+    font-size: 0.85rem;
   }
 }
 </style>

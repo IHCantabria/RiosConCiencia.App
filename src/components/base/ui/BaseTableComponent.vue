@@ -389,6 +389,7 @@ watch(
     align-items: center;
     justify-content: center;
     color: app-variables.$font-color-primary;
+    font-weight: 600;
 
     &__text {
       text-align: center;
@@ -528,6 +529,8 @@ watch(
       line-height: 1rem;
       padding: 0.35rem 0.65rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
 
       &.is-current {
         background-color: app-variables.$accent-color;
@@ -586,5 +589,13 @@ watch(
   text-align: center;
   width: 100%;
   margin-bottom: 2rem;
+}
+
+@media (max-width: app-variables.$breakpoint-tablet-to-desktop) {
+  .table-list {
+    &__td {
+      padding: 0.2rem 0.5rem;
+    }
+  }
 }
 </style>

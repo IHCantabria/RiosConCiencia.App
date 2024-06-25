@@ -159,8 +159,9 @@ const filterData = () => {
   <div class="setting-sections">
     <div class="controls">
       <div class="controls__filters">
-        <b-field label="Filtrar por alias">
+        <b-field label="Filtrar por alias" class="filter-label">
           <b-input
+            class="filter-input"
             :model-value="riverSectionAliasFilter"
             type="is-primary"
             placeholder="Ej: Arroyo Collado"
@@ -191,7 +192,6 @@ const filterData = () => {
   <base-modal
     ref="modalRef"
     :title="modalAction === 'create' ? 'Crear tramo' : 'Actualizar tramo'"
-    library-icon="mdi mdi-information-outline"
     :close-click-outside="false"
     :show-header-close-button="false"
   >
@@ -219,12 +219,21 @@ const filterData = () => {
   .controls {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     gap: 1rem;
-    margin: 1rem;
+    margin: 0 1rem 1rem;
     width: 100%;
 
-    .button {
-      max-width: 200px;
+    &__filters {
+      .filter-label {
+        text-align: start;
+      }
+    }
+
+    &__buttons {
+      .button {
+        max-width: 200px;
+      }
     }
   }
 
