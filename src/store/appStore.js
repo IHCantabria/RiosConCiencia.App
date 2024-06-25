@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { checkNestedProperty, canDoExpert, canDoPicts } from "@/utils/utils";
+import { useSettingsStore } from "./settingsStore";
 
 export const useAppStore = defineStore("appStore", {
   state: () => ({
@@ -89,6 +90,10 @@ export const useAppStore = defineStore("appStore", {
           "results.bioQualityIndex",
         )
       );
+    },
+    userHasSettingsAccess() {
+      // TODO: Update roleId
+      return this.user?.roleId == 7;
     },
   },
   actions: {
@@ -183,10 +188,12 @@ export const useAppStore = defineStore("appStore", {
       this.userRiverSections = [];
     },
     logout() {
+      const settingsStore = useSettingsStore();
       this.setActiveUser({});
       this.clearRiverSections({});
       this.clearPictsFormResponses();
       this.clearExpertFormResponses();
+      settingsStore.resetSettingsStore();
     },
   },
   persist: true,

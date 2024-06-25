@@ -52,6 +52,18 @@ const routes = [
     name: "about",
     component: () => import("../views/AboutView.vue"),
   },
+  {
+    path: "/settings",
+    name: "settings",
+    component: () => import("../views/SettingsView.vue"),
+    // before enter
+    beforeEnter: () => {
+      const appStore = useAppStore();
+      if (!appStore.userHasSettingsAccess) {
+        return { name: "login" };
+      }
+    },
+  },
 ];
 
 const router = createRouter({

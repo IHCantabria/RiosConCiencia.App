@@ -72,6 +72,47 @@ const saveSamplePict = async (token, sample) => {
   return res;
 };
 
+const getAllUsers = async () => {
+  const url = `${RIOSCONCIENCIA_API.public}/GetAllUsers`;
+  const res = await axios.get(url);
+  return res.data;
+};
+
+const getAllUserRoles = async () => {
+  const url = `${RIOSCONCIENCIA_API.public}/GetAllUserRoles`;
+  const res = await axios.get(url);
+  return res.data;
+};
+
+const getAllMunicipalities = async () => {
+  const url = `${RIOSCONCIENCIA_API.public}/GetAllMunicipalities`;
+  const res = await axios.get(url);
+  return res.data;
+};
+
+const getAllRivers = async () => {
+  const url = `${RIOSCONCIENCIA_API.public}/GetAllRivers`;
+  const res = await axios.get(url);
+  return res.data;
+};
+
+const getAllRiverSections = async () => {
+  const url = `${RIOSCONCIENCIA_API.public}/GetAllRiverSections`;
+  const res = await axios.get(url);
+  return res.data;
+};
+
+const createRiverSection = async (riverSection) => {
+  const url = `${RIOSCONCIENCIA_API.public}/CreateRiverSection`;
+  const res = await axios.post(url, riverSection);
+  return res.data;
+};
+const updateRiverSection = async (riverSectionId, riverSection) => {
+  const url = `${RIOSCONCIENCIA_API.public}/UpdateRiverSection/${riverSectionId}`;
+  const res = await axios.put(url, riverSection);
+  return res.data;
+};
+
 export {
   getExpertMasterData,
   getPictsMasterData,
@@ -79,4 +120,11 @@ export {
   getUserRiverSections,
   saveSample,
   saveSamplePict,
+  getAllUsers,
+  getAllUserRoles,
+  getAllMunicipalities,
+  getAllRivers,
+  getAllRiverSections,
+  createRiverSection,
+  updateRiverSection,
 };

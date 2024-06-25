@@ -1,8 +1,15 @@
 /* Colors */
 $app-background-color: #eaedf1 !default;
 $color-primary: #64b3dc !default;
+$color-primary-dark: #3f8eac !default;
 $color-primary-shade: #589ec2 !default;
 $color-primary-tint: #74bbe0 !default;
+$accent-color: #64b3dc !default;
+$secondary-color: #f4f5f8 !default;
+$color-white: #ffffff !default;
+$box-shadow-scroll: inset 0 0 6px rgb(0 0 0 / 30%);
+$box-shadow: 0 8px 8px rgb(50 50 71 / 8%);
+$box-shadow-hover: 0 1px 3px 0 rgb(34 34 48 / 53.8%);
 
 /* Types */
 $info: #339fd7 !default;
