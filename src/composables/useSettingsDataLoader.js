@@ -11,7 +11,7 @@ import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 export function useSettingsDataLoader() {
   const settingsStore = useSettingsStore();
 
-  const initDataLoader = async () => {
+  const initSettingsDataLoader = async () => {
     try {
       settingsStore.allUsers = await getAllUsers();
       settingsStore.allUserRoles = await getAllUserRoles();
@@ -40,5 +40,5 @@ export function useSettingsDataLoader() {
     }
   };
 
-  return { initDataLoader, updateAllRiverSections };
+  return { initSettingsDataLoader, updateAllRiverSections };
 }

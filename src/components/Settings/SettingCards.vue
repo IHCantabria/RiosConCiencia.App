@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useSettingsStore } from "@/store/settingsStore.js";
 
 // STORES & COMPOSABLES
@@ -9,13 +9,19 @@ const settingsStore = useSettingsStore();
 const menuOptions = ref([
   {
     id: 1,
-    text: "Gestión de tramos",
+    text: "Gestión de usuarios",
   },
   {
     id: 2,
-    text: "Gestión de usuarios",
+    text: "Gestión de tramos",
   },
 ]);
+
+// LYFECYCLE
+onBeforeMount(() => {
+  if (settingsStore.selectedMenuOption) return;
+  settingsStore.selectedMenuOption = menuOptions.value[0];
+});
 
 // METHODS
 const activeMenuOption = (option) => {
@@ -39,12 +45,12 @@ const activeMenuOption = (option) => {
       <span class="icon-circle">
         <img
           v-if="option.id === 1"
-          src="@/assets/icons/sections-management.svg"
+          src="@/assets/icons/users-management.svg"
           alt="Option icon"
         />
         <img
           v-if="option.id === 2"
-          src="@/assets/icons/users-management.svg"
+          src="@/assets/icons/sections-management.svg"
           alt="Option icon"
         />
       </span>
@@ -74,12 +80,17 @@ const activeMenuOption = (option) => {
   border-radius: 16px;
   cursor: pointer;
 
-  &--selected {
-    background-color: app-variables.$color-primary-dark;
+  &:hover {
+    background-color: rgb(235 235 235);
   }
 
-  &:hover {
-    background-color: rgb(243 242 242);
+  &--selected {
+    background-color: app-variables.$color-primary-dark;
+    color: white;
+
+    &:hover {
+      background-color: app-variables.$color-primary-dark;
+    }
   }
 }
 

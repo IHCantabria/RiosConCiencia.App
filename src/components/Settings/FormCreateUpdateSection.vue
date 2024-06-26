@@ -1,7 +1,8 @@
 <script setup>
 import { ref, computed, defineProps, watch } from "vue";
-import { useSettingsStore } from "@/store/settingsStore.js";
 import Spinner from "@/components/LoadingComponent.vue";
+import { useSettingsStore } from "@/store/settingsStore.js";
+import { useAppStore } from "@/store/appStore.js";
 
 // PROPS
 const props = defineProps({
@@ -28,6 +29,7 @@ const props = defineProps({
 
 // STORES & COMPOSABLES
 const settingsStore = useSettingsStore();
+const appStore = useAppStore();
 
 // DATA
 const riverSection = ref({ ...props.riverSectionToUpdate });
@@ -201,7 +203,7 @@ watch(
         type="is-success"
         icon-left="check"
         expanded
-        :disabled="!isFormValid || props.isLoading"
+        :disabled="!isFormValid || props.isLoading || !appStore.isOnline"
         @click="onSubmit()"
       >
         {{ props.action === "create" ? "Crear" : "Actualizar" }}
@@ -213,7 +215,7 @@ watch(
 
 <style lang="scss" scoped>
 .form-create-update-section {
-  padding: 1rem 2rem;
+  padding: 1rem;
 
   .buttons {
     margin-top: 1.5rem;

@@ -1,8 +1,8 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
+import { onBeforeRouteLeave, useRouter } from "vue-router";
 import SettingCards from "@/components/Settings/SettingCards.vue";
-import SettingSections from "../components/Settings/SettingSections.vue";
+import SettingRiverSections from "../components/Settings/SettingRiverSections.vue";
 import SettingUsers from "../components/Settings/SettingUsers.vue";
 import { useSettingsStore } from "@/store/settingsStore.js";
 import { useSettingsDataLoader } from "@/composables/useSettingsDataLoader.js";
@@ -11,7 +11,8 @@ import { useDataLoader } from "@/composables/useDataLoader.js";
 
 // STORES & COMPOSABLES
 const settingsStore = useSettingsStore();
-const { initDataLoader } = useSettingsDataLoader();
+const router = useRouter();
+const { initSettingsDataLoader } = useSettingsDataLoader();
 const { updateRiverSections } = useDataLoader();
 
 // DATA
@@ -31,9 +32,10 @@ onBeforeRouteLeave(async () => {
 const init = async () => {
   try {
     isDataLoading.value = true;
-    await initDataLoader();
+    await initSettingsDataLoader();
   } catch (error) {
     console.error(error);
+    router.push({ name: "welcome" });
   } finally {
     isDataLoading.value = false;
   }
@@ -45,8 +47,10 @@ const init = async () => {
     <div class="content">
       <SettingCards class="content__cards" />
       <div v-if="settingsStore.isDataReady" class="content__settings">
-        <SettingSections v-if="settingsStore.selectedMenuOption?.id === 1" />
-        <SettingUsers v-if="settingsStore.selectedMenuOption?.id === 2" />
+        <SettingUsers v-if="settingsStore.selectedMenuOption?.id === 1" />
+        <SettingRiverSections
+          v-if="settingsStore.selectedMenuOption?.id === 2"
+        />
       </div>
       <loading :is-loading="isDataLoading" />
     </div>
@@ -99,3 +103,4 @@ const init = async () => {
   }
 }
 </style>
+../components/Settings/SettingRiverSections.vue
