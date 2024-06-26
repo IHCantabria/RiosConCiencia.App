@@ -138,18 +138,16 @@ const isSectionValid = computed(() => {
   );
 });
 const wasteTypesTags = computed(() => {
-  // each values.wasteList element has a idWasteType. I need to fill return an array with all the wasteTypes found. All the wasteTypes are wasteTypes.value
-  const wasteTypesArray = [];
-  for (const waste of values.value.wasteList) {
-    const wasteTypeName = wasteTypesList.value.find(
-      (wasteType) => wasteType.id == waste.idWasteType,
-    );
-    // if the wasteType is not in the array, add it
-    if (!wasteTypesArray.includes(wasteTypeName.name)) {
-      wasteTypesArray.push(wasteTypeName.name);
-    }
-  }
-  return wasteTypesArray;
+  const uniqueWasteTypeIds = new Set(
+    values.value.wasteList.map((waste) => waste.idWasteType),
+  );
+  const wasteTypeNames = [...uniqueWasteTypeIds]
+    .map(
+      (id) =>
+        wasteTypesList.value.find((wasteType) => wasteType.id === id)?.name,
+    )
+    .filter((name) => name !== undefined);
+  return wasteTypeNames;
 });
 
 // METHODS
