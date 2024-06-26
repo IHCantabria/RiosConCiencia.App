@@ -1,7 +1,13 @@
 import editIcon from "@/assets/icons/table-icons/edit.svg";
+import disableIcon from "@/assets/icons/table-icons/disable.svg";
 
 export const SECTIONS_TABLE_CONFIG = {
   columns: [
+    {
+      title: "ID",
+      name: "id",
+      sortable: true,
+    },
     {
       title: "Alias",
       name: "name",
@@ -25,7 +31,7 @@ export const SECTIONS_TABLE_CONFIG = {
     { name: "actions", title: "", sortable: false },
   ],
   data: [],
-  sortBy: "name",
+  sortBy: "id",
   actions: [{ name: "edit", title: "Editar", icon: editIcon }],
   allowMultipleSelection: false,
 };
@@ -39,18 +45,26 @@ export const USERS_TABLE_CONFIG = {
     },
     {
       title: "Apellidos",
-      name: "surname",
+      name: "surnames",
       sortable: true,
     },
     {
       title: "Rol",
-      name: "roleId",
+      name: "roleName",
+      sortable: true,
+    },
+    {
+      title: "Cod",
+      name: "cod",
       sortable: true,
     },
     { name: "actions", title: "", sortable: false },
   ],
   data: [],
   sortBy: "name",
-  actions: [{ name: "edit", title: "Editar", icon: editIcon }],
+  actions: [
+    { name: "edit", title: "Editar", icon: editIcon },
+    { name: "disable", title: "Deshabilitar", icon: disableIcon },
+  ],
   allowMultipleSelection: false,
 };

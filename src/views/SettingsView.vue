@@ -8,6 +8,7 @@ import { useSettingsStore } from "@/store/settingsStore.js";
 import { useSettingsDataLoader } from "@/composables/useSettingsDataLoader.js";
 import loading from "@/components/LoadingComponent.vue";
 import { useDataLoader } from "@/composables/useDataLoader.js";
+import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 
 // STORES & COMPOSABLES
 const settingsStore = useSettingsStore();
@@ -35,6 +36,10 @@ const init = async () => {
     await initSettingsDataLoader();
   } catch (error) {
     console.error(error);
+    Toast.open({
+      message: "Error loading data",
+      type: "is-danger",
+    });
     router.push({ name: "welcome" });
   } finally {
     isDataLoading.value = false;
@@ -47,10 +52,10 @@ const init = async () => {
     <div class="content">
       <SettingCards class="content__cards" />
       <div v-if="settingsStore.isDataReady" class="content__settings">
-        <SettingUsers v-if="settingsStore.selectedMenuOption?.id === 1" />
         <SettingRiverSections
-          v-if="settingsStore.selectedMenuOption?.id === 2"
+          v-if="settingsStore.selectedMenuOption?.id === 1"
         />
+        <SettingUsers v-if="settingsStore.selectedMenuOption?.id === 2" />
       </div>
       <loading :is-loading="isDataLoading" />
     </div>

@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import BaseTableComponent from "@/components/base/ui/BaseTableComponent.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
-import FormCreateUpdateSection from "@/components/Settings/FormCreateUpdateSection.vue";
+import FormRiverSections from "@/components/Settings/FormRiverSections.vue";
 import { SECTIONS_TABLE_CONFIG } from "@/config/settings-config.js";
 import { useSettingsStore } from "@/store/settingsStore.js";
 import { useSettingsDataLoader } from "@/composables/useSettingsDataLoader.js";
@@ -196,7 +196,7 @@ const filterData = () => {
     :show-header-close-button="false"
   >
     <template #content>
-      <FormCreateUpdateSection
+      <FormRiverSections
         :action="modalAction"
         :river-section-to-update="riverSectionToUpdate"
         :is-loading="isLoading"

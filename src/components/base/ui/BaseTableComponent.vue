@@ -192,6 +192,9 @@ const resetComponent = () => {
 const isCheckedItem = (item) => {
   return checkedItems.value.includes(item);
 };
+const isDisabledUser = (item) => {
+  return item.roleName === "legado";
+};
 
 // EXPOSED
 defineExpose({
@@ -278,7 +281,10 @@ watch(
               :key="column.name"
               v-tooltip="rowTooltip"
               class="table-list__td"
-              :class="{ 'table-list__td--clickable': activeRowClickAction }"
+              :class="{
+                'table-list__td--clickable': activeRowClickAction,
+                'table-list__td--disabledUser': isDisabledUser(item),
+              }"
               @click="activeRowClickAction ? handleRowClick(item) : null"
             >
               <span
@@ -304,6 +310,7 @@ watch(
                 <span
                   v-for="action in actions"
                   :key="action"
+                  v-tooltip="action.title"
                   @click.stop="handleAction(action, item)"
                 >
                   <img
@@ -473,6 +480,10 @@ watch(
 
     &--clickable {
       cursor: pointer;
+    }
+
+    &--disabledUser {
+      background-color: rgb(249 0 0 / 12.1%);
     }
   }
 }

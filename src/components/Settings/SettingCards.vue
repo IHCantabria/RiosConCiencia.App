@@ -9,11 +9,11 @@ const settingsStore = useSettingsStore();
 const menuOptions = ref([
   {
     id: 1,
-    text: "Gestión de usuarios",
+    text: "Gestión de tramos",
   },
   {
     id: 2,
-    text: "Gestión de tramos",
+    text: "Gestión de usuarios",
   },
 ]);
 
@@ -45,12 +45,12 @@ const activeMenuOption = (option) => {
       <span class="icon-circle">
         <img
           v-if="option.id === 1"
-          src="@/assets/icons/users-management.svg"
+          src="@/assets/icons/sections-management.svg"
           alt="Option icon"
         />
         <img
           v-if="option.id === 2"
-          src="@/assets/icons/sections-management.svg"
+          src="@/assets/icons/users-management.svg"
           alt="Option icon"
         />
       </span>

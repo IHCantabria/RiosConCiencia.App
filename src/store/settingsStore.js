@@ -4,6 +4,9 @@ import { defineStore } from "pinia";
 import {
   createRiverSection,
   updateRiverSection,
+  registerUser,
+  updateUser,
+  disableUser,
 } from "@/api/riosconciencia.js";
 
 export const useSettingsStore = defineStore("settingsStore", {
@@ -40,6 +43,18 @@ export const useSettingsStore = defineStore("settingsStore", {
         riverSection,
       );
       return updatedRiverSection;
+    },
+    async registerUser(user) {
+      const newUser = await registerUser(user);
+      return newUser;
+    },
+    async updateUser(userId, user) {
+      const updatedUser = await updateUser(userId, user);
+      return updatedUser;
+    },
+    async disableUser(userId) {
+      const updatedUser = await disableUser(userId);
+      return updatedUser;
     },
   },
 });

@@ -40,5 +40,17 @@ export function useSettingsDataLoader() {
     }
   };
 
-  return { initSettingsDataLoader, updateAllRiverSections };
+  const updateAllUsers = async () => {
+    try {
+      settingsStore.allUsers = await getAllUsers();
+    } catch (err) {
+      Toast.open({
+        message: "Error updating users",
+        type: "is-danger",
+      });
+      throw new Error(err);
+    }
+  };
+
+  return { initSettingsDataLoader, updateAllRiverSections, updateAllUsers };
 }

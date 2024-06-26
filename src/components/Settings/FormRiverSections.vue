@@ -227,4 +227,16 @@ watch(
     }
   }
 }
+
+@media (min-width: app-variables.$breakpoint-tablet-to-desktop) {
+  .form-create-update-section {
+    min-width: 600px;
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+}
 </style>

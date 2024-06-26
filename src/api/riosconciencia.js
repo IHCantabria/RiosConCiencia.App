@@ -113,6 +113,24 @@ const updateRiverSection = async (riverSectionId, riverSection) => {
   return res.data;
 };
 
+const registerUser = async (user) => {
+  const url = `${RIOSCONCIENCIA_API.public}/Register`;
+  const res = await axios.post(url, user);
+  return res.data;
+};
+
+const updateUser = async (userId, user) => {
+  const url = `${RIOSCONCIENCIA_API.public}/UpdateUser/${userId}`;
+  const res = await axios.put(url, user);
+  return res.data;
+};
+
+const disableUser = async (userId) => {
+  const url = `${RIOSCONCIENCIA_API.public}/DisableUser/${userId}`;
+  const res = await axios.put(url);
+  return res.data;
+};
+
 export {
   getExpertMasterData,
   getPictsMasterData,
@@ -127,4 +145,7 @@ export {
   getAllRiverSections,
   createRiverSection,
   updateRiverSection,
+  registerUser,
+  updateUser,
+  disableUser,
 };
