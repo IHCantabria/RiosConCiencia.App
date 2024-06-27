@@ -28,7 +28,7 @@ const riverSectionToUpdate = ref({
   idMunicipality: null,
   idRiver: null,
 });
-const riverSectionAliasFilter = ref("");
+const riverSectionAliasIdFilter = ref("");
 
 // LIFECYCLE
 onMounted(() => {
@@ -140,16 +140,20 @@ const getSectionInfo = (id) => {
 const onFilterChange = (value) => {
   clearTimeout(window.timer);
   window.timer = setTimeout(() => {
-    riverSectionAliasFilter.value = value;
+    riverSectionAliasIdFilter.value = value;
     filterData();
   }, 300);
 };
 const filterData = () => {
   let data = JSON.parse(JSON.stringify(dataCopy.value));
-  data = data.filter((section) =>
-    section.name
-      .toLowerCase()
-      .includes(riverSectionAliasFilter.value.toLowerCase()),
+  const filterValue = riverSectionAliasIdFilter.value.toLowerCase().trim();
+  data = data.filter(
+    (section) =>
+      section.name
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .includes(filterValue.replace(/\s+/g, " ")) ||
+      section.id.toString().includes(filterValue),
   );
   tableConfig.value.data = data;
 };
@@ -159,10 +163,10 @@ const filterData = () => {
   <div class="setting-sections">
     <div class="controls">
       <div class="controls__filters">
-        <b-field label="Filtrar por alias" class="filter-label">
+        <b-field label="Filtrar por alias o ID" class="filter-label">
           <b-input
             class="filter-input"
-            :model-value="riverSectionAliasFilter"
+            :model-value="riverSectionAliasIdFilter"
             type="is-primary"
             placeholder="Ej: Arroyo Collado"
             @input="onFilterChange($event.target.value)"

@@ -45,7 +45,6 @@ const setupPWAInstaller = () => {
   };
 
   window.addEventListener("beforeinstallprompt", (e) => {
-    console.log(e);
     e.preventDefault();
     installPrompt = e;
     if (!isInstallerReady.value) {

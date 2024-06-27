@@ -1,4 +1,5 @@
 import { useSettingsStore } from "@/store/settingsStore.js";
+import { useAppStore } from "@/store/appStore.js";
 import {
   getAllUsers,
   getAllUserRoles,
@@ -10,14 +11,16 @@ import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 
 export function useSettingsDataLoader() {
   const settingsStore = useSettingsStore();
+  const appStore = useAppStore();
 
   const initSettingsDataLoader = async () => {
+    const token = appStore.user.token;
     try {
-      settingsStore.allUsers = await getAllUsers();
-      settingsStore.allUserRoles = await getAllUserRoles();
-      settingsStore.allMunicipalities = await getAllMunicipalities();
-      settingsStore.allRivers = await getAllRivers();
-      settingsStore.allRiverSections = await getAllRiverSections();
+      settingsStore.allUsers = await getAllUsers(token);
+      settingsStore.allUserRoles = await getAllUserRoles(token);
+      settingsStore.allMunicipalities = await getAllMunicipalities(token);
+      settingsStore.allRivers = await getAllRivers(token);
+      settingsStore.allRiverSections = await getAllRiverSections(token);
     } catch (err) {
       settingsStore.resetSettingsStore();
       Toast.open({

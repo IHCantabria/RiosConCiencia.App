@@ -206,6 +206,7 @@ watch(
           id="role"
           v-model="userRole"
           placeholder="Seleccione un rol"
+          :disabled="props.userToUpdate.roleName === 'admin'"
           expanded
         >
           <option

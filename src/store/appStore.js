@@ -92,8 +92,7 @@ export const useAppStore = defineStore("appStore", {
       );
     },
     userHasSettingsAccess() {
-      // TODO: Update roleId
-      return this.user?.roleId == 7;
+      return this.user?.roleId == 1;
     },
   },
   actions: {

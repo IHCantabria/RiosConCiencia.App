@@ -7,11 +7,16 @@ import {
 import BaseTableComponent from "@/components/base/ui/BaseTableComponent.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import FormUsers from "@/components/Settings/FormUsers.vue";
+import SettingsUserRiverSections from "@/components/Settings/SettingsUserRiverSections.vue";
+import Spinner from "@/components/LoadingComponent.vue";
 import { USERS_TABLE_CONFIG } from "@/config/settings-config.js";
-import { useSettingsStore } from "@/store/settingsStore.js";
 import { useSettingsDataLoader } from "@/composables/useSettingsDataLoader.js";
+import { getUserRiverSections } from "@/api/riosconciencia.js";
+import { useSettingsStore } from "@/store/settingsStore.js";
+import { useAppStore } from "@/store/appStore.js";
 
 // STORES & COMPOSABLES
+const appStore = useAppStore();
 const settingsStore = useSettingsStore();
 const { updateAllUsers } = useSettingsDataLoader();
 
@@ -34,7 +39,10 @@ const userToUpdate = ref({
   cod: "",
 });
 const userNameFilter = ref("");
-const filterHideDisabledUsers = ref(false);
+const filterHideDisabledUsers = ref(true);
+const isUserRiverSectionsActive = ref(false);
+const userToManageRiverSections = ref(null);
+const userRiverSections = ref([]);
 
 // LIFECYCLE
 onMounted(() => {
@@ -47,6 +55,7 @@ const setTableConfig = () => {
     ...USERS_TABLE_CONFIG,
     data: setData(),
   };
+  filterData();
 };
 const setData = () => {
   const data = settingsStore.allUsers.map((user) => {
@@ -76,6 +85,9 @@ const onActionClick = ({ action, item: user }) => {
     case "disable":
       onDisableButtonClick(user);
       break;
+    case "userRiverSections":
+      onRiverSectionsButtonClick(user);
+      break;
   }
 };
 const onCreateButtonClick = () => {
@@ -92,6 +104,20 @@ const onEditButtonClick = (user) => {
   modalRef.value.isModalActive = true;
 };
 const onDisableButtonClick = async (user) => {
+  if (user.roleName === "admin") {
+    Toast.open({
+      message: "No puedes deshabilitar un usuario admin",
+      type: "is-danger",
+    });
+    return;
+  }
+  if (user.roleName === "legado") {
+    Toast.open({
+      message: "Este usuario ya está deshabilitado",
+      type: "is-info",
+    });
+    return;
+  }
   try {
     Dialog.confirm({
       title: "Deshabilitar usuario",
@@ -112,6 +138,41 @@ const onDisableButtonClick = async (user) => {
   } catch (error) {
     showErrorToast();
   }
+};
+const onRiverSectionsButtonClick = async (user) => {
+  try {
+    isLoading.value = true;
+    userToManageRiverSections.value = user;
+    userRiverSections.value = await getUserRiverSections(
+      appStore.user.token,
+      user.id,
+    );
+    isUserRiverSectionsActive.value = true;
+  } catch (error) {
+    if (
+      error.response?.status === 404 &&
+      error.response?.data?.messages?.includes(
+        `User with id(${user.id}) don't have Sections of river assigned`,
+      )
+    ) {
+      userRiverSections.value = [];
+      isUserRiverSectionsActive.value = true;
+    } else {
+      userRiverSections.value = [];
+      console.error(error);
+      Toast.open({
+        message: "Error al cargar los tramos del usuario",
+        type: "is-danger",
+      });
+    }
+  } finally {
+    isLoading.value = false;
+  }
+};
+const onUserRiverSectionsFinishClick = () => {
+  isUserRiverSectionsActive.value = false;
+  userToManageRiverSections.value = null;
+  userRiverSections.value = [];
 };
 const onFormCancel = () => {
   modalAction.value = null;
@@ -194,68 +255,78 @@ const filterData = () => {
 </script>
 
 <template>
-  <div class="setting-users">
-    <div class="controls">
-      <div class="controls__filters">
-        <b-field label="Filtrar por nombre y apellidos" class="filter-label">
-          <b-input
-            class="filter-input"
-            :model-value="userNameFilter"
-            type="is-primary"
-            placeholder="Ej: Marcos"
-            @input="onNameFilterChange($event.target.value)"
-          />
-        </b-field>
-        <b-field label="Mostrar usuarios deshabilitados" class="filter-label">
-          <b-select
-            v-model="filterHideDisabledUsers"
-            placeholder="Seleccione"
-            @change="filterData()"
-          >
+  <div v-if="!isUserRiverSectionsActive">
+    <div class="setting-users">
+      <div class="controls">
+        <div class="controls__filters">
+          <b-field label="Filtrar por nombre y apellidos" class="filter-label">
+            <b-input
+              class="filter-input"
+              :model-value="userNameFilter"
+              type="is-primary"
+              placeholder="Ej: Marcos"
+              @input="onNameFilterChange($event.target.value)"
+            />
+          </b-field>
+          <b-field label="Mostrar usuarios deshabilitados" class="filter-label">
+            <b-select
+              v-model="filterHideDisabledUsers"
+              placeholder="Seleccione"
+              @change="filterData()"
             >
-            <option :value="false">Sí</option>
-            <option :value="true">No</option>
-          </b-select>
-        </b-field>
+              >
+              <option :value="false">Sí</option>
+              <option :value="true">No</option>
+            </b-select>
+          </b-field>
+        </div>
+        <div class="controls__buttons">
+          <b-button
+            class="button"
+            type="is-primary"
+            icon-left="plus"
+            expanded
+            @click="onCreateButtonClick()"
+          >
+            Registrar usuario
+          </b-button>
+        </div>
       </div>
-      <div class="controls__buttons">
-        <b-button
-          class="button"
-          type="is-primary"
-          icon-left="plus"
-          expanded
-          @click="onCreateButtonClick()"
-        >
-          Registrar usuario
-        </b-button>
+      <div class="table">
+        <BaseTableComponent
+          v-if="tableConfig"
+          v-bind="tableConfig"
+          @action-click="onActionClick"
+        />
       </div>
     </div>
-    <div class="table">
-      <BaseTableComponent
-        v-if="tableConfig"
-        v-bind="tableConfig"
-        @action-click="onActionClick"
-      />
-    </div>
+    <base-modal
+      ref="modalRef"
+      :title="
+        modalAction === 'create' ? 'Registrar usuario' : 'Actualizar usuario'
+      "
+      :close-click-outside="false"
+      :show-header-close-button="false"
+    >
+      <template #content>
+        <FormUsers
+          :action="modalAction"
+          :user-to-update="userToUpdate"
+          :is-loading="isLoading"
+          @cancel="onFormCancel"
+          @submit="onFormSubmit"
+        />
+      </template>
+    </base-modal>
   </div>
-  <base-modal
-    ref="modalRef"
-    :title="
-      modalAction === 'create' ? 'Registrar usuario' : 'Actualizar usuario'
-    "
-    :close-click-outside="false"
-    :show-header-close-button="false"
-  >
-    <template #content>
-      <FormUsers
-        :action="modalAction"
-        :user-to-update="userToUpdate"
-        :is-loading="isLoading"
-        @cancel="onFormCancel"
-        @submit="onFormSubmit"
-      />
-    </template>
-  </base-modal>
+  <div v-else>
+    <SettingsUserRiverSections
+      :user="userToManageRiverSections"
+      :user-river-sections="userRiverSections"
+      @finish-click="onUserRiverSectionsFinishClick"
+    />
+  </div>
+  <Spinner :is-loading="isLoading" />
 </template>
 
 <style lang="scss" scoped>

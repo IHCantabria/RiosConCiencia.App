@@ -63,7 +63,7 @@ const sortColumn = ref(null);
 const sortDirection = ref(null);
 
 // EMITS
-const emit = defineEmits(["rowClick", "actionClick"]);
+const emit = defineEmits(["rowClick", "actionClick", "itemCheckboxClick"]);
 
 // LYFE CYCLE HOOKS
 onBeforeMount(() => {
@@ -195,6 +195,10 @@ const isCheckedItem = (item) => {
 const isDisabledUser = (item) => {
   return item.roleName === "legado";
 };
+const onItemCheckboxClick = (item, column, checked) => {
+  emit("itemCheckboxClick", { item, column, checked });
+  item[column] = checked;
+};
 
 // EXPOSED
 defineExpose({
@@ -205,13 +209,12 @@ defineExpose({
 watch(
   () => props.data,
   (newValue) => {
-    tableData.value = newValue;
+    tableData.value = [...newValue];
   },
 );
 watch(
   () => tableData.value,
   (newValue, oldValue) => {
-    // if new and old are the same, return
     if (JSON.stringify(newValue) === JSON.stringify(oldValue)) return;
     const column = props.columns.find((c) => c.name === sortColumn.value);
     sortDirection.value = null;
@@ -287,7 +290,19 @@ watch(
               }"
               @click="activeRowClickAction ? handleRowClick(item) : null"
             >
+              <input
+                v-if="column.isCheckbox"
+                :id="`checkbox-${column.name}-${item.id}`"
+                type="checkbox"
+                class="checkbox"
+                :checked="item[column.name]"
+                @click="
+                  onItemCheckboxClick(item, column.name, $event.target.checked)
+                "
+              />
+
               <span
+                v-else
                 :class="{
                   'table-list__td--bold': column.name === 'id',
                   'table-list__td--accent': isCheckedItem(item),
@@ -415,13 +430,6 @@ watch(
     display: flex;
     justify-content: center;
     align-items: center;
-
-    .checkbox {
-      cursor: pointer;
-      width: 1.3rem;
-      height: 1.3rem;
-      accent-color: app-variables.$accent-color;
-    }
   }
 
   &__th,
@@ -521,6 +529,13 @@ watch(
       }
     }
   }
+}
+
+.checkbox {
+  cursor: pointer;
+  width: 1.3rem;
+  height: 1.3rem;
+  accent-color: app-variables.$accent-color;
 }
 
 // PAGINATION

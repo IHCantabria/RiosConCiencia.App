@@ -72,62 +72,110 @@ const saveSamplePict = async (token, sample) => {
   return res;
 };
 
-const getAllUsers = async () => {
+const getAllUsers = async (token) => {
   const url = `${RIOSCONCIENCIA_API.public}/GetAllUsers`;
-  const res = await axios.get(url);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.get(url, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const getAllUserRoles = async () => {
+const getAllUserRoles = async (token) => {
   const url = `${RIOSCONCIENCIA_API.public}/GetAllUserRoles`;
-  const res = await axios.get(url);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.get(url, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const getAllMunicipalities = async () => {
+const getAllMunicipalities = async (token) => {
   const url = `${RIOSCONCIENCIA_API.public}/GetAllMunicipalities`;
-  const res = await axios.get(url);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.get(url, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const getAllRivers = async () => {
+const getAllRivers = async (token) => {
   const url = `${RIOSCONCIENCIA_API.public}/GetAllRivers`;
-  const res = await axios.get(url);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.get(url, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const getAllRiverSections = async () => {
+const getAllRiverSections = async (token) => {
   const url = `${RIOSCONCIENCIA_API.public}/GetAllRiverSections`;
-  const res = await axios.get(url);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.get(url, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const createRiverSection = async (riverSection) => {
+const createRiverSection = async (token, riverSection) => {
   const url = `${RIOSCONCIENCIA_API.public}/CreateRiverSection`;
-  const res = await axios.post(url, riverSection);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.post(url, riverSection, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
-const updateRiverSection = async (riverSectionId, riverSection) => {
+const updateRiverSection = async (token, riverSectionId, riverSection) => {
   const url = `${RIOSCONCIENCIA_API.public}/UpdateRiverSection/${riverSectionId}`;
-  const res = await axios.put(url, riverSection);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.put(url, riverSection, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const registerUser = async (user) => {
+const registerUser = async (token, user) => {
   const url = `${RIOSCONCIENCIA_API.public}/Register`;
-  const res = await axios.post(url, user);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.post(url, user, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const updateUser = async (userId, user) => {
+const updateUser = async (token, userId, user) => {
   const url = `${RIOSCONCIENCIA_API.public}/UpdateUser/${userId}`;
-  const res = await axios.put(url, user);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.put(url, user, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
-const disableUser = async (userId) => {
+const disableUser = async (token, userId) => {
   const url = `${RIOSCONCIENCIA_API.public}/DisableUser/${userId}`;
-  const res = await axios.put(url);
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.put(url, {
+    headers: _basicHeaders,
+  });
+  return res.data;
+};
+
+const assignSectionToUser = async (token, payload) => {
+  const url = `${RIOSCONCIENCIA_API.public}/AssignSectionToUser`;
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.put(url, payload, {
+    headers: _basicHeaders,
+  });
+  return res.data;
+};
+
+const dellocateRiverSection = async (token, payload) => {
+  const url = `${RIOSCONCIENCIA_API.public}/DellocateRiverSection`;
+  _basicHeaders.Authorization = `Bearer ${token}`;
+  const res = await axios.put(url, payload, {
+    headers: _basicHeaders,
+  });
   return res.data;
 };
 
@@ -148,4 +196,6 @@ export {
   registerUser,
   updateUser,
   disableUser,
+  assignSectionToUser,
+  dellocateRiverSection,
 };
