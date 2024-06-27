@@ -45,7 +45,10 @@ const confirmLogout = () => {
           <b-icon icon="help-circle" size="is-medium"></b-icon>
         </router-link>
       </div>
-      <div v-if="appStore.userHasSettingsAccess" class="nav__link">
+      <div
+        v-if="appStore.userHasSettingsAccess"
+        class="nav__link settings-icon"
+      >
         <router-link to="/settings">
           <b-icon icon="cog" size="is-medium"></b-icon>
         </router-link>
@@ -62,6 +65,12 @@ const confirmLogout = () => {
 
   &__link {
     padding-right: 1rem;
+  }
+}
+
+@media only screen and (max-width: app-variables.$breakpoint-tablet-to-desktop) {
+  .settings-icon {
+    display: none;
   }
 }
 </style>
