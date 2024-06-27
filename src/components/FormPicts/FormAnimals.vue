@@ -1,4 +1,5 @@
 <script setup>
+// TODO: ADD/UPDATE GUSAPARA IMG
 import { ref, computed, watch, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";

@@ -55,14 +55,14 @@ const isSelected = (object) => {
 };
 const getOptionImg = (id) => {
   switch (id) {
-    case 1:
-      return riverColor;
     case 2:
       return brownColor;
     case 3:
       return greenColor;
     case 4:
       return greyColor;
+    case 5:
+      return riverColor;
     default:
       return "";
   }

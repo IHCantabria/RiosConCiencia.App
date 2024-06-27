@@ -28,7 +28,7 @@ const decontaminated = ref(false);
 const isSendingData = ref(false);
 const isSendActive = ref(false);
 const values = ref({
-  gameState: null, //states: 0 = Correct, 1 = Incorrect, 2 = Corrected
+  gameState: null, //states: 1 = Bueno, 2 = Malo, 3 = Corregido
 });
 
 // COMPUTED
@@ -191,10 +191,11 @@ const _prepareSampleObj = () => {
 // WATCHERS
 
 watch(
-  () => gameStatus,
+  () => gameStatus.value,
   (newVal, oldVal) => {
     if (newVal != undefined) {
-      values.value.gameState = newVal;
+      values.value.gameState = JSON.parse(JSON.stringify(newVal.value));
+      console.log("watch game status: ", newVal);
       if (newVal != null && newVal != oldVal) {
         setNewMessage(newVal.value);
         if (appStore.activeSectionName == "game") window.scrollTo(0, 0);

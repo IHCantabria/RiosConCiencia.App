@@ -52,6 +52,18 @@ const isSelected = (object) => {
   );
 };
 const getOptionImg = (id) => {
+  // TODO: Change ids and images to
+  /* 
+  0
+: 
+{id: 3, name: "No tiene", isGood: true}
+1
+: 
+{id: 4, name: "Abono", isGood: false}
+2
+: 
+{id: 5, name: "Alcantarilla", isGood: false}
+   */
   switch (id) {
     case 1:
       return riverSmell;

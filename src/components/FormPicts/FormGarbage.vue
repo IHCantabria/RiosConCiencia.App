@@ -58,6 +58,7 @@ const isSelected = (object) => {
   );
 };
 const getOptionImg = (id) => {
+  // TODO: UPDATE IMAGES
   switch (id) {
     case 1:
       return plasticBagGarbage;
