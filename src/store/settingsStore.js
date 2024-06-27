@@ -16,6 +16,7 @@ export const useSettingsStore = defineStore("settingsStore", {
     allMunicipalities: null,
     allRivers: null,
     allRiverSections: null,
+    hasAdminUserRiverSectionsChanged: false,
   }),
   getters: {
     isDataReady() {

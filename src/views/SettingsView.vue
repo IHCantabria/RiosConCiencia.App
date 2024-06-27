@@ -25,7 +25,10 @@ onBeforeMount(async () => {
   init();
 });
 onBeforeRouteLeave(async () => {
-  await updateRiverSections();
+  if (settingsStore.hasAdminUserRiverSectionsChanged) {
+    await updateRiverSections();
+    settingsStore.hasAdminUserRiverSectionsChanged = false;
+  }
   return true;
 });
 
