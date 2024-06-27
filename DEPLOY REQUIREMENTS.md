@@ -13,7 +13,6 @@
 ## System
 
     - Windows
-    - Linux
 
 ## Environment
 
@@ -24,15 +23,15 @@
 
 _Production_
 
-    - Deploy app_name - PROD
+    - Deploy RiosConCiencia.App - PROD
 
 _Development_
 
-    - Deploy app_name - DEV
+    - Deploy RiosConCiencia.App - DEV
 
 ## App folder
 
-`_____________`
+`RiosConCiencia.App`
 
 ## Distribution
 
@@ -40,69 +39,51 @@ _Development_
 
 ## Settings site
 
-    - feature_net45: 'si'/'no'
-    - net_core: 'si'/'no'
-    - core_version: '3.1.1'/'3.1.3'/'other'/'no'
-    - httpplatform: 'no'/'si'
-    - managedRuntimeVersion_pool: 'no managed'/'v4.0'/'v2.0'
-    - enable32BitAppOnWin64_pool: 'false'/'true'
-    - managedPipeLineMode_pool: 'integrated'/'Classic'
-    - iiswin_aut: 'no'/'si'
-    - thredds_whitelist: 'no'/'si'
+    - feature_net45: 'no'
+    - net_core: 'no'
+    - core_version: 'no'
+    - httpplatform: 'no'
+    - managedRuntimeVersion_pool: 'no managed'
+    - enable32BitAppOnWin64_pool: 'false'
+    - managedPipeLineMode_pool: 'integrated'
+    - iiswin_aut: 'no'
+    - thredds_whitelist: 'no'
 
 ## LOG
 
-    - log: 'no' / 'si'
+    - log: 'no'
 
 ## Url GIT
 
-     la direccion en git.com va sin ssh (GITEA)
-    - ssh  git@193.144.208.195:222/IT/nombre_aplicacion.git
+    git@github.com:IHCantabria/RiosConCiencia.App.git
 
 ## DNS
 
 _Production_
 
-    - app_name.ihcantabria.com
+    - riosconciencia.ihcantabria.com
 
 _Development_
 
-    - app_namedev.ihcantabria.com
+    - riosconcienciadev.ihcantabria.com
 
 ## URL APPLICATION
 
 _Production_
 
-    - app_name.ihcantabria.com/path
+    - riosconciencia.ihcantabria.com
 
 _Development_
 
-    - app_namedev.ihcantabria.com/path
-
-## Other settings
-
-Select only if needed:
-
-**Binary repo**
-
-`_____________`
-
-**Services to restart**
-
-`_____________`
-
-**Backup**
-
-    - Tags
-    - Snapshot
-    - Clone/Backup
+    - riosconcienciadev.ihcantabria.com
 
 ---
 
 **Do you need any other configuration?**
 
-- app_name here must be equal to name property inside package.json 
-- Descargar Release: https://api.github.com/repos/IHCantabria/app_name/releases/tags/app_name-{{ version }}-{{ entorno }}.zip
+- Descargar Release: https://api.github.com/repos/IHCantabria/RiosConCiencia.App/releases/tags/riosconciencia-{{ version }}-{{ entorno }}.zip
+
+- [ ] `Variables de entorno, sustituir los siguientes placeholders en los ficheros .env: RIOSCONCIENCIA_API_URL`
 
 <br>
 
@@ -110,7 +91,7 @@ Select only if needed:
 
 **What applications, services, or data sources is this application related to?**
 
-`_______________________________________________________________________________`
+`________`
 
 ## Credits
 
