@@ -15,7 +15,7 @@ export const SECTIONS_TABLE_CONFIG = {
       sortable: true,
     },
     {
-      title: "Coordenadas",
+      title: "Coordenadas (WGS84)",
       name: "coords",
       sortable: true,
     },
@@ -100,7 +100,7 @@ export const USER_SECTIONS_TABLE_CONFIG = {
       sortable: true,
     },
     {
-      title: "Coordenadas",
+      title: "Coordenadas (WGS84)",
       name: "coords",
       sortable: true,
     },

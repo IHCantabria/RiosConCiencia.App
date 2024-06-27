@@ -47,7 +47,7 @@ const setData = () => {
     return {
       id: section.id,
       name: section.alias,
-      coords: `${section.coordX}, ${section.coordY}`,
+      coords: `Lon: ${section.coordX}, Lat: ${section.coordY}`,
       municipality: getMunicipalityName(section.idMunicipality),
       river: getRiverName(section.idRiver),
     };
