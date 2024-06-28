@@ -5,6 +5,7 @@ import BaseTableComponent from "@/components/base/ui/BaseTableComponent.vue";
 import { USER_SECTIONS_TABLE_CONFIG } from "@/config/settings-config.js";
 import { useSettingsStore } from "@/store/settingsStore.js";
 import { useAppStore } from "@/store/appStore.js";
+import Spinner from "@/components/LoadingComponent.vue";
 import {
   assignSectionToUser,
   dellocateRiverSection,
@@ -27,7 +28,7 @@ const settingsStore = useSettingsStore();
 const appStore = useAppStore();
 
 // DATA
-// const isLoading = ref(false);
+const isLoading = ref(false);
 const tableConfig = ref(null);
 const dataCopy = ref(null);
 const riverSectionAliasIdFilter = ref("");
@@ -113,6 +114,7 @@ const onFinishButtonClick = () => {
 const onItemCheckboxClick = async (event) => {
   const { item, column, checked } = event;
   try {
+    isLoading.value = true;
     const isTeaSection = column === "tea";
     const existingSection = userRiverSectionsCopy.value.find(
       (section) =>
@@ -134,6 +136,8 @@ const onItemCheckboxClick = async (event) => {
       message: "Ha ocurrido un error al procesar la solicitud",
       type: "is-danger",
     });
+  } finally {
+    isLoading.value = false;
   }
 };
 const assignSection = async (item, isTeaSection) => {
@@ -230,6 +234,7 @@ const updateAdminRiverSectionsState = () => {
       />
     </div>
   </div>
+  <Spinner :is-loading="isLoading" />
 </template>
 
 <style lang="scss" scoped>
