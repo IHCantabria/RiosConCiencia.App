@@ -6,9 +6,9 @@ const routes = [
   {
     path: "/",
     name: "welcome",
-    beforeEnter: (to, from) => {
+    beforeEnter: () => {
       const appStore = useAppStore();
-      if (!appStore.userIsLogged && from.name !== "login") {
+      if (!appStore.userIsLogged) {
         return { name: "login" };
       }
     },

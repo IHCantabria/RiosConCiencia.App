@@ -65,8 +65,6 @@ export default defineConfig(({ mode }) => {
               type: "image/png",
             },
           ],
-          start_url: "./index.html",
-          display: "standalone",
           background_color: "#FFFFFF",
           theme_color: "#64b3dc",
         },
