@@ -104,7 +104,9 @@ onMounted(() => {
 onBeforeUpdate(() => {
   appStore.updateSpecificPictsSectionValues({
     name: "game",
-    values: values.value,
+    values: {
+      gameState: gameStatus.value,
+    },
     isValid: isSectionValid.value,
   });
 });
@@ -195,7 +197,6 @@ watch(
   (newVal, oldVal) => {
     if (newVal != undefined) {
       values.value.gameState = JSON.parse(JSON.stringify(newVal.value));
-      console.log("watch game status: ", newVal);
       if (newVal != null && newVal != oldVal) {
         setNewMessage(newVal.value);
         if (appStore.activeSectionName == "game") window.scrollTo(0, 0);

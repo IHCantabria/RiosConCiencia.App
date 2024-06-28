@@ -187,7 +187,6 @@ const dellocateSection = async (item, isTeaSection) => {
 };
 const updateAdminRiverSectionsState = () => {
   if (props.user.id === appStore.user.id) {
-    console.log("entra");
     settingsStore.hasAdminUserRiverSectionsChanged = true;
   }
 };
