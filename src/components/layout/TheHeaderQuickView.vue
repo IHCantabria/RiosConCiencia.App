@@ -7,7 +7,7 @@ import { useAppStore } from "@/store/appStore.js";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
-const { getLocalDate } = useDateHelpers();
+const { getLocalDate, getLocalTime } = useDateHelpers();
 
 // DATA
 const weather = ref({});
@@ -21,7 +21,7 @@ const computedPosition = computed(() => {
   )}`;
 });
 const computedDate = computed(() => {
-  return getLocalDate();
+  return `${getLocalDate()} ${getLocalTime()}`;
 });
 const computedTemp = computed(() => {
   return weather.value.temp != null
