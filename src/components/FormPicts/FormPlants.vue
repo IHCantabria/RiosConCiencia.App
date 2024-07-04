@@ -105,10 +105,11 @@ const getOptionImg = (id) => {
 
 <template>
   <div class="form-section-picts form-section">
+    <h5 class="title is-5 header-section__text">
+      <span>Estudio del río</span>
+    </h5>
     <div class="header-section">
-      <h5 class="title is-5 header-section__text">
-        <span>GÍRATE Y MIRA</span>
-      </h5>
+      <b-field label="1.9 Plantas alrededor del río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>

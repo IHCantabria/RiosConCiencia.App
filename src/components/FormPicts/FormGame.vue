@@ -207,6 +207,11 @@ watch(
 
 <template>
   <div class="form-section">
+    <h5 class="title is-5 header-section__text">
+      <span>Estudio del río</span>
+    </h5>
+    <b-field label="1.11 Estado del río:" />
+
     <div>
       <div v-if="appStore.isFormPictsValid" class="block">
         <b-message

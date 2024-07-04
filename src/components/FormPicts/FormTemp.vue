@@ -80,10 +80,12 @@ watch(
 
 <template>
   <div class="form-section-picts form-section">
+    <h5 class="title is-5 header-section__text">
+      <span>Estudio del río</span>
+    </h5>
     <div class="header-section">
-      <h5 class="title is-5 header-section__text">
-        <span>MEDIMOS LA TEMPERATURA DEL RÍO </span>
-      </h5>
+      <b-field label="1.4 Temperatura del agua del río:" />
+
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
       </div>
