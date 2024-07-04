@@ -3,8 +3,7 @@ import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
 import titlePlants from "@/assets/images/picts/plants/titlePlants.jpg";
-// TODO: Change gif to static image
-import helpPlants1 from "@/assets/images/picts/plants/helpPlants1.gif";
+import helpPlants1 from "@/assets/images/picts/plants/helpPlants1.jpg";
 import nettlePlants from "@/assets/images/picts/plants/nettlePlants.jpg";
 import hazelPlants from "@/assets/images/picts/plants/hazelPlants.jpg";
 import ashTreePlants from "@/assets/images/picts/plants/ashTreePlants.jpg";

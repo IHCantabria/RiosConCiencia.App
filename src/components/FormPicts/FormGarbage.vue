@@ -15,6 +15,7 @@ import clothesGarbage from "@/assets/images/picts/garbage/clothesGarbage.jpg";
 import cigaretteGarbage from "@/assets/images/picts/garbage/cigaretteGarbage.jpg";
 import brickGarbage from "@/assets/images/picts/garbage/brickGarbage.jpg";
 import absenceImg from "@/assets/images/picts/garbage/absence.jpg";
+import otherGarbage from "@/assets/images/picts/garbage/otherGarbage.jpg";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -58,7 +59,6 @@ const isSelected = (object) => {
   );
 };
 const getOptionImg = (id) => {
-  // TODO: UPDATE IMAGES
   switch (id) {
     case 1:
       return plasticBagGarbage;
@@ -76,6 +76,8 @@ const getOptionImg = (id) => {
       return cigaretteGarbage;
     case 8:
       return brickGarbage;
+    case 9:
+      return otherGarbage;
   }
 };
 

@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
 import titleEnv from "@/assets/images/picts/env/titleEnv.jpg";
-import helpEnv1 from "@/assets/images/picts/env/helpEnv1.gif";
+import helpEnv1 from "@/assets/images/picts/env/riverEnvironment.jpg";
 import forestEnv from "@/assets/images/picts/env/forestEnv.jpg";
 import plantsEnv from "@/assets/images/picts/env/plantsEnv.jpg";
 import roadsEnv from "@/assets/images/picts/env/roadsEnv.jpg";

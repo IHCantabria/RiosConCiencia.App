@@ -45,7 +45,8 @@ export function useSettingsDataLoader() {
 
   const updateAllUsers = async () => {
     try {
-      settingsStore.allUsers = await getAllUsers();
+      const token = appStore.user.token;
+      settingsStore.allUsers = await getAllUsers(token);
     } catch (err) {
       Toast.open({
         message: "Error updating users",

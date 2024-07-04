@@ -36,7 +36,7 @@ const isSectionValid = computed(() => {
   return true; //optional section
 });
 const isFormGood = computed(() => {
-  return values.value.gameState != 2 ? true : false;
+  return values.value.gameState != 2;
 });
 const gameStatus = computed(() => {
   if (!appStore.isFormPictsValid) return null;
@@ -60,12 +60,12 @@ const isRiverSick = computed(() => {
   );
 });
 const isFormPictsCorrect = computed(() => {
-  return values.value.gameState ==
+  return (
+    values.value.gameState !==
     appStore.formPictsSections.game.data.gameStateOptions.find(
       (state) => state.value == 2,
     )
-    ? false
-    : true;
+  );
 });
 const isReadySend = computed(() => {
   return (
@@ -73,19 +73,17 @@ const isReadySend = computed(() => {
   );
 });
 const isClearAvailable = computed(() => {
-  return !appStore.garbageAbsence && appStore.garbageExist ? true : false;
+  return !appStore.garbageAbsence && appStore.garbageExist;
 });
 const isSowAvailable = computed(() => {
-  return appStore.goodPlantsAbsence || appStore.badPlants.length > 0
-    ? true
-    : false;
+  return appStore.goodPlantsAbsence || appStore.badPlants.length > 0;
 });
 const isDecontaminateAvailable = computed(() => {
-  return !appStore.isSmellGood ||
+  return (
+    !appStore.isSmellGood ||
     !appStore.isColorGood ||
     appStore.goodAnimalsAbsence
-    ? true
-    : false;
+  );
 });
 const isClear = computed(() => {
   return cleaned.value;

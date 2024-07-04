@@ -6,8 +6,8 @@ import titleSmell from "@/assets/images/picts/smell/titleSmell.jpg";
 import helpSmell1 from "@/assets/images/picts/smell/helpSmell1.jpg";
 import helpSmell2 from "@/assets/images/picts/smell/helpSmell2.jpg";
 import helpSmell3 from "@/assets/images/picts/smell/helpSmell3.jpg";
-import riverSmell from "@/assets/images/picts/smell/riverSmell.jpg";
-import garbageSmell from "@/assets/images/picts/smell/garbageSmell.jpg";
+import noSmell from "@/assets/images/picts/smell/noSmell.jpg";
+import fertilizerSmell from "@/assets/images/picts/smell/fertilizerSmell.jpg";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -52,23 +52,12 @@ const isSelected = (object) => {
   );
 };
 const getOptionImg = (id) => {
-  // TODO: Change ids and images to
-  /* 
-  0
-: 
-{id: 3, name: "No tiene", isGood: true}
-1
-: 
-{id: 4, name: "Abono", isGood: false}
-2
-: 
-{id: 5, name: "Alcantarilla", isGood: false}
-   */
   switch (id) {
-    case 1:
-      return riverSmell;
-    case 2:
-      return garbageSmell;
+    case 3:
+      return noSmell;
+    case 4:
+      return fertilizerSmell;
+    // TODO: Add alcantarilla img
   }
 };
 

@@ -51,6 +51,7 @@ const passwordHasErrors = computed(() => {
 });
 const passwordConfirmHasErrors = computed(() => {
   return (
+    props.action === "create" &&
     user.value.password !== "" &&
     user.value.password !== user.value.passwordConfirm
   );
@@ -165,6 +166,7 @@ watch(
         />
       </b-field>
       <b-field
+        v-if="props.action === 'create'"
         label="Confirmar Contraseña"
         :message="{
           '*Debe coincidir con la contraseña': passwordConfirmHasErrors,
