@@ -1,5 +1,4 @@
 <script setup>
-// TODO: ADD/UPDATE GUSAPARA IMG
 import { ref, computed, watch, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
@@ -15,6 +14,7 @@ import mayflyAnimals1 from "@/assets/images/picts/animals/mayflyAnimals1.jpg";
 import mayflyAnimals2 from "@/assets/images/picts/animals/mayflyAnimals2.jpg";
 import caddisflyUncoveredAnimals1 from "@/assets/images/picts/animals/caddisflyUncoveredAnimals1.jpg";
 import caddisflyUncoveredAnimals2 from "@/assets/images/picts/animals/caddisflyUncoveredAnimals2.jpg";
+import gusarapa from "@/assets/images/picts/animals/gusarapa.jpg";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -74,6 +74,8 @@ const getImgUrl = (id, index) => {
       return index == 1
         ? caddisflyUncoveredAnimals1
         : caddisflyUncoveredAnimals2;
+    case 4:
+      return gusarapa;
   }
 };
 
@@ -181,13 +183,16 @@ watch(
           >
             <img
               :class="
-                isSelected(option)
+                (isSelected(option)
                   ? 'img-option__active-left'
-                  : 'img-option__inactive'
+                  : 'img-option__inactive',
+                option.id == 4 ? 'single-img' : '')
               "
               :src="getImgUrl(option.id, 1)"
               alt="img"
-            /><img
+            />
+            <img
+              v-if="option.id != 4"
               :class="
                 isSelected(option)
                   ? 'img-option__active-right'
@@ -219,6 +224,11 @@ watch(
   img {
     height: 100%;
     width: 50%;
+  }
+
+  .single-img {
+    width: 100%;
+    max-height: 80px;
   }
 }
 

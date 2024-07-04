@@ -8,6 +8,7 @@ import helpSmell2 from "@/assets/images/picts/smell/helpSmell2.jpg";
 import helpSmell3 from "@/assets/images/picts/smell/helpSmell3.jpg";
 import noSmell from "@/assets/images/picts/smell/noSmell.jpg";
 import fertilizerSmell from "@/assets/images/picts/smell/fertilizerSmell.jpg";
+import sewerSmell from "@/assets/images/picts/smell/sewerSmell.jpg";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -57,7 +58,8 @@ const getOptionImg = (id) => {
       return noSmell;
     case 4:
       return fertilizerSmell;
-    // TODO: Add alcantarilla img
+    case 5:
+      return sewerSmell;
   }
 };
 
