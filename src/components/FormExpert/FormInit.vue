@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUpdate } from "vue";
+import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import ManualPDF from "@/assets/pdfs/manual2019.pdf";
@@ -34,14 +34,6 @@ const isSectionValid = computed(() => {
 onMounted(() => {
   init();
 });
-onBeforeUpdate(() => {
-  if (appStore.formExpertSent) return;
-  appStore.updateSpecificExpertSectionValues({
-    name: "init",
-    values: values.value,
-    isValid: isSectionValid.value,
-  });
-});
 
 // DATA
 const values = ref({
@@ -50,9 +42,29 @@ const values = ref({
   weatherToday: null,
   weather48h: null,
 });
+
+// METHODS
 const init = () => {
   values.value.partners = ""; //default value and make beforeUpdate hook jump
 };
+const updateSpecificExpertSectionValues = () => {
+  if (appStore.formExpertSent) return;
+  appStore.updateSpecificExpertSectionValues({
+    name: "init",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+};
+
+// WATCH
+watch(
+  values.value,
+  async () => {
+    await nextTick();
+    updateSpecificExpertSectionValues();
+  },
+  { deep: true },
+);
 </script>
 
 <template>

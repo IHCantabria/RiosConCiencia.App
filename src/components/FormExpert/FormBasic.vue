@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUpdate, computed } from "vue";
+import { ref, onMounted, computed, watch, nextTick } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
@@ -89,9 +89,6 @@ const wasteTypesList = ref([]);
 // LYFECYCLE
 onMounted(() => {
   init();
-  updateSpecificExpertSectionValues();
-});
-onBeforeUpdate(() => {
   updateSpecificExpertSectionValues();
 });
 
@@ -261,6 +258,16 @@ const removeSelectedWaste = () => {
   wasteTable.value.selectedRows = [];
   appStore.updateSectionValues({ values: values.value, isValid: true });
 };
+
+// WATCH
+watch(
+  values.value,
+  async () => {
+    await nextTick();
+    updateSpecificExpertSectionValues();
+  },
+  { deep: true },
+);
 </script>
 
 <template>

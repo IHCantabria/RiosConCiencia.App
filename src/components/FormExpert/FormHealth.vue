@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
+import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import DiagnosticoPDF from "@/assets/pdfs/diagnostico.pdf";
 import RiberaPDF from "@/assets/pdfs/ribera.pdf";
@@ -29,9 +29,6 @@ const isSendActive = ref(false);
 
 // LYFECYCLE
 onMounted(() => {
-  updateSpecificExpertSectionValues();
-});
-onBeforeUpdate(() => {
   updateSpecificExpertSectionValues();
 });
 
@@ -224,9 +221,11 @@ const _getStatusForNoCalculable = () => {
 // WATCHERS
 watch(
   () => values.value,
-  () => {
+  async () => {
+    await nextTick();
     updateSpecificExpertSectionValues();
   },
+  { deep: true },
 );
 </script>
 

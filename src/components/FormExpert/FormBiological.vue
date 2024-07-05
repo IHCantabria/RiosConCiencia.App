@@ -1,6 +1,6 @@
 <!-- eslint-disable promise/always-return -->
 <script setup>
-import { ref, onBeforeUpdate, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 
 // STORES & COMPOSABLES
@@ -15,11 +15,6 @@ const values = ref({
 
 // LYFECYCLE
 onMounted(() => {
-  updateSpecificExpertSectionValues();
-});
-
-onBeforeUpdate(() => {
-  if (appStore.formExpertSent) return;
   updateSpecificExpertSectionValues();
 });
 
@@ -39,6 +34,7 @@ const isSectionValid = computed(() => {
 
 // METHODS
 const updateSpecificExpertSectionValues = () => {
+  if (appStore.formExpertSent) return;
   appStore.updateSpecificExpertSectionValues({
     name: "biological",
     values: values.value,
@@ -51,6 +47,16 @@ const InvasorSelectedIndex = (option) => {
 const CategoryOrder = (item) => {
   return `eukaryote${item.id}`;
 };
+
+// WATCH
+watch(
+  values.value,
+  async () => {
+    await nextTick();
+    updateSpecificExpertSectionValues();
+  },
+  { deep: true },
+);
 </script>
 
 <template>

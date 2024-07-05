@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUpdate, computed } from "vue";
+import { ref, onMounted, computed, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import HabitatPDF from "@/assets/pdfs/habitat.pdf";
@@ -21,14 +21,6 @@ const values = ref({
 // LYFECYCLE
 onMounted(() => {
   init();
-});
-onBeforeUpdate(() => {
-  if (appStore.formExpertSent) return;
-  appStore.updateSpecificExpertSectionValues({
-    name: "habitat",
-    values: values.value,
-    isValid: isSectionValid.value,
-  });
 });
 // COMPUTED
 const randomElementPresenceOptionsFilter = computed(() => {
@@ -93,6 +85,24 @@ const prepareComplexObjects = () => {
     values.value.randomElements.push({ ...element, value: {} });
   }
 };
+const updateSpecificExpertSectionValues = () => {
+  if (appStore.formExpertSent) return;
+  appStore.updateSpecificExpertSectionValues({
+    name: "habitat",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+};
+
+// WATCH
+watch(
+  values.value,
+  async () => {
+    await nextTick();
+    updateSpecificExpertSectionValues();
+  },
+  { deep: true },
+);
 </script>
 
 <template>

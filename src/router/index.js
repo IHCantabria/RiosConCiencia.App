@@ -71,9 +71,9 @@ const router = createRouter({
   routes,
 });
 
+//   // TODO: Check if this is needed
 // const waitForStorageToBeReady = async (to, from, next) => {
 //   const appStore = useAppStore();
-//   // TODO: Check this for pinia
 //   await appStore.restored;
 //   next();
 // };

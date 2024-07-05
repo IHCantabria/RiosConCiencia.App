@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
           "apple-touch-icon.png",
         ],
         devOptions: {
-          enabled: true,
+          enabled: false,
         },
         manifest: {
           name: "RíosConCienciApp",

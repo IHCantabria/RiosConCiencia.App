@@ -1,6 +1,6 @@
 <!-- eslint-disable promise/always-return -->
 <script setup>
-import { ref, onBeforeUpdate, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import EcosystemPDF from "@/assets/pdfs/ecosistema.pdf";
@@ -24,14 +24,6 @@ const values = ref({
 // LYFECYCLE
 onMounted(() => {
   init();
-});
-onBeforeUpdate(() => {
-  if (appStore.formExpertSent) return;
-  appStore.updateSpecificExpertSectionValues({
-    name: "ecoSystem",
-    values: values.value,
-    isValid: isSectionValid.value,
-  });
 });
 
 // COMPUTED
@@ -59,11 +51,19 @@ const init = () => {
     JSON.stringify(appStore.userPosition),
   );
 };
+const updateSpecificExpertSectionValues = () => {
+  if (appStore.formExpertSent) return;
+  appStore.updateSpecificExpertSectionValues({
+    name: "ecoSystem",
+    values: values.value,
+    isValid: isSectionValid.value,
+  });
+};
 
 // WATCHERS
 watch(
   () => values.value,
-  (newValue) => {
+  async (newValue) => {
     if (newValue.samplePointWidth == 0) {
       values.value.samplePointWidth = null;
     }
@@ -73,7 +73,10 @@ watch(
     if (newValue.samplePointWaterVelocity == 0) {
       values.value.samplePointWaterVelocity = null;
     }
+    await nextTick();
+    updateSpecificExpertSectionValues();
   },
+  { deep: true },
 );
 </script>
 
