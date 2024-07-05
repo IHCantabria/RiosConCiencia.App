@@ -71,13 +71,6 @@ const router = createRouter({
   routes,
 });
 
-//   // TODO: Check if this is needed
-// const waitForStorageToBeReady = async (to, from, next) => {
-//   const appStore = useAppStore();
-//   await appStore.restored;
-//   next();
-// };
-
 router.beforeEach(() => {
   const backbuttonPulsed = inject("$backbuttonPulsed");
   if (backbuttonPulsed.value) {

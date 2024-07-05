@@ -25,7 +25,7 @@ onMounted(() => {
 
 onBeforeRouteLeave(async (to) => {
   if (
-    (to.path == "/" || to.path == "/about") &&
+    (to.path == "/" || to.path == "/about" || to.path == "/settings") &&
     (!appStore.formExpertSections.init.results ||
       Object.keys(appStore.formExpertSections.init.results).length !== 0)
   ) {

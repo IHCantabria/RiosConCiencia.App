@@ -30,7 +30,7 @@ onMounted(() => {
 });
 onBeforeRouteLeave(async (to) => {
   if (
-    (to.path == "/" || to.path == "/about") &&
+    (to.path == "/" || to.path == "/about" || to.path == "/settings") &&
     (!appStore.formPictsSections.width.results ||
       Object.keys(appStore.formPictsSections.width.results).length !== 0)
   ) {
