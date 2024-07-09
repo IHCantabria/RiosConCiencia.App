@@ -76,11 +76,11 @@ const emit = defineEmits(["cancel", "submit"]);
 // LYFECYCLE
 onMounted(() => {
   if (
-    Object.keys(riverSection.value).indexOf("isZec") === -1 ||
-    riverSection.value.isZec === null ||
-    riverSection.value.isZec === undefined
+    Object.keys(riverSection.value).indexOf("isZEC") === -1 ||
+    riverSection.value.isZEC === null ||
+    riverSection.value.isZEC === undefined
   ) {
-    riverSection.value.isZec = false;
+    riverSection.value.isZEC = false;
   }
 });
 
@@ -199,7 +199,7 @@ watch(
       <b-field label="ZEC">
         <b-select
           id="idRiver"
-          v-model="riverSection.isZec"
+          v-model="riverSection.isZEC"
           placeholder="Seleccione una opción"
           expanded
         >

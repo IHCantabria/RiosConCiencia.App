@@ -1,8 +1,9 @@
 <script setup>
-import { ref, computed, defineProps, watch } from "vue";
+import { ref, computed, defineProps, watch, onMounted } from "vue";
 import Spinner from "@/components/LoadingComponent.vue";
 import { useSettingsStore } from "@/store/settingsStore.js";
 import { useAppStore } from "@/store/appStore.js";
+import { USER_GROUP_TYPES } from "@/config/settings-config.js";
 
 // PROPS
 const props = defineProps({
@@ -74,6 +75,28 @@ const codHasErrors = computed(() => {
   if (props.action === "update") return false;
   return user.value.cod === "";
 });
+const groupNameHasErrors = computed(() => {
+  return (
+    user.value.isGroup &&
+    (user.value.groupName === "" ||
+      user.value.groupName === null ||
+      user.value.groupName === undefined)
+  );
+});
+const groupMembersHasErrors = computed(() => {
+  return (
+    user.value.isGroup &&
+    (user.value.groupMembers === "" ||
+      user.value.groupMembers === null ||
+      user.value.groupMembers === undefined)
+  );
+});
+const groupTypeHasErrors = computed(() => {
+  return (
+    user.value.isGroup &&
+    (user.value.groupType === null || user.value.groupType === undefined)
+  );
+});
 const isFormValid = computed(() => {
   return (
     !nameHasErrors.value &&
@@ -82,7 +105,10 @@ const isFormValid = computed(() => {
     !passwordConfirmHasErrors.value &&
     !emailHasErrors.value &&
     !roleNameHasErrors.value &&
-    !codHasErrors.value
+    !codHasErrors.value &&
+    !groupNameHasErrors.value &&
+    !groupMembersHasErrors.value &&
+    !groupTypeHasErrors.value
   );
 });
 const userRole = computed({
@@ -100,13 +126,32 @@ const userRole = computed({
 // EMITS
 const emit = defineEmits(["cancel", "submit"]);
 
+// LYFECYCLE
+onMounted(() => {
+  if (
+    Object.keys(user.value).indexOf("isGroup") === -1 ||
+    user.value.isGroup === null ||
+    user.value.isGroup === undefined
+  ) {
+    user.value.isGroup = false;
+  }
+});
+
 // METHODS
 const onCancel = () => {
   emit("cancel");
 };
 const onSubmit = () => {
   if (!isFormValid.value) return;
-  const parsedUser = { ...user.value, roleId: userRole.value.id };
+  const parsedUser = {
+    ...user.value,
+    roleId: userRole.value.id,
+    groupName: user.value.groupName || null,
+    groupMembers: user.value.groupMembers
+      ? Number(user.value.groupMembers)
+      : null,
+    groupType: user.value.groupType || null,
+  };
   emit("submit", parsedUser);
 };
 
@@ -229,6 +274,71 @@ watch(
         :type="{ 'is-danger': codHasErrors }"
       >
         <b-input id="cod" v-model="user.cod" type="text" placeholder="Cod" />
+      </b-field>
+      <!-- Group fields -->
+      <b-field label="Es grupo">
+        <b-select
+          id="isGroup"
+          v-model="user.isGroup"
+          placeholder="Seleccione una opción"
+          expanded
+        >
+          <option :value="true">Sí</option>
+          <option :value="false">No</option>
+        </b-select>
+      </b-field>
+      <b-field
+        v-if="user.isGroup"
+        label="Nombre del grupo"
+        :message="{
+          '*Este no puede estar vacío': groupNameHasErrors,
+        }"
+        :type="{ 'is-danger': groupNameHasErrors }"
+      >
+        <b-input
+          id="groupName"
+          v-model="user.groupName"
+          type="text"
+          placeholder="Nombre del grupo"
+        />
+      </b-field>
+      <b-field
+        v-if="user.isGroup"
+        label="Nº de miembros"
+        :message="{
+          '*Este no puede estar vacío': groupMembersHasErrors,
+        }"
+        :type="{ 'is-danger': groupMembersHasErrors }"
+      >
+        <b-input
+          id="groupName"
+          v-model="user.groupMembers"
+          type="number"
+          placeholder="Nº de miembros"
+        />
+      </b-field>
+      <b-field
+        v-if="user.isGroup"
+        label="Tipo de grupo"
+        :message="{
+          '*Este no puede estar vacío': groupTypeHasErrors,
+        }"
+        :type="{ 'is-danger': groupTypeHasErrors }"
+      >
+        <b-select
+          id="role"
+          v-model="user.groupType"
+          placeholder="Seleccione un tipo"
+          expanded
+        >
+          <option
+            v-for="GType in USER_GROUP_TYPES"
+            :key="GType.id"
+            :value="GType.name"
+          >
+            {{ GType.name }}
+          </option>
+        </b-select>
       </b-field>
     </div>
     <div class="buttons">

@@ -31,7 +31,7 @@ export const SECTIONS_TABLE_CONFIG = {
     },
     {
       title: "ZEC",
-      name: "isZec",
+      name: "isZEC",
       sortable: true,
     },
     { name: "actions", title: "", sortable: false },
@@ -64,6 +64,11 @@ export const USERS_TABLE_CONFIG = {
       name: "cod",
       sortable: true,
     },
+    {
+      title: "Grupo",
+      name: "isGroup",
+      sortable: true,
+    },
     { name: "actions", title: "", sortable: false },
   ],
   data: [],
@@ -79,6 +84,12 @@ export const USERS_TABLE_CONFIG = {
   ],
   allowMultipleSelection: false,
 };
+
+export const USER_GROUP_TYPES = [
+  { id: 1, name: "Escolar" },
+  { id: 2, name: "Familiar" },
+  { id: 3, name: "Amistad" },
+];
 
 export const USER_SECTIONS_TABLE_CONFIG = {
   columns: [
