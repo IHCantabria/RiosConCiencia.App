@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, defineProps, watch } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import Spinner from "@/components/LoadingComponent.vue";
 import { useSettingsStore } from "@/store/settingsStore.js";
 import { useAppStore } from "@/store/appStore.js";
@@ -72,6 +72,17 @@ const isFormValid = computed(() => {
 
 // EMITS
 const emit = defineEmits(["cancel", "submit"]);
+
+// LYFECYCLE
+onMounted(() => {
+  if (
+    Object.keys(riverSection.value).indexOf("isZec") === -1 ||
+    riverSection.value.isZec === null ||
+    riverSection.value.isZec === undefined
+  ) {
+    riverSection.value.isZec = false;
+  }
+});
 
 // METHODS
 const onCancel = () => {
@@ -183,6 +194,17 @@ watch(
           >
             {{ river.name }}
           </option>
+        </b-select>
+      </b-field>
+      <b-field label="ZEC">
+        <b-select
+          id="idRiver"
+          v-model="riverSection.isZec"
+          placeholder="Seleccione una opción"
+          expanded
+        >
+          <option :value="true">Sí</option>
+          <option :value="false">No</option>
         </b-select>
       </b-field>
     </div>

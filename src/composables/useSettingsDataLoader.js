@@ -32,8 +32,9 @@ export function useSettingsDataLoader() {
   };
 
   const updateAllRiverSections = async () => {
+    const token = appStore.user.token;
     try {
-      settingsStore.allRiverSections = await getAllRiverSections();
+      settingsStore.allRiverSections = await getAllRiverSections(token);
     } catch (err) {
       Toast.open({
         message: "Error updating river sections",

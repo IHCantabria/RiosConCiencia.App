@@ -29,6 +29,11 @@ export const SECTIONS_TABLE_CONFIG = {
       name: "river",
       sortable: true,
     },
+    {
+      title: "ZEC",
+      name: "isZec",
+      sortable: true,
+    },
     { name: "actions", title: "", sortable: false },
   ],
   data: [],
