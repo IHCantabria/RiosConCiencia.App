@@ -65,6 +65,7 @@ const setData = () => {
       surnames: user.surnames,
       roleName: user.roleName,
       cod: user.cod,
+      isGroup: user.isGroup,
     };
   });
   dataCopy.value = JSON.parse(JSON.stringify(data));

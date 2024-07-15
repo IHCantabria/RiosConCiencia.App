@@ -62,6 +62,7 @@ const setData = () => {
       coords: `Lon: ${section.coordX}, Lat: ${section.coordY}`,
       municipality: getMunicipalityName(section.idMunicipality),
       river: getRiverName(section.idRiver),
+      isZEC: section.isZEC,
     };
   });
   dataCopy.value = JSON.parse(JSON.stringify(data));
@@ -130,6 +131,7 @@ const onItemCheckboxClick = async (event) => {
 
     updateData();
     updateAdminRiverSectionsState();
+    filterData();
   } catch (error) {
     console.error(error);
     Toast.open({
