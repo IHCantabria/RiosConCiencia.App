@@ -4,68 +4,64 @@
 
 ## Project setup
 
+## Prerequisites
+
+The dependency installation, compilation and tag creation commands are managed from the package.json file and are executed using npm, so it is necessary that the user has npm and node installed with a version compatible with those indicated in the package file "engines" section.
+
+## External Dependencies
+
+RiosConCiencia.App requires  RiosConCiencia Api for its correct operation. For more information, access the repositories/docs of each one.
+
+## Environment variables in the appsettings
+
+For the correct compilation and operation of the application, it is necessary to configure the following placeholders for the environment variables set in the environment appsettings files:
+
+- RIOSCONCIENCIA_API_URL -> The base uri in which RiosConCiencia Api is hosted.
+
+To perform the replace, one solution is offered.
+
+First: Replace the placeholder values before launching the build scripts.
+
+## Local Run
+
+It is possible to run the App locally using the first method to set the values of the environment variables and running the command npm run dev. As an alternative an .env-sample file is provided with an example configuration, you need to create an env.develpment.local and replace the base URI of Apis 100% functionality.
+
+## Scripts
+
+### Run Local Build
+
 ```
-npm install
+npm run dev
 ```
 
-### Compiles and hot-reloads for development
+### Create a new Tag of the current code version(patch/minor/major), Example: "patch"
 
 ```
-npm run serve
+npm run deploy-patch
 ```
 
-### Compiles and minifies for production
+### install dependencies
 
 ```
+npm run ci
+```
+
+### Build and compiles the mode of the project (Pre)
+
+```
+npm run ci
 npm run build
 ```
 
-### Run your tests
+## Build Output Directory
 
-```
-npm run test
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Run your end-to-end tests
-
-```
-npm run test:e2e
-```
-
-### Run your unit tests
-
-```
-npm run test:unit
-```
-
-### Deploy version (patch/minor/major)
-
-```
-npm run deploy-patch -- "commit message"
-```
-
-### Push to remote repo (master + tags)
-
-```
-npm run postgit
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The output of the npm run build script is located in the "build/pre" folder.
 
 ## Built With
 
-- [Vue](https://vuejs.org/) - The Progressive Javascript Framework
-- [Webpack](https://webpack.js.org/) - Module Bundler
-- [Jest](https://jestjs.io/) - Unit Testing Framework
-- [Cypres](https://www.cypress.io/) - E2E Testing Framework
+- [Vue](https://vuejs.org/) - The progressive javascript framework
+- [Vite](https://vitejs.dev/) - Frontend Tooling
+- [Rollup](https://www.rollupjs.org/guide/en/) - Bundling
 
 ## Credits
 
@@ -75,7 +71,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 This software use:
 
-- [Buefy](https://buefy.org/) - MIT License
+- [Buefy](https://www.npmjs.com/package/@fantage9/buefy-vue3?activeTab=readme) - MIT License
 - [Bulma](https://bulma.io/) - MIT License
 - Weather data provided by [OpenWeather](https://openweathermap.org/) - License CC BY-SA 4.0
 

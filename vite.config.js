@@ -12,7 +12,7 @@ dns.setDefaultResultOrder("verbatim");
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   //Workaround for building environments
-  const dist = mode === "production" ? "build/prod/" : "build/dev/";
+  const dist = mode === "pre" ? "build/pre/" : "build/dev/";
   return {
     plugins: [
       vue(),
