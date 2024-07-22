@@ -28,10 +28,17 @@ app
   .mount("#app");
 const appStore = useAppStore();
 
+const intervalMS = 1000;
 const updateSW = registerSW({
   inmediate: true,
   onNeedRefresh() {
     appStore.setDefaultStateStore();
     updateSW();
+  },
+  onRegistered(r) {
+    r &&
+      setInterval(() => {
+        r.update();
+      }, intervalMS);
   },
 });
