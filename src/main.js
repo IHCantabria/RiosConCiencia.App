@@ -34,18 +34,14 @@ const updateSW = registerSW({
     updateSW();
   },
   onRegistered(r) {
-    r &&
-      r.addEventListener("updatefound", () => {
-        const newWorker = r.installing;
-        newWorker &&
-          newWorker.addEventListener("statechange", () => {
-            if (newWorker.state === "installed") {
-              if (navigator.serviceWorker.controller) {
-                appStore.setDefaultStateStore();
-                window.location.reload();
-              }
-            }
-          });
+    r?.addEventListener("updatefound", () => {
+      const newWorker = r.installing;
+      newWorker?.addEventListener("statechange", () => {
+        if (navigator.serviceWorker.controller) {
+          appStore.setDefaultStateStore();
+          window.location.reload();
+        }
       });
+    });
   },
 });
