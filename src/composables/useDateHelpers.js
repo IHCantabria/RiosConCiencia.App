@@ -1,5 +1,5 @@
 // useDateHelpers.js
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { formatToTimeZone } from "date-fns-timezone";
 import { addHours, format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -43,6 +43,13 @@ export function useDateHelpers() {
       }) + "Z";
     return dateISO;
   };
+
+  // Update currentDateTime every 15 seconds
+  onMounted(() => {
+    setInterval(() => {
+      currentDateTime.value = new Date().getTime();
+    }, 15000); // 60000 ms = 1 minute
+  });
 
   return {
     currentDateTime,
