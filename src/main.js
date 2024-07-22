@@ -31,17 +31,7 @@ const appStore = useAppStore();
 const updateSW = registerSW({
   inmediate: true,
   onNeedRefresh() {
+    appStore.setDefaultStateStore();
     updateSW();
-  },
-  onRegistered(r) {
-    r?.addEventListener("updatefound", () => {
-      const newWorker = r.installing;
-      newWorker?.addEventListener("statechange", () => {
-        if (navigator.serviceWorker.controller) {
-          appStore.setDefaultStateStore();
-          window.location.reload();
-        }
-      });
-    });
   },
 });
