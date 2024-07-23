@@ -26,12 +26,14 @@ const intervalMS = 1000;
 const updateSW = registerSW({
   inmediate: true,
   onNeedRefresh() {
+    console.log("onNeedRefresh");
     appStore.setDefaultStateStore();
     updateSW();
   },
   onRegistered(r) {
     r &&
       setInterval(() => {
+        appStore.setDefaultStateStore();
         r.update();
       }, intervalMS);
   },
