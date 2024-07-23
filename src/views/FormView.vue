@@ -26,9 +26,11 @@ onMounted(() => {
 onBeforeRouteLeave(async (to) => {
   const backbuttonPulsed = inject("$backbuttonPulsed");
   if (backbuttonPulsed.value) {
+    alert("onBeforeRouteLeave baqckbuttonPulsed");
     backbuttonPulsed.value = false;
     return false;
   }
+  alert("pasa del backbuttonPulsed");
   if (
     (to.path == "/" || to.path == "/about" || to.path == "/settings") &&
     (!appStore.formExpertSections.init.results ||
