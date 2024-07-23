@@ -1,6 +1,6 @@
 <!-- eslint-disable no-unused-vars -->
 <script setup>
-import { onMounted, ref, inject } from "vue";
+import { onMounted, ref, inject, nextTick } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 import { DialogProgrammatic as Dialog } from "@fantage9/buefy-vue3";
 
@@ -25,8 +25,8 @@ onMounted(() => {
 });
 
 onBeforeRouteLeave(async (to) => {
-  alert("on before route leave pulsed value: ", backbuttonPulsed.value);
-  console.log("on before route leave pulsed value: ", backbuttonPulsed.value);
+  await nextTick();
+  alert("on before route leave pulsed value: " + backbuttonPulsed.value);
   if (backbuttonPulsed.value) {
     alert("onBeforeRouteLeave baqckbuttonPulsed");
     backbuttonPulsed.value = false;
