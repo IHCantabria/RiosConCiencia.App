@@ -1,6 +1,6 @@
 {
   "name": "riosconciencia",
-  "version": "0.9.41",
+  "version": "0.9.42",
   "type": "module",
   "scripts": {
     "create-pwa-assets": "pwa-asset-generator ./src/assets/icons/camberaIco.png ./public/img/icons --manifest ./public/manifest.json",

@@ -23,17 +23,17 @@ app.use(pinia).use(router).use(Buefy).use(FloatingVue).mount("#app");
 const appStore = useAppStore();
 
 // TODO: Change intervalMS to 30 minutes
-const intervalMS = 1000;
+const intervalMS = 5000;
 registerSW({
   inmediate: true,
   onRegistered(r) {
     r &&
       setInterval(async () => {
-        const updateResponse = await r.update();
-        if (updateResponse.onupdatefound !== null) {
-          console.log("Nueva actualización encontrada.");
-          appStore.setDefaultStateStore();
-        }
+        r.update();
       }, intervalMS);
+  },
+  onOfflineReady() {
+    console.log("App is offline-ready");
+    appStore.setDefaultStateStore();
   },
 });
