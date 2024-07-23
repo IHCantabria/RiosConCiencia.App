@@ -14,15 +14,25 @@ import { useAppStore } from "@/store/appStore.js";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
-const backbuttonPulsed = inject("$backbuttonPulsed");
 
 // DATA
 const formReady = ref(false);
+const backbuttonPulsed = ref(false);
 
 // LYFECYCLE
 onMounted(() => {
   initFunction();
+  // Verifica si el usuario está en un dispositivo móvil Android
+  const isMobileAndroid = /Android/i.test(navigator.userAgent);
+
+  if (isMobileAndroid) {
+    window.addEventListener("popstate", handlePopState);
+  }
 });
+
+const handlePopState = () => {
+  backbuttonPulsed.value = true;
+};
 
 onBeforeRouteLeave(async (to) => {
   await nextTick();
