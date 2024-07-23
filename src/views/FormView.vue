@@ -34,25 +34,20 @@ onMounted(() => {
 });
 
 const handlePopState = () => {
-  alert("handlePopState");
   backbuttonPulsed.value = true;
 };
 
 onBeforeRouteLeave(async (to) => {
   await nextTick();
-  alert(
-    "on before route leave pulsed value: " + computedBackbuttonPulsed.value,
-  );
   if (computedBackbuttonPulsed.value) {
-    alert("onBeforeRouteLeave baqckbuttonPulsed");
     backbuttonPulsed.value = false;
     return false;
   }
-  alert("pasa del backbuttonPulsed" + computedBackbuttonPulsed.value);
   if (
     (to.path == "/" || to.path == "/about" || to.path == "/settings") &&
     (!appStore.formExpertSections.init.results ||
-      Object.keys(appStore.formExpertSections.init.results).length !== 0)
+      Object.keys(appStore.formExpertSections.init.results).length !== 0) &&
+    !computedBackbuttonPulsed.value
   ) {
     const leave = await confirmDialog();
     if (!leave) {
