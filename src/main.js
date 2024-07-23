@@ -26,10 +26,19 @@ const appStore = useAppStore();
 const intervalMS = 5000;
 registerSW({
   inmediate: true,
-  onRegistered(r) {
+  onRegisteredSW(swUrl, r) {
     r &&
       setInterval(async () => {
-        r.update();
+        if (r.installing || !navigator) return;
+        if ("connection" in navigator && !navigator.onLine) return;
+        const resp = await fetch(swUrl, {
+          cache: "no-store",
+          headers: {
+            cache: "no-store",
+            "cache-control": "no-cache",
+          },
+        });
+        if (resp?.status === 200) await r.update();
       }, intervalMS);
   },
   onOfflineReady() {
