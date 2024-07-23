@@ -6,9 +6,9 @@ import App from "./App.vue";
 import router from "./router";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-// import { registerSW } from "virtual:pwa-register";
+import { registerSW } from "virtual:pwa-register";
 import "@mdi/font/css/materialdesignicons.css";
-// import { useAppStore } from "./store/appStore";
+import { useAppStore } from "./store/appStore";
 
 const pinia = createPinia();
 pinia.use(({ store }) => {
@@ -19,17 +19,16 @@ pinia.use(piniaPluginPersistedstate);
 const app = createApp(App);
 
 app.use(pinia).use(router).use(Buefy).use(FloatingVue).mount("#app");
-// const appStore = useAppStore();
+const appStore = useAppStore();
 
-// // 1 minute and a half
-// const intervalMS = 90 * 1000;
-
-// registerSW({
-//   onRegistered(r) {
-//     console.log(r);
-//     r &&
-//       setInterval(() => {
-//         r.update();
-//       }, intervalMS);
-//   },
-// });
+const updateSW = registerSW({
+  immediate: true,
+  onOfflineReady() {
+    console.log("onOfflineReady");
+  },
+  onNeedRefresh() {
+    console.log("onNeedRefresh");
+    appStore.setDefaultStateStore();
+    updateSW();
+  },
+});
