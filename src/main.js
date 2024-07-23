@@ -28,6 +28,7 @@ app
   .mount("#app");
 const appStore = useAppStore();
 
+// TODO: Change intervalMS to 30 minutes
 const intervalMS = 1000;
 const updateSW = registerSW({
   inmediate: true,

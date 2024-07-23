@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import { useAppStore } from "../store/appStore";
-import { inject } from "vue";
 
 const routes = [
   {
@@ -69,14 +68,6 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-});
-
-router.beforeEach(() => {
-  const backbuttonPulsed = inject("$backbuttonPulsed");
-  if (backbuttonPulsed.value) {
-    backbuttonPulsed.value = false;
-    return false;
-  }
 });
 
 export default router;

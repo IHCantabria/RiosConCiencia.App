@@ -1,6 +1,6 @@
 <!-- eslint-disable no-unused-vars -->
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, inject } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 import { DialogProgrammatic as Dialog } from "@fantage9/buefy-vue3";
 
@@ -24,6 +24,11 @@ onMounted(() => {
 });
 
 onBeforeRouteLeave(async (to) => {
+  const backbuttonPulsed = inject("$backbuttonPulsed");
+  if (backbuttonPulsed.value) {
+    backbuttonPulsed.value = false;
+    return false;
+  }
   if (
     (to.path == "/" || to.path == "/about" || to.path == "/settings") &&
     (!appStore.formExpertSections.init.results ||
