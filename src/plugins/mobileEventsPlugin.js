@@ -6,15 +6,14 @@ export const mobileEventsPlugin = {
 
     app.provide("$backbuttonPulsed", backbuttonPulsed);
 
-    const handlePopState = () => {
-      alert("handlePopState");
+    const handlePopState = (event) => {
+      event.preventDefault();
       backbuttonPulsed.value = true;
+      window.history.pushState(null, null, window.location.pathname); // Evita retroceder
     };
 
-    // Verifica si el usuario está en un dispositivo móvil
+    // Verifica si el usuario está en un dispositivo móvil Android
     const isMobileAndroid = /Android/i.test(navigator.userAgent);
-
-    alert("isMobileAndroid: " + isMobileAndroid);
 
     if (isMobileAndroid) {
       window.addEventListener("popstate", handlePopState);
