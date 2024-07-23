@@ -1,6 +1,6 @@
 <!-- eslint-disable no-unused-vars -->
 <script setup>
-import { onMounted, ref, inject, nextTick, computed } from "vue";
+import { onMounted, ref } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 import { DialogProgrammatic as Dialog } from "@fantage9/buefy-vue3";
 
@@ -17,37 +17,17 @@ const appStore = useAppStore();
 
 // DATA
 const formReady = ref(false);
-const backbuttonPulsed = ref(false);
-
-// COMPUTED
-const computedBackbuttonPulsed = computed(() => backbuttonPulsed.value);
 
 // LYFECYCLE
 onMounted(() => {
   initFunction();
-  // Verifica si el usuario está en un dispositivo móvil Android
-  const isMobileAndroid = /Android/i.test(navigator.userAgent);
-
-  if (isMobileAndroid) {
-    window.addEventListener("popstate", handlePopState);
-  }
 });
 
-const handlePopState = () => {
-  backbuttonPulsed.value = true;
-};
-
 onBeforeRouteLeave(async (to) => {
-  await nextTick();
-  if (computedBackbuttonPulsed.value) {
-    backbuttonPulsed.value = false;
-    return false;
-  }
   if (
     (to.path == "/" || to.path == "/about" || to.path == "/settings") &&
     (!appStore.formExpertSections.init.results ||
-      Object.keys(appStore.formExpertSections.init.results).length !== 0) &&
-    !computedBackbuttonPulsed.value
+      Object.keys(appStore.formExpertSections.init.results).length !== 0)
   ) {
     const leave = await confirmDialog();
     if (!leave) {
