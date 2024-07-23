@@ -14,6 +14,7 @@ import { useAppStore } from "@/store/appStore.js";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
+const backbuttonPulsed = inject("$backbuttonPulsed");
 
 // DATA
 const formReady = ref(false);
@@ -24,7 +25,6 @@ onMounted(() => {
 });
 
 onBeforeRouteLeave(async (to) => {
-  const backbuttonPulsed = inject("$backbuttonPulsed");
   if (backbuttonPulsed.value) {
     alert("onBeforeRouteLeave baqckbuttonPulsed");
     backbuttonPulsed.value = false;
