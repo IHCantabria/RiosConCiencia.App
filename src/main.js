@@ -29,11 +29,11 @@ registerSW({
   onRegistered(r) {
     r &&
       setInterval(async () => {
-        if (r.onupdatefound !== null) {
+        const updateResponse = await r.update();
+        if (updateResponse.onupdatefound !== null) {
           console.log("Nueva actualización encontrada.");
           appStore.setDefaultStateStore();
         }
-        r.update();
       }, intervalMS);
   },
 });
