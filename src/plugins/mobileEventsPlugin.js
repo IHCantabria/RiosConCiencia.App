@@ -7,7 +7,9 @@ export const mobileEventsPlugin = {
     app.provide("$backbuttonPulsed", backbuttonPulsed);
 
     const handlePopState = (event) => {
+      alert("handlepopstate before preventdefault");
       event.preventDefault();
+      alert("handlepopstate after preventdefault");
       backbuttonPulsed.value = true;
       window.history.pushState(null, null, window.location.pathname); // Evita retroceder
     };

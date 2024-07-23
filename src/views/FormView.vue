@@ -26,6 +26,7 @@ onMounted(() => {
 
 onBeforeRouteLeave(async (to) => {
   alert("on before route leave pulsed value: ", backbuttonPulsed.value);
+  console.log("on before route leave pulsed value: ", backbuttonPulsed.value);
   if (backbuttonPulsed.value) {
     alert("onBeforeRouteLeave baqckbuttonPulsed");
     backbuttonPulsed.value = false;
