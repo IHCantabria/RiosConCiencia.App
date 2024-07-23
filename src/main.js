@@ -5,10 +5,10 @@ import FloatingVue from "floating-vue";
 import App from "./App.vue";
 import router from "./router";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
-// eslint-disable-next-line import/no-unresolved
-import { registerSW } from "virtual:pwa-register";
+
+// import { registerSW } from "virtual:pwa-register";
 import "@mdi/font/css/materialdesignicons.css";
-import { useAppStore } from "./store/appStore";
+// import { useAppStore } from "./store/appStore";
 
 const pinia = createPinia();
 pinia.use(({ store }) => {
@@ -19,21 +19,17 @@ pinia.use(piniaPluginPersistedstate);
 const app = createApp(App);
 
 app.use(pinia).use(router).use(Buefy).use(FloatingVue).mount("#app");
-const appStore = useAppStore();
+// const appStore = useAppStore();
 
-// TODO: Change intervalMS to 30 minutes
-const intervalMS = 1000;
-const updateSW = registerSW({
-  inmediate: true,
-  onNeedRefresh() {
-    console.log("onNeedRefresh");
-    appStore.setDefaultStateStore();
-    updateSW();
-  },
-  onRegistered(r) {
-    r &&
-      setInterval(() => {
-        r.update();
-      }, intervalMS);
-  },
-});
+// // 1 minute and a half
+// const intervalMS = 90 * 1000;
+
+// registerSW({
+//   onRegistered(r) {
+//     console.log(r);
+//     r &&
+//       setInterval(() => {
+//         r.update();
+//       }, intervalMS);
+//   },
+// });

@@ -7,8 +7,8 @@ import {
   ToastProgrammatic as Toast,
   DialogProgrammatic as Dialog,
 } from "@fantage9/buefy-vue3";
-
 import { useOfflineManager } from "@/composables/useOfflineManager.js";
+import ReloadPrompt from "./components/ReloadPrompt.vue";
 
 // COMPOSABLES & STORES
 const { isGeoDataReady, geoDataError } = useGeoLoader();
@@ -91,6 +91,7 @@ watch(geoDataError, (value) => {
       <TheFooter />
     </footer>
   </div>
+  <ReloadPrompt />
 </template>
 
 <style lang="scss">
