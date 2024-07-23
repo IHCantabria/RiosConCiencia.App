@@ -33,7 +33,6 @@ registerSW({
       }, intervalMS);
   },
   onOfflineReady() {
-    console.log("App is offline-ready");
     appStore.setDefaultStateStore();
   },
 });

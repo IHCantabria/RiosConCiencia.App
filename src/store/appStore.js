@@ -97,7 +97,6 @@ export const useAppStore = defineStore("appStore", {
   },
   actions: {
     setDefaultStateStore() {
-      console.log("setDefaultStateStore");
       localStorage.clear();
       this.$reset();
       localStorage.clear();
