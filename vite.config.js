@@ -41,7 +41,7 @@ export default defineConfig(({ mode }) => {
         deleteOriginFile: false,
       }),
       VitePWA({
-        registerType: "autoUpdate",
+        registerType: "prompt",
         includeAssets: [
           "cambera_icon.ico",
           "robots.txt",

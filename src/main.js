@@ -33,7 +33,6 @@ const updateSW = registerSW({
   onRegistered(r) {
     r &&
       setInterval(() => {
-        appStore.setDefaultStateStore();
         r.update();
       }, intervalMS);
   },
