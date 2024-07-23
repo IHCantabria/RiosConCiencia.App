@@ -1,6 +1,6 @@
 <!-- eslint-disable no-unused-vars -->
 <script setup>
-import { onMounted, ref, inject, nextTick } from "vue";
+import { onMounted, ref, inject, nextTick, computed } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 import { DialogProgrammatic as Dialog } from "@fantage9/buefy-vue3";
 
@@ -19,6 +19,9 @@ const appStore = useAppStore();
 const formReady = ref(false);
 const backbuttonPulsed = ref(false);
 
+// COMPUTED
+const computedBackbuttonPulsed = computed(() => backbuttonPulsed.value);
+
 // LYFECYCLE
 onMounted(() => {
   initFunction();
@@ -31,18 +34,21 @@ onMounted(() => {
 });
 
 const handlePopState = () => {
+  alert("handlePopState");
   backbuttonPulsed.value = true;
 };
 
 onBeforeRouteLeave(async (to) => {
   await nextTick();
-  alert("on before route leave pulsed value: " + backbuttonPulsed.value);
-  if (backbuttonPulsed.value) {
+  alert(
+    "on before route leave pulsed value: " + computedBackbuttonPulsed.value,
+  );
+  if (computedBackbuttonPulsed.value) {
     alert("onBeforeRouteLeave baqckbuttonPulsed");
     backbuttonPulsed.value = false;
     return false;
   }
-  alert("pasa del backbuttonPulsed");
+  alert("pasa del backbuttonPulsed" + computedBackbuttonPulsed.value);
   if (
     (to.path == "/" || to.path == "/about" || to.path == "/settings") &&
     (!appStore.formExpertSections.init.results ||
