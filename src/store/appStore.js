@@ -97,15 +97,8 @@ export const useAppStore = defineStore("appStore", {
   },
   actions: {
     setDefaultStateStore() {
-      this.user = {};
-      this.userRiverSections = [];
-      this.activeSectionId = 0;
-      this.activeFormId = 0;
-      this.formExpertSections = {};
-      this.formPictsSections = {};
-      this.goodPlantsAbsence = false;
-      this.garbageAbsence = false;
-      this.goodAnimalsAbsence = false;
+      this.$reset();
+      localStorage.clear();
     },
     setActiveUser(user) {
       this.user = user;
