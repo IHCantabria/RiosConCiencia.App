@@ -41,14 +41,14 @@ export default defineConfig(({ mode }) => {
         deleteOriginFile: false,
       }),
       VitePWA({
-        registerType: "prompt",
+        registerType: "autoUpdate",
         includeAssets: [
           "cambera_icon.ico",
           "robots.txt",
           "apple-touch-icon.png",
         ],
         devOptions: {
-          enabled: false,
+          enabled: true,
         },
         manifest: {
           name: "RíosConCienciApp",
