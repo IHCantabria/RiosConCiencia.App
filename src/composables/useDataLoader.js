@@ -43,7 +43,7 @@ const getRiverSections = async () => {
   } catch (err) {
     const msg =
       err.response.status == 404
-        ? "¡Atención! no tienes asignados tramos de río, no podras completar ni enviar ningun formulario experto."
+        ? "¡Atención! no tienes asignados tramos de río, no podras completar ni enviar ningun formulario."
         : "Fallo al recuperar tus tramos de río, prueba mas tarde";
     Toast.open({
       message: msg,

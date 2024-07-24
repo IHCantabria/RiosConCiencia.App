@@ -27,15 +27,35 @@ const challengeUser = () => {
     <div class="intro__main">
       <div v-if="appStore.userCanDoExpertForm" class="option">
         <h2 class="subtitle">Entrar</h2>
-        <b-button size="is-large" type="is-primary" @click="expertUser()"
-          >Empezar</b-button
+        <b-button
+          v-tooltip="
+            appStore.userRiverSections.length == 0
+              ? 'No tienes tramos expert asignados'
+              : ''
+          "
+          :disabled="appStore.userRiverSections.length == 0"
+          size="is-large"
+          type="is-primary"
+          @click="expertUser()"
         >
+          Empezar
+        </b-button>
       </div>
       <div v-if="appStore.userCanDoPictsForm" class="option">
         <h2 class="subtitle">Entrar con Pictos</h2>
-        <b-button size="is-large" type="is-primary" @click="challengeUser()"
-          >Empezar</b-button
+        <b-button
+          v-tooltip="
+            appStore.userRiverSectionsPicts.length == 0
+              ? 'No tienes tramos pictos asignados'
+              : ''
+          "
+          :disabled="appStore.userRiverSectionsPicts.length == 0"
+          size="is-large"
+          type="is-primary"
+          @click="challengeUser()"
         >
+          Empezar
+        </b-button>
       </div>
     </div>
     <div class="intro__help">
@@ -105,5 +125,11 @@ a:active {
 
 .option {
   padding: 1rem;
+}
+
+.nodata {
+  padding: 5rem;
+  height: 100%;
+  font-size: 1.2rem;
 }
 </style>
