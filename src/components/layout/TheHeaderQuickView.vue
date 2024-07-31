@@ -46,7 +46,7 @@ const loadWeather = async (point) => {
 watch(
   () => appStore.userPosition,
   (newPosition, oldPosition) => {
-    if (newPosition !== oldPosition) {
+    if (newPosition !== oldPosition && newPosition) {
       loadWeather({
         lon: newPosition.lon,
         lat: newPosition.lat,

@@ -157,6 +157,7 @@ export const useAppStore = defineStore("appStore", {
       this.formExpertSections[payload.name].isValid = payload.isValid;
     },
     updateSpecificPictsSectionValues(payload) {
+      if (!this.formPictsSections[payload.name]) return;
       this.formPictsSections[payload.name].results = { ...payload.values };
       this.formPictsSections[payload.name].isValid = payload.isValid;
     },
@@ -182,11 +183,8 @@ export const useAppStore = defineStore("appStore", {
     },
     logout() {
       const settingsStore = useSettingsStore();
-      this.setActiveUser({});
-      this.clearRiverSections({});
-      this.clearPictsFormResponses();
-      this.clearExpertFormResponses();
       settingsStore.resetSettingsStore();
+      this.setDefaultStateStore();
     },
   },
   persist: true,

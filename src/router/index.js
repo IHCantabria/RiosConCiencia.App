@@ -26,7 +26,10 @@ const routes = [
 
       if (!appStore.userIsLogged || !appStore.isExpertDataLoaded) {
         return { name: "login" };
-      } else if (!appStore.userCanDoExpertForm) {
+      } else if (
+        !appStore.userCanDoExpertForm ||
+        appStore.userRiverSections.length == 0
+      ) {
         return false;
       }
     },
@@ -40,7 +43,10 @@ const routes = [
       //  same with isPictsDataLoaded
       if (!appStore.userIsLogged || !appStore.isExpertDataLoaded) {
         return { name: "login" };
-      } else if (!appStore.userCanDoPictsForm) {
+      } else if (
+        !appStore.userCanDoPictsForm ||
+        appStore.userRiverSectionsPicts.length == 0
+      ) {
         return false;
       }
     },

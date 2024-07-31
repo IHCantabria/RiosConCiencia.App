@@ -126,10 +126,4 @@ a:active {
 .option {
   padding: 1rem;
 }
-
-.nodata {
-  padding: 5rem;
-  height: 100%;
-  font-size: 1.2rem;
-}
 </style>
