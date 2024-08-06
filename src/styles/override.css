@@ -1,9 +1,11 @@
 .img-option label.b-radio.radio.button.is-primary {
   background-color: #64b300;
 }
+
 .img-option label.b-radio.radio.button.is-focused {
   border-color: transparent;
 }
+
 .img-option .b-radio.radio.button {
   padding: 0;
   border: 0;
@@ -11,13 +13,16 @@
   width: 100%;
   background-color: transparent;
 }
+
 .img-option label.b-checkbox.checkbox.button.is-primary {
   background-color: #64b300;
 }
+
 .img-option label.b-checkbox.checkbox.button.is-focused {
   border-color: transparent;
   box-shadow: none;
 }
+
 .img-option .b-checkbox.checkbox.button {
   padding: 0;
   border: 0;
@@ -39,4 +44,4 @@ div.control.img-option {
 span.tag.guide-step__text.is-info {
   white-space: pre-wrap;
   height: auto;
-}/*# sourceMappingURL=override.css.map */
+}
