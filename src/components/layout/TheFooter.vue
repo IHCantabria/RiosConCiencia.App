@@ -44,7 +44,6 @@ const isFormPage = computed(() => {
           title="Proyecto Ríos"
           alt="Logo Proyecto Ríos"
         />
-        />
       </div>
     </div>
     <div v-show="isFormPage" class="footer-container__form-nav">
