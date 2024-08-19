@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import ManualPDF from "@/assets/pdfs/manual2019.pdf";
+import ManualPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 const router = useRouter();
 const appStore = useAppStore();
