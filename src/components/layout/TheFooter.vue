@@ -23,12 +23,12 @@ const isFormPage = computed(() => {
           <span>Con la colaboración de:</span>
         </div>
         <img
-          src="@/assets/logos/LogoMinisterio-FECYT.png"
+          src="@/assets/logos/faldon_FECY2024_fondo_CLARO.png"
           title="Gobierno de España y Fundación Española para la Ciencia y la Tecnología"
           alt="Logo Ministerio de Ciencia e Innovación y FECYT"
         />
       </div>
-      <div class="logo">
+      <!-- <div class="logo">
         <div class="claim-container">
           <span>Un proyecto de:</span>
         </div>
@@ -44,7 +44,7 @@ const isFormPage = computed(() => {
           title="Proyecto Ríos"
           alt="Logo Proyecto Ríos"
         />
-      </div>
+      </div> -->
     </div>
     <div v-show="isFormPage" class="footer-container__form-nav">
       <FormStepsNavigation
