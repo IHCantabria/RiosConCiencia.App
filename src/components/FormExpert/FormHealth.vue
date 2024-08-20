@@ -3,7 +3,6 @@ import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import DiagnosticoPDF from "@/assets/pdfs/diagnostico.pdf";
 import RiberaPDF from "@/assets/pdfs/ribera.pdf";
-import FichaQRISI2019PDF from "@/assets/pdfs/fichaQRISI2019.pdf";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import { useRouter } from "vue-router";
@@ -302,15 +301,9 @@ watch(
           @click="downloadPDF(RiberaPDF, 'ribera')"
           ><b-icon icon="information-outline" type="is-primary"></b-icon
         ></a>
-        <a
-          class="header-section__help-item"
-          @click="downloadPDF(FichaQRISI2019PDF, 'fichaQRISI2019')"
-          ><b-icon icon="book-information-variant" type="is-primary"></b-icon
-        ></a>
       </div>
     </div>
-    <b-field label="a. Estructura de las riberas, grado de naturalidad">
-    </b-field>
+    <b-field label="a. Estructura y complejidad de la ribera"> </b-field>
     <b-field
       :message="{
         '*Hay que seleccionar una opción': naturalnessHasErrors,
@@ -356,7 +349,7 @@ watch(
     </b-field>
 
     <b-field
-      label="c. Continuidad de la vegetación"
+      label="c. Continuidad de la vegetación de ribera a lo largo del río"
       :message="{
         '*Hay que seleccionar una opción': vegetationsHasErrors,
       }"
