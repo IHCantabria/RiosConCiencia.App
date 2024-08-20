@@ -33,6 +33,7 @@ const tableConfig = ref(null);
 const dataCopy = ref(null);
 const riverSectionAliasIdFilter = ref("");
 const userRiverSectionsCopy = ref(null);
+const filterShowAllRiverSections = ref(false);
 
 // EMITS
 const emit = defineEmits(["finish-click"]);
@@ -43,6 +44,7 @@ onMounted(() => {
     JSON.stringify(props.userRiverSections),
   );
   setTableConfig();
+  filterData(); // Ensure data is filtered on load
 });
 
 // METHODS
@@ -70,6 +72,7 @@ const setData = () => {
 };
 const updateData = () => {
   tableConfig.value.data = setData();
+  filterData(); // Ensure the data is filtered after update
 };
 const setExpert = (idSection) => {
   return userRiverSectionsCopy.value.some(
@@ -101,11 +104,15 @@ const filterData = () => {
   const filterValue = riverSectionAliasIdFilter.value.toLowerCase().trim();
   data = data.filter(
     (section) =>
-      section.name
+      (section.name
         .toLowerCase()
         .replace(/\s+/g, " ")
         .includes(filterValue.replace(/\s+/g, " ")) ||
-      section.id.toString().includes(filterValue),
+        section.id.toString().includes(filterValue)) &&
+      (filterShowAllRiverSections.value ||
+        userRiverSectionsCopy.value.some(
+          (userSection) => userSection.idRiverSection === section.id,
+        )),
   );
   tableConfig.value.data = data;
 };
@@ -131,7 +138,6 @@ const onItemCheckboxClick = async (event) => {
 
     updateData();
     updateAdminRiverSectionsState();
-    filterData();
   } catch (error) {
     console.error(error);
     Toast.open({
@@ -215,6 +221,16 @@ const updateAdminRiverSectionsState = () => {
             @input="onFilterChange($event.target.value)"
           />
         </b-field>
+        <!-- Checkbox to show all or only selected -->
+        <b-field label="Tramos" class="filter-label">
+          <b-checkbox
+            v-model="filterShowAllRiverSections"
+            type="is-primary"
+            @change="filterData()"
+          >
+            Mostrar todos
+          </b-checkbox>
+        </b-field>
       </div>
       <div class="controls__buttons">
         <b-button
@@ -263,6 +279,9 @@ const updateAdminRiverSectionsState = () => {
     width: 100%;
 
     &__filters {
+      display: flex;
+      gap: 1rem;
+
       .filter-label {
         text-align: start;
       }
