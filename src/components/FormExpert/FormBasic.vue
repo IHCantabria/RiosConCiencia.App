@@ -329,7 +329,7 @@ watch(
       ></b-input>
     </b-field>
     <b-field
-      label="1.3. Anchura media del cauce (m.):"
+      label="1.3. Anchura media del cauce (m):"
       :message="{
         '*Hay que seleccionar una opción': riverBedWidthHasErrors,
       }"
@@ -351,7 +351,7 @@ watch(
       </b-select>
     </b-field>
     <b-field
-      label="1.4. Profundidad media del cauce (cm.):"
+      label="1.4. Profundidad media del cauce (cm):"
       :message="{
         '*Hay que seleccionar una opción': riverBedDepthHasErrors,
       }"
@@ -373,7 +373,7 @@ watch(
         </option>
       </b-select>
     </b-field>
-    <b-field label="1.5. Anchura media de la zona de ribera (m.):"> </b-field>
+    <b-field label="1.5. Anchura media de la zona de ribera (m):"> </b-field>
     <div class="two-controls">
       <b-field
         label="Izquierda"
@@ -526,12 +526,13 @@ watch(
   <!-- SPILLS -->
   <div class="form-section">
     <div class="header-section mt-5">
-      <b-field label="1.11. Inspección de vertidos (500 m)"> </b-field>
-      <a
+      <b-field label="1.11. Inspección de vertidos"> </b-field>
+      <!-- TODO: Update manual pdf -->
+      <!-- <a
         class="header-section__help"
         @click="downloadPDF(VertidosPDF, 'vertidos')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
+      ></a> -->
     </div>
     <div class="form-section__block form-section__block-spills">
       <b-field label="Coordenadas (WGS84)"></b-field>
