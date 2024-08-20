@@ -5,9 +5,7 @@ import { usePictsHelper } from "@/composables/usePictsHelper.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import helpInfo1 from "@/assets/images/picts/info/helpInfo1.jpg";
 import helpInfo2 from "@/assets/images/picts/info/helpInfo2.jpg";
-import helpInfo3 from "@/assets/images/picts/info/helpInfo3.jpg";
 import helpInfo4 from "@/assets/images/picts/info/helpInfo4.jpg";
-import helpInfo5 from "@/assets/images/picts/info/helpInfo5.jpg";
 import helpInfo6 from "@/assets/images/picts/info/helpInfo6.jpg";
 import helpInfo7 from "@/assets/images/picts/info/helpInfo7.jpg";
 import RCC1PDF from "@/assets/pdfs/RCC1.pdf";
@@ -173,7 +171,6 @@ const toggleHelpRiverBegin = () => {
           message="Se puede considerar que el río está bien cuando: 1) el agua está limpia; 2) no encontramos basura en las márgenes y; 3) existen invertebrados que indican que la calidad del agua es buena."
         ></b-field>
         <div class="info-step__body">
-          <img :src="helpInfo3" alt="helpInfo3" />
           <img :src="helpInfo4" alt="helpInfo4" />
         </div>
       </div>
@@ -203,7 +200,6 @@ const toggleHelpRiverBegin = () => {
           message="Se puede considerar que el río está mal cuando: 1) el agua está sucia; 2) encontramos basura en las márgenes y; 3) no hay invertebrados que indican que la calidad del agua es buena, viviendo en su lugar otro tipo de invertebrados menos exigentes."
         ></b-field>
         <div class="info-step__body">
-          <img :src="helpInfo5" alt="helpInfo5" />
           <img :src="helpInfo6" alt="helpInfo6" />
         </div>
       </div>
