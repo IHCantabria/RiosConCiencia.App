@@ -159,6 +159,7 @@ watch(
         }"
         :type="{ 'is-danger': idMunicipalityHasErrors }"
       >
+        <!-- Opciones ordenadas alfabéticamente -->
         <b-select
           id="idMunicipality"
           v-model="riverSection.idMunicipality"
@@ -166,7 +167,9 @@ watch(
           expanded
         >
           <option
-            v-for="municipality in settingsStore.allMunicipalities"
+            v-for="municipality in settingsStore.allMunicipalities.sort(
+              (a, b) => a.name.localeCompare(b.name),
+            )"
             :key="municipality.id"
             :value="municipality.id"
           >
