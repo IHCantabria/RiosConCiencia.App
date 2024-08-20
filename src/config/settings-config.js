@@ -85,11 +85,11 @@ export const USERS_TABLE_CONFIG = {
   allowMultipleSelection: false,
 };
 
-// TODO: Update with real group types
 export const USER_GROUP_TYPES = [
-  { id: 1, name: "Escolar" },
-  { id: 2, name: "Familiar" },
-  { id: 3, name: "Amistad" },
+  { id: 1, name: "Familiar" },
+  { id: 2, name: "Amistad" },
+  { id: 3, name: "Centros educativos" },
+  { id: 4, name: "Otras entidades" },
 ];
 
 export const USER_SECTIONS_TABLE_CONFIG = {
