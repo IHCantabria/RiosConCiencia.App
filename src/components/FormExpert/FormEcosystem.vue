@@ -113,7 +113,7 @@ watch(
         min="0"
       ></b-numberinput>
     </b-field>
-    <b-field label="3.4 Caudal (m3/s) (A x P x V):">
+    <b-field label="3.4 Caudal (m³/s) (A x P x V):">
       <span>{{ flow }}m³/s</span></b-field
     >
 
