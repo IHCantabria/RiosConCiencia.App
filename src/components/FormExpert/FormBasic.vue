@@ -5,7 +5,6 @@ import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import BasicoPDF from "@/assets/pdfs/basico.pdf";
-import VertidosPDF from "@/assets/pdfs/vertidos.pdf";
 import residuosPDF from "@/assets/pdfs/residuos.pdf";
 
 // STORES & COMPOSABLES
