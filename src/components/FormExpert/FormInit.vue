@@ -23,7 +23,7 @@ const weather48HasErrors = computed(() => {
   return values.value.weather48h === null;
 });
 const dateHasErrors = computed(() => {
-  return values.value.date === null;
+  return values.value.SampleDate === null;
 });
 const isSectionValid = computed(() => {
   return (
@@ -45,7 +45,7 @@ const values = ref({
   riverSection: null,
   weatherToday: null,
   weather48h: null,
-  date: new Date(),
+  SampleDate: new Date(),
 });
 
 // METHODS
@@ -61,7 +61,7 @@ const updateSpecificExpertSectionValues = () => {
   });
 };
 const clearDateTime = () => {
-  values.value.date = null;
+  values.value.SampleDate = null;
 };
 
 // WATCH
@@ -99,10 +99,10 @@ watch(
       :type="{ 'is-danger': dateHasErrors }"
     >
       <b-datetimepicker
-        v-model="values.date"
+        v-model="values.SampleDate"
         placeholder="Seleccione una fecha"
         icon="calendar-today"
-        :icon-right="values.date ? 'close-circle' : ''"
+        :icon-right="values.SampleDate ? 'close-circle' : ''"
         icon-right-clickable
         locale="es-ES"
         horizontal-time-picker
