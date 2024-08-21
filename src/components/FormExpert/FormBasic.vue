@@ -4,8 +4,7 @@ import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import BasicoPDF from "@/assets/pdfs/basico.pdf";
-import residuosPDF from "@/assets/pdfs/residuos.pdf";
+import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -275,7 +274,10 @@ watch(
       <h5 class="title is-5 header-section__text">
         <span>1. Inspección básica del tramo (500 m)</span>
       </h5>
-      <a class="header-section__help" @click="downloadPDF(BasicoPDF, 'Basico')"
+      <a
+        class="header-section__help"
+        target="_blank"
+        @click="downloadPDF(manualRiosPDF, 'manual-rios')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
@@ -708,12 +710,6 @@ watch(
   <div class="form-section">
     <div class="header-section">
       <b-field label="1.12 Inspección de residuos (500 m)"></b-field>
-      <a
-        class="header-section__help"
-        target="_blank"
-        @click="downloadPDF(residuosPDF, 'residuos')"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
     </div>
     <div class="form-section__block form-section__block-waste">
       <b-field>

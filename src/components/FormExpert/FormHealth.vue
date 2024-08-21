@@ -1,8 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
-import DiagnosticoPDF from "@/assets/pdfs/diagnostico.pdf";
-import RiberaPDF from "@/assets/pdfs/ribera.pdf";
+import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import { useRouter } from "vue-router";
@@ -234,6 +233,12 @@ watch(
       <h5 class="title is-5 header-section__text">
         <span>5. ESTADO DE SALUD DEL RÍO </span>
       </h5>
+      <a
+        class="header-section__help"
+        target="_blank"
+        @click="downloadPDF(manualRiosPDF, 'manual-rios')"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
     </div>
     <!-- BIOLOGICAL -->
     <div class="header-section mt-3">
@@ -244,13 +249,6 @@ watch(
         }"
         :type="{ 'is-danger': bioQualityHasErrors }"
       ></b-field>
-      <div class="header-section__help">
-        <a
-          class="header-section__help"
-          @click="downloadPDF(DiagnosticoPDF, 'diagnostico')"
-          ><b-icon icon="information-outline" type="is-primary"></b-icon
-        ></a>
-      </div>
     </div>
     <b-field>
       <b-select
@@ -295,13 +293,7 @@ watch(
     <!-- RIVER QUALITY -->
     <div class="header-section mt-3">
       <b-field label="5.2 Calidad del bosque de ribera"></b-field>
-      <div class="header-section__help">
-        <a
-          class="header-section__help-item"
-          @click="downloadPDF(RiberaPDF, 'ribera')"
-          ><b-icon icon="information-outline" type="is-primary"></b-icon
-        ></a>
-      </div>
+      <div class="header-section__help"></div>
     </div>
     <b-field label="a. Estructura y complejidad de la ribera"> </b-field>
     <b-field

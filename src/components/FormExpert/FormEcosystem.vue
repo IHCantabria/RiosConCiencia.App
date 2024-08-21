@@ -3,7 +3,7 @@
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import EcosystemPDF from "@/assets/pdfs/ecosistema.pdf";
+import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -88,7 +88,7 @@ watch(
       </h5>
       <a
         class="header-section__help"
-        @click="downloadPDF(EcosystemPDF, 'Ecosistema')"
+        @click="downloadPDF(manualRiosPDF, 'manual-rios')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
