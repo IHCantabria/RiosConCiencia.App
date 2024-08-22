@@ -33,6 +33,8 @@ const tableConfig = ref(null);
 const dataCopy = ref(null);
 const riverSectionAliasIdFilter = ref("");
 const userRiverSectionsCopy = ref(null);
+const filterShowAll = ref(true); // Controls showing all sections
+const filterShowAssigned = ref(false); // Controls showing only assigned sections
 
 // EMITS
 const emit = defineEmits(["finish-click"]);
@@ -43,6 +45,7 @@ onMounted(() => {
     JSON.stringify(props.userRiverSections),
   );
   setTableConfig();
+  filterData(); // Ensure data is filtered on load
 });
 
 // METHODS
@@ -70,6 +73,7 @@ const setData = () => {
 };
 const updateData = () => {
   tableConfig.value.data = setData();
+  filterData(); // Ensure the data is filtered after update
 };
 const setExpert = (idSection) => {
   return userRiverSectionsCopy.value.some(
@@ -99,16 +103,50 @@ const onFilterChange = (value) => {
 const filterData = () => {
   let data = JSON.parse(JSON.stringify(dataCopy.value));
   const filterValue = riverSectionAliasIdFilter.value.toLowerCase().trim();
-  data = data.filter(
-    (section) =>
+
+  data = data.filter((section) => {
+    const matchesFilter =
       section.name
         .toLowerCase()
         .replace(/\s+/g, " ")
         .includes(filterValue.replace(/\s+/g, " ")) ||
-      section.id.toString().includes(filterValue),
-  );
+      section.id.toString().includes(filterValue);
+
+    const isAssigned = userRiverSectionsCopy.value.some(
+      (userSection) => userSection.idRiverSection === section.id,
+    );
+
+    // Show all if "Mostrar todos" is selected
+    if (filterShowAll.value) {
+      return matchesFilter;
+    }
+
+    // Show only assigned sections if "Mostrar solo asignados" is selected
+    if (filterShowAssigned.value) {
+      return matchesFilter && isAssigned;
+    }
+
+    // Default to no filter
+    return matchesFilter;
+  });
+
   tableConfig.value.data = data;
 };
+
+const onFilterShowAllChange = () => {
+  if (filterShowAll.value) {
+    filterShowAssigned.value = false; // Deselect the other checkbox
+  }
+  filterData();
+};
+
+const onFilterShowAssignedChange = () => {
+  if (filterShowAssigned.value) {
+    filterShowAll.value = false; // Deselect the other checkbox
+  }
+  filterData();
+};
+
 const onFinishButtonClick = () => {
   emit("finish-click");
 };
@@ -131,7 +169,6 @@ const onItemCheckboxClick = async (event) => {
 
     updateData();
     updateAdminRiverSectionsState();
-    filterData();
   } catch (error) {
     console.error(error);
     Toast.open({
@@ -215,6 +252,24 @@ const updateAdminRiverSectionsState = () => {
             @input="onFilterChange($event.target.value)"
           />
         </b-field>
+        <!-- Checkbox to toggle between showing all or only assigned sections -->
+        <b-field label="Tramos" class="filter-label chechbox-group">
+          <b-checkbox
+            v-model="filterShowAll"
+            type="is-primary"
+            style="margin-right: 1rem"
+            @change="onFilterShowAllChange()"
+          >
+            Todos los tramos
+          </b-checkbox>
+          <b-checkbox
+            v-model="filterShowAssigned"
+            type="is-primary"
+            @change="onFilterShowAssignedChange()"
+          >
+            Tramos asignados
+          </b-checkbox>
+        </b-field>
       </div>
       <div class="controls__buttons">
         <b-button
@@ -263,8 +318,12 @@ const updateAdminRiverSectionsState = () => {
     width: 100%;
 
     &__filters {
+      display: flex;
+      gap: 1rem;
+
       .filter-label {
         text-align: start;
+        margin-bottom: 0;
       }
     }
 

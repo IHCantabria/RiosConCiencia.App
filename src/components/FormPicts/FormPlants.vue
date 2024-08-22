@@ -11,7 +11,6 @@ import oakPlants from "@/assets/images/picts/plants/oakPlants.jpg";
 import pampasGrassPlants from "@/assets/images/picts/plants/pampasGrassPlants.jpg";
 import saintJosephPlants from "@/assets/images/picts/plants/saintJosephPlants.jpg";
 import bambuPlants from "@/assets/images/picts/plants/bambuPlants.jpg";
-import absenceImg from "@/assets/images/picts/plants/absence.jpg";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -138,7 +137,8 @@ const getOptionImg = (id) => {
     </div>
     <b-field>
       <div class="img-section">
-        <div class="img-container">
+        <!-- TODO: Si no seleccionan ninguna opción, esta categoría no debe puntuar ni bien ni mal-->
+        <!-- <div class="img-container">
           <span class="img-option-text">NO HAY PLANTAS BUENAS</span>
           <b-checkbox-button
             v-model="absence"
@@ -155,7 +155,7 @@ const getOptionImg = (id) => {
               ]"
             ></div
           ></b-checkbox-button>
-        </div>
+        </div> -->
         <div
           v-for="option in appStore.formPictsSections.plants.data
             .plantsRiverOptions"

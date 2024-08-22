@@ -21,11 +21,12 @@
       </p>
       <p class="about__msg-section">
         Este proyecto cuenta con la colaboración de la Fundación Española para
-        la Ciencia y la Tecnología del Ministerio de Ciencia e Innovación.
+        la Ciencia y la Tecnología del Ministerio de Ciencia, Innovación y
+        Universidades.
       </p>
       <p class="about__msg-section">
         <a
-          href="https://redcambera.org/proyectos/riosconciencia/"
+          href="https://redcambera.org/proyectorios/?ModPagespeed=off#contenidos"
           target="_blank"
           >Pulse para más información</a
         >

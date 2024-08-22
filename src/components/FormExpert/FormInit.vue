@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import ManualPDF from "@/assets/pdfs/manual2019.pdf";
+import ManualPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -22,11 +22,15 @@ const weatherHasErrors = computed(() => {
 const weather48HasErrors = computed(() => {
   return values.value.weather48h === null;
 });
+const dateHasErrors = computed(() => {
+  return values.value.SampleDate === null;
+});
 const isSectionValid = computed(() => {
   return (
     !weatherHasErrors.value &&
     !weather48HasErrors.value &&
-    !riverSectionHasErrors.value
+    !riverSectionHasErrors.value &&
+    !dateHasErrors.value
   );
 });
 
@@ -41,6 +45,7 @@ const values = ref({
   riverSection: null,
   weatherToday: null,
   weather48h: null,
+  SampleDate: new Date(),
 });
 
 // METHODS
@@ -54,6 +59,9 @@ const updateSpecificExpertSectionValues = () => {
     values: values.value,
     isValid: isSectionValid.value,
   });
+};
+const clearDateTime = () => {
+  values.value.SampleDate = null;
 };
 
 // WATCH
@@ -82,6 +90,25 @@ watch(
     </b-field>
     <b-field label="Acompañantes">
       <b-input v-model="values.partners"></b-input>
+    </b-field>
+    <b-field
+      label="Fecha"
+      :message="{
+        '*Seleccione una fecha': dateHasErrors,
+      }"
+      :type="{ 'is-danger': dateHasErrors }"
+    >
+      <b-datetimepicker
+        v-model="values.SampleDate"
+        placeholder="Seleccione una fecha"
+        icon="calendar-today"
+        :icon-right="values.SampleDate ? 'close-circle' : ''"
+        icon-right-clickable
+        locale="es-ES"
+        horizontal-time-picker
+        @icon-right-click="clearDateTime"
+      >
+      </b-datetimepicker>
     </b-field>
     <b-field
       label="Tramo"

@@ -210,6 +210,9 @@ watch(
   () => props.data,
   (newValue) => {
     tableData.value = [...newValue];
+    if (currentPage.value > totalPages.value) {
+      currentPage.value = 1;
+    }
   },
 );
 watch(

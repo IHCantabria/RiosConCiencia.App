@@ -2,8 +2,7 @@
 import { ref, onMounted, computed, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import HabitatPDF from "@/assets/pdfs/habitat.pdf";
-import HabitatPDF2 from "@/assets/pdfs/fichaIHF2019.pdf";
+import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -43,9 +42,9 @@ const rapidFrequencyHasErrors = computed(() => {
 const stonesInPoolsHasErrors = computed(() => {
   return values.value.stonesInPools === null;
 });
-const aquaticTransversalObstacleHasErrors = computed(() => {
-  return values.value.transversalObstacle === null;
-});
+// const aquaticTransversalObstacleHasErrors = computed(() => {
+//   return values.value.transversalObstacle === null;
+// });
 const randomElementsHasErrors = computed(() => {
   for (const element of values.value.randomElements) {
     if (Object.keys(element.value).length === 0) return true;
@@ -59,7 +58,7 @@ const isSectionValid = computed(() => {
   return (
     !substrateHasErrors.value &&
     !stonesInPoolsHasErrors.value &&
-    !aquaticTransversalObstacleHasErrors.value &&
+    // !aquaticTransversalObstacleHasErrors.value &&
     !rapidFrequencyHasErrors.value &&
     !randomElementsHasErrors.value &&
     !riverShadowsHasErrors.value
@@ -94,15 +93,56 @@ const updateSpecificExpertSectionValues = () => {
   });
 };
 
+const lastClicked = ref(null);
+
 // WATCH
 watch(
   values.value,
   async () => {
     await nextTick();
     updateSpecificExpertSectionValues();
+    // If the last clicked element is not null, set the value of the other elements to "Presente"
+    if (lastClicked.value)
+      setMainValue(
+        lastClicked.value.array,
+        lastClicked.value.index,
+        lastClicked.value.formCategory,
+      );
   },
   { deep: true },
 );
+
+const setMainValue = async (array, index, formCategory) => {
+  // Filter the elements with the name "Principal"
+  const filteredElements = JSON.parse(JSON.stringify(array)).filter(
+    (element) => element.value.name === "Principal",
+  );
+  // If there is more than one element with the name "Principal", set the value of the other elements to "Presente"
+  if (filteredElements.length > 1) {
+    array.map((element) => {
+      if (
+        element.value.name === "Principal" &&
+        element.id !== array[index].id
+      ) {
+        // Find the original element in the array in the store since the buefy component checks the reference. A copy won't work.
+        array[array.findIndex((e) => e.id === element.id)].value =
+          appStore.formExpertSections.habitat.data[formCategory].find(
+            (option) => option.name === "Presente",
+          );
+        updateSpecificExpertSectionValues();
+      }
+    });
+  }
+};
+
+// Save the last clicked element to set the value of the other elements to "Presente"
+const setLastClick = (array, index, formCategory) => {
+  lastClicked.value = {
+    array,
+    index,
+    formCategory,
+  };
+};
 </script>
 
 <template>
@@ -114,13 +154,8 @@ watch(
       <div class="header-section__help">
         <a
           class="header-section__help-item"
-          @click="downloadPDF(HabitatPDF, 'habitat')"
+          @click="downloadPDF(manualRiosPDF, 'manual-rios')"
           ><b-icon icon="information-outline" type="is-primary"></b-icon
-        ></a>
-        <a
-          class="header-section__help-item"
-          @click="downloadPDF(HabitatPDF2, 'fichaIHF2019')"
-          ><b-icon icon="book-information-variant" type="is-primary"></b-icon
         ></a>
       </div>
     </div>
@@ -172,6 +207,13 @@ watch(
               :key="option.id"
               v-model="values.rapidsFrequencies[index].value"
               :native-value="option"
+              @click="
+                setLastClick(
+                  values.rapidsFrequencies,
+                  index,
+                  'rapidFrequencyPresenceOptions',
+                )
+              "
               >{{ option.name }}</b-radio-button
             >
           </b-field>
@@ -204,6 +246,13 @@ watch(
               :key="option.id"
               v-model="values.substrateComposition[index].value"
               :native-value="option"
+              @click="
+                setLastClick(
+                  values.substrateComposition,
+                  index,
+                  'substrateCompositionPresenceOptions',
+                )
+              "
               >{{ option.name }}</b-radio-button
             >
           </b-field>
@@ -279,13 +328,7 @@ watch(
         </div>
       </div>
     </div>
-    <b-field
-      label=" 2.6 Presencia de obstáculos transversales:"
-      :message="{
-        '*Hay que seleccionar una opción': aquaticTransversalObstacleHasErrors,
-      }"
-      :type="{ 'is-danger': aquaticTransversalObstacleHasErrors }"
-    >
+    <b-field label=" 2.6 Presencia de obstáculos transversales:">
       <b-select
         v-model="values.transversalObstacle"
         icon="bridge"

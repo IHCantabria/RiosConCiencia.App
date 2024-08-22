@@ -4,9 +4,7 @@ import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import BasicoPDF from "@/assets/pdfs/basico.pdf";
-import VertidosPDF from "@/assets/pdfs/vertidos.pdf";
-import residuosPDF from "@/assets/pdfs/residuos.pdf";
+import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -276,7 +274,10 @@ watch(
       <h5 class="title is-5 header-section__text">
         <span>1. Inspección básica del tramo (500 m)</span>
       </h5>
-      <a class="header-section__help" @click="downloadPDF(BasicoPDF, 'Basico')"
+      <a
+        class="header-section__help"
+        target="_blank"
+        @click="downloadPDF(manualRiosPDF, 'manual-rios')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
@@ -329,7 +330,7 @@ watch(
       ></b-input>
     </b-field>
     <b-field
-      label="1.3. Anchura media del cauce (m.):"
+      label="1.3. Anchura media del cauce (m):"
       :message="{
         '*Hay que seleccionar una opción': riverBedWidthHasErrors,
       }"
@@ -351,7 +352,7 @@ watch(
       </b-select>
     </b-field>
     <b-field
-      label="1.4. Profundidad media del cauce (cm.):"
+      label="1.4. Profundidad media del cauce (cm):"
       :message="{
         '*Hay que seleccionar una opción': riverBedDepthHasErrors,
       }"
@@ -373,7 +374,7 @@ watch(
         </option>
       </b-select>
     </b-field>
-    <b-field label="1.5. Anchura media de la zona de ribera (m.):"> </b-field>
+    <b-field label="1.5. Anchura media de la zona de ribera (m):"> </b-field>
     <div class="two-controls">
       <b-field
         label="Izquierda"
@@ -526,12 +527,13 @@ watch(
   <!-- SPILLS -->
   <div class="form-section">
     <div class="header-section mt-5">
-      <b-field label="1.11. Inspección de vertidos (500 m)"> </b-field>
-      <a
+      <b-field label="1.11. Inspección de vertidos"> </b-field>
+      <!-- TODO: Update manual pdf -->
+      <!-- <a
         class="header-section__help"
         @click="downloadPDF(VertidosPDF, 'vertidos')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
+      ></a> -->
     </div>
     <div class="form-section__block form-section__block-spills">
       <b-field label="Coordenadas (WGS84)"></b-field>
@@ -708,12 +710,6 @@ watch(
   <div class="form-section">
     <div class="header-section">
       <b-field label="1.12 Inspección de residuos (500 m)"></b-field>
-      <a
-        class="header-section__help"
-        target="_blank"
-        @click="downloadPDF(residuosPDF, 'residuos')"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a>
     </div>
     <div class="form-section__block form-section__block-waste">
       <b-field>

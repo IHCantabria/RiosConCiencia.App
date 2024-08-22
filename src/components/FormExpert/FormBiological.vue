@@ -57,6 +57,15 @@ watch(
   },
   { deep: true },
 );
+
+// SORT OPTIONS
+const sortOptions = (a, b) => {
+  if (a.name === "Otros" || a.name === "Otras") return 1;
+  if (b.name === "Otros" || b.name === "Otras") return -1;
+  return a.name.localeCompare(b.name);
+};
+
+// EXPORTS
 </script>
 
 <template>
@@ -68,6 +77,7 @@ watch(
     </div>
     <b-field label="4.1  Inventario de especies de flora y fauna" class="mt-3">
     </b-field>
+    <!-- Subcategories will remain unchanged, only options sorted alphabetically with "Otros" or "Otras" last -->
     <div
       v-for="(category, indexCat) in appStore.formExpertSections.biological.data
         .eukaryoteComplexOptions"
@@ -85,12 +95,16 @@ watch(
         <div class="checkboxes-group">
           <span class="checkboxes-group__subtitle">{{ group.name }}</span>
         </div>
-        <div v-for="option in group.options" :key="option.id" class="field">
+        <div
+          v-for="option in group.options.sort((a, b) => sortOptions(a, b))"
+          :key="option.id"
+          class="field"
+        >
           <b-checkbox v-model="values.riverEcosystem" :native-value="option">
             {{ option.name }}
           </b-checkbox>
           <div
-            v-for="subOpt in option.options"
+            v-for="subOpt in option.options.sort((a, b) => sortOptions(a, b))"
             :key="subOpt.id"
             class="field sub-check"
           >
@@ -112,7 +126,7 @@ watch(
             </span>
           </div>
           <div
-            v-for="option in invasorsComputed"
+            v-for="option in invasorsComputed.sort((a, b) => sortOptions(a, b))"
             :key="option.id"
             class="field"
           >
@@ -128,8 +142,9 @@ watch(
             >
               <b-field>
                 <b-radio-button
-                  v-for="type in appStore.formExpertSections.biological.data
-                    .coverageOptions"
+                  v-for="type in appStore.formExpertSections.biological.data.coverageOptions.sort(
+                    (a, b) => sortOptions(a, b),
+                  )"
                   :key="type.id"
                   v-model="
                     values.riverEcosystemInvPlantsCoverage[
@@ -156,7 +171,11 @@ watch(
       <div class="checkboxes-group">
         <label class="checkboxes-group__title">{{ category.name }}</label>
       </div>
-      <div v-for="option in category.options" :key="option.id" class="field">
+      <div
+        v-for="option in category.options.sort((a, b) => sortOptions(a, b))"
+        :key="option.id"
+        class="field"
+      >
         <b-checkbox v-model="values.riverEcosystem" :native-value="option">
           {{ option.name }}
         </b-checkbox>
