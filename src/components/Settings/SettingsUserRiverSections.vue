@@ -33,7 +33,8 @@ const tableConfig = ref(null);
 const dataCopy = ref(null);
 const riverSectionAliasIdFilter = ref("");
 const userRiverSectionsCopy = ref(null);
-const filterShowAllRiverSections = ref(false);
+const filterShowAll = ref(true); // Controls showing all sections
+const filterShowAssigned = ref(false); // Controls showing only assigned sections
 
 // EMITS
 const emit = defineEmits(["finish-click"]);
@@ -102,20 +103,50 @@ const onFilterChange = (value) => {
 const filterData = () => {
   let data = JSON.parse(JSON.stringify(dataCopy.value));
   const filterValue = riverSectionAliasIdFilter.value.toLowerCase().trim();
-  data = data.filter(
-    (section) =>
-      (section.name
+
+  data = data.filter((section) => {
+    const matchesFilter =
+      section.name
         .toLowerCase()
         .replace(/\s+/g, " ")
         .includes(filterValue.replace(/\s+/g, " ")) ||
-        section.id.toString().includes(filterValue)) &&
-      (filterShowAllRiverSections.value ||
-        userRiverSectionsCopy.value.some(
-          (userSection) => userSection.idRiverSection === section.id,
-        )),
-  );
+      section.id.toString().includes(filterValue);
+
+    const isAssigned = userRiverSectionsCopy.value.some(
+      (userSection) => userSection.idRiverSection === section.id,
+    );
+
+    // Show all if "Mostrar todos" is selected
+    if (filterShowAll.value) {
+      return matchesFilter;
+    }
+
+    // Show only assigned sections if "Mostrar solo asignados" is selected
+    if (filterShowAssigned.value) {
+      return matchesFilter && isAssigned;
+    }
+
+    // Default to no filter
+    return matchesFilter;
+  });
+
   tableConfig.value.data = data;
 };
+
+const onFilterShowAllChange = () => {
+  if (filterShowAll.value) {
+    filterShowAssigned.value = false; // Deselect the other checkbox
+  }
+  filterData();
+};
+
+const onFilterShowAssignedChange = () => {
+  if (filterShowAssigned.value) {
+    filterShowAll.value = false; // Deselect the other checkbox
+  }
+  filterData();
+};
+
 const onFinishButtonClick = () => {
   emit("finish-click");
 };
@@ -221,14 +252,22 @@ const updateAdminRiverSectionsState = () => {
             @input="onFilterChange($event.target.value)"
           />
         </b-field>
-        <!-- Checkbox to show all or only selected -->
-        <b-field label="Tramos" class="filter-label">
+        <!-- Checkbox to toggle between showing all or only assigned sections -->
+        <b-field label="Tramos" class="filter-label chechbox-group">
           <b-checkbox
-            v-model="filterShowAllRiverSections"
+            v-model="filterShowAll"
             type="is-primary"
-            @change="filterData()"
+            style="margin-right: 1rem"
+            @change="onFilterShowAllChange()"
           >
-            Mostrar todos
+            Todos los tramos
+          </b-checkbox>
+          <b-checkbox
+            v-model="filterShowAssigned"
+            type="is-primary"
+            @change="onFilterShowAssignedChange()"
+          >
+            Tramos asignados
           </b-checkbox>
         </b-field>
       </div>
@@ -284,6 +323,7 @@ const updateAdminRiverSectionsState = () => {
 
       .filter-label {
         text-align: start;
+        margin-bottom: 0;
       }
     }
 
