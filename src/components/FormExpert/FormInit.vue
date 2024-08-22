@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import ManualPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
+import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -81,7 +81,9 @@ watch(
       <h5 class="title is-5 header-section__text">
         <span>0. Datos iniciales</span>
       </h5>
-      <a class="header-section__help" @click="downloadPDF(ManualPDF, 'manual')"
+      <a
+        class="header-section__help"
+        @click="downloadPDF(manualRiosPDF, 'manual')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
