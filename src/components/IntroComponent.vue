@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
+import manualRiosPDF from "@/assets/pdfs/0_Manual_PR_2024.pdf";
 
 const router = useRouter();
 const appStore = useAppStore();
@@ -60,7 +60,7 @@ const challengeUser = () => {
     </div>
     <div class="intro__help">
       <div class="guide-link">
-        <a @click="downloadPDF(manualRiosPDF, 'manual')">
+        <a @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')">
           <b-icon
             class="guide-link__icon"
             icon="cloud-download"
