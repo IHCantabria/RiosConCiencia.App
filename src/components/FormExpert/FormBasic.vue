@@ -4,7 +4,7 @@ import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import { getUserGeolocation } from "@/api/geolocation.js";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
+import manualBasicInspectionPDF from "@/assets/pdfs/1_Inspeccion_basica.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -277,7 +277,9 @@ watch(
       <a
         class="header-section__help"
         target="_blank"
-        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
+        @click="
+          downloadPDF(manualBasicInspectionPDF, 'Manual de inspección básica')
+        "
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

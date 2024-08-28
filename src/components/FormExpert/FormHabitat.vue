@@ -2,7 +2,7 @@
 import { ref, onMounted, computed, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
+import manualHabitatPDF from "@/assets/pdfs/2_Habitat_Fluvial.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -154,7 +154,7 @@ const setLastClick = (array, index, formCategory) => {
       <div class="header-section__help">
         <a
           class="header-section__help-item"
-          @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
+          @click="downloadPDF(manualHabitatPDF, 'Manual de Hábitat fluivial')"
           ><b-icon icon="information-outline" type="is-primary"></b-icon
         ></a>
       </div>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
-import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
+import manualHealthPDF from "@/assets/pdfs/5_Estado_salud.pdf";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
 import { useRouter } from "vue-router";
@@ -236,7 +236,7 @@ watch(
       <a
         class="header-section__help"
         target="_blank"
-        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
+        @click="downloadPDF(manualHealthPDF, 'Manual Estado de Salud')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

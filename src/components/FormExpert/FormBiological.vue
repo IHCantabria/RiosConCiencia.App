@@ -3,7 +3,7 @@
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { downloadPDF } from "@/utils/download-pdf";
-import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
+import manualBiologicalPDF from "@/assets/pdfs/4_Biodiversidad.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -78,7 +78,7 @@ const sortOptions = (a, b) => {
       </h5>
       <a
         class="header-section__help"
-        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
+        @click="downloadPDF(manualBiologicalPDF, 'Manual Biodiversidad')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
