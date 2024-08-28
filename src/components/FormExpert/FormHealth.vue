@@ -231,12 +231,12 @@ watch(
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>5. ESTADO DE SALUD DEL RÍO </span>
+        <span>5. Estado de salud</span>
       </h5>
       <a
         class="header-section__help"
         target="_blank"
-        @click="downloadPDF(manualRiosPDF, 'manual-rios')"
+        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

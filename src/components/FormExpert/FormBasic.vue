@@ -272,12 +272,12 @@ watch(
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>1. Inspección básica del tramo (500 m)</span>
+        <span>1. Inspección básica</span>
       </h5>
       <a
         class="header-section__help"
         target="_blank"
-        @click="downloadPDF(manualRiosPDF, 'manual-rios')"
+        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
@@ -709,7 +709,7 @@ watch(
   <!-- WASTE -->
   <div class="form-section">
     <div class="header-section">
-      <b-field label="1.12 Inspección de residuos (500 m)"></b-field>
+      <b-field label="1.12 Inspección de residuos"></b-field>
     </div>
     <div class="form-section__block form-section__block-waste">
       <b-field>

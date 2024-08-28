@@ -84,11 +84,11 @@ watch(
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>3. Estudio del ecosistema acuático (100 m)</span>
+        <span>3. Ecosistema acuático</span>
       </h5>
       <a
         class="header-section__help"
-        @click="downloadPDF(manualRiosPDF, 'manual-rios')"
+        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>

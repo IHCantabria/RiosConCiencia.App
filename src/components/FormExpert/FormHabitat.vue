@@ -149,12 +149,12 @@ const setLastClick = (array, index, formCategory) => {
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>2. El hábitat fluvial (100 m)</span>
+        <span>2. Hábitat fluvial</span>
       </h5>
       <div class="header-section__help">
         <a
           class="header-section__help-item"
-          @click="downloadPDF(manualRiosPDF, 'manual-rios')"
+          @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
           ><b-icon icon="information-outline" type="is-primary"></b-icon
         ></a>
       </div>

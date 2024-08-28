@@ -2,6 +2,8 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useAppStore } from "@/store/appStore.js";
+import { downloadPDF } from "@/utils/download-pdf";
+import manualRiosPDF from "@/assets/pdfs/Manual_PR_2024.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -72,8 +74,13 @@ const sortOptions = (a, b) => {
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>4. Estudio de la biodiversidad (100 m)</span>
+        <span>4. Biodiversidad</span>
       </h5>
+      <a
+        class="header-section__help"
+        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
+        ><b-icon icon="information-outline" type="is-primary"></b-icon
+      ></a>
     </div>
     <b-field label="4.1  Inventario de especies de flora y fauna" class="mt-3">
     </b-field>
