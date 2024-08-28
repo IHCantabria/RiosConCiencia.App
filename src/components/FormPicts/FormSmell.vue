@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import titleSmell from "@/assets/images/picts/smell/titleSmell.jpg";
 import helpSmell1 from "@/assets/images/picts/smell/helpSmell1.jpg";
 import helpSmell2 from "@/assets/images/picts/smell/helpSmell2.jpg";
@@ -9,6 +10,7 @@ import helpSmell3 from "@/assets/images/picts/smell/helpSmell3.jpg";
 import noSmell from "@/assets/images/picts/smell/noSmell.jpg";
 import fertilizerSmell from "@/assets/images/picts/smell/fertilizerSmell.jpg";
 import sewerSmell from "@/assets/images/picts/smell/sewerSmell.jpg";
+import OlorPDF from "@/assets/pdfs/1_7_Olor_agua_rio.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -83,6 +85,13 @@ watch(
       <b-field label="1.7 Olor del río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(OlorPDF, '1_7_Olor del río')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

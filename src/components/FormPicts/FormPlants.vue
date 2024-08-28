@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import titlePlants from "@/assets/images/picts/plants/titlePlants.jpg";
 import helpPlants1 from "@/assets/images/picts/plants/helpPlants1.jpg";
 import nettlePlants from "@/assets/images/picts/plants/nettlePlants.jpg";
@@ -11,6 +12,7 @@ import oakPlants from "@/assets/images/picts/plants/oakPlants.jpg";
 import pampasGrassPlants from "@/assets/images/picts/plants/pampasGrassPlants.jpg";
 import saintJosephPlants from "@/assets/images/picts/plants/saintJosephPlants.jpg";
 import bambuPlants from "@/assets/images/picts/plants/bambuPlants.jpg";
+import PlantasPDF from "@/assets/pdfs/1_9_Plantas_rio.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -111,6 +113,13 @@ const getOptionImg = (id) => {
       <b-field label="1.9 Plantas alrededor del río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(PlantasPDF, '1_9_Plantas_rio')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

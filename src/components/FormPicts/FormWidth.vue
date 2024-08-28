@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import helpWidth1 from "@/assets/images/picts/width/helpWidth1.jpg";
 import helpWidth2 from "@/assets/images/picts/width/helpWidth2.jpg";
 import helpWidth3 from "@/assets/images/picts/width/helpWidth3.jpg";
@@ -11,6 +12,7 @@ import blueWidth from "@/assets/images/picts/width/blueWidth.jpg";
 import greenWidth from "@/assets/images/picts/width/greenWidth.jpg";
 import redWidth from "@/assets/images/picts/width/redWidth.jpg";
 import turquoiseWidth from "@/assets/images/picts/width/turquoiseWidth.jpg";
+import DistanciaPDF from "@/assets/pdfs/1_2_Distancia_rio.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -93,6 +95,13 @@ watch(
       <b-field label="1.2 Distancia del río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(DistanciaPDF, '1_2_Distancia_rio')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

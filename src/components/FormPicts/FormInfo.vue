@@ -8,10 +8,11 @@ import helpInfo2 from "@/assets/images/picts/info/helpInfo2.jpg";
 import helpInfo4 from "@/assets/images/picts/info/helpInfo4.jpg";
 import helpInfo6 from "@/assets/images/picts/info/helpInfo6.jpg";
 import helpInfo7 from "@/assets/images/picts/info/helpInfo7.jpg";
-import RCC1PDF from "@/assets/pdfs/RCC1.pdf";
-import RCC2PDF from "@/assets/pdfs/RCC2.pdf";
-import RCC3PDF from "@/assets/pdfs/RCC3.pdf";
-import RCC4PDF from "@/assets/pdfs/RCC4.pdf";
+import ProyectoRiosPDF from "@/assets/pdfs/0_1_Proyecto_Rios.pdf";
+import ElRioPDF from "@/assets/pdfs/0_2_El rio.pdf";
+import ElRioEstaBienPDF from "@/assets/pdfs/0_3_Rio_bien.pdf";
+import ElRioEstaMalPDF from "@/assets/pdfs/0_4_Rio_mal.pdf";
+import ComenzamosPDF from "@/assets/pdfs/0_5_Comenzamos.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -91,7 +92,7 @@ const toggleHelpRiverBegin = () => {
             type="is-info"
           ></b-icon>
         </div>
-        <a @click="downloadPDF(RCC1PDF, 'RCC1')"
+        <a @click="downloadPDF(ProyectoRiosPDF, '0_1_Proyecto_Rios')"
           ><b-icon
             icon="book-information-variant"
             class="header-section__help-item"
@@ -125,7 +126,7 @@ const toggleHelpRiverBegin = () => {
                 type="is-info"
               ></b-icon>
             </div>
-            <a @click="downloadPDF(RCC2PDF, 'RCC2')"
+            <a @click="downloadPDF(ElRioPDF, '0_2_El Rio')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
@@ -157,7 +158,7 @@ const toggleHelpRiverBegin = () => {
                 type="is-info"
               ></b-icon>
             </div>
-            <a @click="downloadPDF(RCC3PDF, 'RCC3')"
+            <a @click="downloadPDF(ElRioEstaBienPDF, '0_3_Rio_bien')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
@@ -186,7 +187,7 @@ const toggleHelpRiverBegin = () => {
                 type="is-info"
               ></b-icon>
             </div>
-            <a @click="downloadPDF(RCC4PDF, 'RCC4')"
+            <a @click="downloadPDF(ElRioEstaMalPDF, '0_4_Rio_mal')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"
@@ -214,7 +215,7 @@ const toggleHelpRiverBegin = () => {
                 type="is-info"
               ></b-icon>
             </div>
-            <a @click="downloadPDF(RCC1PDF, 'RCC1')"
+            <a @click="downloadPDF(ComenzamosPDF, '0_5_Comenzamos')"
               ><b-icon
                 icon="book-information-variant"
                 class="header-section__help-item"

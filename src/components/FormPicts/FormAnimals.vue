@@ -2,6 +2,7 @@
 import { ref, computed, watch, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import titleAnimals from "@/assets/images/picts/animals/titleAnimals.jpg";
 import absenceImg from "@/assets/images/picts/animals/absence.jpg";
 import helpAnimals1 from "@/assets/images/picts/animals/helpAnimals1.jpg";
@@ -15,6 +16,7 @@ import mayflyAnimals2 from "@/assets/images/picts/animals/mayflyAnimals2.jpg";
 import caddisflyUncoveredAnimals1 from "@/assets/images/picts/animals/caddisflyUncoveredAnimals1.jpg";
 import caddisflyUncoveredAnimals2 from "@/assets/images/picts/animals/caddisflyUncoveredAnimals2.jpg";
 import gusarapa from "@/assets/images/picts/animals/gusarapa.jpg";
+import AnimalesPDF from "@/assets/pdfs/1_10_Animales_rio.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -107,6 +109,13 @@ watch(
       <b-field label="1.10 Animales en el río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(AnimalesPDF, '1_10_Animales_rio')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

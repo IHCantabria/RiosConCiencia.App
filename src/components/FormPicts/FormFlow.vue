@@ -2,10 +2,12 @@
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 
 import titleFlowImg from "@/assets/images/picts/flow/titleFlow.jpg";
 import riverImg from "@/assets/images/picts/flow/river.jpg";
 import riverFlow from "@/assets/images/picts/flow/riverFlow.gif";
+import MovimientosPDF from "@/assets/pdfs/1_1_Movimiento del agua.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -72,7 +74,14 @@ watch(
     <div class="header-section">
       <b-field label="1.1 Movimiento del agua del río:" />
       <div class="header-section__help" @click="toggleHelp()">
-        <b-icon icon="information-outline" type="is-info"></b-icon>
+        <b-icon icon="information-outline" type="is-info"> </b-icon>
+        <a @click="downloadPDF(MovimientosPDF, '1_1_Movimiento del agua')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import titleGarbage from "@/assets/images/picts/garbage/titleGarbage.jpg";
 import helpGarbage1 from "@/assets/images/picts/garbage/helpGarbage1.jpg";
 import helpGarbage2 from "@/assets/images/picts/garbage/helpGarbage2.jpg";
@@ -16,6 +17,7 @@ import cigaretteGarbage from "@/assets/images/picts/garbage/cigaretteGarbage.jpg
 import brickGarbage from "@/assets/images/picts/garbage/brickGarbage.jpg";
 import absenceImg from "@/assets/images/picts/garbage/absence.jpg";
 import otherGarbage from "@/assets/images/picts/garbage/otherGarbage.jpg";
+import BasuraPDF from "@/assets/pdfs/1_8_Basura.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -107,6 +109,13 @@ watch(absence, (newValue) => {
       <b-field label="1.8 Basura en el río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(BasuraPDF, '1_8_Basura')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

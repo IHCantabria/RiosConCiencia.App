@@ -5,6 +5,7 @@ import { onMounted, ref, onBeforeUpdate, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useAppStore } from "@/store/appStore.js";
 import { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
+import { downloadPDF } from "@/utils/download-pdf";
 import titleGame from "@/assets/images/picts/game/titleGame.jpg";
 import goodGame1 from "@/assets/images/picts/game/goodGame1.jpg";
 import goodGame2 from "@/assets/images/picts/game/goodGame2.jpg";
@@ -13,6 +14,7 @@ import badGame2 from "@/assets/images/picts/game/badGame2.jpg";
 import clearGame from "@/assets/images/picts/game/clearGame.jpg";
 import decontaminateGame from "@/assets/images/picts/game/decontaminateGame.jpg";
 import sowGame from "@/assets/images/picts/game/sowGame.jpg";
+import EstadoPDF from "@/assets/pdfs/1_11_Estado_Salud_rio.pdf";
 
 // STORES & COMPOSABLES
 const router = useRouter();
@@ -210,7 +212,16 @@ watch(
     <h5 class="title is-5 header-section__text">
       <span>Estudio del río</span>
     </h5>
-    <b-field label="1.11 Estado del río:" />
+    <div class="header-section">
+      <b-field label="1.11 Estado del río:" />
+      <a @click="downloadPDF(EstadoPDF, '1_11_Estado_Salud_rio')"
+        ><b-icon
+          icon="book-information-variant"
+          class="header-section__help-item"
+          type="is-primary"
+        ></b-icon
+      ></a>
+    </div>
 
     <div>
       <div v-if="appStore.isFormPictsValid" class="block">
@@ -379,5 +390,11 @@ watch(
   &__pic {
     max-width: 200px;
   }
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
