@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import titleTemp from "@/assets/images/picts/temp/titleTemp.jpg";
 import helpTemp1 from "@/assets/images/picts/temp/helpTemp1.jpg";
 import helpTemp2 from "@/assets/images/picts/temp/helpTemp2.jpg";
@@ -11,6 +12,7 @@ import redTemp from "@/assets/images/picts/temp/redTemp.jpg";
 import blueTemp from "@/assets/images/picts/temp/blueTemp.jpg";
 import yellowTemp from "@/assets/images/picts/temp/yellowTemp.jpg";
 import blackTemp from "@/assets/images/picts/temp/blackTemp.jpg";
+import TemperaturaPDF from "@/assets/pdfs/1_4_Temperatura_agua_rio.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -88,6 +90,13 @@ watch(
 
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(TemperaturaPDF, '1_4_Temperatura_agua_rio')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

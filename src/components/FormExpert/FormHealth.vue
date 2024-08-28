@@ -86,6 +86,7 @@ const statusOptions = computed(() => {
 });
 
 // METHODS
+// TODO: Update points
 const getRiverQualityCategory = (totalPoints) => {
   if (totalPoints <= 4)
     return appStore.formExpertSections.health.data.qrisiCategoriesOptions[2];

@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import titleEnv from "@/assets/images/picts/env/titleEnv.jpg";
 import helpEnv1 from "@/assets/images/picts/env/riverEnvironment.jpg";
 import forestEnv from "@/assets/images/picts/env/forestEnv.jpg";
@@ -16,6 +17,7 @@ import treatmentEnv from "@/assets/images/picts/env/treatmentEnv.jpg";
 import trainEnv from "@/assets/images/picts/env/trainEnv.jpg";
 import recreationEnv from "@/assets/images/picts/env/recreationEnv.jpg";
 import campingEnv from "@/assets/images/picts/env/campingEnv.jpg";
+import EntornoPDF from "@/assets/pdfs/1_5_Entorno_rio.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -94,6 +96,13 @@ const getOptionImg = (id) => {
       <b-field label="1.5 Entorno del río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(EntornoPDF, '1_5_Entorno_rio')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field

@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUpdate, watch } from "vue";
 import { useAppStore } from "@/store/appStore.js";
 import { usePictsHelper } from "@/composables/usePictsHelper.js";
+import { downloadPDF } from "@/utils/download-pdf";
 import helpDepth1 from "@/assets/images/picts/depth/helpDepth1.jpg";
 import helpDepth2 from "@/assets/images/picts/depth/helpDepth2.jpg";
 import helpDepth3 from "@/assets/images/picts/depth/helpDepth3.jpg";
@@ -10,6 +11,7 @@ import yellowDepth from "@/assets/images/picts/depth/yellowDepth.jpg";
 import blueDepth from "@/assets/images/picts/depth/blueDepth.jpg";
 import greenDepth from "@/assets/images/picts/depth/greenDepth.jpg";
 import redDepth from "@/assets/images/picts/depth/redDepth.jpg";
+import ProfundidadPDF from "@/assets/pdfs/1_3_Profundidad_rio.pdf";
 
 // STORES & COMPOSABLES
 const appStore = useAppStore();
@@ -91,6 +93,13 @@ watch(
       <b-field label="1.3 Profundidad del río:" />
       <div class="header-section__help" @click="toggleHelp()">
         <b-icon icon="information-outline" type="is-info"></b-icon>
+        <a @click="downloadPDF(ProfundidadPDF, '1_3_Profundidad_rio')"
+          ><b-icon
+            icon="book-information-variant"
+            class="header-section__help-item"
+            type="is-primary"
+          ></b-icon
+        ></a>
       </div>
     </div>
     <b-field
