@@ -83,7 +83,7 @@ watch(
       </h5>
       <a
         class="header-section__help"
-        @click="downloadPDF(manualRiosPDF, 'manual')"
+        @click="downloadPDF(manualRiosPDF, 'Manual PR_2024')"
         ><b-icon icon="information-outline" type="is-primary"></b-icon
       ></a>
     </div>
