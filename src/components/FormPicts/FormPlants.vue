@@ -146,7 +146,7 @@ const getOptionImg = (id) => {
     </div>
     <b-field>
       <div class="img-section">
-        <!-- TODO: Si no seleccionan ninguna opción, esta categoría no debe puntuar ni bien ni mal-->
+        <!-- TODO: Revisar. Si no seleccionan ninguna opción, esta categoría no debe puntuar ni bien ni mal-->
         <!-- <div class="img-container">
           <span class="img-option-text">NO HAY PLANTAS BUENAS</span>
           <b-checkbox-button

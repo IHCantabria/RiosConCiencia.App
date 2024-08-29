@@ -530,12 +530,6 @@ watch(
   <div class="form-section">
     <div class="header-section mt-5">
       <b-field label="1.11. Inspección de vertidos"> </b-field>
-      <!-- TODO: Update manual pdf -->
-      <!-- <a
-        class="header-section__help"
-        @click="downloadPDF(VertidosPDF, 'vertidos')"
-        ><b-icon icon="information-outline" type="is-primary"></b-icon
-      ></a> -->
     </div>
     <div class="form-section__block form-section__block-spills">
       <b-field label="Coordenadas (WGS84)"></b-field>
