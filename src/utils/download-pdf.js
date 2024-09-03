@@ -1,8 +1,11 @@
 export const downloadPDF = (PDF, PDFName) => {
   const link = document.createElement("a");
-  link.href = PDF;
   link.download = `${PDFName}.pdf`;
-  link.target = "_blank";
+
+  link.target = "_self";
+
+  document.body.appendChild(link);
   link.click();
-  link.remove();
+
+  document.body.removeChild(link);
 };
