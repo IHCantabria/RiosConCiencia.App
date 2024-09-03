@@ -1,11 +1,19 @@
 export const downloadPDF = (PDF, PDFName) => {
-  const link = document.createElement("a");
-  link.download = `${PDFName}.pdf`;
-
-  link.target = "_self";
-
-  document.body.appendChild(link);
-  link.click();
-
-  document.body.removeChild(link);
+  return fetch(PDF)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.href = url;
+      link.download = `${PDFName}.pdf`;
+      link.target = "_blank";
+      link.click();
+      URL.revokeObjectURL(url);
+      link.remove();
+      return true;
+    })
+    .catch((error) => {
+      console.error("Error al descargar el PDF:", error);
+      throw error;
+    });
 };
