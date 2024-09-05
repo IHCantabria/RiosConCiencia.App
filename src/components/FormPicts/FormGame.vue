@@ -185,6 +185,7 @@ const _prepareSampleObj = () => {
       ...formResults,
       ...appStore.formPictsSections[section].results,
       user: appStore.user,
+      SampleDate: new Date().toISOString(),
     };
   }
   return formResults;
