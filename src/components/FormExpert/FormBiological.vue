@@ -61,9 +61,12 @@ watch(
 );
 
 // SORT OPTIONS
-const sortOptions = (a, b) => {
+const sortOptions = (a, b, group) => {
   if (a.name === "Otros" || a.name === "Otras") return 1;
   if (b.name === "Otros" || b.name === "Otras") return -1;
+  if (group && (group.id === 12 || group.id === 13)) {
+    return 0;
+  }
   return a.name.localeCompare(b.name);
 };
 
@@ -103,7 +106,9 @@ const sortOptions = (a, b) => {
           <span class="checkboxes-group__subtitle">{{ group.name }}</span>
         </div>
         <div
-          v-for="option in group.options.sort((a, b) => sortOptions(a, b))"
+          v-for="option in group.options.sort((a, b) =>
+            sortOptions(a, b, group),
+          )"
           :key="option.id"
           class="field"
         >
