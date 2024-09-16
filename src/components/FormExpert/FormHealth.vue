@@ -231,7 +231,7 @@ watch(
   <div class="form-section">
     <div class="header-section">
       <h5 class="title is-5 header-section__text">
-        <span>5. Estado de salud</span>
+        <span>La salud del río</span>
       </h5>
       <a
         class="header-section__help"
