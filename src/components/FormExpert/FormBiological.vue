@@ -65,6 +65,7 @@ const sortOptions = (a, b, group) => {
   if (a.name === "Otros" || a.name === "Otras") return 1;
   if (b.name === "Otros" || b.name === "Otras") return -1;
   if (group && (group.id === 12 || group.id === 13)) {
+    // Inverebrados no insectos and Insectos con patas
     return 0;
   }
   return a.name.localeCompare(b.name);
