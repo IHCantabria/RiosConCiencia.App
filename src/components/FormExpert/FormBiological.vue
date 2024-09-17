@@ -70,8 +70,13 @@ const sortOptions = (a, b, group) => {
   }
   return a.name.localeCompare(b.name);
 };
-
-// EXPORTS
+const sortPlantsLocatedOutsideTheRiver = (a, b) => {
+  // id: 8 = "Arbustos"
+  // id: 15= "Árboles aloctonos"
+  if (a.id === 8) return 1;
+  if (b.id === 8) return -1;
+  return 0;
+};
 </script>
 
 <template>
@@ -102,7 +107,12 @@ const sortOptions = (a, b, group) => {
       <div class="checkboxes-group">
         <span class="checkboxes-group__title">{{ category.name }}</span>
       </div>
-      <div v-for="(group, indexGroup) in category.options" :key="indexGroup">
+      <div
+        v-for="(group, indexGroup) in category.options.sort((a, b) =>
+          sortPlantsLocatedOutsideTheRiver(a, b),
+        )"
+        :key="indexGroup"
+      >
         <div class="checkboxes-group">
           <span class="checkboxes-group__subtitle">{{ group.name }}</span>
         </div>
