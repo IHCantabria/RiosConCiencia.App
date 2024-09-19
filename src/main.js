@@ -83,8 +83,6 @@ registerSW({
                 console.log("Service Worker not installed...");
               }
             };
-          } else {
-            console.log("No new service worker found.");
           }
         }
       }, intervalMS);
