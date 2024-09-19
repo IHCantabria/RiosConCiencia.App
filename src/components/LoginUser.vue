@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import { login } from "@/api/riosconciencia.js";
 import Spinner from "@/components/LoadingComponent.vue";
 import { useAppStore } from "@/store/appStore.js";
@@ -24,6 +24,9 @@ const loginUser = async () => {
     const authenticatedUser = await login(userEmail.value, userPassword.value);
     appStore.setActiveUser(authenticatedUser);
     await initDataLoader();
+    const version = __APP_VERSION__;
+    localStorage.setItem("version", version);
+    await nextTick();
     router.push("/");
   } catch (err) {
     if (!err.response) {

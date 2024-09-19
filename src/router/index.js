@@ -10,6 +10,11 @@ const routes = [
       if (!appStore.userIsLogged) {
         return { name: "login" };
       }
+
+      if (!isSameVersion()) {
+        appStore.logout();
+        return { name: "login" };
+      }
     },
     component: () => import("../views/WelcomeView.vue"),
   },
@@ -32,6 +37,11 @@ const routes = [
       ) {
         return false;
       }
+
+      if (!isSameVersion()) {
+        appStore.logout();
+        return { name: "login" };
+      }
     },
     component: () => import("../views/FormView.vue"),
   },
@@ -48,6 +58,10 @@ const routes = [
         appStore.userRiverSectionsPicts.length == 0
       ) {
         return false;
+      }
+      if (!isSameVersion()) {
+        appStore.logout();
+        return { name: "login" };
       }
     },
     component: () => import("../views/PictsView.vue"),
@@ -70,6 +84,12 @@ const routes = [
     },
   },
 ];
+
+const isSameVersion = () => {
+  const version = __APP_VERSION__;
+  const localStorageVersion = localStorage.getItem("version");
+  return version === localStorageVersion;
+};
 
 const router = createRouter({
   history: createWebHashHistory(),
