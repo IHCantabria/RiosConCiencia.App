@@ -54,6 +54,21 @@ registerSW({
                 console.log(
                   "New service worker installed, skipping waiting...",
                 );
+                r.addEventListener("install", () => {
+                  console.log("B Service Worker installing...");
+                  self.skipWaiting(); // Immediately activate the new service worker
+                });
+                r.addEventListener("activate", (event) => {
+                  console.log("B Service Worker activating...");
+                  event.waitUntil(self.clients.claim()); // Claim control of the clients
+                });
+                r.addEventListener("message", (event) => {
+                  console.log("B Service Worker message");
+                  if (event.data && event.data.action === "skipWaiting") {
+                    console.log("B Service Worker skipWaiting");
+                    self.skipWaiting();
+                  }
+                });
 
                 // Force the new worker to activate immediately by calling skipWaiting
                 await newWorker.postMessage({ action: "skipWaiting" });
@@ -76,20 +91,20 @@ registerSW({
   },
 });
 
-navigator.serviceWorker.addEventListener("install", () => {
-  console.log("Service Worker installing...");
+navigator.serviceWorker.controller.addEventListener("install", () => {
+  console.log("A Service Worker installing...");
   self.skipWaiting(); // Immediately activate the new service worker
 });
 
-navigator.serviceWorker.addEventListener("activate", (event) => {
-  console.log("Service Worker activating...");
+navigator.serviceWorker.controller.addEventListener("activate", (event) => {
+  console.log("A Service Worker activating...");
   event.waitUntil(self.clients.claim()); // Claim control of the clients
 });
 
-navigator.serviceWorker.addEventListener("message", (event) => {
-  console.log("Service Worker message");
+navigator.serviceWorker.controller.addEventListener("message", (event) => {
+  console.log("A Service Worker message");
   if (event.data && event.data.action === "skipWaiting") {
-    console.log("Service Worker skipWaiting");
+    console.log("A Service Worker skipWaiting");
     self.skipWaiting();
   }
 });
@@ -97,5 +112,5 @@ navigator.serviceWorker.addEventListener("message", (event) => {
 function ClearPersistenceData() {
   console.log("Limpio datos de persistencia y me deslogueo");
   appStore.logout();
-  window.location.reload();
+  //window.location.reload();
 }
