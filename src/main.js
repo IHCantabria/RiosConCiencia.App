@@ -23,7 +23,7 @@ app.use(pinia).use(router).use(Buefy).use(FloatingVue).mount("#app");
 const appStore = useAppStore();
 
 const intervalMS = 5000;
-const sw = registerSW({
+registerSW({
   inmediate: true,
   onRegisteredSW(swUrl, r) {
     r &&
@@ -76,21 +76,21 @@ const sw = registerSW({
   },
 });
 
-sw.addEventListener("install", () => {
+navigator.serviceWorker.addEventListener("install", () => {
   console.log("Service Worker installing...");
   self.skipWaiting(); // Immediately activate the new service worker
 });
 
-sw.addEventListener("activate", (event) => {
+navigator.serviceWorker.addEventListener("activate", (event) => {
   console.log("Service Worker activating...");
   event.waitUntil(self.clients.claim()); // Claim control of the clients
 });
 
-sw.addEventListener("message", (event) => {
+navigator.serviceWorker.addEventListener("message", (event) => {
   console.log("Service Worker message");
   if (event.data && event.data.action === "skipWaiting") {
     console.log("Service Worker skipWaiting");
-    sw.skipWaiting();
+    self.skipWaiting();
   }
 });
 
