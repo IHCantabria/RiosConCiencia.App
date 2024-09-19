@@ -23,7 +23,7 @@ app.use(pinia).use(router).use(Buefy).use(FloatingVue).mount("#app");
 const appStore = useAppStore();
 
 const intervalMS = 5000;
-registerSW({
+const sw = registerSW({
   inmediate: true,
   onRegisteredSW(swUrl, r) {
     r &&
@@ -37,12 +37,65 @@ registerSW({
             "cache-control": "no-cache",
           },
         });
-        if (resp?.status === 200) await r.update();
+        if (resp?.status === 200) {
+          await r.update();
+          // Check if a new service worker is being installed
+          if (r.installing) {
+            console.log("A new service worker is installing...");
+
+            // Wait for the installing service worker to complete installation
+            const newWorker = r.installing;
+
+            newWorker.onstatechange = async function () {
+              console.log("New service worker state:", this.state);
+
+              // When the service worker is installed, move to next step
+              if (this.state === "installed") {
+                console.log(
+                  "New service worker installed, skipping waiting...",
+                );
+
+                // Force the new worker to activate immediately by calling skipWaiting
+                await newWorker.postMessage({ action: "skipWaiting" });
+
+                // Force the new service worker to take control immediately
+                await navigator.serviceWorker.ready;
+                r.active.postMessage({ action: "claim" });
+
+                // Now that the new service worker is active, call the method
+                ClearPersistenceData();
+              } else {
+                console.log("Service Worker not installed...");
+              }
+            };
+          } else {
+            console.log("No new service worker found.");
+          }
+        }
       }, intervalMS);
   },
-  onOfflineReady() {
-    console.log("Offline Ready");
-    appStore.logout();
-    window.location.reload();
-  },
 });
+
+sw.addEventListener("install", () => {
+  console.log("Service Worker installing...");
+  self.skipWaiting(); // Immediately activate the new service worker
+});
+
+sw.addEventListener("activate", (event) => {
+  console.log("Service Worker activating...");
+  event.waitUntil(self.clients.claim()); // Claim control of the clients
+});
+
+sw.addEventListener("message", (event) => {
+  console.log("Service Worker message");
+  if (event.data && event.data.action === "skipWaiting") {
+    console.log("Service Worker skipWaiting");
+    sw.skipWaiting();
+  }
+});
+
+function ClearPersistenceData() {
+  console.log("Limpio datos de persistencia y me deslogueo");
+  appStore.logout();
+  window.location.reload();
+}
