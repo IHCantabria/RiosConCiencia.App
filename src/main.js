@@ -22,7 +22,6 @@ const app = createApp(App);
 app.use(pinia).use(router).use(Buefy).use(FloatingVue).mount("#app");
 const appStore = useAppStore();
 
-// TODO: Change intervalMS to 30 minutes
 const intervalMS = 5000;
 registerSW({
   inmediate: true,
@@ -42,6 +41,8 @@ registerSW({
       }, intervalMS);
   },
   onOfflineReady() {
+    console.log("Offline Ready");
     appStore.logout();
+    window.location.reload();
   },
 });
