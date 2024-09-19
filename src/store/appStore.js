@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useRouter } from "vue-router";
 import { checkNestedProperty, canDoExpert, canDoPicts } from "@/utils/utils";
 import { useSettingsStore } from "./settingsStore";
 
@@ -99,8 +100,6 @@ export const useAppStore = defineStore("appStore", {
     setDefaultStateStore() {
       localStorage.clear();
       this.$reset();
-      localStorage.clear();
-      window.location.reload();
     },
     setActiveUser(user) {
       this.user = user;
@@ -183,9 +182,12 @@ export const useAppStore = defineStore("appStore", {
       this.userRiverSections = [];
     },
     logout() {
+      const router = useRouter();
       const settingsStore = useSettingsStore();
       settingsStore.resetSettingsStore();
       this.setDefaultStateStore();
+      this.user = {};
+      router.push({ name: "login" });
     },
   },
   persist: true,
