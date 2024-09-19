@@ -182,11 +182,13 @@ export const useAppStore = defineStore("appStore", {
       this.userRiverSections = [];
     },
     logout() {
+      console.log("logout");
       const router = useRouter();
       const settingsStore = useSettingsStore();
       settingsStore.resetSettingsStore();
       this.setDefaultStateStore();
       this.user = {};
+      console.log(this.state);
       router.push({ name: "login" });
     },
   },
