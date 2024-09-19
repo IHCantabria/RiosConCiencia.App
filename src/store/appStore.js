@@ -100,6 +100,7 @@ export const useAppStore = defineStore("appStore", {
       localStorage.clear();
       this.$reset();
       localStorage.clear();
+      window.location.reload();
     },
     setActiveUser(user) {
       this.user = user;

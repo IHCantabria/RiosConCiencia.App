@@ -42,6 +42,6 @@ registerSW({
       }, intervalMS);
   },
   onOfflineReady() {
-    appStore.setDefaultStateStore();
+    appStore.logout();
   },
 });
