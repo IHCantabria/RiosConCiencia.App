@@ -18,8 +18,13 @@
 
     - Dev
     - Pre
+    - Prod
 
 ## ANSIBLE RECIPE NAME
+
+_Prod_
+
+    - Deploy RiosConCiencia.App - PROD
 
 _Pre_
 
@@ -59,6 +64,10 @@ _Development_
 
 ## DNS
 
+_Prod_
+
+    - riosconciencia.ihcantabria.com
+
 _Pre_
 
     - riosconciencia-pre.ihcantabria.com
@@ -68,6 +77,11 @@ _Development_
     - riosconcienciadev.ihcantabria.com
 
 ## URL APPLICATION
+
+
+_Prod_
+
+    - riosconciencia.ihcantabria.com
 
 _Pre_
 
@@ -80,8 +94,6 @@ _Development_
 ---
 
 **Do you need any other configuration?**
-
-- Descargar Release: https://api.github.com/repos/IHCantabria/RiosConCiencia.App/releases/tags/riosconciencia-{{ version }}-{{ entorno }}.zip
 
 - [ ] `Variables de entorno, sustituir los siguientes placeholders en los ficheros .env: RIOSCONCIENCIA_API_URL`
 

@@ -5,9 +5,10 @@
   "scripts": {
     "create-pwa-assets": "pwa-asset-generator ./src/assets/icons/camberaIco.png ./public/img/icons --manifest ./public/manifest.json",
     "dev": "vite",
-    "build": "npm run build:dev && npm run build:pre",
+    "build": "npm run build:dev && npm run build:pre && npm run build:prod",
     "build:dev": "vite build --mode development",
     "build:pre": "vite build --mode pre",
+    "build:prod": "vite build --mode prod",
     "serve": "vite preview --port 8080",
     "serve:dev": "vite preview --port 8080 --mode development",
     "deploy-patch": "npm version patch -m v%s",
