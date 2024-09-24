@@ -13,7 +13,7 @@ dns.setDefaultResultOrder("verbatim");
 export default defineConfig(({ mode }) => {
   //Workaround for building environments
   let dist = null;
-  if (mode === "devlopment") {
+  if (mode === "development") {
     dist = "build/dev/";
   } else if (mode === "pre") {
     dist = "build/pre/";
