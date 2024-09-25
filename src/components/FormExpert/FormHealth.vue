@@ -60,6 +60,9 @@ const naturalnessHasErrors = computed(() => {
 const vegetationsHasErrors = computed(() => {
   return values.value.riverbankVegetations === null;
 });
+const EEIHasErrors = computed(() => {
+  return values.value.riverbankInvasive === null;
+});
 const connectionsHasErrors = computed(() => {
   return values.value.riverbankConections === null;
 });
@@ -68,7 +71,8 @@ const areBiologicalAndRiverQualityValid = computed(() => {
     !bioQualityHasErrors.value &&
     !naturalnessHasErrors.value &&
     !vegetationsHasErrors.value &&
-    !connectionsHasErrors.value
+    !connectionsHasErrors.value &&
+    !EEIHasErrors.value
   );
 });
 const ecoStatusIndex = computed(() => {
@@ -248,25 +252,24 @@ watch(
           '*Seleccione una opción': bioQualityHasErrors,
         }"
         :type="{ 'is-danger': bioQualityHasErrors }"
-      ></b-field>
-    </div>
-    <b-field>
-      <b-select
-        v-model="values.bioQualityIndex"
-        placeholder="Selecciona calidad biológica del agua"
-        icon="thumbs-up-down"
-        expanded=""
       >
-        <option
-          v-for="(option, index) in appStore.formExpertSections.health.data
-            .bioQualityOptions"
-          :key="index"
-          :value="option"
+        <b-select
+          v-model="values.bioQualityIndex"
+          placeholder="Selecciona calidad biológica del agua"
+          icon="thumbs-up-down"
+          expanded=""
         >
-          {{ option.name }}
-        </option>
-      </b-select>
-    </b-field>
+          <option
+            v-for="(option, index) in appStore.formExpertSections.health.data
+              .bioQualityOptions"
+            :key="index"
+            :value="option"
+          >
+            {{ option.name }}
+          </option>
+        </b-select>
+      </b-field>
+    </div>
     <div v-if="values.bioQualityIndex !== null" class="results">
       <div class="block">
         <b-message
@@ -362,7 +365,13 @@ watch(
         </option>
       </b-select>
     </b-field>
-    <b-field label="d. Grado de cobertura de especies exóticas invasoras">
+    <b-field
+      label="d. Grado de cobertura de especies exóticas invasoras"
+      :message="{
+        '*Hay que seleccionar una opción': EEIHasErrors,
+      }"
+      :type="{ 'is-danger': EEIHasErrors }"
+    >
       <b-select
         v-model="values.riverbankInvasive"
         icon="sprout"
