@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import Buefy from "@fantage9/buefy-vue3";
+import Buefy, { ToastProgrammatic as Toast } from "@fantage9/buefy-vue3";
 import FloatingVue from "floating-vue";
 import App from "./App.vue";
 import router from "./router";
@@ -89,17 +89,17 @@ registerSW({
   },
 });
 
-navigator.serviceWorker.controller.addEventListener("install", () => {
+navigator.serviceWorker.controller?.addEventListener("install", () => {
   console.log("A Service Worker installing...");
   self.skipWaiting(); // Immediately activate the new service worker
 });
 
-navigator.serviceWorker.controller.addEventListener("activate", (event) => {
+navigator.serviceWorker.controller?.addEventListener("activate", (event) => {
   console.log("A Service Worker activating...");
   event.waitUntil(self.clients.claim()); // Claim control of the clients
 });
 
-navigator.serviceWorker.controller.addEventListener("message", (event) => {
+navigator.serviceWorker.controller?.addEventListener("message", (event) => {
   console.log("A Service Worker message");
   if (event.data && event.data.action === "skipWaiting") {
     console.log("A Service Worker skipWaiting");
@@ -110,5 +110,9 @@ navigator.serviceWorker.controller.addEventListener("message", (event) => {
 function ClearPersistenceData() {
   console.log("Limpio datos de persistencia y me deslogueo");
   appStore.logout();
-  //window.location.reload();
+  Toast.open({
+    message: "Se ha actualizado la versión de la aplicación",
+    type: "is-info",
+    duration: 4000,
+  });
 }

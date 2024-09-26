@@ -4,9 +4,9 @@ import { useSettingsStore } from "./settingsStore";
 
 export const useAppStore = defineStore("appStore", {
   state: () => ({
-    user: {},
-    userRiverSections: [],
-    userRiverSectionsPicts: [],
+    user: {}, // Revisar datos de persistencia
+    userRiverSections: [], // Revisar datos de persistencia
+    userRiverSectionsPicts: [], // Revisar datos de persistencia
     userPosition: null,
     activeSectionId: 0,
     activeFormId: 0, // formExpert == 0, formPicts == 1
@@ -185,6 +185,8 @@ export const useAppStore = defineStore("appStore", {
       settingsStore.resetSettingsStore();
       this.setDefaultStateStore();
       this.user = {};
+      // Fuerza el redireccionamiento a la página de login y hace funcionar los cambios de versión
+      window.location.hash = "#/login";
     },
   },
   persist: true,
