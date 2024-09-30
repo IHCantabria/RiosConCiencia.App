@@ -155,9 +155,13 @@ const updateUser = async (token, userId, user) => {
 const disableUser = async (token, userId) => {
   const url = `${RIOSCONCIENCIA_API.public}/DisableUser/${userId}`;
   _basicHeaders.Authorization = `Bearer ${token}`;
-  const res = await axios.put(url, {
-    headers: _basicHeaders,
-  });
+  const res = await axios.put(
+    url,
+    {},
+    {
+      headers: _basicHeaders,
+    },
+  );
   return res.data;
 };
 
