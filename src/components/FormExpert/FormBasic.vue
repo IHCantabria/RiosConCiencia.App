@@ -241,10 +241,9 @@ const checkWasteExist = (newWaste) => {
   return values.value.wasteList.findIndex((waste) => waste.id == newWaste.id);
 };
 const addWaste = (newWaste, index) => {
-  index == -1
-    ? values.value.wasteList.push(newWaste)
-    : (values.value.wasteList[index].units =
-        values.value.wasteList[index].units + newWaste.units);
+  if (index === -1) {
+    values.value.wasteList = [...values.value.wasteList, newWaste];
+  }
 };
 const removeSelectedWaste = () => {
   for (const element of wasteTable.value.selectedRows) {
