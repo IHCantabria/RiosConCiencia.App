@@ -30,7 +30,10 @@ app
   .use(Buefy)
   .use(FloatingVue)
   .mount("#app");
+
 const appStore = useAppStore();
+
+window._paq.push(["trackPageView"]); // Para rastrear una vista de página
 
 const intervalMS = 5000;
 registerSW({
