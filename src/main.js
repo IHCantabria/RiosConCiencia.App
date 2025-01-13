@@ -5,6 +5,7 @@ import FloatingVue from "floating-vue";
 import App from "./App.vue";
 import router from "./router";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import VueMatomo from "vue-matomo";
 
 // eslint-disable-next-line import/no-unresolved
 import { registerSW } from "virtual:pwa-register";
@@ -19,7 +20,16 @@ pinia.use(piniaPluginPersistedstate);
 
 const app = createApp(App);
 
-app.use(pinia).use(router).use(Buefy).use(FloatingVue).mount("#app");
+app
+  .use(VueMatomo, {
+    host: "https://analytics.ihcantabria.com/",
+    siteId: 20,
+  })
+  .use(pinia)
+  .use(router)
+  .use(Buefy)
+  .use(FloatingVue)
+  .mount("#app");
 const appStore = useAppStore();
 
 const intervalMS = 5000;
