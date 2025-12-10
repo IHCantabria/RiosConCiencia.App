@@ -86,6 +86,7 @@ export const USERS_TABLE_CONFIG = {
 };
 
 export const USER_GROUP_TYPES = [
+  { id: 0, name: "Administrativo" },
   { id: 1, name: "Familiar" },
   { id: 2, name: "Amistad" },
   { id: 3, name: "Centros educativos" },
